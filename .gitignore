@@ -17,6 +17,10 @@ papers/pdfs/
 data/
 datasets/
 
+# Training runs, results, predictions (pesanti, riproducibili)
+runs/
+results/
+
 # Virtual environments (dentro i sottoprogetti)
 src/vehicle_counting_model/.venv/
 src/vehicle_counting_model/venv/

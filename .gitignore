@@ -1,0 +1,41 @@
+# Agent metadata e note interne
+INIT_AGENT.md
+docs/
+LOG.md
+STATUS.md
+
+# Papers (PDF pesanti, non nostri)
+papers/pdfs/
+
+# Model weights
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# Datasets
+data/
+datasets/
+
+# Virtual environments (dentro i sottoprogetti)
+src/vehicle_counting_model/.venv/
+src/vehicle_counting_model/venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,8 +1,12 @@
 # Agent metadata e note interne
+.INIT_AGENT.md
+.STATUS.md
+.LOG.md
 INIT_AGENT.md
-docs/
-LOG.md
 STATUS.md
+LOG.md
+docs/
+.claude/
 
 # Papers (PDF pesanti, non nostri)
 papers/pdfs/

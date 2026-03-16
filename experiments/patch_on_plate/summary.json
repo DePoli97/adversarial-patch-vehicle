@@ -1,0 +1,10 @@
+{
+  "n_images_processed": 41,
+  "n_images_skipped": 9,
+  "n_detections": 69,
+  "mean_orig_confidence": 0.5759036242961884,
+  "mean_patched_confidence": 0.5590333187061808,
+  "mean_confidence_delta": -0.016870305590007618,
+  "detections_lost": 3,
+  "detections_lost_pct": 4.3478260869565215
+}

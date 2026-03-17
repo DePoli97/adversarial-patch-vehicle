@@ -23,7 +23,7 @@ from ultralytics import YOLO
 
 # --- Paths (relative to project root) ---
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_TEXTURE = PROJECT_ROOT / "T_LicensePlate_d.TGA"
+DEFAULT_TEXTURE = PROJECT_ROOT / "assets" / "T_LicensePlate_d.TGA"
 DEFAULT_WEIGHTS = PROJECT_ROOT / "src" / "vehicle_counting_model" / "yolov8n.pt"
 DEFAULT_DATASET = PROJECT_ROOT / "data" / "CCPD2020" / "ccpd_green" / "train"
 DEFAULT_OUTPUT = PROJECT_ROOT / "experiments" / "patch_on_plate"

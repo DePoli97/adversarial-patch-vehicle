@@ -1,17 +1,10 @@
 {
-  "_comment_1": "Experiment: naive texture overlay on license plate, then YOLO comparison",
-  "_comment_2": "Confidence = how sure YOLO is that a vehicle is there (0-1). Delta = patched - original (negative = patch helped)",
-
   "n_images_processed": 50,
   "n_images_skipped": 0,
   "n_detections": 142,
-
-  "_comment_3": "Mean confidence across all vehicle detections (orig vs patched)",
   "mean_orig_confidence": 0.6278558125798132,
   "mean_patched_confidence": 0.6272702364014907,
   "mean_confidence_delta": -0.0005855761783223756,
-
-  "_comment_4": "Detections lost = YOLO found vehicle in original but NOT in patched image (confidence dropped below threshold 0.25)",
   "detections_lost": 0,
   "detections_lost_pct": 0.0
 }

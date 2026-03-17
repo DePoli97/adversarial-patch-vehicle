@@ -37,11 +37,12 @@ def parse_ccpd_filename(filename: str) -> dict:
 
     CCPD filename format:
         <area>-<tilt>-<bbox>-<vertices>-<license>-<brightness>-<blurriness>.jpg
+        e.g. 1000-10-100_200_300_400-100&200_150&250_150&200_100&250-ABC123-3-2.jpg
 
     Vertices (field 3, 0-indexed): four corners starting from bottom-right,
     counter-clockwise: BR, BL, TL, TR.
     """
-    stem = Path(filename).stem
+    stem = Path(filename).stem # togli .jpg
     parts = stem.split("-")
     if len(parts) != 7:
         raise ValueError(f"Expected 7 fields in CCPD filename, got {len(parts)}: {filename}")

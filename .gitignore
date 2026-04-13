@@ -1,6 +1,7 @@
 
 # Papers (PDF pesanti, non nostri)
 papers/pdfs/
+report/
 
 # Model weights
 *.pt

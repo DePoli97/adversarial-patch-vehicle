@@ -8,5 +8,4 @@ if [[ "$CURRENT_AUTHOR" != "Paolo Deidda" && "$CURRENT_AUTHOR" != "DePoli97" ]];
   exit 1
 fi
 
-git pull && git add . && git commit -m "remote - quick repo synchronization" && git push
-
+git pull && git add . && git commit -m "home - quick repo synchronization" && git push

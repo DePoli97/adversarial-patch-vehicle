@@ -110,6 +110,27 @@ def compute_ttc(dist_m: float, follower_speed_ms: float, leader_speed_ms: float)
     return dist_m / closing_speed
 
 
+def move_to_rightmost_driving_lane(wp: carla.Waypoint) -> carla.Waypoint:
+    """Walk right across lanes until we hit the outermost driving lane.
+
+    PCLA agents are trained on right-hand-traffic scenarios with road edge
+    on the right — starting in the leftmost lane of a multi-lane highway
+    with empty lanes to the right confuses them. This helper shifts the
+    waypoint to the rightmost driving lane so the agent has the road edge
+    on its right, matching its training distribution.
+    """
+    current = wp
+    while True:
+        right = current.get_right_lane()
+        if right is None or right.lane_type != carla.LaneType.Driving:
+            break
+        # Stop if the right lane runs the opposite direction (oncoming traffic)
+        if right.lane_id * current.lane_id < 0:
+            break
+        current = right
+    return current
+
+
 def spawn_follower_behind_leader(
     world: carla.World,
     blueprint: carla.ActorBlueprint,
@@ -348,14 +369,29 @@ def main():
         else:
             leader_idx = args.leader_spawn
         leader_sp = spawn_points[leader_idx]
-        leader = world.try_spawn_actor(vehicle_bp, leader_sp)
+        # Shift the leader to the rightmost driving lane — PCLA agents are
+        # trained with the road edge on the right; starting in the leftmost
+        # lane with empty lanes to the right confuses them.
+        carla_map = world.get_map()
+        leader_wp = carla_map.get_waypoint(
+            leader_sp.location, project_to_road=True,
+            lane_type=carla.LaneType.Driving,
+        )
+        rightmost_wp = move_to_rightmost_driving_lane(leader_wp)
+        leader_transform = rightmost_wp.transform
+        leader_transform.location.z += 0.5  # avoid ground clipping
+        if rightmost_wp.lane_id != leader_wp.lane_id:
+            print(f'[INFO] Shifted leader from lane {leader_wp.lane_id} '
+                  f'→ rightmost driving lane {rightmost_wp.lane_id}')
+        leader = world.try_spawn_actor(vehicle_bp, leader_transform)
         if leader is None:
-            raise RuntimeError(f'Failed to spawn leader at spawn point {leader_idx}')
-        print(f'[INFO] Leader spawned at spawn_point[{leader_idx}] '
-              f'= ({leader_sp.location.x:.1f}, {leader_sp.location.y:.1f})')
+            raise RuntimeError(f'Failed to spawn leader at rightmost lane near spawn {leader_idx}')
+        print(f'[INFO] Leader spawned at '
+              f'({leader_transform.location.x:.1f}, {leader_transform.location.y:.1f}) '
+              f'lane {rightmost_wp.lane_id}')
 
         # --- Spawn follower behind leader on the same lane ---
-        follower = spawn_follower_behind_leader(world, vehicle_bp, leader_sp, args.gap_m)
+        follower = spawn_follower_behind_leader(world, vehicle_bp, leader_transform, args.gap_m)
         # Tick once so get_location() returns the actual spawned transform
         world.tick()
         fpos = follower.get_location()
@@ -383,7 +419,6 @@ def main():
         # --- Generate route for follower ---
         # Walk 600m along the road network from the follower's waypoint to find
         # the route end — this guarantees the destination is on the road, not off it.
-        carla_map = world.get_map()
         follower_start_wp = carla_map.get_waypoint(
             follower.get_location(), project_to_road=True,
             lane_type=carla.LaneType.Driving)

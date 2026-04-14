@@ -1,5 +1,5 @@
-# report/ — Report finale / Tesi
+# report/ — Final Report / Thesis
 
-**Ultimo aggiornamento:** 2026-03-10
+**Last updated:** 2026-03-10
 
-Report finale della tesi con i capitoli in `chapters/`.
+Final thesis report with chapters in `chapters/`.

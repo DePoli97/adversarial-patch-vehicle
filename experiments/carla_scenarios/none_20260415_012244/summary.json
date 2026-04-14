@@ -1,0 +1,22 @@
+{
+  "condition": "none",
+  "agents": [
+    "tfv4_l6_0",
+    "tfv6_visiononly",
+    "simlingo_simlingo"
+  ],
+  "town": "Town06",
+  "num_ticks": 600,
+  "sim_duration_s": 30.0,
+  "cruise_end_tick": 200,
+  "brake_start_tick": 400,
+  "leader_speed_kmh": 40,
+  "initial_gap_m": 10.0,
+  "plate_applied": false,
+  "total_collisions": 168,
+  "mean_distance_m": 8.41,
+  "min_distance_m": 4.694,
+  "max_distance_m": 10.0,
+  "images_saved": 59,
+  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260415_012244"
+}

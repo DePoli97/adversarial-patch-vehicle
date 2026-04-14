@@ -6,10 +6,10 @@ Setup (on Vortex):
   Terminal 2: conda activate PCLA310 && cd /home/vortex/adversarial-patch-vehicle
               python src/carla_scenario/scenario_two_vehicles.py --condition none
 
-Scenario timeline (30s, 600 ticks at 0.05s):
-   0–10s  cruise        — both vehicles cruise straight at --leader_speed
-  10–20s  patch visible — plate texture swap (if --condition != none)
-  20–30s  leader brake  — leader brakes hard; follower keeps cruising (crashes)
+Scenario timeline (15s, 300 ticks at 0.05s):
+   0–5s   cruise        — both vehicles cruise straight at --leader_speed
+   5–10s  patch visible — plate texture swap (if --condition != none)
+  10–15s  leader brake  — leader brakes hard; follower keeps cruising (crashes)
 
 Both vehicles are driven by a scripted P-controller (straight, constant speed).
 The follower never brakes on its own — this is intentional, so we can collect
@@ -70,10 +70,10 @@ FOLLOWER_GAP_M = 10.0
 LEADER_SPEED_KMH = 40
 INITIAL_SPEED_KMH = 20
 SAVE_INTERVAL_TICKS = 10
-MAX_TICKS = 600  # 30 s at SIM_DELTA=0.05
+MAX_TICKS = 300  # 15 s at SIM_DELTA=0.05
 
-CRUISE_END_TICK = 200  # t = 10 s
-BRAKE_START_TICK = 400  # t = 20 s
+CRUISE_END_TICK = 100  # t = 5 s
+BRAKE_START_TICK = 200  # t = 10 s
 BRAKE_STRENGTH = 0.8
 
 

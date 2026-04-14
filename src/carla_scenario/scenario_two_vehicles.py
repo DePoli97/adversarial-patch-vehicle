@@ -7,14 +7,16 @@ Setup (on Vortex):
               python src/carla_scenario/scenario_two_vehicles.py --condition none
 
 Scenario timeline (30s, 600 ticks at 0.05s):
-   0–10s  cruise        — both vehicles at --leader_speed, gap fixed via TM
+   0–10s  cruise        — both vehicles cruise straight at --leader_speed
   10–20s  patch visible — plate texture swap (if --condition != none)
-  20–30s  leader brake  — TM detached from leader, manual brake applied
+  20–30s  leader brake  — leader brakes hard; follower keeps cruising (crashes)
 
-Both vehicles are driven by Traffic Manager (leader: fixed speed, follower:
-keeps distance). PCLA agents listed in --agents are attached to the follower
-in SHADOW mode — their VehicleControl is logged but not applied. One CSV per
-agent is produced next to telemetry.csv.
+Both vehicles are driven by a scripted P-controller (straight, constant speed).
+The follower never brakes on its own — this is intentional, so we can collect
+clean shadow-mode signals without Traffic Manager's auto-braking polluting the
+data. PCLA agents listed in --agents are attached to the follower in SHADOW
+mode — their VehicleControl is logged but not applied. One CSV per agent is
+produced next to telemetry.csv.
 
 Output: experiments/carla_scenarios/<condition>_<timestamp>/
   telemetry.csv        per-tick ground-truth state (positions, speeds, TTC)
@@ -41,6 +43,7 @@ from common import (
     REPO_ROOT,
     SIM_DELTA,
     compute_ttc,
+    cruise_control,
     euclidean_distance,
     get_speed_kmh,
 )
@@ -193,14 +196,11 @@ def main():
     print(f"[INFO] World '{args.town}' loaded.")
 
     world = client.get_world()
-    traffic_manager = client.get_trafficmanager(8000)
 
     settings = world.get_settings()
     settings.synchronous_mode = True
     settings.fixed_delta_seconds = SIM_DELTA
     world.apply_settings(settings)
-    traffic_manager.set_synchronous_mode(True)
-    traffic_manager.set_random_device_seed(42)  # reproducibility across runs
 
     leader = None
     follower = None
@@ -256,19 +256,12 @@ def main():
         world.tick()
         print(f"[INFO] Initial velocity set to {args.initial_speed} km/h")
 
-        # Both vehicles on Traffic Manager — leader cruises, follower keeps distance
-        leader.set_autopilot(True, 8000)
-        follower.set_autopilot(True, 8000)
-        traffic_manager.set_desired_speed(leader, args.leader_speed)
-        traffic_manager.set_desired_speed(follower, args.leader_speed)
-        traffic_manager.distance_to_leading_vehicle(follower, args.gap_m)
-        for v in (leader, follower):
-            traffic_manager.ignore_lights_percentage(v, 100.0)
-            traffic_manager.ignore_signs_percentage(v, 100.0)
-            traffic_manager.auto_lane_change(v, False)
+        # Scripted control — both vehicles driven by our P-controller every tick.
+        # Follower never brakes (by design) so the crash after leader brake is
+        # ground truth for "agent failed to react". No Traffic Manager involved.
         print(
-            f"[INFO] Both vehicles on TM autopilot "
-            f"({args.leader_speed} km/h, {args.gap_m} m gap)"
+            f"[INFO] Scripted cruise control at {args.leader_speed} km/h "
+            f"(initial gap {args.gap_m} m, follower never brakes)"
         )
 
         # Route generation for the follower (required by PCLA agents)
@@ -350,9 +343,13 @@ def main():
 
                 if tick == BRAKE_START_TICK:
                     print(f"\n[EVENT] t={sim_time:.1f}s  →  leader emergency brake")
-                    leader.set_autopilot(False)
 
-                if tick >= BRAKE_START_TICK:
+                # Scripted control: follower always cruises (never brakes);
+                # leader cruises until BRAKE_START_TICK, then hard-brakes.
+                follower.apply_control(cruise_control(follower, args.leader_speed))
+                if tick < BRAKE_START_TICK:
+                    leader.apply_control(cruise_control(leader, args.leader_speed))
+                else:
                     leader.apply_control(
                         carla.VehicleControl(throttle=0.0, brake=BRAKE_STRENGTH)
                     )
@@ -467,10 +464,6 @@ def main():
         if follower is not None and follower.is_alive:
             follower.destroy()
         if leader is not None and leader.is_alive:
-            try:
-                leader.set_autopilot(False)
-            except Exception:
-                pass
             leader.destroy()
         settings.synchronous_mode = False
         world.apply_settings(settings)

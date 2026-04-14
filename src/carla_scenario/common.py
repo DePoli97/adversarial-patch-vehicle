@@ -32,3 +32,12 @@ def compute_ttc(dist_m: float, follower_speed_ms: float, leader_speed_ms: float)
     if closing <= 0:
         return float("inf")
     return dist_m / closing
+
+
+def cruise_control(
+    vehicle: carla.Actor, target_kmh: float, kp: float = 0.15
+) -> carla.VehicleControl:
+    """Straight-line P-controller that holds `target_kmh`. Steer = 0."""
+    error = target_kmh - get_speed_kmh(vehicle)
+    throttle = max(0.0, min(1.0, kp * error))
+    return carla.VehicleControl(throttle=throttle, steer=0.0, brake=0.0)

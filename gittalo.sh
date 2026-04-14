@@ -8,4 +8,4 @@ if [[ "$CURRENT_AUTHOR" != "Paolo Deidda" && "$CURRENT_AUTHOR" != "DePoli97" ]];
 fi
 
 # Concatenare i comandi con && è più sicuro e conciso: se uno fallisce, i successivi si fermano
-git pull && git add . && git commit -m "auto remote machine synchronization" && git push
+git pull && git add . && git commit -m "home - quick repo synchronization" && git push

@@ -1,0 +1,13 @@
+{
+  "condition": "none",
+  "agent": "tfv4_l6_0",
+  "town": "Town02",
+  "num_ticks": 600,
+  "sim_duration_s": 30.0,
+  "total_collisions": 0,
+  "mean_distance_m": 141.001,
+  "min_distance_m": 34.021,
+  "max_distance_m": 204.011,
+  "images_saved": 60,
+  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_134613"
+}

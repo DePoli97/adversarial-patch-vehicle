@@ -1,0 +1,48 @@
+
+============================================================
+  Condition : none
+  Agent     : tfv4_l6_0
+  Town      : Town02
+  Ticks     : 600  (30.0s sim time)
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_134613
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World "Town02" loaded.
+[INFO] Leader spawned at Location(x=1.540000, y=109.399994, z=0.500000)
+[WARN] Fallback spawn used for follower at Location(x=-7.530000, y=142.190002, z=0.500000)
+[INFO] Follower spawned at Location(x=0.000000, y=0.000000, z=0.000000)
+[INFO] Leader autopilot enabled (target ~30 km/h)
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_134613/follower_route.xml (160 waypoints)
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] PCLA agent "tfv4_l6_0" initialized for follower
+[INFO] Camera attached to follower
+
+[INFO] Starting simulation loop (600 ticks)...
+
+  tick=   0 | dist= 34.0m | TTC=  infs | leader=7.1km/h | follower=7.1km/h | collisions=0
+  tick=  50 | dist= 44.8m | TTC= 26.0s | leader=14.8km/h | follower=21.0km/h | collisions=0
+  tick= 100 | dist= 63.5m | TTC=121.9s | leader=18.8km/h | follower=20.6km/h | collisions=0
+  tick= 150 | dist= 83.1m | TTC=  infs | leader=51.5km/h | follower=0.0km/h | collisions=0
+  tick= 200 | dist=110.8m | TTC=  infs | leader=51.7km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist=140.1m | TTC=  infs | leader=43.2km/h | follower=0.0km/h | collisions=0
+  tick= 300 | dist=163.1m | TTC=  infs | leader=26.1km/h | follower=0.0km/h | collisions=0
+  tick= 350 | dist=177.6m | TTC=  infs | leader=20.5km/h | follower=0.0km/h | collisions=0
+  tick= 400 | dist=188.8m | TTC=  infs | leader=17.6km/h | follower=0.0km/h | collisions=0
+  tick= 450 | dist=200.2m | TTC=  infs | leader=17.7km/h | follower=0.0km/h | collisions=0
+  tick= 500 | dist=203.5m | TTC=  infs | leader=17.6km/h | follower=0.0km/h | collisions=0
+  tick= 550 | dist=201.0m | TTC=  infs | leader=17.6km/h | follower=8.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Collisions : 0
+  Mean dist  : 141.001 m
+  Min dist   : 34.021 m
+  Images     : 60
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_134613
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.

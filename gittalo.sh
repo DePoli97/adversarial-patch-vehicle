@@ -1,5 +1,5 @@
 #!/bin/bash
-EXPECTED_AUTHOR="Paolo Deidda"
+EXPECTED_AUTHOR="DePoli97"
 CURRENT_AUTHOR=$(git config user.name)
 if [ "$CURRENT_AUTHOR" != "$EXPECTED_AUTHOR" ]; then
   echo "Aborting: git user.name is '$CURRENT_AUTHOR', expected '$EXPECTED_AUTHOR'."

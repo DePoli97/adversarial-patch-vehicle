@@ -60,6 +60,27 @@ CARLA loads textures at startup. To switch condition you must:
 
 ---
 
+## Step 0: CARLA server must be in PLAY mode
+
+`make launch` opens the Unreal Editor — **you must click the green ▶ Play button**
+before port 2000 becomes available. Verify with `ss -tlnp | grep 2000`.
+
+You don't need to stop/restart the editor between runs — just re-run the
+Python script. The script cleans up after itself (`finally` block).
+
+## Spawn point (auto-detected by default)
+
+By default (`--leader_spawn -1`), the script scans every spawn point on the
+loaded town and picks the one with the **longest straight road segment ahead**
+— this is nearly always a highway. You don't need to pick an index manually.
+
+If you want to override (e.g. to test a specific spot), pass `--leader_spawn N`
+or list all options with:
+
+```bash
+python src/carla_scenario/scenario_two_vehicles.py --town Town06 --list_spawn_points
+```
+
 ## Running the three conditions
 
 ```bash
@@ -78,10 +99,14 @@ python src/carla_scenario/scenario_two_vehicles.py --condition camouflaged
 | Flag | Default | Description |
 |---|---|---|
 | `--agent` | `tfv4_l6_0` | PCLA agent for follower |
-| `--town` | `Town02` | CARLA map |
-| `--num_ticks` | `600` | Simulation steps (~30s) |
+| `--town` | `Town06` | Highway map (long straight roads) |
+| `--leader_spawn` | `-1` | Spawn point index (-1 = auto-detect longest straight) |
+| `--gap_m` | `15.0` | Initial gap (m) between vehicles |
+| `--initial_speed` | `50` | Initial velocity (km/h) for both |
+| `--leader_speed` | `80` | Leader target speed (km/h) |
+| `--num_ticks` | `1500` | Simulation steps (~75s) |
 | `--save_interval` | `10` | Save image every N ticks |
-| `--leader_speed` | `30` | Leader target speed (km/h) |
+| `--list_spawn_points` | off | List all spawn points and exit |
 | `--host` | `localhost` | CARLA server host |
 | `--port` | `2000` | CARLA server port |
 

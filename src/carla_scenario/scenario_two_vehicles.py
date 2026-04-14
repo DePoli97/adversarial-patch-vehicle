@@ -48,15 +48,16 @@ from PCLA import PCLA, route_maker, location_to_waypoint
 # Configuration defaults
 # ---------------------------------------------------------------------------
 DEFAULT_AGENT       = 'tfv4_l6_0'   # top Leaderboard 1 performer, camera+LiDAR
-DEFAULT_TOWN        = 'Town02'
-LEADER_SPAWN_IDX    = 31            # same as sample.py
+DEFAULT_TOWN        = 'Town06'      # long straight highways
+LEADER_SPAWN_IDX    = -1            # -1 = auto-detect longest straight segment
 FOLLOWER_GAP_M      = 15.0          # initial gap behind leader (metres)
-LEADER_SPEED_KMH    = 30            # traffic manager target speed for leader
+LEADER_SPEED_KMH    = 80            # target speed for leader on highway
+INITIAL_SPEED_KMH   = 50            # both vehicles start already moving
 SIM_DELTA           = 0.05          # fixed simulation step (seconds)
 IMAGE_W, IMAGE_H    = 1280, 720
 IMAGE_FOV           = 90
 SAVE_INTERVAL_TICKS = 10            # save camera frame every N ticks
-MAX_TICKS           = 600           # ~30 seconds of simulated time
+MAX_TICKS           = 1500          # ~75 seconds of simulated time
 
 
 # ---------------------------------------------------------------------------
@@ -76,6 +77,16 @@ def parse_args():
     p.add_argument('--port', type=int, default=2000)
     p.add_argument('--leader_speed', type=float, default=LEADER_SPEED_KMH,
                    help='Leader target speed (km/h) via Traffic Manager.')
+    p.add_argument('--leader_spawn', type=int, default=LEADER_SPAWN_IDX,
+                   help='Spawn point index for the leader.')
+    p.add_argument('--gap_m', type=float, default=FOLLOWER_GAP_M,
+                   help='Initial gap (m) between leader and follower.')
+    p.add_argument('--initial_speed', type=float, default=INITIAL_SPEED_KMH,
+                   help='Initial forward velocity (km/h) for both vehicles.')
+    p.add_argument('--list_spawn_points', action='store_true',
+                   help='List all spawn points for the given --town and exit.')
+    p.add_argument('--rescan', action='store_true',
+                   help='Force re-scan for best spawn point, ignoring cache.')
     return p.parse_args()
 
 
@@ -105,26 +116,125 @@ def spawn_follower_behind_leader(
     leader_transform: carla.Transform,
     gap_m: float
 ) -> carla.Actor:
-    """Spawn follower gap_m metres behind leader along the leader's forward axis."""
-    yaw_rad = math.radians(leader_transform.rotation.yaw)
-    follower_loc = carla.Location(
-        x=leader_transform.location.x - gap_m * math.cos(yaw_rad),
-        y=leader_transform.location.y - gap_m * math.sin(yaw_rad),
-        z=leader_transform.location.z + 0.5,  # slight z offset to avoid ground collision
+    """Spawn follower gap_m metres behind leader on the same lane.
+
+    Uses CARLA's road network (waypoint.previous) to walk backward along the
+    same lane — avoids colliding with walls/sidewalks that happen when you
+    compute the position with naive trigonometry.
+    """
+    carla_map = world.get_map()
+    leader_wp = carla_map.get_waypoint(
+        leader_transform.location,
+        project_to_road=True,
+        lane_type=carla.LaneType.Driving,
     )
-    follower_transform = carla.Transform(follower_loc, leader_transform.rotation)
+    if leader_wp is None:
+        raise RuntimeError('Leader is not on a driving lane; cannot place follower.')
+
+    prev_wps = leader_wp.previous(gap_m)
+    if not prev_wps:
+        raise RuntimeError(f'No previous waypoint {gap_m}m behind leader.')
+    follower_wp = prev_wps[0]
+    follower_transform = follower_wp.transform
+    # Lift slightly to avoid ground clipping at spawn
+    follower_transform.location.z += 0.5
+
     vehicle = world.try_spawn_actor(blueprint, follower_transform)
     if vehicle is None:
-        # Fallback: try next spawn points
-        spawn_points = world.get_map().get_spawn_points()
-        for sp in spawn_points:
-            vehicle = world.try_spawn_actor(blueprint, sp)
+        # Try shorter gaps progressively
+        for alt_gap in (gap_m - 3, gap_m - 6, gap_m + 3):
+            if alt_gap <= 0:
+                continue
+            alt_wps = leader_wp.previous(alt_gap)
+            if not alt_wps:
+                continue
+            alt_t = alt_wps[0].transform
+            alt_t.location.z += 0.5
+            vehicle = world.try_spawn_actor(blueprint, alt_t)
             if vehicle is not None:
-                print(f'[WARN] Fallback spawn used for follower at {sp.location}')
+                print(f'[WARN] Fallback follower gap={alt_gap}m (requested {gap_m}m)')
                 break
     if vehicle is None:
-        raise RuntimeError('Failed to spawn follower vehicle.')
+        raise RuntimeError('Failed to spawn follower vehicle on the lane.')
     return vehicle
+
+
+def give_initial_velocity(vehicle: carla.Actor, speed_kmh: float):
+    """Set an instantaneous forward velocity on the vehicle."""
+    yaw = math.radians(vehicle.get_transform().rotation.yaw)
+    speed_ms = speed_kmh / 3.6
+    vehicle.set_target_velocity(carla.Vector3D(
+        x=speed_ms * math.cos(yaw),
+        y=speed_ms * math.sin(yaw),
+        z=0.0,
+    ))
+
+
+SPAWN_CACHE_PATH = os.path.join(REPO_ROOT, 'experiments', 'carla_scenarios', 'spawn_cache.json')
+
+
+def load_spawn_cache(town: str) -> int | None:
+    """Return cached best spawn index for this town, or None if not cached."""
+    if not os.path.exists(SPAWN_CACHE_PATH):
+        return None
+    with open(SPAWN_CACHE_PATH) as f:
+        cache = json.load(f)
+    idx = cache.get(town)
+    if idx is not None:
+        print(f'[INFO] Using cached spawn index [{idx}] for {town} '
+              f'(pass --rescan to override)')
+    return idx
+
+
+def save_spawn_cache(town: str, idx: int):
+    os.makedirs(os.path.dirname(SPAWN_CACHE_PATH), exist_ok=True)
+    cache = {}
+    if os.path.exists(SPAWN_CACHE_PATH):
+        with open(SPAWN_CACHE_PATH) as f:
+            cache = json.load(f)
+    cache[town] = idx
+    with open(SPAWN_CACHE_PATH, 'w') as f:
+        json.dump(cache, f, indent=2)
+    print(f'[INFO] Spawn cache saved: {town} → [{idx}]')
+
+
+def find_best_highway_spawn(world: carla.World, scan_distance_m: float = 300.0,
+                             step_m: float = 10.0, yaw_tolerance_deg: float = 10.0) -> int:
+    """Scan all spawn points; return the index with the longest straight segment ahead.
+
+    For each spawn point, walk forward along the road network; the segment stays
+    'straight' while the lane yaw remains within yaw_tolerance_deg of the start.
+    Return the spawn index with the longest such distance — this is almost
+    always a highway in CARLA's topology.
+    """
+    carla_map = world.get_map()
+    spawn_points = carla_map.get_spawn_points()
+    best_idx = 0
+    best_distance = 0.0
+    print(f'[INFO] Scanning {len(spawn_points)} spawn points for longest straight segment...')
+    for i, sp in enumerate(spawn_points):
+        wp = carla_map.get_waypoint(sp.location, project_to_road=True,
+                                    lane_type=carla.LaneType.Driving)
+        if wp is None:
+            continue
+        initial_yaw = wp.transform.rotation.yaw
+        current = wp
+        dist = 0.0
+        while dist < scan_distance_m:
+            next_wps = current.next(step_m)
+            if not next_wps:
+                break
+            current = next_wps[0]
+            yaw_delta = abs(((current.transform.rotation.yaw - initial_yaw) + 180) % 360 - 180)
+            if yaw_delta > yaw_tolerance_deg:
+                break
+            dist += step_m
+        if dist > best_distance:
+            best_distance = dist
+            best_idx = i
+    print(f'[INFO] Best spawn point: [{best_idx}]  straight for {best_distance:.0f}m ahead '
+          f'at ({spawn_points[best_idx].location.x:.1f}, {spawn_points[best_idx].location.y:.1f})')
+    return best_idx
 
 
 def setup_rgb_camera(world: carla.World, vehicle: carla.Actor) -> carla.Actor:
@@ -201,6 +311,15 @@ def main():
     world = client.get_world()
     traffic_manager = client.get_trafficmanager(8000)
 
+    # --list_spawn_points: print then exit (debug helper)
+    if args.list_spawn_points:
+        sps = world.get_map().get_spawn_points()
+        print(f'\n[{args.town}] {len(sps)} spawn points:')
+        for i, sp in enumerate(sps):
+            print(f'  [{i:3d}]  x={sp.location.x:8.2f}  y={sp.location.y:8.2f}  '
+                  f'z={sp.location.z:5.2f}  yaw={sp.rotation.yaw:6.1f}')
+        return
+
     # Synchronous mode
     settings = world.get_settings()
     settings.synchronous_mode = True
@@ -218,25 +337,51 @@ def main():
         vehicle_bp = bplib.filter('model3')[0]
         spawn_points = world.get_map().get_spawn_points()
 
-        # --- Spawn leader ---
-        leader_sp = spawn_points[LEADER_SPAWN_IDX]
+        # --- Pick leader spawn: auto-detect longest straight if < 0 ---
+        if args.leader_spawn < 0:
+            cached = None if args.rescan else load_spawn_cache(args.town)
+            if cached is not None:
+                leader_idx = cached
+            else:
+                leader_idx = find_best_highway_spawn(world)
+                save_spawn_cache(args.town, leader_idx)
+        else:
+            leader_idx = args.leader_spawn
+        leader_sp = spawn_points[leader_idx]
         leader = world.try_spawn_actor(vehicle_bp, leader_sp)
         if leader is None:
-            raise RuntimeError(f'Failed to spawn leader at spawn point {LEADER_SPAWN_IDX}')
-        print(f'[INFO] Leader spawned at {leader_sp.location}')
+            raise RuntimeError(f'Failed to spawn leader at spawn point {leader_idx}')
+        print(f'[INFO] Leader spawned at spawn_point[{leader_idx}] '
+              f'= ({leader_sp.location.x:.1f}, {leader_sp.location.y:.1f})')
 
-        # --- Spawn follower behind leader ---
-        follower = spawn_follower_behind_leader(world, vehicle_bp, leader_sp, FOLLOWER_GAP_M)
-        print(f'[INFO] Follower spawned at {follower.get_location()}')
+        # --- Spawn follower behind leader on the same lane ---
+        follower = spawn_follower_behind_leader(world, vehicle_bp, leader_sp, args.gap_m)
+        # Tick once so get_location() returns the actual spawned transform
+        world.tick()
+        fpos = follower.get_location()
+        print(f'[INFO] Follower spawned at ({fpos.x:.1f}, {fpos.y:.1f}, {fpos.z:.1f})')
+
+        # --- Give both vehicles initial forward velocity ---
+        give_initial_velocity(leader, args.initial_speed)
+        give_initial_velocity(follower, args.initial_speed)
+        world.tick()
+        print(f'[INFO] Initial velocity set to {args.initial_speed} km/h for both vehicles')
 
         world.tick()
 
         # --- Leader: Traffic Manager autopilot ---
+        # CARLA default urban speed is ~30 km/h. speed_difference is a PERCENTAGE
+        # reduction from the speed limit, so NEGATIVE means go FASTER than limit.
         leader.set_autopilot(True, 8000)
-        traffic_manager.vehicle_percentage_speed_difference(leader,
-            100 - (args.leader_speed / 50.0 * 100))  # rough speed target
-        traffic_manager.distance_to_leading_vehicle(leader, 0)
-        print(f'[INFO] Leader autopilot enabled (target ~{args.leader_speed} km/h)')
+        default_limit = 30.0  # km/h (CARLA urban default)
+        pct_diff = 100.0 * (1.0 - args.leader_speed / default_limit)
+        traffic_manager.vehicle_percentage_speed_difference(leader, pct_diff)
+        traffic_manager.distance_to_leading_vehicle(leader, 2.0)
+        traffic_manager.ignore_lights_percentage(leader, 100.0)
+        traffic_manager.ignore_signs_percentage(leader, 100.0)
+        traffic_manager.auto_lane_change(leader, False)
+        print(f'[INFO] Leader autopilot enabled (target ~{args.leader_speed} km/h, '
+              f'ignoring lights/signs, no lane change)')
 
         # --- Generate route for follower ---
         # Route: from follower's current location to a point 400m ahead on the same road

@@ -7,53 +7,67 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
   Agent     : tfv4_l6_0
   Town      : Town06
   Ticks     : 1500  (75.0s sim time)
-  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_161002
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_201121
 ============================================================
 
 [INFO] Connecting to CARLA at localhost:2000 ...
 [INFO] World "Town06" loaded.
 [INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
-[INFO] Leader spawned at spawn_point[1] = (584.8, -13.6)
-[INFO] Follower spawned at (594.8, -13.5, 0.5)
+[INFO] Shifted leader from lane -4 → rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
 [INFO] Initial velocity set to 20 km/h for both vehicles
 [INFO] Leader autopilot enabled (40 km/h, ignoring lights/signs, no lane change)
-[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_161002/follower_route.xml (303 waypoints)
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_201121/follower_route.xml (304 waypoints)
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
 0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 538 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 537 : unable to destroy actor: not found 
+0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 665 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 664 : unable to destroy actor: not found 
 
 [INFO] PCLA agent "tfv4_l6_0" initialized for follower
 [INFO] Camera attached to follower
 
 [INFO] Starting simulation loop (1500 ticks)...
 
-  tick=   0 | dist= 10.0m | TTC= 25.7s | leader=20.5km/h | follower=21.9km/h | collisions=0
-  tick=  50 | dist= 23.1m | TTC=  infs | leader=38.5km/h | follower=21.2km/h | collisions=0
-  tick= 100 | dist= 35.0m | TTC=  infs | leader=38.5km/h | follower=21.9km/h | collisions=0
-  tick= 150 | dist= 46.8m | TTC=  infs | leader=38.5km/h | follower=22.2km/h | collisions=0
-  tick= 200 | dist= 58.7m | TTC=  infs | leader=38.5km/h | follower=21.5km/h | collisions=0
-  tick= 250 | dist= 71.6m | TTC=  infs | leader=38.5km/h | follower=4.0km/h | collisions=0
-  tick= 300 | dist= 91.2m | TTC=  infs | leader=38.5km/h | follower=10.8km/h | collisions=0
-  tick= 350 | dist=110.5m | TTC=  infs | leader=38.5km/h | follower=10.8km/h | collisions=0
-  tick= 400 | dist=129.8m | TTC=  infs | leader=38.5km/h | follower=10.5km/h | collisions=0
-  tick= 450 | dist=149.2m | TTC=  infs | leader=38.5km/h | follower=11.1km/h | collisions=0
-  tick= 500 | dist=165.9m | TTC=  infs | leader=38.5km/h | follower=18.4km/h | collisions=0
-  tick= 550 | dist=180.8m | TTC=  infs | leader=38.5km/h | follower=22.2km/h | collisions=0
-  tick= 600 | dist=192.8m | TTC=  infs | leader=38.5km/h | follower=21.5km/h | collisions=0
-  tick= 650 | dist=204.6m | TTC=  infs | leader=38.5km/h | follower=20.8km/h | collisions=0
-  tick= 700 | dist=216.6m | TTC=  infs | leader=38.5km/h | follower=20.9km/h | collisions=0
-  tick= 750 | dist=228.6m | TTC=  infs | leader=34.9km/h | follower=21.4km/h | collisions=0
-  tick= 800 | dist=233.5m | TTC=  infs | leader=22.7km/h | follower=21.9km/h | collisions=0
-  tick= 850 | dist=231.9m | TTC=  infs | leader=22.6km/h | follower=22.2km/h | collisions=0
-  tick= 900 | dist=242.1m | TTC=  infs | leader=38.6km/h | follower=21.9km/h | collisions=0
-  tick= 950 | dist=254.0m | TTC=  infs | leader=38.6km/h | follower=21.0km/h | collisions=0
-  tick=1000 | dist=265.8m | TTC=  infs | leader=38.6km/h | follower=20.6km/h | collisions=0
-  tick=1050 | dist=276.3m | TTC=  infs | leader=30.8km/h | follower=20.9km/h | collisions=0
-  tick=1100 | dist=278.7m | TTC=586.1s | leader=20.0km/h | follower=21.7km/h | collisions=0
-  tick=1150 | dist=276.7m | TTC=  infs | leader=27.9km/h | follower=22.1km/h | collisions=0
-  tick=1200 | dist=287.8m | TTC=  infs | leader=38.6km/h | follower=22.2km/h | collisions=0
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.9km/h | follower=21.9km/h | collisions=0
+  tick=  50 | dist= 24.2m | TTC=  infs | leader=38.5km/h | follower=21.4km/h | collisions=0
+  tick= 100 | dist= 35.9m | TTC=  infs | leader=38.5km/h | follower=20.7km/h | collisions=0
+  tick= 150 | dist= 47.7m | TTC=  infs | leader=38.5km/h | follower=21.0km/h | collisions=0
+  tick= 200 | dist= 59.6m | TTC=  infs | leader=38.5km/h | follower=21.7km/h | collisions=0
+  tick= 250 | dist= 72.9m | TTC=  infs | leader=38.5km/h | follower=2.3km/h | collisions=0
+  tick= 300 | dist= 92.7m | TTC=  infs | leader=38.5km/h | follower=10.5km/h | collisions=0
+  tick= 350 | dist=112.0m | TTC=  infs | leader=38.5km/h | follower=10.8km/h | collisions=0
+  tick= 400 | dist=131.6m | TTC=  infs | leader=38.5km/h | follower=10.6km/h | collisions=0
+  tick= 450 | dist=151.0m | TTC=  infs | leader=38.5km/h | follower=10.5km/h | collisions=0
+  tick= 500 | dist=169.9m | TTC=  infs | leader=38.5km/h | follower=17.4km/h | collisions=0
+  tick= 550 | dist=184.8m | TTC=  infs | leader=38.5km/h | follower=22.2km/h | collisions=0
+  tick= 600 | dist=196.9m | TTC=  infs | leader=38.5km/h | follower=21.5km/h | collisions=0
+  tick= 650 | dist=208.8m | TTC=  infs | leader=38.5km/h | follower=21.8km/h | collisions=0
+  tick= 700 | dist=220.7m | TTC=  infs | leader=38.5km/h | follower=21.0km/h | collisions=0
+  tick= 750 | dist=232.3m | TTC=  infs | leader=35.0km/h | follower=20.7km/h | collisions=0
+  tick= 800 | dist=237.3m | TTC=  infs | leader=22.7km/h | follower=21.4km/h | collisions=0
+  tick= 850 | dist=235.8m | TTC=  infs | leader=25.4km/h | follower=22.1km/h | collisions=0
+  tick= 900 | dist=246.6m | TTC=  infs | leader=38.5km/h | follower=22.1km/h | collisions=0
+  tick= 950 | dist=258.5m | TTC=  infs | leader=38.5km/h | follower=22.1km/h | collisions=0
+  tick=1000 | dist=270.4m | TTC=  infs | leader=38.5km/h | follower=22.0km/h | collisions=0
+  tick=1050 | dist=280.5m | TTC=  infs | leader=30.1km/h | follower=21.6km/h | collisions=0
+  tick=1100 | dist=282.7m | TTC=393.1s | leader=19.4km/h | follower=22.0km/h | collisions=0
+  tick=1150 | dist=279.9m | TTC=  infs | leader=25.6km/h | follower=22.1km/h | collisions=0
+  tick=1200 | dist=276.4m | TTC=  infs | leader=38.7km/h | follower=22.2km/h | collisions=0
+  tick=1250 | dist=264.4m | TTC=  infs | leader=38.5km/h | follower=22.1km/h | collisions=0
+  tick=1300 | dist=255.8m | TTC=  infs | leader=38.5km/h | follower=21.6km/h | collisions=0
+  tick=1350 | dist=248.5m | TTC=  infs | leader=38.5km/h | follower=21.0km/h | collisions=0
+  tick=1400 | dist=243.1m | TTC=  infs | leader=34.1km/h | follower=21.0km/h | collisions=0
+  tick=1450 | dist=252.1m | TTC=  infs | leader=34.7km/h | follower=21.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Collisions : 0
+  Mean dist  : 189.999 m
+  Min dist   : 10.0 m
+  Images     : 150
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260414_201121
+============================================================
+
 [INFO] Cleaning up...
 [INFO] Done.
-
-[INFO] Interrupted by user.

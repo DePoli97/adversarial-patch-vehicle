@@ -1,297 +1,189 @@
-"""
-Phase A: Two-vehicle following scenario in CARLA with adversarial license plate.
+"""Phase A: two-vehicle CARLA scenario with shadow-mode PCLA agents.
 
 Setup (on Vortex):
   Terminal 1: cd /home/vortex/carla && conda activate carla && make launch
+              → press ▶ Play in the Unreal Editor GUI
   Terminal 2: conda activate PCLA310 && cd /home/vortex/adversarial-patch-vehicle
               python src/carla_scenario/scenario_two_vehicles.py --condition none
 
-License plate conditions:
-  none         — original CARLA plate texture (baseline)
-  raw          — adversarial raw patch (place TGA before launching CARLA, see README below)
-  camouflaged  — adversarial camouflaged patch
+Scenario timeline (30s, 600 ticks at 0.05s):
+   0–10s  cruise        — both vehicles at --leader_speed, gap fixed via TM
+  10–20s  patch visible — plate texture swap (if --condition != none)
+  20–30s  leader brake  — TM detached from leader, manual brake applied
 
-NOTE: CARLA loads textures at startup. To switch plate conditions you must:
-  1. Copy the appropriate TGA to the CARLA content path (see PLATE_TEXTURE_SRC in args)
-  2. Restart the CARLA server
-  3. Run this script with the new --condition flag
+Both vehicles are driven by Traffic Manager (leader: fixed speed, follower:
+keeps distance). PCLA agents listed in --agents are attached to the follower
+in SHADOW mode — their VehicleControl is logged but not applied. One CSV per
+agent is produced next to telemetry.csv.
 
 Output: experiments/carla_scenarios/<condition>_<timestamp>/
-  - telemetry.csv      : per-tick telemetry (speed, distance, TTC, control)
-  - images/            : front camera frames (every --save_interval ticks)
-  - summary.json       : run metadata and aggregate stats
+  telemetry.csv        per-tick ground-truth state (positions, speeds, TTC)
+  agent_<name>.csv     per-tick shadow actions for each PCLA agent
+  images/              follower front-camera frames (every --save_interval ticks)
+  summary.json         run metadata
 """
 
-import os
-import sys
+import argparse
 import csv
 import json
-import time
-import math
-import argparse
-import numpy as np
+import os
+import sys
 from datetime import datetime
 
 import carla
+import numpy as np
 
-# Allow importing PCLA from adjacent repo on Vortex
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..', '..'))
-PCLA_DIR = os.path.abspath(os.path.join(REPO_ROOT, '..', 'PCLA'))
+from common import (
+    IMAGE_FOV,
+    IMAGE_H,
+    IMAGE_W,
+    PCLA_DIR,
+    REPO_ROOT,
+    SIM_DELTA,
+    compute_ttc,
+    euclidean_distance,
+    get_speed_kmh,
+)
+from shadow_agents import ShadowAgentSet
+from spawn_utils import (
+    find_best_highway_spawn,
+    give_initial_velocity,
+    load_spawn_cache,
+    move_to_rightmost_driving_lane,
+    save_spawn_cache,
+    spawn_follower_behind_leader,
+)
+
 if PCLA_DIR not in sys.path:
     sys.path.insert(0, PCLA_DIR)
 
-from PCLA import PCLA, route_maker, location_to_waypoint
+from PCLA import location_to_waypoint, route_maker  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
-# Configuration defaults
+# Defaults
 # ---------------------------------------------------------------------------
-DEFAULT_AGENT       = 'tfv4_l6_0'   # top Leaderboard 1 performer, camera+LiDAR
-DEFAULT_TOWN        = 'Town06'      # long straight highways
-LEADER_SPAWN_IDX    = -1            # -1 = auto-detect longest straight segment
-FOLLOWER_GAP_M      = 10.0          # initial gap behind leader (metres)
-LEADER_SPEED_KMH    = 40            # target speed for leader — keep low so PCLA agent can follow
-INITIAL_SPEED_KMH   = 20            # both vehicles start already moving
-SIM_DELTA           = 0.05          # fixed simulation step (seconds)
-IMAGE_W, IMAGE_H    = 1280, 720
-IMAGE_FOV           = 90
-SAVE_INTERVAL_TICKS = 10            # save camera frame every N ticks
-MAX_TICKS           = 1500          # ~75 seconds of simulated time
+DEFAULT_AGENTS = ["tfv4_l6_0", "tfv6_visiononly", "simlingo_simlingo"]
+DEFAULT_TOWN = "Town06"
+LEADER_SPAWN_IDX = -1
+FOLLOWER_GAP_M = 10.0
+LEADER_SPEED_KMH = 40
+INITIAL_SPEED_KMH = 20
+SAVE_INTERVAL_TICKS = 10
+MAX_TICKS = 600  # 30 s at SIM_DELTA=0.05
+
+CRUISE_END_TICK = 200  # t = 10 s
+BRAKE_START_TICK = 400  # t = 20 s
+BRAKE_STRENGTH = 0.8
+
+PLATE_TEXTURE_DEFAULT = os.path.join(REPO_ROOT, "assets", "T_LicensePlate_d.TGA")
 
 
 # ---------------------------------------------------------------------------
-# Argument parsing
+# Arguments
 # ---------------------------------------------------------------------------
 def parse_args():
-    p = argparse.ArgumentParser(description='Two-vehicle CARLA scenario.')
-    p.add_argument('--condition', choices=['none', 'raw', 'camouflaged'], default='none',
-                   help='Plate patch condition.')
-    p.add_argument('--agent', default=DEFAULT_AGENT,
-                   help='PCLA agent name for the follower vehicle.')
-    p.add_argument('--town', default=DEFAULT_TOWN)
-    p.add_argument('--num_ticks', type=int, default=MAX_TICKS)
-    p.add_argument('--save_interval', type=int, default=SAVE_INTERVAL_TICKS,
-                   help='Save camera image every N ticks.')
-    p.add_argument('--host', default='localhost')
-    p.add_argument('--port', type=int, default=2000)
-    p.add_argument('--leader_speed', type=float, default=LEADER_SPEED_KMH,
-                   help='Leader target speed (km/h) via Traffic Manager.')
-    p.add_argument('--leader_spawn', type=int, default=LEADER_SPAWN_IDX,
-                   help='Spawn point index for the leader.')
-    p.add_argument('--gap_m', type=float, default=FOLLOWER_GAP_M,
-                   help='Initial gap (m) between leader and follower.')
-    p.add_argument('--initial_speed', type=float, default=INITIAL_SPEED_KMH,
-                   help='Initial forward velocity (km/h) for both vehicles.')
-    p.add_argument('--list_spawn_points', action='store_true',
-                   help='List all spawn points for the given --town and exit.')
-    p.add_argument('--rescan', action='store_true',
-                   help='Force re-scan for best spawn point, ignoring cache.')
+    p = argparse.ArgumentParser(description="Two-vehicle CARLA scenario.")
+    p.add_argument(
+        "--condition",
+        choices=["none", "raw", "camouflaged"],
+        default="none",
+        help="Plate patch condition (appears at t=10s).",
+    )
+    p.add_argument(
+        "--agents",
+        nargs="+",
+        default=DEFAULT_AGENTS,
+        help="PCLA agent names to attach in SHADOW mode on the follower.",
+    )
+    p.add_argument("--town", default=DEFAULT_TOWN)
+    p.add_argument("--num_ticks", type=int, default=MAX_TICKS)
+    p.add_argument("--save_interval", type=int, default=SAVE_INTERVAL_TICKS)
+    p.add_argument("--host", default="localhost")
+    p.add_argument("--port", type=int, default=2000)
+    p.add_argument("--leader_speed", type=float, default=LEADER_SPEED_KMH)
+    p.add_argument("--leader_spawn", type=int, default=LEADER_SPAWN_IDX)
+    p.add_argument("--gap_m", type=float, default=FOLLOWER_GAP_M)
+    p.add_argument("--initial_speed", type=float, default=INITIAL_SPEED_KMH)
+    p.add_argument(
+        "--raw_plate",
+        default=None,
+        help="Path to TGA for --condition raw (defaults to assets/T_LicensePlate_raw.TGA).",
+    )
+    p.add_argument(
+        "--camo_plate",
+        default=None,
+        help="Path to TGA for --condition camouflaged.",
+    )
+    p.add_argument(
+        "--plate_object_hint",
+        default="plate",
+        help="Substring match for the plate material object in the level.",
+    )
+    p.add_argument("--list_spawn_points", action="store_true")
+    p.add_argument("--rescan", action="store_true")
     return p.parse_args()
 
 
 # ---------------------------------------------------------------------------
-# Helper functions
+# Plate texture swap
 # ---------------------------------------------------------------------------
-def euclidean_distance(loc_a: carla.Location, loc_b: carla.Location) -> float:
-    return math.sqrt((loc_a.x - loc_b.x)**2 + (loc_a.y - loc_b.y)**2 + (loc_a.z - loc_b.z)**2)
+def load_tga_as_texture(tga_path: str) -> carla.TextureColor:
+    """Load a TGA file into a carla.TextureColor for runtime application."""
+    from PIL import Image  # lazy import — avoid requiring PIL for --list_spawn_points
+
+    img = Image.open(tga_path).convert("RGBA")
+    w, h = img.size
+    pixels = np.array(img, dtype=np.uint8)  # (H, W, 4) RGBA
+    texture = carla.TextureColor(w, h)
+    for y in range(h):
+        for x in range(w):
+            r, g, b, a = pixels[y, x]
+            texture.set(x, y, carla.Color(int(r), int(g), int(b), int(a)))
+    return texture
 
 
-def get_speed_kmh(vehicle: carla.Actor) -> float:
-    v = vehicle.get_velocity()
-    return 3.6 * math.sqrt(v.x**2 + v.y**2 + v.z**2)
+def find_plate_objects(world: carla.World, hint: str) -> list[str]:
+    """Return the list of level objects whose name contains `hint` (case-insensitive)."""
+    try:
+        names = world.get_names_of_all_objects()
+    except Exception as e:
+        print(f"[WARN] world.get_names_of_all_objects() failed: {e}")
+        return []
+    hint_lc = hint.lower()
+    matches = [n for n in names if hint_lc in n.lower()]
+    print(f"[INFO] Plate object candidates ({len(matches)}): {matches[:5]}"
+          f"{' ...' if len(matches) > 5 else ''}")
+    return matches
 
 
-def compute_ttc(dist_m: float, follower_speed_ms: float, leader_speed_ms: float) -> float:
-    """Time-to-collision (seconds). Returns inf if closing speed <= 0."""
-    closing_speed = follower_speed_ms - leader_speed_ms
-    if closing_speed <= 0:
-        return float('inf')
-    return dist_m / closing_speed
-
-
-def move_to_rightmost_driving_lane(wp: carla.Waypoint) -> carla.Waypoint:
-    """Walk right across lanes until we hit the outermost driving lane.
-
-    PCLA agents are trained on right-hand-traffic scenarios with road edge
-    on the right — starting in the leftmost lane of a multi-lane highway
-    with empty lanes to the right confuses them. This helper shifts the
-    waypoint to the rightmost driving lane so the agent has the road edge
-    on its right, matching its training distribution.
-    """
-    current = wp
-    while True:
-        right = current.get_right_lane()
-        if right is None or right.lane_type != carla.LaneType.Driving:
-            break
-        # Stop if the right lane runs the opposite direction (oncoming traffic)
-        if right.lane_id * current.lane_id < 0:
-            break
-        current = right
-    return current
-
-
-def spawn_follower_behind_leader(
+def apply_plate_texture(
     world: carla.World,
-    blueprint: carla.ActorBlueprint,
-    leader_transform: carla.Transform,
-    gap_m: float
-) -> carla.Actor:
-    """Spawn follower gap_m metres behind leader on the same lane.
-
-    Uses CARLA's road network (waypoint.previous) to walk backward along the
-    same lane — avoids colliding with walls/sidewalks that happen when you
-    compute the position with naive trigonometry.
-    """
-    carla_map = world.get_map()
-    leader_wp = carla_map.get_waypoint(
-        leader_transform.location,
-        project_to_road=True,
-        lane_type=carla.LaneType.Driving,
-    )
-    if leader_wp is None:
-        raise RuntimeError('Leader is not on a driving lane; cannot place follower.')
-
-    prev_wps = leader_wp.previous(gap_m)
-    if not prev_wps:
-        raise RuntimeError(f'No previous waypoint {gap_m}m behind leader.')
-    follower_wp = prev_wps[0]
-    follower_transform = follower_wp.transform
-    # Lift slightly to avoid ground clipping at spawn
-    follower_transform.location.z += 0.5
-
-    vehicle = world.try_spawn_actor(blueprint, follower_transform)
-    if vehicle is None:
-        # Try shorter gaps progressively
-        for alt_gap in (gap_m - 3, gap_m - 6, gap_m + 3):
-            if alt_gap <= 0:
-                continue
-            alt_wps = leader_wp.previous(alt_gap)
-            if not alt_wps:
-                continue
-            alt_t = alt_wps[0].transform
-            alt_t.location.z += 0.5
-            vehicle = world.try_spawn_actor(blueprint, alt_t)
-            if vehicle is not None:
-                print(f'[WARN] Fallback follower gap={alt_gap}m (requested {gap_m}m)')
-                break
-    if vehicle is None:
-        raise RuntimeError('Failed to spawn follower vehicle on the lane.')
-    return vehicle
+    texture: carla.TextureColor,
+    object_names: list[str],
+):
+    for name in object_names:
+        try:
+            world.apply_color_texture_to_object(
+                name, carla.MaterialParameter.Diffuse, texture
+            )
+        except Exception as e:
+            print(f"[WARN] texture swap on '{name}' failed: {e}")
 
 
-def give_initial_velocity(vehicle: carla.Actor, speed_kmh: float):
-    """Set an instantaneous forward velocity on the vehicle."""
-    yaw = math.radians(vehicle.get_transform().rotation.yaw)
-    speed_ms = speed_kmh / 3.6
-    vehicle.set_target_velocity(carla.Vector3D(
-        x=speed_ms * math.cos(yaw),
-        y=speed_ms * math.sin(yaw),
-        z=0.0,
-    ))
-
-
-SPAWN_CACHE_PATH = os.path.join(REPO_ROOT, 'experiments', 'carla_scenarios', 'spawn_cache.json')
-
-
-def load_spawn_cache(town: str) -> int | None:
-    """Return cached best spawn index for this town, or None if not cached."""
-    if not os.path.exists(SPAWN_CACHE_PATH):
-        return None
-    with open(SPAWN_CACHE_PATH) as f:
-        cache = json.load(f)
-    idx = cache.get(town)
-    if idx is not None:
-        print(f'[INFO] Using cached spawn index [{idx}] for {town} '
-              f'(pass --rescan to override)')
-    return idx
-
-
-def save_spawn_cache(town: str, idx: int):
-    os.makedirs(os.path.dirname(SPAWN_CACHE_PATH), exist_ok=True)
-    cache = {}
-    if os.path.exists(SPAWN_CACHE_PATH):
-        with open(SPAWN_CACHE_PATH) as f:
-            cache = json.load(f)
-    cache[town] = idx
-    with open(SPAWN_CACHE_PATH, 'w') as f:
-        json.dump(cache, f, indent=2)
-    print(f'[INFO] Spawn cache saved: {town} → [{idx}]')
-
-
-def find_best_highway_spawn(world: carla.World, scan_distance_m: float = 300.0,
-                             step_m: float = 10.0, yaw_tolerance_deg: float = 10.0) -> int:
-    """Scan all spawn points; return the index with the longest straight segment ahead.
-
-    For each spawn point, walk forward along the road network; the segment stays
-    'straight' while the lane yaw remains within yaw_tolerance_deg of the start.
-    Return the spawn index with the longest such distance — this is almost
-    always a highway in CARLA's topology.
-    """
-    carla_map = world.get_map()
-    spawn_points = carla_map.get_spawn_points()
-    best_idx = 0
-    best_distance = 0.0
-    print(f'[INFO] Scanning {len(spawn_points)} spawn points for longest straight segment...')
-    for i, sp in enumerate(spawn_points):
-        wp = carla_map.get_waypoint(sp.location, project_to_road=True,
-                                    lane_type=carla.LaneType.Driving)
-        if wp is None:
-            continue
-        initial_yaw = wp.transform.rotation.yaw
-        current = wp
-        dist = 0.0
-        while dist < scan_distance_m:
-            next_wps = current.next(step_m)
-            if not next_wps:
-                break
-            current = next_wps[0]
-            yaw_delta = abs(((current.transform.rotation.yaw - initial_yaw) + 180) % 360 - 180)
-            if yaw_delta > yaw_tolerance_deg:
-                break
-            dist += step_m
-        if dist > best_distance:
-            best_distance = dist
-            best_idx = i
-    print(f'[INFO] Best spawn point: [{best_idx}]  straight for {best_distance:.0f}m ahead '
-          f'at ({spawn_points[best_idx].location.x:.1f}, {spawn_points[best_idx].location.y:.1f})')
-    return best_idx
-
-
-def setup_rgb_camera(world: carla.World, vehicle: carla.Actor) -> carla.Actor:
-    """Attach a front-facing RGB camera to vehicle, return sensor actor."""
-    bp = world.get_blueprint_library().find('sensor.camera.rgb')
-    bp.set_attribute('image_size_x', str(IMAGE_W))
-    bp.set_attribute('image_size_y', str(IMAGE_H))
-    bp.set_attribute('fov', str(IMAGE_FOV))
-    # Mount on hood, pointing forward
+# ---------------------------------------------------------------------------
+# Sensors
+# ---------------------------------------------------------------------------
+def setup_debug_camera(world: carla.World, vehicle: carla.Actor) -> carla.Actor:
+    """Front-facing RGB camera for visualisation/recording (separate from agent sensors)."""
+    bp = world.get_blueprint_library().find("sensor.camera.rgb")
+    bp.set_attribute("image_size_x", str(IMAGE_W))
+    bp.set_attribute("image_size_y", str(IMAGE_H))
+    bp.set_attribute("fov", str(IMAGE_FOV))
     transform = carla.Transform(carla.Location(x=1.6, z=1.7))
-    camera = world.spawn_actor(bp, transform, attach_to=vehicle)
-    return camera
+    return world.spawn_actor(bp, transform, attach_to=vehicle)
 
 
-def generate_route(client: carla.Client, start_loc: carla.Location, end_loc: carla.Location,
-                   output_path: str) -> str:
-    """Generate PCLA-compatible XML route between two locations."""
-    waypoints = location_to_waypoint(client, start_loc, end_loc)
-    route_maker(waypoints, output_path)
-    print(f'[INFO] Route saved to {output_path} ({len(waypoints)} waypoints)')
-    return output_path
-
-
-def build_output_dir(condition: str) -> str:
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    out_dir = os.path.join(
-        REPO_ROOT, 'experiments', 'carla_scenarios',
-        f'{condition}_{timestamp}'
-    )
-    os.makedirs(os.path.join(out_dir, 'images'), exist_ok=True)
-    return out_dir
-
-
-# ---------------------------------------------------------------------------
-# Image listener (writes raw BGRA → numpy, stored in shared list)
-# ---------------------------------------------------------------------------
 class CameraListener:
     def __init__(self):
         self.latest_frame = None
@@ -299,14 +191,51 @@ class CameraListener:
 
     def listen_callback(self, image: carla.Image):
         arr = np.frombuffer(image.raw_data, dtype=np.uint8)
-        self.latest_frame = arr.reshape((image.height, image.width, 4))[:, :, :3]  # BGR
+        self.latest_frame = arr.reshape((image.height, image.width, 4))[:, :, :3]
 
     def save_if_due(self, out_dir: str, tick: int, interval: int):
         if tick % interval == 0 and self.latest_frame is not None:
             import cv2
-            path = os.path.join(out_dir, 'images', f'tick_{tick:06d}.jpg')
+
+            path = os.path.join(out_dir, "images", f"tick_{tick:06d}.jpg")
             cv2.imwrite(path, self.latest_frame)
             self.tick_idx += 1
+
+
+# ---------------------------------------------------------------------------
+# Route / I/O helpers
+# ---------------------------------------------------------------------------
+def generate_route(
+    client: carla.Client,
+    start_loc: carla.Location,
+    end_loc: carla.Location,
+    output_path: str,
+) -> str:
+    waypoints = location_to_waypoint(client, start_loc, end_loc)
+    route_maker(waypoints, output_path)
+    print(f"[INFO] Route saved to {output_path} ({len(waypoints)} waypoints)")
+    return output_path
+
+
+def build_output_dir(condition: str) -> str:
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_dir = os.path.join(
+        REPO_ROOT, "experiments", "carla_scenarios", f"{condition}_{ts}"
+    )
+    os.makedirs(os.path.join(out_dir, "images"), exist_ok=True)
+    return out_dir
+
+
+def resolve_plate_path(args) -> str | None:
+    if args.condition == "none":
+        return None
+    if args.condition == "raw":
+        return args.raw_plate or os.path.join(
+            REPO_ROOT, "assets", "T_LicensePlate_raw.TGA"
+        )
+    return args.camo_plate or os.path.join(
+        REPO_ROOT, "assets", "T_LicensePlate_camo.TGA"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -315,113 +244,120 @@ class CameraListener:
 def main():
     args = parse_args()
     out_dir = build_output_dir(args.condition)
-    print(f'\n{"="*60}')
-    print(f'  Condition : {args.condition}')
-    print(f'  Agent     : {args.agent}')
-    print(f'  Town      : {args.town}')
-    print(f'  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)')
-    print(f'  Output    : {out_dir}')
-    print(f'{"="*60}\n')
+    plate_tga = resolve_plate_path(args)
+
+    print(f"\n{'=' * 60}")
+    print(f"  Condition : {args.condition}")
+    print(f"  Agents    : {args.agents}")
+    print(f"  Town      : {args.town}")
+    print(f"  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)")
+    print(f"  Schedule  : cruise→{CRUISE_END_TICK}, brake from {BRAKE_START_TICK}")
+    print(f"  Plate TGA : {plate_tga if plate_tga else '— (baseline)'}")
+    print(f"  Output    : {out_dir}")
+    print(f"{'=' * 60}\n")
 
     client = carla.Client(args.host, args.port)
-    client.set_timeout(120.0)  # load_world can take >30s on first call
-    print(f'[INFO] Connecting to CARLA at {args.host}:{args.port} ...')
+    client.set_timeout(120.0)
+    print(f"[INFO] Connecting to CARLA at {args.host}:{args.port} ...")
     client.load_world(args.town)
-    print(f'[INFO] World "{args.town}" loaded.')
+    print(f"[INFO] World '{args.town}' loaded.")
 
     world = client.get_world()
     traffic_manager = client.get_trafficmanager(8000)
 
-    # --list_spawn_points: print then exit (debug helper)
     if args.list_spawn_points:
         sps = world.get_map().get_spawn_points()
-        print(f'\n[{args.town}] {len(sps)} spawn points:')
+        print(f"\n[{args.town}] {len(sps)} spawn points:")
         for i, sp in enumerate(sps):
-            print(f'  [{i:3d}]  x={sp.location.x:8.2f}  y={sp.location.y:8.2f}  '
-                  f'z={sp.location.z:5.2f}  yaw={sp.rotation.yaw:6.1f}')
+            print(
+                f"  [{i:3d}]  x={sp.location.x:8.2f}  y={sp.location.y:8.2f}  "
+                f"z={sp.location.z:5.2f}  yaw={sp.rotation.yaw:6.1f}"
+            )
         return
 
-    # Synchronous mode
     settings = world.get_settings()
     settings.synchronous_mode = True
     settings.fixed_delta_seconds = SIM_DELTA
     world.apply_settings(settings)
     traffic_manager.set_synchronous_mode(True)
+    traffic_manager.set_random_device_seed(42)  # reproducibility across runs
 
     leader = None
     follower = None
-    camera = None
-    pcla = None
+    debug_cam = None
+    col_sensor = None
+    shadow_set: ShadowAgentSet | None = None
+    plate_applied = False
 
     try:
         bplib = world.get_blueprint_library()
-        vehicle_bp = bplib.filter('model3')[0]
+        vehicle_bp = bplib.filter("model3")[0]
         spawn_points = world.get_map().get_spawn_points()
 
-        # --- Pick leader spawn: auto-detect longest straight if < 0 ---
+        # Leader spawn — auto-detect longest straight, shift to rightmost lane
         if args.leader_spawn < 0:
             cached = None if args.rescan else load_spawn_cache(args.town)
-            if cached is not None:
-                leader_idx = cached
-            else:
-                leader_idx = find_best_highway_spawn(world)
+            leader_idx = cached if cached is not None else find_best_highway_spawn(world)
+            if cached is None:
                 save_spawn_cache(args.town, leader_idx)
         else:
             leader_idx = args.leader_spawn
+
         leader_sp = spawn_points[leader_idx]
-        # Shift the leader to the rightmost driving lane — PCLA agents are
-        # trained with the road edge on the right; starting in the leftmost
-        # lane with empty lanes to the right confuses them.
         carla_map = world.get_map()
         leader_wp = carla_map.get_waypoint(
-            leader_sp.location, project_to_road=True,
-            lane_type=carla.LaneType.Driving,
+            leader_sp.location, project_to_road=True, lane_type=carla.LaneType.Driving
         )
         rightmost_wp = move_to_rightmost_driving_lane(leader_wp)
         leader_transform = rightmost_wp.transform
-        leader_transform.location.z += 0.5  # avoid ground clipping
+        leader_transform.location.z += 0.5
         if rightmost_wp.lane_id != leader_wp.lane_id:
-            print(f'[INFO] Shifted leader from lane {leader_wp.lane_id} '
-                  f'→ rightmost driving lane {rightmost_wp.lane_id}')
+            print(
+                f"[INFO] Shifted leader from lane {leader_wp.lane_id} "
+                f"→ rightmost driving lane {rightmost_wp.lane_id}"
+            )
         leader = world.try_spawn_actor(vehicle_bp, leader_transform)
         if leader is None:
-            raise RuntimeError(f'Failed to spawn leader at rightmost lane near spawn {leader_idx}')
-        print(f'[INFO] Leader spawned at '
-              f'({leader_transform.location.x:.1f}, {leader_transform.location.y:.1f}) '
-              f'lane {rightmost_wp.lane_id}')
+            raise RuntimeError(f"Failed to spawn leader near spawn {leader_idx}")
+        print(
+            f"[INFO] Leader spawned at "
+            f"({leader_transform.location.x:.1f}, {leader_transform.location.y:.1f}) "
+            f"lane {rightmost_wp.lane_id}"
+        )
 
-        # --- Spawn follower behind leader on the same lane ---
-        follower = spawn_follower_behind_leader(world, vehicle_bp, leader_transform, args.gap_m)
-        # Tick once so get_location() returns the actual spawned transform
+        follower = spawn_follower_behind_leader(
+            world, vehicle_bp, leader_transform, args.gap_m
+        )
         world.tick()
         fpos = follower.get_location()
-        print(f'[INFO] Follower spawned at ({fpos.x:.1f}, {fpos.y:.1f}, {fpos.z:.1f})')
+        print(f"[INFO] Follower spawned at ({fpos.x:.1f}, {fpos.y:.1f}, {fpos.z:.1f})")
 
-        # --- Give both vehicles initial forward velocity ---
         give_initial_velocity(leader, args.initial_speed)
         give_initial_velocity(follower, args.initial_speed)
         world.tick()
-        print(f'[INFO] Initial velocity set to {args.initial_speed} km/h for both vehicles')
+        print(f"[INFO] Initial velocity set to {args.initial_speed} km/h")
 
-        world.tick()
-
-        # --- Leader: Traffic Manager autopilot ---
+        # Both vehicles on Traffic Manager — leader cruises, follower keeps distance
         leader.set_autopilot(True, 8000)
-        # set_desired_speed takes km/h and is absolute (no speed-limit dependency)
+        follower.set_autopilot(True, 8000)
         traffic_manager.set_desired_speed(leader, args.leader_speed)
-        traffic_manager.distance_to_leading_vehicle(leader, 2.0)
-        traffic_manager.ignore_lights_percentage(leader, 100.0)
-        traffic_manager.ignore_signs_percentage(leader, 100.0)
-        traffic_manager.auto_lane_change(leader, False)
-        print(f'[INFO] Leader autopilot enabled ({args.leader_speed} km/h, '
-              f'ignoring lights/signs, no lane change)')
+        traffic_manager.set_desired_speed(follower, args.leader_speed)
+        traffic_manager.distance_to_leading_vehicle(follower, args.gap_m)
+        for v in (leader, follower):
+            traffic_manager.ignore_lights_percentage(v, 100.0)
+            traffic_manager.ignore_signs_percentage(v, 100.0)
+            traffic_manager.auto_lane_change(v, False)
+        print(
+            f"[INFO] Both vehicles on TM autopilot "
+            f"({args.leader_speed} km/h, {args.gap_m} m gap)"
+        )
 
-        # --- Generate route for follower ---
-        # Walk 600m along the road network from the follower's waypoint to find
-        # the route end — this guarantees the destination is on the road, not off it.
+        # Route generation for the follower (required by PCLA agents)
         follower_start_wp = carla_map.get_waypoint(
-            follower.get_location(), project_to_road=True,
-            lane_type=carla.LaneType.Driving)
+            follower.get_location(),
+            project_to_road=True,
+            lane_type=carla.LaneType.Driving,
+        )
         end_wp = follower_start_wp
         walked = 0.0
         while walked < 600.0:
@@ -430,79 +366,119 @@ def main():
                 break
             end_wp = nexts[0]
             walked += 10.0
-        start_loc = follower_start_wp.transform.location
-        end_loc = end_wp.transform.location
-        route_path = os.path.join(out_dir, 'follower_route.xml')
-        generate_route(client, start_loc, end_loc, route_path)
+        route_path = os.path.join(out_dir, "follower_route.xml")
+        generate_route(
+            client,
+            follower_start_wp.transform.location,
+            end_wp.transform.location,
+            route_path,
+        )
 
-        # --- PCLA follower agent ---
-        pcla = PCLA(args.agent, follower, route_path, client)
-        print(f'[INFO] PCLA agent "{args.agent}" initialized for follower')
+        # Attach all shadow agents (each brings its own sensor suite)
+        print(f"[INFO] Attaching {len(args.agents)} shadow agents to follower...")
+        shadow_set = ShadowAgentSet(
+            args.agents, follower, route_path, client, out_dir
+        )
 
-        # --- Front camera on follower ---
-        camera = setup_rgb_camera(world, follower)
+        # Our own debug camera for visualisation (saved every N ticks)
+        debug_cam = setup_debug_camera(world, follower)
         cam_listener = CameraListener()
-        camera.listen(cam_listener.listen_callback)
-        print(f'[INFO] Camera attached to follower')
+        debug_cam.listen(cam_listener.listen_callback)
 
-        # Spectator: overhead view to observe the scene
+        # Collision sensor on follower (ground-truth metric)
+        col_bp = bplib.find("sensor.other.collision")
+        col_sensor = world.spawn_actor(col_bp, carla.Transform(), attach_to=follower)
+        collision_events: list = []
+        col_sensor.listen(lambda e: collision_events.append(e))
+
         spectator = world.get_spectator()
 
-        # --- Telemetry CSV ---
-        csv_path = os.path.join(out_dir, 'telemetry.csv')
+        # Telemetry CSV (ground truth)
+        csv_path = os.path.join(out_dir, "telemetry.csv")
         csv_fields = [
-            'tick', 'sim_time_s',
-            'leader_x', 'leader_y', 'leader_speed_kmh',
-            'follower_x', 'follower_y', 'follower_speed_kmh',
-            'distance_m', 'ttc_s',
-            'follower_throttle', 'follower_steer', 'follower_brake',
-            'collision_detected',
+            "tick",
+            "sim_time_s",
+            "phase",
+            "leader_x",
+            "leader_y",
+            "leader_speed_kmh",
+            "follower_x",
+            "follower_y",
+            "follower_speed_kmh",
+            "distance_m",
+            "ttc_s",
+            "collision_detected",
         ]
         collision_count = 0
-        distances = []
-
-        # Collision sensor on follower
-        col_bp = bplib.find('sensor.other.collision')
-        col_sensor = world.spawn_actor(col_bp, carla.Transform(), attach_to=follower)
-        collision_events = []
-        col_sensor.listen(lambda e: collision_events.append(e))
+        distances: list[float] = []
 
         world.tick()
 
-        print(f'\n[INFO] Starting simulation loop ({args.num_ticks} ticks)...\n')
+        print(f"\n[INFO] Starting simulation loop ({args.num_ticks} ticks)...\n")
 
-        with open(csv_path, 'w', newline='') as csvfile:
+        with open(csv_path, "w", newline="") as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_fields)
             writer.writeheader()
 
             for tick in range(args.num_ticks):
-                # Follower action
-                ego_action = pcla.get_action()
-                follower.apply_control(ego_action)
+                sim_time = tick * SIM_DELTA
 
-                # Update spectator to follow follower from above-behind
-                follower_t = follower.get_transform()
-                yaw = follower_t.rotation.yaw
-                cam_loc = carla.Location(
-                    x=follower_t.location.x - 10 * math.cos(math.radians(yaw)),
-                    y=follower_t.location.y - 10 * math.sin(math.radians(yaw)),
-                    z=follower_t.location.z + 6
+                # Phase transitions
+                if tick == CRUISE_END_TICK and plate_tga and not plate_applied:
+                    print(f"\n[EVENT] t={sim_time:.1f}s  →  applying '{args.condition}' plate texture")
+                    objs = find_plate_objects(world, args.plate_object_hint)
+                    if objs:
+                        try:
+                            texture = load_tga_as_texture(plate_tga)
+                            apply_plate_texture(world, texture, objs)
+                            plate_applied = True
+                        except FileNotFoundError:
+                            print(f"[WARN] plate TGA not found: {plate_tga}")
+                        except Exception as e:
+                            print(f"[WARN] plate swap failed: {e}")
+                    else:
+                        print("[WARN] no plate objects found — skipping swap")
+
+                if tick == BRAKE_START_TICK:
+                    print(f"\n[EVENT] t={sim_time:.1f}s  →  leader emergency brake")
+                    leader.set_autopilot(False)
+
+                if tick >= BRAKE_START_TICK:
+                    leader.apply_control(
+                        carla.VehicleControl(throttle=0.0, brake=BRAKE_STRENGTH)
+                    )
+
+                phase = (
+                    "cruise"
+                    if tick < CRUISE_END_TICK
+                    else ("patch" if tick < BRAKE_START_TICK else "brake")
                 )
-                spectator.set_transform(carla.Transform(cam_loc, carla.Rotation(pitch=-20, yaw=yaw)))
+
+                # Shadow agents: compute + log, not applied
+                shadow_set.tick(tick, sim_time)
+
+                # Spectator cam: third-person follow behind the follower
+                import math as _math
+
+                ft = follower.get_transform()
+                cam_loc = carla.Location(
+                    x=ft.location.x - 10 * _math.cos(_math.radians(ft.rotation.yaw)),
+                    y=ft.location.y - 10 * _math.sin(_math.radians(ft.rotation.yaw)),
+                    z=ft.location.z + 6,
+                )
+                spectator.set_transform(
+                    carla.Transform(cam_loc, carla.Rotation(pitch=-20, yaw=ft.rotation.yaw))
+                )
 
                 world.tick()
 
-                # --- Measurements ---
-                leader_loc   = leader.get_location()
-                follower_loc_now = follower.get_location()
-                dist_m       = euclidean_distance(leader_loc, follower_loc_now)
-                leader_spd   = get_speed_kmh(leader)
+                # Measurements
+                lloc = leader.get_location()
+                floc = follower.get_location()
+                dist_m = euclidean_distance(lloc, floc)
+                leader_spd = get_speed_kmh(leader)
                 follower_spd = get_speed_kmh(follower)
-                ctrl         = follower.get_control()
-                sim_time     = tick * SIM_DELTA
-
-                closing_ms   = (follower_spd - leader_spd) / 3.6
-                ttc          = compute_ttc(dist_m, follower_spd / 3.6, leader_spd / 3.6)
+                ttc = compute_ttc(dist_m, follower_spd / 3.6, leader_spd / 3.6)
 
                 has_collision = len(collision_events) > 0
                 if has_collision:
@@ -511,87 +487,90 @@ def main():
 
                 distances.append(dist_m)
 
-                writer.writerow({
-                    'tick': tick,
-                    'sim_time_s': round(sim_time, 3),
-                    'leader_x': round(leader_loc.x, 3),
-                    'leader_y': round(leader_loc.y, 3),
-                    'leader_speed_kmh': round(leader_spd, 2),
-                    'follower_x': round(follower_loc_now.x, 3),
-                    'follower_y': round(follower_loc_now.y, 3),
-                    'follower_speed_kmh': round(follower_spd, 2),
-                    'distance_m': round(dist_m, 3),
-                    'ttc_s': round(ttc, 3) if ttc != float('inf') else -1,
-                    'follower_throttle': round(ctrl.throttle, 3),
-                    'follower_steer': round(ctrl.steer, 3),
-                    'follower_brake': round(ctrl.brake, 3),
-                    'collision_detected': int(has_collision),
-                })
+                writer.writerow(
+                    {
+                        "tick": tick,
+                        "sim_time_s": round(sim_time, 3),
+                        "phase": phase,
+                        "leader_x": round(lloc.x, 3),
+                        "leader_y": round(lloc.y, 3),
+                        "leader_speed_kmh": round(leader_spd, 2),
+                        "follower_x": round(floc.x, 3),
+                        "follower_y": round(floc.y, 3),
+                        "follower_speed_kmh": round(follower_spd, 2),
+                        "distance_m": round(dist_m, 3),
+                        "ttc_s": round(ttc, 3) if ttc != float("inf") else -1,
+                        "collision_detected": int(has_collision),
+                    }
+                )
 
-                # Save camera image
                 cam_listener.save_if_due(out_dir, tick, args.save_interval)
 
-                # Console progress
                 if tick % 50 == 0:
-                    print(f'  tick={tick:4d} | dist={dist_m:5.1f}m | '
-                          f'TTC={ttc:5.1f}s | '
-                          f'leader={leader_spd:.1f}km/h | '
-                          f'follower={follower_spd:.1f}km/h | '
-                          f'collisions={collision_count}')
+                    print(
+                        f"  tick={tick:4d} [{phase:6s}] | dist={dist_m:5.1f}m | "
+                        f"TTC={ttc:5.1f}s | "
+                        f"leader={leader_spd:.1f}km/h | "
+                        f"follower={follower_spd:.1f}km/h | "
+                        f"collisions={collision_count}"
+                    )
 
-        # --- Summary ---
         summary = {
-            'condition': args.condition,
-            'agent': args.agent,
-            'town': args.town,
-            'num_ticks': args.num_ticks,
-            'sim_duration_s': args.num_ticks * SIM_DELTA,
-            'total_collisions': collision_count,
-            'mean_distance_m': round(float(np.mean(distances)), 3) if distances else None,
-            'min_distance_m': round(float(np.min(distances)), 3) if distances else None,
-            'max_distance_m': round(float(np.max(distances)), 3) if distances else None,
-            'images_saved': cam_listener.tick_idx,
-            'output_dir': out_dir,
+            "condition": args.condition,
+            "agents": args.agents,
+            "town": args.town,
+            "num_ticks": args.num_ticks,
+            "sim_duration_s": args.num_ticks * SIM_DELTA,
+            "cruise_end_tick": CRUISE_END_TICK,
+            "brake_start_tick": BRAKE_START_TICK,
+            "leader_speed_kmh": args.leader_speed,
+            "initial_gap_m": args.gap_m,
+            "plate_texture": plate_tga,
+            "plate_applied": plate_applied,
+            "total_collisions": collision_count,
+            "mean_distance_m": round(float(np.mean(distances)), 3) if distances else None,
+            "min_distance_m": round(float(np.min(distances)), 3) if distances else None,
+            "max_distance_m": round(float(np.max(distances)), 3) if distances else None,
+            "images_saved": cam_listener.tick_idx,
+            "output_dir": out_dir,
         }
-        with open(os.path.join(out_dir, 'summary.json'), 'w') as f:
+        with open(os.path.join(out_dir, "summary.json"), "w") as f:
             json.dump(summary, f, indent=2)
 
-        print(f'\n{"="*60}')
-        print(f'  Run complete.')
-        print(f'  Collisions : {collision_count}')
-        print(f'  Mean dist  : {summary["mean_distance_m"]} m')
-        print(f'  Min dist   : {summary["min_distance_m"]} m')
-        print(f'  Images     : {cam_listener.tick_idx}')
-        print(f'  Output     : {out_dir}')
-        print(f'{"="*60}\n')
+        print(f"\n{'=' * 60}")
+        print(f"  Run complete.")
+        print(f"  Collisions : {collision_count}")
+        print(f"  Mean dist  : {summary['mean_distance_m']} m")
+        print(f"  Min dist   : {summary['min_distance_m']} m")
+        print(f"  Images     : {cam_listener.tick_idx}")
+        print(f"  Output     : {out_dir}")
+        print(f"{'=' * 60}\n")
 
     finally:
-        print('[INFO] Cleaning up...')
-        # Stop sensors first
-        if camera is not None and camera.is_alive:
-            camera.stop()
-            camera.destroy()
-        if 'col_sensor' in dir() and col_sensor.is_alive:
+        print("[INFO] Cleaning up...")
+        if debug_cam is not None and debug_cam.is_alive:
+            debug_cam.stop()
+            debug_cam.destroy()
+        if col_sensor is not None and col_sensor.is_alive:
             col_sensor.stop()
             col_sensor.destroy()
-
-        if pcla is not None:
-            pcla.cleanup()
-        elif follower is not None and follower.is_alive:
+        if shadow_set is not None:
+            shadow_set.cleanup()
+        if follower is not None and follower.is_alive:
             follower.destroy()
-
         if leader is not None and leader.is_alive:
-            leader.set_autopilot(False)
+            try:
+                leader.set_autopilot(False)
+            except Exception:
+                pass
             leader.destroy()
-
-        # Restore async mode
         settings.synchronous_mode = False
         world.apply_settings(settings)
-        print('[INFO] Done.')
+        print("[INFO] Done.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print('\n[INFO] Interrupted by user.')
+        print("\n[INFO] Interrupted by user.")

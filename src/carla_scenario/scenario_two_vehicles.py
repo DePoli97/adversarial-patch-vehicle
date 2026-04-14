@@ -50,9 +50,9 @@ from PCLA import PCLA, route_maker, location_to_waypoint
 DEFAULT_AGENT       = 'tfv4_l6_0'   # top Leaderboard 1 performer, camera+LiDAR
 DEFAULT_TOWN        = 'Town06'      # long straight highways
 LEADER_SPAWN_IDX    = -1            # -1 = auto-detect longest straight segment
-FOLLOWER_GAP_M      = 15.0          # initial gap behind leader (metres)
-LEADER_SPEED_KMH    = 80            # target speed for leader on highway
-INITIAL_SPEED_KMH   = 50            # both vehicles start already moving
+FOLLOWER_GAP_M      = 10.0          # initial gap behind leader (metres)
+LEADER_SPEED_KMH    = 40            # target speed for leader — keep low so PCLA agent can follow
+INITIAL_SPEED_KMH   = 20            # both vehicles start already moving
 SIM_DELTA           = 0.05          # fixed simulation step (seconds)
 IMAGE_W, IMAGE_H    = 1280, 720
 IMAGE_FOV           = 90
@@ -370,29 +370,33 @@ def main():
         world.tick()
 
         # --- Leader: Traffic Manager autopilot ---
-        # CARLA default urban speed is ~30 km/h. speed_difference is a PERCENTAGE
-        # reduction from the speed limit, so NEGATIVE means go FASTER than limit.
         leader.set_autopilot(True, 8000)
-        default_limit = 30.0  # km/h (CARLA urban default)
-        pct_diff = 100.0 * (1.0 - args.leader_speed / default_limit)
-        traffic_manager.vehicle_percentage_speed_difference(leader, pct_diff)
+        # set_desired_speed takes km/h and is absolute (no speed-limit dependency)
+        traffic_manager.set_desired_speed(leader, args.leader_speed)
         traffic_manager.distance_to_leading_vehicle(leader, 2.0)
         traffic_manager.ignore_lights_percentage(leader, 100.0)
         traffic_manager.ignore_signs_percentage(leader, 100.0)
         traffic_manager.auto_lane_change(leader, False)
-        print(f'[INFO] Leader autopilot enabled (target ~{args.leader_speed} km/h, '
+        print(f'[INFO] Leader autopilot enabled ({args.leader_speed} km/h, '
               f'ignoring lights/signs, no lane change)')
 
         # --- Generate route for follower ---
-        # Route: from follower's current location to a point 400m ahead on the same road
-        start_loc = follower.get_location()
-        # Use leader's destination as route end (offset 400m forward along yaw)
-        yaw_rad = math.radians(leader_sp.rotation.yaw)
-        end_loc = carla.Location(
-            x=start_loc.x + 400 * math.cos(yaw_rad),
-            y=start_loc.y + 400 * math.sin(yaw_rad),
-            z=start_loc.z
-        )
+        # Walk 600m along the road network from the follower's waypoint to find
+        # the route end — this guarantees the destination is on the road, not off it.
+        carla_map = world.get_map()
+        follower_start_wp = carla_map.get_waypoint(
+            follower.get_location(), project_to_road=True,
+            lane_type=carla.LaneType.Driving)
+        end_wp = follower_start_wp
+        walked = 0.0
+        while walked < 600.0:
+            nexts = end_wp.next(10.0)
+            if not nexts:
+                break
+            end_wp = nexts[0]
+            walked += 10.0
+        start_loc = follower_start_wp.transform.location
+        end_loc = end_wp.transform.location
         route_path = os.path.join(out_dir, 'follower_route.xml')
         generate_route(client, start_loc, end_loc, route_path)
 

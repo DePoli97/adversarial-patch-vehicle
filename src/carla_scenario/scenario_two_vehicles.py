@@ -46,11 +46,9 @@ from common import (
 )
 from shadow_agents import ShadowAgentSet
 from spawn_utils import (
-    find_best_highway_spawn,
     give_initial_velocity,
     load_spawn_cache,
     move_to_rightmost_driving_lane,
-    save_spawn_cache,
     spawn_follower_behind_leader,
 )
 
@@ -65,7 +63,6 @@ from PCLA import location_to_waypoint, route_maker  # noqa: E402
 # ---------------------------------------------------------------------------
 DEFAULT_AGENTS = ["tfv4_l6_0", "tfv6_visiononly", "simlingo_simlingo"]
 DEFAULT_TOWN = "Town06"
-LEADER_SPAWN_IDX = -1
 FOLLOWER_GAP_M = 10.0
 LEADER_SPEED_KMH = 40
 INITIAL_SPEED_KMH = 20
@@ -75,8 +72,6 @@ MAX_TICKS = 600  # 30 s at SIM_DELTA=0.05
 CRUISE_END_TICK = 200  # t = 10 s
 BRAKE_START_TICK = 400  # t = 20 s
 BRAKE_STRENGTH = 0.8
-
-PLATE_TEXTURE_DEFAULT = os.path.join(REPO_ROOT, "assets", "T_LicensePlate_d.TGA")
 
 
 # ---------------------------------------------------------------------------
@@ -102,73 +97,22 @@ def parse_args():
     p.add_argument("--host", default="localhost")
     p.add_argument("--port", type=int, default=2000)
     p.add_argument("--leader_speed", type=float, default=LEADER_SPEED_KMH)
-    p.add_argument("--leader_spawn", type=int, default=LEADER_SPAWN_IDX)
     p.add_argument("--gap_m", type=float, default=FOLLOWER_GAP_M)
     p.add_argument("--initial_speed", type=float, default=INITIAL_SPEED_KMH)
-    p.add_argument(
-        "--raw_plate",
-        default=None,
-        help="Path to TGA for --condition raw (defaults to assets/T_LicensePlate_raw.TGA).",
-    )
-    p.add_argument(
-        "--camo_plate",
-        default=None,
-        help="Path to TGA for --condition camouflaged.",
-    )
-    p.add_argument(
-        "--plate_object_hint",
-        default="plate",
-        help="Substring match for the plate material object in the level.",
-    )
-    p.add_argument("--list_spawn_points", action="store_true")
-    p.add_argument("--rescan", action="store_true")
     return p.parse_args()
 
 
 # ---------------------------------------------------------------------------
-# Plate texture swap
+# Plate texture swap  —  TODO: fill in once the CARLA plate object/material
+# path is known on Vortex. Called at CRUISE_END_TICK if condition != 'none'.
 # ---------------------------------------------------------------------------
-def load_tga_as_texture(tga_path: str) -> carla.TextureColor:
-    """Load a TGA file into a carla.TextureColor for runtime application."""
-    from PIL import Image  # lazy import — avoid requiring PIL for --list_spawn_points
+def swap_plate_texture(world: carla.World, condition: str):
+    """Apply the adversarial plate texture for the given condition.
 
-    img = Image.open(tga_path).convert("RGBA")
-    w, h = img.size
-    pixels = np.array(img, dtype=np.uint8)  # (H, W, 4) RGBA
-    texture = carla.TextureColor(w, h)
-    for y in range(h):
-        for x in range(w):
-            r, g, b, a = pixels[y, x]
-            texture.set(x, y, carla.Color(int(r), int(g), int(b), int(a)))
-    return texture
-
-
-def find_plate_objects(world: carla.World, hint: str) -> list[str]:
-    """Return the list of level objects whose name contains `hint` (case-insensitive)."""
-    try:
-        names = world.get_names_of_all_objects()
-    except Exception as e:
-        print(f"[WARN] world.get_names_of_all_objects() failed: {e}")
-        return []
-    hint_lc = hint.lower()
-    matches = [n for n in names if hint_lc in n.lower()]
-    print(f"[INFO] Plate object candidates ({len(matches)}): {matches[:5]}"
-          f"{' ...' if len(matches) > 5 else ''}")
-    return matches
-
-
-def apply_plate_texture(
-    world: carla.World,
-    texture: carla.TextureColor,
-    object_names: list[str],
-):
-    for name in object_names:
-        try:
-            world.apply_color_texture_to_object(
-                name, carla.MaterialParameter.Diffuse, texture
-            )
-        except Exception as e:
-            print(f"[WARN] texture swap on '{name}' failed: {e}")
+    TODO(paolo): implement once we know where the plate material lives in the
+    CARLA content and how to swap it at runtime.
+    """
+    print(f"[TODO] plate swap requested for condition='{condition}' — not implemented yet")
 
 
 # ---------------------------------------------------------------------------
@@ -226,25 +170,12 @@ def build_output_dir(condition: str) -> str:
     return out_dir
 
 
-def resolve_plate_path(args) -> str | None:
-    if args.condition == "none":
-        return None
-    if args.condition == "raw":
-        return args.raw_plate or os.path.join(
-            REPO_ROOT, "assets", "T_LicensePlate_raw.TGA"
-        )
-    return args.camo_plate or os.path.join(
-        REPO_ROOT, "assets", "T_LicensePlate_camo.TGA"
-    )
-
-
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
     args = parse_args()
     out_dir = build_output_dir(args.condition)
-    plate_tga = resolve_plate_path(args)
 
     print(f"\n{'=' * 60}")
     print(f"  Condition : {args.condition}")
@@ -252,7 +183,6 @@ def main():
     print(f"  Town      : {args.town}")
     print(f"  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)")
     print(f"  Schedule  : cruise→{CRUISE_END_TICK}, brake from {BRAKE_START_TICK}")
-    print(f"  Plate TGA : {plate_tga if plate_tga else '— (baseline)'}")
     print(f"  Output    : {out_dir}")
     print(f"{'=' * 60}\n")
 
@@ -264,16 +194,6 @@ def main():
 
     world = client.get_world()
     traffic_manager = client.get_trafficmanager(8000)
-
-    if args.list_spawn_points:
-        sps = world.get_map().get_spawn_points()
-        print(f"\n[{args.town}] {len(sps)} spawn points:")
-        for i, sp in enumerate(sps):
-            print(
-                f"  [{i:3d}]  x={sp.location.x:8.2f}  y={sp.location.y:8.2f}  "
-                f"z={sp.location.z:5.2f}  yaw={sp.rotation.yaw:6.1f}"
-            )
-        return
 
     settings = world.get_settings()
     settings.synchronous_mode = True
@@ -294,15 +214,14 @@ def main():
         vehicle_bp = bplib.filter("model3")[0]
         spawn_points = world.get_map().get_spawn_points()
 
-        # Leader spawn — auto-detect longest straight, shift to rightmost lane
-        if args.leader_spawn < 0:
-            cached = None if args.rescan else load_spawn_cache(args.town)
-            leader_idx = cached if cached is not None else find_best_highway_spawn(world)
-            if cached is None:
-                save_spawn_cache(args.town, leader_idx)
-        else:
-            leader_idx = args.leader_spawn
-
+        # Leader spawn comes from the cached scan — run tools/scan_spawn.py once
+        # per town to (re)populate experiments/carla_scenarios/spawn_cache.json.
+        leader_idx = load_spawn_cache(args.town)
+        if leader_idx is None:
+            raise RuntimeError(
+                f"No cached spawn index for '{args.town}'. "
+                f"Run: python src/carla_scenario/tools/scan_spawn.py --town {args.town}"
+            )
         leader_sp = spawn_points[leader_idx]
         carla_map = world.get_map()
         leader_wp = carla_map.get_waypoint(
@@ -424,20 +343,10 @@ def main():
                 sim_time = tick * SIM_DELTA
 
                 # Phase transitions
-                if tick == CRUISE_END_TICK and plate_tga and not plate_applied:
-                    print(f"\n[EVENT] t={sim_time:.1f}s  →  applying '{args.condition}' plate texture")
-                    objs = find_plate_objects(world, args.plate_object_hint)
-                    if objs:
-                        try:
-                            texture = load_tga_as_texture(plate_tga)
-                            apply_plate_texture(world, texture, objs)
-                            plate_applied = True
-                        except FileNotFoundError:
-                            print(f"[WARN] plate TGA not found: {plate_tga}")
-                        except Exception as e:
-                            print(f"[WARN] plate swap failed: {e}")
-                    else:
-                        print("[WARN] no plate objects found — skipping swap")
+                if tick == CRUISE_END_TICK and args.condition != "none" and not plate_applied:
+                    print(f"\n[EVENT] t={sim_time:.1f}s  →  plate swap ({args.condition})")
+                    swap_plate_texture(world, args.condition)
+                    plate_applied = True
 
                 if tick == BRAKE_START_TICK:
                     print(f"\n[EVENT] t={sim_time:.1f}s  →  leader emergency brake")
@@ -525,7 +434,6 @@ def main():
             "brake_start_tick": BRAKE_START_TICK,
             "leader_speed_kmh": args.leader_speed,
             "initial_gap_m": args.gap_m,
-            "plate_texture": plate_tga,
             "plate_applied": plate_applied,
             "total_collisions": collision_count,
             "mean_distance_m": round(float(np.mean(distances)), 3) if distances else None,

@@ -193,8 +193,10 @@ def main():
     print(f'{"="*60}\n')
 
     client = carla.Client(args.host, args.port)
-    client.set_timeout(30.0)
+    client.set_timeout(120.0)  # load_world can take >30s on first call
+    print(f'[INFO] Connecting to CARLA at {args.host}:{args.port} ...')
     client.load_world(args.town)
+    print(f'[INFO] World "{args.town}" loaded.')
 
     world = client.get_world()
     traffic_manager = client.get_trafficmanager(8000)

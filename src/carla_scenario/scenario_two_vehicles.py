@@ -25,10 +25,18 @@ Output: experiments/carla_scenarios/<condition>_<timestamp>/
   summary.json         run metadata
 """
 
+import os
+
+# Silence OpenBLAS/OpenMP nested-parallelism warning that floods the log when
+# PCLA agents run scipy/numpy internals. Must be set before numpy/scipy/torch
+# are imported anywhere in this process.
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+
 import argparse
 import csv
 import json
-import os
 import sys
 from datetime import datetime
 
@@ -67,7 +75,7 @@ from PCLA import location_to_waypoint, route_maker  # noqa: E402
 DEFAULT_AGENTS = ["tfv4_l6_0", "tfv6_visiononly", "simlingo_simlingo"]
 DEFAULT_TOWN = "Town06"
 FOLLOWER_GAP_M = 10.0
-LEADER_SPEED_KMH = 40
+LEADER_SPEED_KMH = 30
 INITIAL_SPEED_KMH = 20
 SAVE_INTERVAL_TICKS = 10
 MAX_TICKS = 300  # 15 s at SIM_DELTA=0.05

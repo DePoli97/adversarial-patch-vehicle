@@ -11,6 +11,9 @@ report/
 *.onnx
 *.engine
 
+# Downloaded pretrained models (HuggingFace caches: InternVL, simlingo, ...)
+pretrained/
+
 # Datasets
 data/
 datasets/
@@ -33,6 +36,8 @@ venv/
 
 # Jupyter
 .ipynb_checkpoints/
+*.nbconvert.ipynb
+src/carla_scenario/analyze_run.html
 
 # OS
 .DS_Store

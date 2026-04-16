@@ -112,10 +112,12 @@ def parse_args():
 def swap_plate_texture(world: carla.World, condition: str):
     """Apply the adversarial plate texture for the given condition.
 
-    TODO(paolo): implement once we know where the plate material lives in the
+    TODO: implement once we know where the plate material lives in the
     CARLA content and how to swap it at runtime.
     """
-    print(f"[TODO] plate swap requested for condition='{condition}' — not implemented yet")
+    print(
+        f"[TODO] plate swap requested for condition='{condition}' — not implemented yet"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -184,7 +186,9 @@ def main():
     print(f"  Condition : {args.condition}")
     print(f"  Agents    : {args.agents}")
     print(f"  Town      : {args.town}")
-    print(f"  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)")
+    print(
+        f"  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)"
+    )
     print(f"  Schedule  : cruise→{CRUISE_END_TICK}, brake from {BRAKE_START_TICK}")
     print(f"  Output    : {out_dir}")
     print(f"{'=' * 60}\n")
@@ -288,9 +292,7 @@ def main():
 
         # Attach all shadow agents (each brings its own sensor suite)
         print(f"[INFO] Attaching {len(args.agents)} shadow agents to follower...")
-        shadow_set = ShadowAgentSet(
-            args.agents, follower, route_path, client, out_dir
-        )
+        shadow_set = ShadowAgentSet(args.agents, follower, route_path, client, out_dir)
 
         # Our own debug camera for visualisation (saved every N ticks)
         debug_cam = setup_debug_camera(world, follower)
@@ -336,8 +338,14 @@ def main():
                 sim_time = tick * SIM_DELTA
 
                 # Phase transitions
-                if tick == CRUISE_END_TICK and args.condition != "none" and not plate_applied:
-                    print(f"\n[EVENT] t={sim_time:.1f}s  →  plate swap ({args.condition})")
+                if (
+                    tick == CRUISE_END_TICK
+                    and args.condition != "none"
+                    and not plate_applied
+                ):
+                    print(
+                        f"\n[EVENT] t={sim_time:.1f}s  →  plate swap ({args.condition})"
+                    )
                     swap_plate_texture(world, args.condition)
                     plate_applied = True
 
@@ -373,7 +381,9 @@ def main():
                     z=ft.location.z + 6,
                 )
                 spectator.set_transform(
-                    carla.Transform(cam_loc, carla.Rotation(pitch=-20, yaw=ft.rotation.yaw))
+                    carla.Transform(
+                        cam_loc, carla.Rotation(pitch=-20, yaw=ft.rotation.yaw)
+                    )
                 )
 
                 world.tick()
@@ -433,7 +443,9 @@ def main():
             "initial_gap_m": args.gap_m,
             "plate_applied": plate_applied,
             "total_collisions": collision_count,
-            "mean_distance_m": round(float(np.mean(distances)), 3) if distances else None,
+            "mean_distance_m": round(float(np.mean(distances)), 3)
+            if distances
+            else None,
             "min_distance_m": round(float(np.min(distances)), 3) if distances else None,
             "max_distance_m": round(float(np.max(distances)), 3) if distances else None,
             "images_saved": cam_listener.tick_idx,

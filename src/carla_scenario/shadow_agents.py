@@ -4,8 +4,7 @@ Attaches multiple PCLA agents to the same follower vehicle at once. Each
 agent brings its own sensor suite (attached by PCLA internally) and is
 invoked every simulation tick via `get_action()`. The returned
 `carla.VehicleControl` is logged to CSV but NOT applied to the vehicle —
-the vehicle is driven externally by the scenario script (e.g. Traffic
-Manager).
+the vehicle is driven by the scripted cruise controller in the scenario.
 
 Per-agent CSVs end up next to the run's `telemetry.csv`:
     agent_<name>.csv   columns: tick, sim_time_s, throttle, steer, brake
@@ -24,6 +23,22 @@ if PCLA_DIR not in sys.path:
     sys.path.insert(0, PCLA_DIR)
 
 from PCLA import PCLA  # noqa: E402
+from leaderboard_codes.carla_data_provider import CarlaDataProvider  # noqa: E402
+
+
+# PCLA registers the ego vehicle inside setup_sensors(); with N agents on
+# the same vehicle, the 2nd+ would raise KeyError. Idempotent patch = single
+# shared registration across all shadow agents.
+_original_register_actor = CarlaDataProvider.register_actor
+
+
+def _idempotent_register_actor(actor):
+    if actor in CarlaDataProvider._actor_velocity_map:
+        return
+    _original_register_actor(actor)
+
+
+CarlaDataProvider.register_actor = staticmethod(_idempotent_register_actor)
 
 
 class ShadowAgent:
@@ -45,6 +60,10 @@ class ShadowAgent:
         self._csv_file = open(self.csv_path, "w", newline="")
         self._writer = csv.DictWriter(self._csv_file, fieldnames=self.AGENT_CSV_FIELDS)
         self._writer.writeheader()
+        self.ticks_ok = 0
+        self.ticks_none = 0
+        self.ticks_error = 0
+        self._first_error_logged = False
         try:
             self.pcla = PCLA(agent_name, vehicle, route_path, client)
             print(f"[INFO]   · Shadow agent '{agent_name}' attached")
@@ -60,11 +79,16 @@ class ShadowAgent:
         try:
             ctrl = self.pcla.get_action()
         except Exception:
-            print(f"[WARN] {self.name}.get_action() raised at tick {tick_idx}:")
-            print(traceback.format_exc())
+            self.ticks_error += 1
+            if not self._first_error_logged:
+                print(f"[WARN] {self.name}.get_action() raised at tick {tick_idx}:")
+                print(traceback.format_exc())
+                self._first_error_logged = True
             return
         if ctrl is None:
+            self.ticks_none += 1
             return
+        self.ticks_ok += 1
         self._writer.writerow(
             {
                 "tick": tick_idx,
@@ -76,6 +100,10 @@ class ShadowAgent:
         )
 
     def cleanup(self):
+        print(
+            f"[STATS] {self.name}: ok={self.ticks_ok} "
+            f"none={self.ticks_none} error={self.ticks_error}"
+        )
         try:
             self._csv_file.close()
         except Exception:

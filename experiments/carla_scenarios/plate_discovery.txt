@@ -1,0 +1,47 @@
+plate_discovery — 2026-04-17T00:36:16
+town=Town06  vehicle=vehicle.tesla.model3
+======================================================================
+
+[1] World objects with 'plate' or 'license' in the name
+----------------------------------------------------------------------
+  (none found — plate is likely baked into the vehicle mesh)
+
+[2] Blueprint attributes for the ego vehicle
+----------------------------------------------------------------------
+  has_lights                     type=Bool  modifiable=False  recommended=[]
+  generation                     type=Int  modifiable=False  recommended=[]
+  has_dynamic_doors              type=Bool  modifiable=False  recommended=[]
+  number_of_wheels               type=Int  modifiable=False  recommended=[]
+  base_type                      type=String  modifiable=False  recommended=[]
+  special_type                   type=String  modifiable=False  recommended=[]
+  object_type                    type=String  modifiable=False  recommended=[]
+  terramechanics                 type=Bool  modifiable=True  recommended=['false']
+  sticky_control                 type=Bool  modifiable=True  recommended=['true']
+  color                          type=RGBColor  modifiable=True  recommended=['17,37,103', '75,86,173', '180,42,42']
+  ros_name                       type=String  modifiable=True  recommended=['vehicle.tesla.model3']
+  role_name                      type=String  modifiable=True  recommended=['autopilot', 'scenario', 'ego_vehicle']
+
+[3] Attached components of a spawned instance
+----------------------------------------------------------------------
+  actor_id=379  type_id=vehicle.tesla.model3
+    attr has_lights = true
+    attr generation = 1
+    attr has_dynamic_doors = false
+    attr number_of_wheels = 4
+    attr base_type = car
+    attr special_type = electric
+    attr object_type = 
+    attr terramechanics = false
+    attr sticky_control = true
+    attr color = 17,37,103
+    attr ros_name = vehicle.tesla.model3
+    attr role_name = autopilot
+  vehicle.get_physics_control().wheels -> 4 wheels
+
+[4] world.apply_color_texture_to_object API probe
+----------------------------------------------------------------------
+  apply_color_texture_to_object available: True
+  MaterialParameter enum values: ['0', '1', '2', '3']
+
+=
+Report saved to: /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/plate_discovery.txt

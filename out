@@ -8,7 +8,7 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
   Town      : Town06
   Ticks     : 300  (15.0s sim time)
   Schedule  : cruise→100, brake from 200
-  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260417_005515
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260417_015901
 ============================================================
 
 [INFO] Connecting to CARLA at localhost:2000 ...
@@ -19,7 +19,7 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
 [INFO] Follower spawned at (594.9, -24.0, 0.5)
 [INFO] Initial velocity set to 20 km/h
 [INFO] Scripted cruise control at 30 km/h (initial gap 10.0 m, follower never brakes)
-[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260417_005515/follower_route.xml (303 waypoints)
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260417_015901/follower_route.xml (303 waypoints)
 [INFO] Attaching 3 shadow agents to follower...
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
 0it [00:00, ?it/s]0it [00:00, ?it/s]
@@ -28,64 +28,64 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
   warnings.warn(msg, RuntimeWarning)
 
 [INFO]   · Shadow agent 'tfv4_l6_0' attached
-2026-04-17 00:55:28 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
-2026-04-17 00:55:28 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
-2026-04-17 00:55:28 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
-2026-04-17 00:55:28 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
-2026-04-17 00:55:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
-2026-04-17 00:55:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
-2026-04-17 00:55:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
-2026-04-17 00:55:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
-2026-04-17 00:55:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
-2026-04-17 00:55:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
-2026-04-17 00:55:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
-2026-04-17 00:55:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
-2026-04-17 00:55:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+2026-04-17 01:59:14 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-04-17 01:59:14 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-04-17 01:59:14 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-04-17 01:59:14 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-04-17 01:59:16 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-04-17 01:59:16 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-04-17 01:59:16 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-04-17 01:59:16 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-04-17 01:59:18 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-04-17 01:59:18 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-04-17 01:59:18 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-04-17 01:59:18 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-04-17 01:59:18 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
 /home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
   improvement from the last ten iterations.
   warnings.warn(msg, RuntimeWarning)
-ERROR: failed to destroy actor 638 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 637 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 638 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 637 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 636 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 635 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 634 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 633 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 632 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 631 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 630 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 629 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 628 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 627 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 626 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 625 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 624 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 623 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 622 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 621 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 620 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 619 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 638 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 637 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 636 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 635 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 634 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 633 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 632 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 631 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 630 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 629 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 628 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 627 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 626 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 625 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 624 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 623 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 622 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 621 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 620 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 619 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1107 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1106 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1107 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1106 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1105 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1104 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1103 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1102 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1101 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1100 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1099 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1098 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1097 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1096 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1095 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1094 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1093 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1092 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1091 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1090 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1089 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1088 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1107 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1106 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1105 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1104 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1103 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1102 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1101 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1100 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1099 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1098 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1097 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1096 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1095 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1094 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1093 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1092 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1091 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1090 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1089 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1088 : unable to destroy actor: not found 
 [INFO]   · Shadow agent 'tfv6_visiononly' attached
 Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
 Save path root: None
@@ -99,11 +99,25 @@ trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
 
   tick=   0 [cruise] | dist= 10.0m | TTC=  infs | leader=20.5km/h | follower=20.5km/h | collisions=0
   tick=  50 [cruise] | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=27.5km/h | collisions=0
+  tick= 100 [patch ] | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=27.5km/h | collisions=0
+  tick= 150 [patch ] | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=27.5km/h | collisions=0
+
+[EVENT] t=10.0s  →  leader emergency brake
+  tick= 200 [brake ] | dist= 10.0m | TTC=385.8s | leader=27.4km/h | follower=27.5km/h | collisions=0
+  tick= 250 [brake ] | dist=  4.7m | TTC=  infs | leader=0.1km/h | follower=0.0km/h | collisions=24
+
+============================================================
+  Run complete.
+  Collisions : 73
+  Mean dist  : 8.527 m
+  Min dist   : 4.727 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260417_015901
+============================================================
+
 [INFO] Cleaning up...
-[STATS] tfv4_l6_0: ok=51 none=0 error=0
-[STATS] tfv6_visiononly: ok=51 none=0 error=0
-[STATS] simlingo_simlingo: ok=51 none=0 error=0
+[STATS] tfv4_l6_0: ok=300 none=0 error=0
+[STATS] tfv6_visiononly: ok=300 none=0 error=0
+[STATS] simlingo_simlingo: ok=300 none=0 error=0
 No cfg or encoder to delete processor
 [INFO] Done.
-
-[INFO] Interrupted by user.

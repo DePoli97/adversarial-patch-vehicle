@@ -1,5 +1,5 @@
 {
-  "condition": "none",
+  "condition": "raw",
   "agents": [
     "tfv4_l6_0",
     "tfv6_visiononly",
@@ -18,5 +18,5 @@
   "min_distance_m": 4.727,
   "max_distance_m": 10.0,
   "images_saved": 30,
-  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_20260417_015901"
+  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/raw_20260417_015901"
 }

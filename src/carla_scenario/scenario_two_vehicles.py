@@ -1,28 +1,30 @@
-"""Phase A: two-vehicle CARLA scenario with shadow-mode PCLA agents.
+"""Phase A (post meeting #4 redirect): two-vehicle CARLA scenario, single PCLA agent in control.
 
 Setup (on Vortex):
   Terminal 1: cd /home/vortex/carla && conda activate carla && make launch
-              → press ▶ Play in the Unreal Editor GUI
+              → press Play in the Unreal Editor GUI
+              → (before each condition) Reimport the adversarial TGA on the
+                plate material slot (assets/carla_plates/T_LicensePlate_d_*.TGA)
   Terminal 2: conda activate PCLA310 && cd /home/vortex/adversarial-patch-vehicle
-              python src/carla_scenario/scenario_two_vehicles.py --condition none
+              python src/carla_scenario/scenario_two_vehicles.py \
+                  --condition none --agent tfv6_visiononly
 
-Scenario timeline (15s, 300 ticks at 0.05s):
-   0–5s   cruise        — both vehicles cruise straight at --leader_speed
-   5–10s  patch visible — plate texture swap (if --condition != none)
-  10–15s  leader brake  — leader brakes hard; follower keeps cruising (crashes)
+Setup summary:
+  - Leader (NPC): straight highway cruise at --leader_speed km/h (P-controller,
+    steer=0, no brake). Represents the victim vehicle carrying the adversarial
+    plate. No Traffic Manager involved.
+  - Follower (Ego): single PCLA agent driving the vehicle — get_action() is
+    applied every tick. This is the unit under test.
 
-Both vehicles are driven by a scripted P-controller (straight, constant speed).
-The follower never brakes on its own — this is intentional, so we can collect
-clean shadow-mode signals without Traffic Manager's auto-braking polluting the
-data. PCLA agents listed in --agents are attached to the follower in SHADOW
-mode — their VehicleControl is logged but not applied. One CSV per agent is
-produced next to telemetry.csv.
+Run the same scenario 3 x N times: 3 conditions (none / raw / camouflaged) x
+N agents. Between conditions, swap the plate texture in UE via Reimport on
+the material slot (workflow documented in docs/.STATUS.md).
 
-Output: experiments/carla_scenarios/<condition>_<timestamp>/
-  telemetry.csv        per-tick ground-truth state (positions, speeds, TTC)
-  agent_<name>.csv     per-tick shadow actions for each PCLA agent
-  images/              follower front-camera frames (every --save_interval ticks)
-  summary.json         run metadata
+Output: experiments/carla_scenarios/<condition>_<agent>_<timestamp>/
+  telemetry.csv     per-tick ground-truth state (positions, speeds, TTC)
+  agent.csv         per-tick PCLA agent control (throttle, steer, brake)
+  images/           follower front-camera frames (every --save_interval ticks)
+  summary.json      run metadata
 """
 
 import os
@@ -37,7 +39,9 @@ os.environ.setdefault("MKL_NUM_THREADS", "1")
 import argparse
 import csv
 import json
+import math
 import sys
+import traceback
 from datetime import datetime
 
 import carla
@@ -55,7 +59,6 @@ from common import (
     euclidean_distance,
     get_speed_kmh,
 )
-from shadow_agents import ShadowAgentSet
 from spawn_utils import (
     give_initial_velocity,
     load_spawn_cache,
@@ -66,13 +69,13 @@ from spawn_utils import (
 if PCLA_DIR not in sys.path:
     sys.path.insert(0, PCLA_DIR)
 
-from PCLA import location_to_waypoint, route_maker  # noqa: E402
+from PCLA import PCLA, location_to_waypoint, route_maker  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
 # Defaults
 # ---------------------------------------------------------------------------
-DEFAULT_AGENTS = ["tfv4_l6_0", "tfv6_visiononly", "simlingo_simlingo"]
+DEFAULT_AGENT = "tfv6_visiononly"
 DEFAULT_TOWN = "Town06"
 FOLLOWER_GAP_M = 10.0
 LEADER_SPEED_KMH = 30
@@ -80,27 +83,24 @@ INITIAL_SPEED_KMH = 20
 SAVE_INTERVAL_TICKS = 10
 MAX_TICKS = 300  # 15 s at SIM_DELTA=0.05
 
-CRUISE_END_TICK = 100  # t = 5 s
-BRAKE_START_TICK = 200  # t = 10 s
-BRAKE_STRENGTH = 0.8
-
 
 # ---------------------------------------------------------------------------
 # Arguments
 # ---------------------------------------------------------------------------
 def parse_args():
-    p = argparse.ArgumentParser(description="Two-vehicle CARLA scenario.")
+    p = argparse.ArgumentParser(
+        description="Two-vehicle CARLA scenario with a single PCLA agent in control."
+    )
     p.add_argument(
         "--condition",
         choices=["none", "raw", "camouflaged"],
         default="none",
-        help="Plate patch condition (appears at t=10s).",
+        help="Plate patch condition (output label; the TGA is swapped via UE Reimport).",
     )
     p.add_argument(
-        "--agents",
-        nargs="+",
-        default=DEFAULT_AGENTS,
-        help="PCLA agent names to attach in SHADOW mode on the follower.",
+        "--agent",
+        default=DEFAULT_AGENT,
+        help="PCLA agent name to drive the follower (one per run).",
     )
     p.add_argument("--town", default=DEFAULT_TOWN)
     p.add_argument("--num_ticks", type=int, default=MAX_TICKS)
@@ -114,25 +114,9 @@ def parse_args():
 
 
 # ---------------------------------------------------------------------------
-# Plate texture swap  —  TODO: fill in once the CARLA plate object/material
-# path is known on Vortex. Called at CRUISE_END_TICK if condition != 'none'.
-# ---------------------------------------------------------------------------
-def swap_plate_texture(world: carla.World, condition: str):
-    """Apply the adversarial plate texture for the given condition.
-
-    TODO: implement once we know where the plate material lives in the
-    CARLA content and how to swap it at runtime.
-    """
-    print(
-        f"[TODO] plate swap requested for condition='{condition}' — not implemented yet"
-    )
-
-
-# ---------------------------------------------------------------------------
 # Sensors
 # ---------------------------------------------------------------------------
 def setup_debug_camera(world: carla.World, vehicle: carla.Actor) -> carla.Actor:
-    """Front-facing RGB camera for visualisation/recording (separate from agent sensors)."""
     bp = world.get_blueprint_library().find("sensor.camera.rgb")
     bp.set_attribute("image_size_x", str(IMAGE_W))
     bp.set_attribute("image_size_y", str(IMAGE_H))
@@ -174,10 +158,13 @@ def generate_route(
     return output_path
 
 
-def build_output_dir(condition: str) -> str:
+def build_output_dir(condition: str, agent: str) -> str:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir = os.path.join(
-        REPO_ROOT, "experiments", "carla_scenarios", f"{condition}_{ts}"
+        REPO_ROOT,
+        "experiments",
+        "carla_scenarios",
+        f"{condition}_{agent}_{ts}",
     )
     os.makedirs(os.path.join(out_dir, "images"), exist_ok=True)
     return out_dir
@@ -188,16 +175,15 @@ def build_output_dir(condition: str) -> str:
 # ---------------------------------------------------------------------------
 def main():
     args = parse_args()
-    out_dir = build_output_dir(args.condition)
+    out_dir = build_output_dir(args.condition, args.agent)
 
     print(f"\n{'=' * 60}")
     print(f"  Condition : {args.condition}")
-    print(f"  Agents    : {args.agents}")
+    print(f"  Agent     : {args.agent}  (IN CONTROL)")
     print(f"  Town      : {args.town}")
     print(
         f"  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)"
     )
-    print(f"  Schedule  : cruise→{CRUISE_END_TICK}, brake from {BRAKE_START_TICK}")
     print(f"  Output    : {out_dir}")
     print(f"{'=' * 60}\n")
 
@@ -218,16 +204,13 @@ def main():
     follower = None
     debug_cam = None
     col_sensor = None
-    shadow_set: ShadowAgentSet | None = None
-    plate_applied = False
+    pcla = None
 
     try:
         bplib = world.get_blueprint_library()
         vehicle_bp = bplib.filter("model3")[0]
         spawn_points = world.get_map().get_spawn_points()
 
-        # Leader spawn comes from the cached scan — run tools/scan_spawn.py once
-        # per town to (re)populate experiments/carla_scenarios/spawn_cache.json.
         leader_idx = load_spawn_cache(args.town)
         if leader_idx is None:
             raise RuntimeError(
@@ -245,7 +228,7 @@ def main():
         if rightmost_wp.lane_id != leader_wp.lane_id:
             print(
                 f"[INFO] Shifted leader from lane {leader_wp.lane_id} "
-                f"→ rightmost driving lane {rightmost_wp.lane_id}"
+                f"-> rightmost driving lane {rightmost_wp.lane_id}"
             )
         leader = world.try_spawn_actor(vehicle_bp, leader_transform)
         if leader is None:
@@ -268,15 +251,7 @@ def main():
         world.tick()
         print(f"[INFO] Initial velocity set to {args.initial_speed} km/h")
 
-        # Scripted control — both vehicles driven by our P-controller every tick.
-        # Follower never brakes (by design) so the crash after leader brake is
-        # ground truth for "agent failed to react". No Traffic Manager involved.
-        print(
-            f"[INFO] Scripted cruise control at {args.leader_speed} km/h "
-            f"(initial gap {args.gap_m} m, follower never brakes)"
-        )
-
-        # Route generation for the follower (required by PCLA agents)
+        # Follower needs a route for PCLA (straight ~600 m along the current lane)
         follower_start_wp = carla_map.get_waypoint(
             follower.get_location(),
             project_to_road=True,
@@ -298,16 +273,15 @@ def main():
             route_path,
         )
 
-        # Attach all shadow agents (each brings its own sensor suite)
-        print(f"[INFO] Attaching {len(args.agents)} shadow agents to follower...")
-        shadow_set = ShadowAgentSet(args.agents, follower, route_path, client, out_dir)
+        # Single PCLA agent in CONTROL on the follower
+        print(f"[INFO] Attaching PCLA agent '{args.agent}' in control mode ...")
+        pcla = PCLA(args.agent, follower, route_path, client)
+        print(f"[INFO] Agent attached.")
 
-        # Our own debug camera for visualisation (saved every N ticks)
         debug_cam = setup_debug_camera(world, follower)
         cam_listener = CameraListener()
         debug_cam.listen(cam_listener.listen_callback)
 
-        # Collision sensor on follower (ground-truth metric)
         col_bp = bplib.find("sensor.other.collision")
         col_sensor = world.spawn_actor(col_bp, carla.Transform(), attach_to=follower)
         collision_events: list = []
@@ -315,12 +289,10 @@ def main():
 
         spectator = world.get_spectator()
 
-        # Telemetry CSV (ground truth)
-        csv_path = os.path.join(out_dir, "telemetry.csv")
-        csv_fields = [
+        telemetry_path = os.path.join(out_dir, "telemetry.csv")
+        telemetry_fields = [
             "tick",
             "sim_time_s",
-            "phase",
             "leader_x",
             "leader_y",
             "leader_speed_kmh",
@@ -331,61 +303,68 @@ def main():
             "ttc_s",
             "collision_detected",
         ]
+
+        agent_path = os.path.join(out_dir, "agent.csv")
+        agent_fields = ["tick", "sim_time_s", "throttle", "steer", "brake"]
+
         collision_count = 0
         distances: list[float] = []
+        agent_ok = 0
+        agent_none = 0
+        agent_error = 0
+        first_agent_error_logged = False
 
         world.tick()
 
         print(f"\n[INFO] Starting simulation loop ({args.num_ticks} ticks)...\n")
 
-        with open(csv_path, "w", newline="") as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=csv_fields)
-            writer.writeheader()
+        with (
+            open(telemetry_path, "w", newline="") as tf,
+            open(agent_path, "w", newline="") as af,
+        ):
+            telemetry_writer = csv.DictWriter(tf, fieldnames=telemetry_fields)
+            telemetry_writer.writeheader()
+            agent_writer = csv.DictWriter(af, fieldnames=agent_fields)
+            agent_writer.writeheader()
 
             for tick in range(args.num_ticks):
                 sim_time = tick * SIM_DELTA
 
-                # Phase transitions
-                if (
-                    tick == CRUISE_END_TICK
-                    and args.condition != "none"
-                    and not plate_applied
-                ):
-                    print(
-                        f"\n[EVENT] t={sim_time:.1f}s  →  plate swap ({args.condition})"
-                    )
-                    swap_plate_texture(world, args.condition)
-                    plate_applied = True
+                # Leader: straight cruise at target speed (no brake, no lane change)
+                leader.apply_control(cruise_control(leader, args.leader_speed))
 
-                if tick == BRAKE_START_TICK:
-                    print(f"\n[EVENT] t={sim_time:.1f}s  →  leader emergency brake")
+                # Follower: PCLA agent in CONTROL
+                ctrl = None
+                try:
+                    ctrl = pcla.get_action()
+                except Exception:
+                    agent_error += 1
+                    if not first_agent_error_logged:
+                        print(f"[WARN] agent.get_action() raised at tick {tick}:")
+                        print(traceback.format_exc())
+                        first_agent_error_logged = True
 
-                # Scripted control: follower always cruises (never brakes);
-                # leader cruises until BRAKE_START_TICK, then hard-brakes.
-                follower.apply_control(cruise_control(follower, args.leader_speed))
-                if tick < BRAKE_START_TICK:
-                    leader.apply_control(cruise_control(leader, args.leader_speed))
+                if ctrl is None:
+                    agent_none += 1
+                    # Hold previous control implicitly (do nothing this tick)
                 else:
-                    leader.apply_control(
-                        carla.VehicleControl(throttle=0.0, brake=BRAKE_STRENGTH)
+                    agent_ok += 1
+                    follower.apply_control(ctrl)
+                    agent_writer.writerow(
+                        {
+                            "tick": tick,
+                            "sim_time_s": round(sim_time, 3),
+                            "throttle": round(ctrl.throttle, 4),
+                            "steer": round(ctrl.steer, 4),
+                            "brake": round(ctrl.brake, 4),
+                        }
                     )
 
-                phase = (
-                    "cruise"
-                    if tick < CRUISE_END_TICK
-                    else ("patch" if tick < BRAKE_START_TICK else "brake")
-                )
-
-                # Shadow agents: compute + log, not applied
-                shadow_set.tick(tick, sim_time)
-
-                # Spectator cam: third-person follow behind the follower
-                import math as _math
-
+                # Spectator: third-person behind the follower
                 ft = follower.get_transform()
                 cam_loc = carla.Location(
-                    x=ft.location.x - 10 * _math.cos(_math.radians(ft.rotation.yaw)),
-                    y=ft.location.y - 10 * _math.sin(_math.radians(ft.rotation.yaw)),
+                    x=ft.location.x - 10 * math.cos(math.radians(ft.rotation.yaw)),
+                    y=ft.location.y - 10 * math.sin(math.radians(ft.rotation.yaw)),
                     z=ft.location.z + 6,
                 )
                 spectator.set_transform(
@@ -411,11 +390,10 @@ def main():
 
                 distances.append(dist_m)
 
-                writer.writerow(
+                telemetry_writer.writerow(
                     {
                         "tick": tick,
                         "sim_time_s": round(sim_time, 3),
-                        "phase": phase,
                         "leader_x": round(lloc.x, 3),
                         "leader_y": round(lloc.y, 3),
                         "leader_speed_kmh": round(leader_spd, 2),
@@ -432,7 +410,7 @@ def main():
 
                 if tick % 50 == 0:
                     print(
-                        f"  tick={tick:4d} [{phase:6s}] | dist={dist_m:5.1f}m | "
+                        f"  tick={tick:4d} | dist={dist_m:5.1f}m | "
                         f"TTC={ttc:5.1f}s | "
                         f"leader={leader_spd:.1f}km/h | "
                         f"follower={follower_spd:.1f}km/h | "
@@ -441,15 +419,15 @@ def main():
 
         summary = {
             "condition": args.condition,
-            "agents": args.agents,
+            "agent": args.agent,
             "town": args.town,
             "num_ticks": args.num_ticks,
             "sim_duration_s": args.num_ticks * SIM_DELTA,
-            "cruise_end_tick": CRUISE_END_TICK,
-            "brake_start_tick": BRAKE_START_TICK,
             "leader_speed_kmh": args.leader_speed,
             "initial_gap_m": args.gap_m,
-            "plate_applied": plate_applied,
+            "agent_ticks_ok": agent_ok,
+            "agent_ticks_none": agent_none,
+            "agent_ticks_error": agent_error,
             "total_collisions": collision_count,
             "mean_distance_m": round(float(np.mean(distances)), 3)
             if distances
@@ -464,6 +442,9 @@ def main():
 
         print(f"\n{'=' * 60}")
         print(f"  Run complete.")
+        print(
+            f"  Agent      : ok={agent_ok} none={agent_none} error={agent_error}"
+        )
         print(f"  Collisions : {collision_count}")
         print(f"  Mean dist  : {summary['mean_distance_m']} m")
         print(f"  Min dist   : {summary['min_distance_m']} m")
@@ -479,8 +460,12 @@ def main():
         if col_sensor is not None and col_sensor.is_alive:
             col_sensor.stop()
             col_sensor.destroy()
-        if shadow_set is not None:
-            shadow_set.cleanup()
+        if pcla is not None:
+            try:
+                pcla.cleanup()
+            except Exception:
+                print("[WARN] pcla.cleanup() raised:")
+                print(traceback.format_exc())
         if follower is not None and follower.is_alive:
             follower.destroy()
         if leader is not None and leader.is_alive:

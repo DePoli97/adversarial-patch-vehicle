@@ -10,11 +10,16 @@ Setup (on Vortex):
                   --condition none --agent tfv6_visiononly
 
 Setup summary:
-  - Leader (NPC): straight highway cruise at --leader_speed km/h (P-controller,
-    steer=0, no brake). Represents the victim vehicle carrying the adversarial
-    plate. No Traffic Manager involved.
+  - Leader (NPC): straight highway cruise at --leader_speed km/h until t=10s,
+    then emergency brake (throttle=0, brake=0.8). Carries the adversarial plate.
+    No Traffic Manager involved.
   - Follower (Ego): single PCLA agent driving the vehicle — get_action() is
-    applied every tick. This is the unit under test.
+    applied every tick. Has to detect the leader and brake in time.
+    This is the unit under test.
+
+Timeline (15 s = 300 ticks at SIM_DELTA=0.05):
+   0-10 s   both cruise at --leader_speed km/h
+  10-15 s   leader hard brake -> follower-agent must react
 
 Run the same scenario 3 x N times: 3 conditions (none / raw / camouflaged) x
 N agents. Between conditions, swap the plate texture in UE via Reimport on
@@ -82,6 +87,12 @@ LEADER_SPEED_KMH = 30
 INITIAL_SPEED_KMH = 20
 SAVE_INTERVAL_TICKS = 10
 MAX_TICKS = 300  # 15 s at SIM_DELTA=0.05
+
+# Leader emergency brake: fixed event that forces the follower-agent to react.
+# Comparing none vs raw vs camouflaged shows how the plate patch affects the
+# agent's ability to brake in time.
+BRAKE_START_TICK = 200  # t = 10 s
+BRAKE_STRENGTH = 0.8
 
 
 # ---------------------------------------------------------------------------
@@ -330,8 +341,18 @@ def main():
             for tick in range(args.num_ticks):
                 sim_time = tick * SIM_DELTA
 
-                # Leader: straight cruise at target speed (no brake, no lane change)
-                leader.apply_control(cruise_control(leader, args.leader_speed))
+                if tick == BRAKE_START_TICK:
+                    print(f"\n[EVENT] t={sim_time:.1f}s  ->  leader emergency brake")
+
+                # Leader: cruise straight at target speed until t=10s, then
+                # hard-brake. This is the event the follower-agent has to
+                # react to; the plate patch should degrade that reaction.
+                if tick < BRAKE_START_TICK:
+                    leader.apply_control(cruise_control(leader, args.leader_speed))
+                else:
+                    leader.apply_control(
+                        carla.VehicleControl(throttle=0.0, brake=BRAKE_STRENGTH)
+                    )
 
                 # Follower: PCLA agent in CONTROL
                 ctrl = None
@@ -425,6 +446,9 @@ def main():
             "sim_duration_s": args.num_ticks * SIM_DELTA,
             "leader_speed_kmh": args.leader_speed,
             "initial_gap_m": args.gap_m,
+            "brake_start_tick": BRAKE_START_TICK,
+            "brake_start_s": BRAKE_START_TICK * SIM_DELTA,
+            "brake_strength": BRAKE_STRENGTH,
             "agent_ticks_ok": agent_ok,
             "agent_ticks_none": agent_none,
             "agent_ticks_error": agent_error,

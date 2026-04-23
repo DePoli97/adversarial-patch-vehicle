@@ -1,0 +1,22 @@
+{
+  "condition": "camouflaged",
+  "agent": "simlingo_simlingo",
+  "town": "Town06",
+  "num_ticks": 300,
+  "sim_duration_s": 15.0,
+  "leader_speed_kmh": 30,
+  "initial_gap_m": 10.0,
+  "brake_start_tick": 200,
+  "brake_start_s": 10.0,
+  "brake_strength": 0.8,
+  "agent_ticks_ok": 300,
+  "agent_ticks_none": 0,
+  "agent_ticks_error": 0,
+  "total_collisions": 0,
+  "mean_distance_m": 11.333,
+  "min_distance_m": 6.62,
+  "max_distance_m": 14.847,
+  "images_saved": 30,
+  "simlingo_language_log": "simlingo_language.tsv",
+  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/camouflaged_simlingo_simlingo_20260424_004532"
+}

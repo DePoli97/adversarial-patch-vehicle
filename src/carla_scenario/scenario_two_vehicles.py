@@ -289,6 +289,44 @@ def main():
         pcla = PCLA(args.agent, follower, route_path, client)
         print(f"[INFO] Agent attached.")
 
+        # For SimLingo (VLM), wrap the underlying InternVL model so every
+        # forward pass also logs the generated language output to file.
+        # Zero changes to PCLA source.
+        simlingo_log_path = None
+        if args.agent.startswith("simlingo"):
+            simlingo_log_path = os.path.join(out_dir, "simlingo_language.tsv")
+            with open(simlingo_log_path, "w") as _f:
+                _f.write("step\tlanguage\n")
+
+            _orig_model = pcla.agent_instance.model
+            _agent_ref = pcla.agent_instance
+
+            class _LingoLogger:
+                def __init__(self, orig, agent, path):
+                    self._orig = orig
+                    self._agent = agent
+                    self._path = path
+
+                def __call__(self, *a, **kw):
+                    out = self._orig(*a, **kw)
+                    try:
+                        if isinstance(out, tuple) and len(out) >= 3 and out[2] is not None:
+                            lang = out[2]
+                            if len(lang) > 0:
+                                with open(self._path, "a") as f:
+                                    f.write(f"{self._agent.step}\t{lang[0]}\n")
+                    except Exception:
+                        pass
+                    return out
+
+                def __getattr__(self, name):
+                    return getattr(self._orig, name)
+
+            pcla.agent_instance.model = _LingoLogger(
+                _orig_model, _agent_ref, simlingo_log_path
+            )
+            print(f"[INFO] SimLingo language logging enabled -> {simlingo_log_path}")
+
         debug_cam = setup_debug_camera(world, follower)
         cam_listener = CameraListener()
         debug_cam.listen(cam_listener.listen_callback)
@@ -459,6 +497,9 @@ def main():
             "min_distance_m": round(float(np.min(distances)), 3) if distances else None,
             "max_distance_m": round(float(np.max(distances)), 3) if distances else None,
             "images_saved": cam_listener.tick_idx,
+            "simlingo_language_log": os.path.basename(simlingo_log_path)
+            if simlingo_log_path is not None
+            else None,
             "output_dir": out_dir,
         }
         with open(os.path.join(out_dir, "summary.json"), "w") as f:

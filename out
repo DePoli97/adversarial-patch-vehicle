@@ -1,126 +1,64 @@
 WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
 WARNING: Client API version     = 0.9.15 
 WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
 
 ============================================================
-  Condition : camouflaged
-  Agents    : ['tfv4_l6_0', 'tfv6_visiononly', 'simlingo_simlingo']
+  Condition : none
+  Agent     : tfv6_visiononly  (IN CONTROL)
   Town      : Town06
   Ticks     : 300  (15.0s sim time)
-  Schedule  : cruise→100, brake from 200
-  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/camouflaged_20260417_021637
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_tfv6_visiononly_20260423_225048
 ============================================================
 
 [INFO] Connecting to CARLA at localhost:2000 ...
 [INFO] World 'Town06' loaded.
 [INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
-[INFO] Shifted leader from lane -4 → rightmost driving lane -7
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
 [INFO] Leader spawned at (584.9, -24.1) lane -7
 [INFO] Follower spawned at (594.9, -24.0, 0.5)
 [INFO] Initial velocity set to 20 km/h
-[INFO] Scripted cruise control at 30 km/h (initial gap 10.0 m, follower never brakes)
-[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/camouflaged_20260417_021637/follower_route.xml (303 waypoints)
-[INFO] Attaching 3 shadow agents to follower...
-/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
-0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
-  improvement from the last ten iterations.
-  warnings.warn(msg, RuntimeWarning)
-
-[INFO]   · Shadow agent 'tfv4_l6_0' attached
-2026-04-17 02:16:50 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
-2026-04-17 02:16:50 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
-2026-04-17 02:16:50 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
-2026-04-17 02:16:50 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
-2026-04-17 02:16:52 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
-2026-04-17 02:16:52 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
-2026-04-17 02:16:52 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
-2026-04-17 02:16:52 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
-2026-04-17 02:16:54 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
-2026-04-17 02:16:54 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
-2026-04-17 02:16:54 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
-2026-04-17 02:16:54 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
-2026-04-17 02:16:54 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
-/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
-  improvement from the last ten iterations.
-  warnings.warn(msg, RuntimeWarning)
-ERROR: failed to destroy actor 1248 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1247 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1248 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1247 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1246 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1245 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1244 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1243 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1242 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1241 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1240 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1239 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1238 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1237 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1236 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1235 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1234 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1233 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1232 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1231 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1230 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1229 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1248 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1247 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1246 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1245 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1244 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1243 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1242 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1241 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1240 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1239 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1238 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1237 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1236 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1235 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1234 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1233 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1232 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1231 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1230 : unable to destroy actor: not found 
-ERROR: failed to destroy actor 1229 : unable to destroy actor: not found 
-[INFO]   · Shadow agent 'tfv6_visiononly' attached
-Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
-Save path root: None
-FlashAttention2 is not installed.
-[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
-Using PEFT model
-trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
-[INFO]   · Shadow agent 'simlingo_simlingo' attached
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_tfv6_visiononly_20260423_225048/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_visiononly' in control mode ...
+2026-04-23 22:50:56 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-04-23 22:50:56 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-04-23 22:50:56 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-04-23 22:50:56 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-04-23 22:50:58 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-04-23 22:50:58 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-04-23 22:50:58 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-04-23 22:50:58 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-04-23 22:50:59 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-04-23 22:50:59 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-04-23 22:50:59 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-04-23 22:50:59 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-04-23 22:50:59 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+ERROR: failed to destroy actor 268 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 267 : unable to destroy actor: not found 
+[INFO] Agent attached.
 
 [INFO] Starting simulation loop (300 ticks)...
 
-  tick=   0 [cruise] | dist= 10.0m | TTC=  infs | leader=20.5km/h | follower=20.5km/h | collisions=0
-  tick=  50 [cruise] | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=27.5km/h | collisions=0
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.6m | TTC=  7.5s | leader=27.5km/h | follower=32.2km/h | collisions=0
+  tick= 100 | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=22.6km/h | collisions=0
+  tick= 150 | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=27.3km/h | collisions=0
 
-[EVENT] t=5.0s  →  plate swap (camouflaged)
-[TODO] plate swap requested for condition='camouflaged' — not implemented yet
-  tick= 100 [patch ] | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=27.5km/h | collisions=0
-  tick= 150 [patch ] | dist= 10.0m | TTC=  infs | leader=27.5km/h | follower=27.5km/h | collisions=0
-
-[EVENT] t=10.0s  →  leader emergency brake
-  tick= 200 [brake ] | dist= 10.0m | TTC=385.8s | leader=27.4km/h | follower=27.5km/h | collisions=0
-  tick= 250 [brake ] | dist=  4.7m | TTC=  infs | leader=0.1km/h | follower=0.0km/h | collisions=24
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist=  9.5m | TTC= 29.8s | leader=27.4km/h | follower=28.6km/h | collisions=0
+  tick= 250 | dist=  4.8m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=11
 
 ============================================================
   Run complete.
-  Collisions : 73
-  Mean dist  : 8.527 m
-  Min dist   : 4.727 m
-  Images     : 30
-  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/camouflaged_20260417_021637
+  Agent      : ok=300 none=0 error=0
+  Collisions : 11
+  Mean dist  : 8.381 m
+  Min dist   : 4.75 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_tfv6_visiononly_20260423_225048
 ============================================================
 
 [INFO] Cleaning up...
-[STATS] tfv4_l6_0: ok=300 none=0 error=0
-[STATS] tfv6_visiononly: ok=300 none=0 error=0
-[STATS] simlingo_simlingo: ok=300 none=0 error=0
-No cfg or encoder to delete processor
 [INFO] Done.

@@ -76,6 +76,10 @@ if PCLA_DIR not in sys.path:
 
 from PCLA import PCLA, location_to_waypoint, route_maker  # noqa: E402
 
+# Detection probe (in this same dir)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from detection_probe import setup_detection_probe  # noqa: E402
+
 
 # ---------------------------------------------------------------------------
 # Defaults
@@ -219,7 +223,7 @@ def main():
 
     try:
         bplib = world.get_blueprint_library()
-        vehicle_bp = bplib.filter("model3")[0]
+        vehicle_bp = bplib.filter("vehicle.nissan.micra")[0]
         spawn_points = world.get_map().get_spawn_points()
 
         leader_idx = load_spawn_cache(args.town)
@@ -326,6 +330,17 @@ def main():
                 _orig_model, _agent_ref, simlingo_log_path
             )
             print(f"[INFO] SimLingo language logging enabled -> {simlingo_log_path}")
+
+        # Detection probe: for TransFuser-family agents (tfv4, tfv6),
+        # log front-vehicle bbox + confidence per tick from the agent's own
+        # detection head. Gives a measurable signal on whether the patch
+        # weakens the agent's perception of the leader.
+        detection_log_path = os.path.join(out_dir, "detection_probe.tsv")
+        probe_active = setup_detection_probe(
+            pcla, agent_name=args.agent, out_path=detection_log_path
+        )
+        if not probe_active:
+            detection_log_path = None
 
         debug_cam = setup_debug_camera(world, follower)
         cam_listener = CameraListener()
@@ -499,6 +514,9 @@ def main():
             "images_saved": cam_listener.tick_idx,
             "simlingo_language_log": os.path.basename(simlingo_log_path)
             if simlingo_log_path is not None
+            else None,
+            "detection_probe_log": os.path.basename(detection_log_path)
+            if detection_log_path is not None
             else None,
             "output_dir": out_dir,
         }

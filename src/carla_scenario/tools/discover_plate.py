@@ -29,7 +29,7 @@ def main():
     p.add_argument("--host", default="localhost")
     p.add_argument("--port", type=int, default=2000)
     p.add_argument(
-        "--vehicle", default="vehicle.tesla.model3",
+        "--vehicle", default="vehicle.nissan.micra",
         help="Blueprint id to inspect (same one the scenario uses)."
     )
     args = p.parse_args()

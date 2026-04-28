@@ -1,12 +1,14 @@
 """
-Patch-on-Plate Experiment
-=========================
+Patch-on-Surface Experiment
+===========================
 Overlays the CARLA license plate texture onto real-world license plates
 (CCPD dataset) using perspective warping, then compares YOLOv8 detection
 scores between original and patched images.
 
+Output dir auto-resolves to experiments/patch_on_rear_window/.
+
 Usage:
-    python patch_on_plate.py [--n_images 50] [--output_dir ../../experiments/patch_on_plate]
+    python patch_on_surface.py [--n_images 50]
 """
 
 import argparse
@@ -26,7 +28,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_TEXTURE = PROJECT_ROOT / "assets" / "T_LicensePlate_d.TGA"
 DEFAULT_WEIGHTS = PROJECT_ROOT / "src" / "vehicle_counting_model" / "yolov8n.pt"
 DEFAULT_DATASET = PROJECT_ROOT / "data" / "CCPD2020" / "ccpd_green" / "train"
-DEFAULT_OUTPUT = PROJECT_ROOT / "experiments" / "patch_on_plate"
+DEFAULT_OUTPUT = PROJECT_ROOT / "experiments" / "patch_on_rear_window"
 
 # COCO vehicle class IDs
 VEHICLE_CLASSES = {2: "car", 5: "bus", 7: "truck"}

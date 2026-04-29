@@ -1,0 +1,23 @@
+{
+  "condition": "raw",
+  "agent": "tfv6_visiononly",
+  "town": "Town06",
+  "num_ticks": 300,
+  "sim_duration_s": 15.0,
+  "leader_speed_kmh": 30,
+  "initial_gap_m": 10.0,
+  "brake_start_tick": 200,
+  "brake_start_s": 10.0,
+  "brake_strength": 0.8,
+  "agent_ticks_ok": 300,
+  "agent_ticks_none": 0,
+  "agent_ticks_error": 0,
+  "total_collisions": 10,
+  "mean_distance_m": 8.421,
+  "min_distance_m": 4.742,
+  "max_distance_m": 10.744,
+  "images_saved": 29,
+  "simlingo_language_log": null,
+  "detection_probe_log": "detection_probe.tsv",
+  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/raw_tfv6_visiononly_20260429_135227"
+}

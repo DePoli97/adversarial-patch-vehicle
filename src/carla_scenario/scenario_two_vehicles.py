@@ -223,7 +223,7 @@ def main():
 
     try:
         bplib = world.get_blueprint_library()
-        vehicle_bp = bplib.filter("vehicle.nissan.micra")[0]
+        vehicle_bp = bplib.filter("model3")[0]
         spawn_points = world.get_map().get_spawn_points()
 
         leader_idx = load_spawn_cache(args.town)

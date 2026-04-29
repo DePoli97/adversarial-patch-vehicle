@@ -21,7 +21,13 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
 SCENARIO="src/carla_scenario/scenario_two_vehicles.py"
-LOG="experiments/carla_scenarios/run_all.log"
+
+# One session timestamp shared by every run in this batch -> all 9 runs land
+# under experiments/carla_scenarios/matrix_3x3_<timestamp>_with_probe/
+SESSION_TS="$(date '+%Y%m%d_%H%M%S')"
+SESSION_SUBDIR="matrix_3x3_${SESSION_TS}_with_probe"
+LOG="experiments/carla_scenarios/${SESSION_SUBDIR}/run_all.log"
+mkdir -p "experiments/carla_scenarios/${SESSION_SUBDIR}"
 
 CONDITIONS=("none" "raw" "camouflaged")
 AGENTS=("tfv6_visiononly" "tfv4_l6_0" "simlingo_simlingo")
@@ -69,7 +75,7 @@ for cond in "${CONDITIONS[@]}"; do
     for agent in "${AGENTS[@]}"; do
         DONE=$((DONE + 1))
         banner "RUN $DONE/$TOTAL — condition=$cond  agent=$agent"
-        if python "$SCENARIO" --condition "$cond" --agent "$agent" >> "$LOG" 2>&1; then
+        if python "$SCENARIO" --condition "$cond" --agent "$agent" --out_subdir "$SESSION_SUBDIR" >> "$LOG" 2>&1; then
             echo "[$(date '+%H:%M:%S')] OK   condition=$cond agent=$agent" | tee -a "$LOG"
         else
             FAILED=$((FAILED + 1))

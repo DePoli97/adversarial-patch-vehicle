@@ -125,6 +125,11 @@ def parse_args():
     p.add_argument("--leader_speed", type=float, default=LEADER_SPEED_KMH)
     p.add_argument("--gap_m", type=float, default=FOLLOWER_GAP_M)
     p.add_argument("--initial_speed", type=float, default=INITIAL_SPEED_KMH)
+    p.add_argument(
+        "--out_subdir",
+        default="",
+        help="Optional subfolder under experiments/carla_scenarios/ (groups multiple runs of one batch).",
+    )
     return p.parse_args()
 
 
@@ -173,14 +178,13 @@ def generate_route(
     return output_path
 
 
-def build_output_dir(condition: str, agent: str) -> str:
+def build_output_dir(condition: str, agent: str, out_subdir: str = "") -> str:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    out_dir = os.path.join(
-        REPO_ROOT,
-        "experiments",
-        "carla_scenarios",
-        f"{condition}_{agent}_{ts}",
-    )
+    parts = [REPO_ROOT, "experiments", "carla_scenarios"]
+    if out_subdir:
+        parts.append(out_subdir)
+    parts.append(f"{condition}_{agent}_{ts}")
+    out_dir = os.path.join(*parts)
     os.makedirs(os.path.join(out_dir, "images"), exist_ok=True)
     return out_dir
 
@@ -190,7 +194,7 @@ def build_output_dir(condition: str, agent: str) -> str:
 # ---------------------------------------------------------------------------
 def main():
     args = parse_args()
-    out_dir = build_output_dir(args.condition, args.agent)
+    out_dir = build_output_dir(args.condition, args.agent, args.out_subdir)
 
     print(f"\n{'=' * 60}")
     print(f"  Condition : {args.condition}")

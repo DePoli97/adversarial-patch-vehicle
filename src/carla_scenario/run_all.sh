@@ -1,45 +1,41 @@
 #!/usr/bin/env bash
-# Run the full 3-condition x 3-agent matrix of CARLA scenarios.
+# Run the full N-seed x N-agent x 2-condition matrix of CARLA scenarios.
 #
-# Between conditions the plate texture must be manually Reimported in the
-# Unreal Editor (the TGA file name is the same, so UE picks up the new
-# content; you still need to right-click -> Reimport on the material slot).
-# The script pauses and prompts you before each condition.
+# Default: 5 seeds x 4 agents x 2 conditions = 40 runs.
+#   - Conditions: `none` and `raw` (with reduced alpha; the camouflaged
+#     condition is dropped — only raw + transparency for the rear-window
+#     experiment, per Masoud's 2026-04-29 plan).
+#   - Between conditions the rear-window texture must be manually Reimported
+#     in the Unreal Editor. The script pauses before each condition.
 #
 # Usage (from repo root):
 #   bash src/carla_scenario/run_all.sh
 #
 # Output:
-#   experiments/carla_scenarios/<condition>_<agent>_<timestamp>/   per run
-#   experiments/carla_scenarios/run_all.log                        aggregated stdout/stderr
-#
-# The log file is APPENDED to, so re-running the script keeps history.
+#   experiments/carla_scenarios/matrix_<timestamp>_with_probe/
+#       <cond>_<agent>_seed<N>_<timestamp>/   per run
+#       run_all.log                            aggregated stdout/stderr
 
-set -u  # error on unset vars, but DON'T -e: we want to survive single-run failures
+set -u
 
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
 SCENARIO="src/carla_scenario/scenario_two_vehicles.py"
 
-# One session timestamp shared by every run in this batch -> all 9 runs land
-# under experiments/carla_scenarios/matrix_3x3_<timestamp>_with_probe/
 SESSION_TS="$(date '+%Y%m%d_%H%M%S')"
-SESSION_SUBDIR="matrix_3x3_${SESSION_TS}_with_probe"
+SESSION_SUBDIR="matrix_${SESSION_TS}_with_probe"
 LOG="experiments/carla_scenarios/${SESSION_SUBDIR}/run_all.log"
 mkdir -p "experiments/carla_scenarios/${SESSION_SUBDIR}"
 
-CONDITIONS=("none" "raw" "camouflaged")
-AGENTS=("tfv6_visiononly" "tfv4_l6_0" "simlingo_simlingo")
+CONDITIONS=("none" "raw")
+AGENTS=("tfv6_visiononly" "tfv5_l6_0" "tfv4_l6_0" "simlingo_simlingo")
+SEEDS=(0 1 2 3 4)
 
-TGA_DIR="assets/carla_plates"
-# Mapping condition -> TGA file to Reimport before the condition's runs.
-# In UE, right-click on T_LicensePlate_d -> Reimport With New File and point
-# to the file below. File name on disk stays the same across conditions.
+TGA_DIR="assets/carla_rear_window"
 declare -A TGA_HINT=(
-    [none]="$TGA_DIR/T_LicensePlate_d_none.TGA"
-    [raw]="$TGA_DIR/T_LicensePlate_d_raw.TGA"
-    [camouflaged]="$TGA_DIR/T_LicensePlate_d_camo.TGA"
+    [none]="$TGA_DIR/rear_window_none.TGA"
+    [raw]="$TGA_DIR/rear_window_raw.TGA"
 )
 
 banner() {
@@ -54,33 +50,42 @@ banner() {
     } | tee -a "$LOG"
 }
 
-mkdir -p "$(dirname "$LOG")"
 banner "RUN ALL — starting batch"
+echo "  conditions=(${CONDITIONS[*]})  agents=(${AGENTS[*]})  seeds=(${SEEDS[*]})" | tee -a "$LOG"
 
-TOTAL=$(( ${#CONDITIONS[@]} * ${#AGENTS[@]} ))
+TOTAL=$(( ${#CONDITIONS[@]} * ${#AGENTS[@]} * ${#SEEDS[@]} ))
 DONE=0
 FAILED=0
 
 for cond in "${CONDITIONS[@]}"; do
     banner "CONDITION: $cond"
-    echo "Before starting, Reimport the plate texture in Unreal Editor:"
+    echo "Before starting, Reimport the rear-window texture in Unreal Editor:"
     echo "    ${TGA_HINT[$cond]}"
+    echo "(carla -> static -> car -> four_wheeled -> Nissan_Micra -> Element 4)"
     echo ""
     read -r -p "Press Enter when the Reimport is done (or type 'skip' to skip this condition): " ans
     if [[ "$ans" == "skip" ]]; then
         banner "SKIPPED condition $cond"
+        DONE=$((DONE + ${#AGENTS[@]} * ${#SEEDS[@]}))
         continue
     fi
 
     for agent in "${AGENTS[@]}"; do
-        DONE=$((DONE + 1))
-        banner "RUN $DONE/$TOTAL — condition=$cond  agent=$agent"
-        if python "$SCENARIO" --condition "$cond" --agent "$agent" --out_subdir "$SESSION_SUBDIR" >> "$LOG" 2>&1; then
-            echo "[$(date '+%H:%M:%S')] OK   condition=$cond agent=$agent" | tee -a "$LOG"
-        else
-            FAILED=$((FAILED + 1))
-            echo "[$(date '+%H:%M:%S')] FAIL condition=$cond agent=$agent (see $LOG)" | tee -a "$LOG"
-        fi
+        for seed in "${SEEDS[@]}"; do
+            DONE=$((DONE + 1))
+            banner "RUN $DONE/$TOTAL — condition=$cond  agent=$agent  seed=$seed"
+            if python "$SCENARIO" \
+                    --condition "$cond" \
+                    --agent "$agent" \
+                    --seed "$seed" \
+                    --out_subdir "$SESSION_SUBDIR" \
+                    >> "$LOG" 2>&1; then
+                echo "[$(date '+%H:%M:%S')] OK   condition=$cond agent=$agent seed=$seed" | tee -a "$LOG"
+            else
+                FAILED=$((FAILED + 1))
+                echo "[$(date '+%H:%M:%S')] FAIL condition=$cond agent=$agent seed=$seed (see $LOG)" | tee -a "$LOG"
+            fi
+        done
     done
 done
 

@@ -86,11 +86,13 @@ from detection_probe import setup_detection_probe  # noqa: E402
 # ---------------------------------------------------------------------------
 DEFAULT_AGENT = "tfv6_visiononly"
 DEFAULT_TOWN = "Town06"
+VEHICLE_BLUEPRINT = "vehicle.nissan.micra"  # both leader and follower
 FOLLOWER_GAP_M = 10.0
 LEADER_SPEED_KMH = 30
 INITIAL_SPEED_KMH = 20
 SAVE_INTERVAL_TICKS = 10
 MAX_TICKS = 300  # 15 s at SIM_DELTA=0.05
+DEFAULT_SEED = 0
 
 # Leader emergency brake: fixed event that forces the follower-agent to react.
 # Comparing none vs raw vs camouflaged shows how the plate patch affects the
@@ -130,7 +132,36 @@ def parse_args():
         default="",
         help="Optional subfolder under experiments/carla_scenarios/ (groups multiple runs of one batch).",
     )
+    p.add_argument(
+        "--seed",
+        type=int,
+        default=DEFAULT_SEED,
+        help="RNG seed for python/numpy/torch. Same seed → reproducible run when "
+             "the simulator and agent are deterministic. Used to measure variance.",
+    )
     return p.parse_args()
+
+
+def set_global_seed(seed: int):
+    """Seed every RNG that could affect the agent's output.
+
+    The CARLA simulator itself is deterministic in synchronous mode (no TM,
+    no pedestrians, fixed delta). Variance across runs comes from agent
+    internals: torch CPU/CUDA RNG, numpy, python random. Seeding all of them
+    eliminates most of it; CUDA non-determinism in cudnn ops may still leak
+    a tiny bit unless `torch.use_deterministic_algorithms(True)` is set,
+    which slows things down — left off by default.
+    """
+    import random
+    random.seed(seed)
+    np.random.seed(seed)
+    try:
+        import torch
+        torch.manual_seed(seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(seed)
+    except ImportError:
+        pass
 
 
 # ---------------------------------------------------------------------------
@@ -178,12 +209,12 @@ def generate_route(
     return output_path
 
 
-def build_output_dir(condition: str, agent: str, out_subdir: str = "") -> str:
+def build_output_dir(condition: str, agent: str, seed: int, out_subdir: str = "") -> str:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     parts = [REPO_ROOT, "experiments", "carla_scenarios"]
     if out_subdir:
         parts.append(out_subdir)
-    parts.append(f"{condition}_{agent}_{ts}")
+    parts.append(f"{condition}_{agent}_seed{seed}_{ts}")
     out_dir = os.path.join(*parts)
     os.makedirs(os.path.join(out_dir, "images"), exist_ok=True)
     return out_dir
@@ -194,7 +225,8 @@ def build_output_dir(condition: str, agent: str, out_subdir: str = "") -> str:
 # ---------------------------------------------------------------------------
 def main():
     args = parse_args()
-    out_dir = build_output_dir(args.condition, args.agent, args.out_subdir)
+    set_global_seed(args.seed)
+    out_dir = build_output_dir(args.condition, args.agent, args.seed, args.out_subdir)
 
     print(f"\n{'=' * 60}")
     print(f"  Condition : {args.condition}")
@@ -203,6 +235,8 @@ def main():
     print(
         f"  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)"
     )
+    print(f"  Vehicle   : {VEHICLE_BLUEPRINT}")
+    print(f"  Seed      : {args.seed}")
     print(f"  Output    : {out_dir}")
     print(f"{'=' * 60}\n")
 
@@ -227,7 +261,7 @@ def main():
 
     try:
         bplib = world.get_blueprint_library()
-        vehicle_bp = bplib.filter("model3")[0]
+        vehicle_bp = bplib.filter(VEHICLE_BLUEPRINT)[0]
         spawn_points = world.get_map().get_spawn_points()
 
         leader_idx = load_spawn_cache(args.town)
@@ -451,7 +485,11 @@ def main():
                     )
                 )
 
-                world.tick()
+                ###############
+                ###############
+                world.tick()###
+                ###############
+                ###############
 
                 # Measurements
                 lloc = leader.get_location()
@@ -498,6 +536,8 @@ def main():
         summary = {
             "condition": args.condition,
             "agent": args.agent,
+            "vehicle_blueprint": VEHICLE_BLUEPRINT,
+            "seed": args.seed,
             "town": args.town,
             "num_ticks": args.num_ticks,
             "sim_duration_s": args.num_ticks * SIM_DELTA,

@@ -61,13 +61,13 @@ def build_canvas(canvas: int) -> np.ndarray:
 
 
 def embed_patch_canvas_trick(canvas_rgba: np.ndarray, patch_rgb: np.ndarray, alpha: int) -> np.ndarray:
-    """Place the patch in the bottom row, middle 2 columns of a 4-col x 2-row grid.
+    """Place the patch in the bottom row, middle 2 columns of a 4-col x 3-row grid.
 
-    The patch occupies rows [H/2 : H], cols [W/4 : 3W/4]. Alpha = `alpha`/255.
+    The patch occupies rows [2H/3 : H], cols [W/4 : 3W/4]. Alpha = `alpha`/255.
     Returns a new RGBA canvas (does not mutate input). Channels are RGBA.
     """
     H, W, _ = canvas_rgba.shape
-    row_start, row_end = H // 2, H
+    row_start, row_end = 2 * H // 3, H
     col_start, col_end = W // 4, 3 * W // 4
     target_h = row_end - row_start
     target_w = col_end - col_start

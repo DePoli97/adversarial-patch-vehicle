@@ -4,8 +4,7 @@ The Nissan Micra (and most CARLA vehicles) shares one glass material across
 ALL glass surfaces (rear/front/side windows + headlight glass). UE splits
 the texture into pieces and maps each onto a different glass element. Masoud
 proposed a "canvas trick": divide the canvas into a 4-column x 2-row grid
-and place the patch in the bottom row, columns 2-3 (the central-bottom
-region). Empirically this region tends to land on the rear window.
+and place the patch in the first row, columns 1-2 (the upper-left quarter).
 
 The patch is the existing trained `patch_raw.pt` tensor (128 x 256), resized
 to fit the bottom-half x middle-half rectangle of the canvas. Optional alpha
@@ -14,7 +13,7 @@ visually plausible.
 
 Outputs (at default canvas 2048 x 2048):
     rear_window_none.TGA   fully transparent canvas (no patch)
-    rear_window_raw.TGA    transparent canvas + patch in bottom-half cols 2-3,
+    rear_window_raw.TGA    transparent canvas + patch in top-half cols 1-2,
                            with alpha = ALPHA (default 180/255 ~ 70%).
 
 Usage (from repo root):
@@ -61,14 +60,14 @@ def build_canvas(canvas: int) -> np.ndarray:
 
 
 def embed_patch_canvas_trick(canvas_rgba: np.ndarray, patch_rgb: np.ndarray, alpha: int) -> np.ndarray:
-    """Place the patch in the bottom row, middle 2 columns of a 4-col x 3-row grid.
+    """Place the patch in the top row, first 2 columns of a 4-col x 2-row grid.
 
-    The patch occupies rows [2H/3 : H], cols [W/4 : 3W/4]. Alpha = `alpha`/255.
+    The patch occupies rows [0 : H/2], cols [0 : W/2]. Alpha = `alpha`/255.
     Returns a new RGBA canvas (does not mutate input). Channels are RGBA.
     """
     H, W, _ = canvas_rgba.shape
-    row_start, row_end = 2 * H // 3, H
-    col_start, col_end = W // 4, 3 * W // 4
+    row_start, row_end = 0, H // 3
+    col_start, col_end = 0, W // 2
     target_h = row_end - row_start
     target_w = col_end - col_start
 

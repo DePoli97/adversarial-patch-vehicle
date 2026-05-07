@@ -33,7 +33,8 @@ mkdir -p "experiments/carla_scenarios/${SESSION_SUBDIR}"
 
 CONDITIONS=("none" "raw")
 AGENTS=("tfv6_visiononly" "tfv5_l6_0" "tfv4_l6_0" "simlingo_simlingo")
-SEEDS=(0 1 2 3 4)
+#SEEDS=(0 1 2 3 4)
+SEEDS=(0)
 
 TGA_DIR="assets/carla_rear_window"
 declare -A TGA_HINT=(

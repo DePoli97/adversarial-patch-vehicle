@@ -86,7 +86,8 @@ from detection_probe import setup_detection_probe  # noqa: E402
 # ---------------------------------------------------------------------------
 DEFAULT_AGENT = "tfv6_visiononly"
 DEFAULT_TOWN = "Town06"
-VEHICLE_BLUEPRINT = "vehicle.nissan.micra"  # both leader and follower
+FOLLOWER_BLUEPRINT = "vehicle.tesla.model3"   # ego (PCLA agent), kept fixed
+LEADER_BLUEPRINT = "vehicle.carlamotors.firetruck"  # NPC ahead — carries the patch
 FOLLOWER_GAP_M = 10.0
 LEADER_SPEED_KMH = 30
 INITIAL_SPEED_KMH = 20
@@ -235,7 +236,8 @@ def main():
     print(
         f"  Ticks     : {args.num_ticks}  ({args.num_ticks * SIM_DELTA:.1f}s sim time)"
     )
-    print(f"  Vehicle   : {VEHICLE_BLUEPRINT}")
+    print(f"  Leader BP : {LEADER_BLUEPRINT}  (NPC, carries patch)")
+    print(f"  Follower  : {FOLLOWER_BLUEPRINT}  (ego, PCLA agent)")
     print(f"  Seed      : {args.seed}")
     print(f"  Output    : {out_dir}")
     print(f"{'=' * 60}\n")
@@ -261,7 +263,8 @@ def main():
 
     try:
         bplib = world.get_blueprint_library()
-        vehicle_bp = bplib.filter(VEHICLE_BLUEPRINT)[0]
+        leader_bp = bplib.filter(LEADER_BLUEPRINT)[0]
+        follower_bp = bplib.filter(FOLLOWER_BLUEPRINT)[0]
         spawn_points = world.get_map().get_spawn_points()
 
         leader_idx = load_spawn_cache(args.town)
@@ -283,7 +286,7 @@ def main():
                 f"[INFO] Shifted leader from lane {leader_wp.lane_id} "
                 f"-> rightmost driving lane {rightmost_wp.lane_id}"
             )
-        leader = world.try_spawn_actor(vehicle_bp, leader_transform)
+        leader = world.try_spawn_actor(leader_bp, leader_transform)
         if leader is None:
             raise RuntimeError(f"Failed to spawn leader near spawn {leader_idx}")
         print(
@@ -293,7 +296,7 @@ def main():
         )
 
         follower = spawn_follower_behind_leader(
-            world, vehicle_bp, leader_transform, args.gap_m
+            world, follower_bp, leader_transform, args.gap_m
         )
         world.tick()
         fpos = follower.get_location()
@@ -536,7 +539,8 @@ def main():
         summary = {
             "condition": args.condition,
             "agent": args.agent,
-            "vehicle_blueprint": VEHICLE_BLUEPRINT,
+            "leader_blueprint": LEADER_BLUEPRINT,
+            "follower_blueprint": FOLLOWER_BLUEPRINT,
             "seed": args.seed,
             "town": args.town,
             "num_ticks": args.num_ticks,

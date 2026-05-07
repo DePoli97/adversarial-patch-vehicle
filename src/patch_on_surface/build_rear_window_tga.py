@@ -65,10 +65,14 @@ def embed_patch_canvas_trick(canvas_rgba: np.ndarray, patch_rgb: np.ndarray, alp
 
     The patch occupies rows [2H/3 : H], cols [W/4 : 3W/4]. Alpha = `alpha`/255.
     Returns a new RGBA canvas (does not mutate input). Channels are RGBA.
+
+    Patch layout position is displayed in file: rear_window_grid_measurs.png
     """
     H, W, _ = canvas_rgba.shape
-    row_start, row_end = 2 * H // 3, H
-    col_start, col_end = W // 4, 3 * W // 4
+    row_start = 5 * H // 16
+    row_end = 9 * H // 16
+    col_start = 0
+    col_end = 7 * W // 16
     target_h = row_end - row_start
     target_w = col_end - col_start
 
@@ -128,10 +132,8 @@ def main():
     Image.fromarray(raw_canvas, mode="RGBA").save(OUT_DIR / "rear_window_raw_preview.png")
     print(f"  preview: {OUT_DIR / 'rear_window_raw_preview.png'}")
 
-    print("\nDone. Reimport these in UE on the Nissan Micra Element 4 material:")
-    print(f"  none -> {OUT_DIR / 'rear_window_none.TGA'}")
-    print(f"  raw  -> {OUT_DIR / 'rear_window_raw.TGA'}")
-
+    print(f"  none -> {OUT_DIR / 'car_rear_window_none.TGA'}")
+    print(f"  raw  -> {OUT_DIR / 'car_rear_window_raw.TGA'}")
 
 if __name__ == "__main__":
     main()

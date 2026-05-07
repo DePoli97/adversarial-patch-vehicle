@@ -12,7 +12,7 @@
 #   bash src/carla_scenario/run_all.sh
 #
 # Output:
-#   experiments/carla_scenarios/matrix_<timestamp>_with_probe/
+#   experiments/carla_scenarios/patch_on_surface/micra_rear_window_<timestamp>/
 #       <cond>_<agent>_seed<N>_<timestamp>/   per run
 #       run_all.log                            aggregated stdout/stderr
 
@@ -24,7 +24,10 @@ cd "$REPO_ROOT"
 SCENARIO="src/carla_scenario/scenario_two_vehicles.py"
 
 SESSION_TS="$(date '+%Y%m%d_%H%M%S')"
-SESSION_SUBDIR="matrix_${SESSION_TS}_with_probe"
+# Layout: experiments/carla_scenarios/patch_on_surface/micra_rear_window_<ts>/
+# (parent groups all surface-patch experiments; subfolder identifies the
+# vehicle + surface so future truck-side experiments live alongside.)
+SESSION_SUBDIR="patch_on_surface/micra_rear_window_${SESSION_TS}"
 LOG="experiments/carla_scenarios/${SESSION_SUBDIR}/run_all.log"
 mkdir -p "experiments/carla_scenarios/${SESSION_SUBDIR}"
 

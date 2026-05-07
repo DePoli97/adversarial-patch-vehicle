@@ -8,6 +8,7 @@ Usage (from repo root):
     python src/patch_on_surface/build_rear_window_grid_tga.py \\
         [--canvas 2048] [--rows 8] [--cols 8] [--fill-alpha 80]
 """
+
 from __future__ import annotations
 
 import argparse
@@ -114,7 +115,11 @@ def build_grid_canvas(
             if fill_alpha > 0:
                 draw.rectangle([x0, y0, x1, y1], fill=(*color, fill_alpha))
             if line_width > 0:
-                draw.rectangle([x0, y0, x1, y1], outline=(255, 255, 255, line_alpha), width=line_width)
+                draw.rectangle(
+                    [x0, y0, x1, y1],
+                    outline=(255, 255, 255, line_alpha),
+                    width=line_width,
+                )
 
             label = f"{_row_label(r + 1)}{c + 1}"
             bbox = draw.textbbox((0, 0), label, font=font)
@@ -135,24 +140,49 @@ def save_tga(path: Path, img: Image.Image) -> None:
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--canvas", type=int, default=2048, help="Canvas side in pixels (square).")
-    p.add_argument("--rows", type=int, default=8, help="Grid rows.")
-    p.add_argument("--cols", type=int, default=8, help="Grid columns.")
-    p.add_argument("--line-width", type=int, default=4, help="Grid line width in pixels.")
-    p.add_argument("--line-alpha", type=int, default=220, help="Grid line alpha in [0, 255].")
-    p.add_argument("--fill-alpha", type=int, default=80, help="Cell fill alpha in [0, 255].")
-    p.add_argument("--label-alpha", type=int, default=220, help="Label alpha in [0, 255].")
-    p.add_argument("--font-size", type=int, default=0,
-                   help="Label font size in pixels. Use 0 for auto sizing.")
-    p.add_argument("--out", type=Path, default=OUT_DIR / "rear_window_grid.TGA", help="Output TGA path.")
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    p.add_argument(
+        "--canvas", type=int, default=2048, help="Canvas side in pixels (square)."
+    )
+    p.add_argument("--rows", type=int, default=16, help="Grid rows.")
+    p.add_argument("--cols", type=int, default=16, help="Grid columns.")
+    p.add_argument(
+        "--line-width", type=int, default=4, help="Grid line width in pixels."
+    )
+    p.add_argument(
+        "--line-alpha", type=int, default=220, help="Grid line alpha in [0, 255]."
+    )
+    p.add_argument(
+        "--fill-alpha", type=int, default=80, help="Cell fill alpha in [0, 255]."
+    )
+    p.add_argument(
+        "--label-alpha", type=int, default=220, help="Label alpha in [0, 255]."
+    )
+    p.add_argument(
+        "--font-size",
+        type=int,
+        default=50,
+        help="Label font size in pixels. Use 0 for auto sizing.",
+    )
+    p.add_argument(
+        "--out",
+        type=Path,
+        default=OUT_DIR / "rear_window_grid.TGA",
+        help="Output TGA path.",
+    )
     args = p.parse_args()
 
     if args.canvas <= 0:
         raise SystemExit("--canvas must be > 0")
     if args.rows <= 0 or args.cols <= 0:
         raise SystemExit("--rows and --cols must be > 0")
-    for name, val in ("line-alpha", args.line_alpha), ("fill-alpha", args.fill_alpha), ("label-alpha", args.label_alpha):
+    for name, val in (
+        ("line-alpha", args.line_alpha),
+        ("fill-alpha", args.fill_alpha),
+        ("label-alpha", args.label_alpha),
+    ):
         if not 0 <= val <= 255:
             raise SystemExit(f"--{name} must be in [0, 255], got {val}")
     if args.font_size < 0:

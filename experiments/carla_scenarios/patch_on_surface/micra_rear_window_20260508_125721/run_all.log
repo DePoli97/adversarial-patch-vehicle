@@ -1,0 +1,1603 @@
+
+################################################################
+# RUN ALL — starting batch
+# 2026-05-08 12:57:21
+################################################################
+
+  conditions=(none raw)  agents=(tfv6_visiononly tfv5_l6_0 tfv4_l6_0 simlingo_simlingo)  seeds=(0 1 2)
+
+################################################################
+# CONDITION: none
+# 2026-05-08 12:57:21
+################################################################
+
+
+################################################################
+# RUN 1/24 — condition=none  agent=tfv6_visiononly  seed=0
+# 2026-05-08 12:57:24
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+
+============================================================
+  Condition : none
+  Agent     : tfv6_visiononly  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed0_20260508_125725
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed0_20260508_125725/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_visiononly' in control mode ...
+2026-05-08 12:57:37 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:57:37 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:57:37 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:57:37 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:57:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:57:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:57:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:57:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:57:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:57:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:57:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:57:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:57:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+ERROR: failed to destroy actor 134 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 133 : unable to destroy actor: not found 
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed0_20260508_125725/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed0_20260508_125725/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 12.3m | TTC=  infs | leader=28.1km/h | follower=9.7km/h | collisions=0
+  tick= 100 | dist=  8.4m | TTC=  4.1s | leader=25.9km/h | follower=33.4km/h | collisions=0
+  tick= 150 | dist=  8.7m | TTC=  infs | leader=25.9km/h | follower=12.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist=  8.9m | TTC= 10.6s | leader=25.8km/h | follower=28.8km/h | collisions=0
+  tick= 250 | dist=  4.2m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=15
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 15
+  Mean dist  : 8.26 m
+  Min dist   : 4.187 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed0_20260508_125725
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[12:58:24] OK   condition=none agent=tfv6_visiononly seed=0
+
+################################################################
+# RUN 2/24 — condition=none  agent=tfv6_visiononly  seed=1
+# 2026-05-08 12:58:24
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+
+============================================================
+  Condition : none
+  Agent     : tfv6_visiononly  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed1_20260508_125825
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed1_20260508_125825/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_visiononly' in control mode ...
+2026-05-08 12:58:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:58:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:58:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:58:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:58:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:58:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:58:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:58:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:58:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:58:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:58:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:58:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:58:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+ERROR: failed to destroy actor 245 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 244 : unable to destroy actor: not found 
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed1_20260508_125825/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed1_20260508_125825/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  7.5m | TTC=  infs | leader=28.1km/h | follower=15.3km/h | collisions=0
+  tick= 100 | dist=  8.1m | TTC=  5.9s | leader=25.9km/h | follower=30.8km/h | collisions=0
+  tick= 150 | dist=  8.8m | TTC=  infs | leader=25.9km/h | follower=22.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 10.5m | TTC= 10.7s | leader=25.8km/h | follower=29.3km/h | collisions=0
+  tick= 250 | dist=  4.2m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=11
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 11
+  Mean dist  : 7.926 m
+  Min dist   : 4.19 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed1_20260508_125825
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[12:59:19] OK   condition=none agent=tfv6_visiononly seed=1
+
+################################################################
+# RUN 3/24 — condition=none  agent=tfv6_visiononly  seed=2
+# 2026-05-08 12:59:19
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+
+============================================================
+  Condition : none
+  Agent     : tfv6_visiononly  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed2_20260508_125920
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed2_20260508_125920/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_visiononly' in control mode ...
+2026-05-08 12:59:27 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:59:27 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:59:27 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:59:27 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:59:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:59:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:59:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:59:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:59:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 12:59:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 12:59:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 12:59:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 12:59:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+ERROR: failed to destroy actor 356 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 355 : unable to destroy actor: not found 
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed2_20260508_125920/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed2_20260508_125920/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 10.3m | TTC=  infs | leader=28.1km/h | follower=14.9km/h | collisions=0
+  tick= 100 | dist=  9.1m | TTC=  infs | leader=25.9km/h | follower=0.0km/h | collisions=0
+  tick= 150 | dist=  9.2m | TTC=  3.0s | leader=25.9km/h | follower=36.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 10.7m | TTC= 11.9s | leader=25.8km/h | follower=29.1km/h | collisions=0
+  tick= 250 | dist=  4.2m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=11
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 11
+  Mean dist  : 8.433 m
+  Min dist   : 4.19 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv6_visiononly_seed2_20260508_125920
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:00:15] OK   condition=none agent=tfv6_visiononly seed=2
+
+################################################################
+# RUN 4/24 — condition=none  agent=tfv5_l6_0  seed=0
+# 2026-05-08 13:00:15
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : none
+  Agent     : tfv5_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv5_l6_0_seed0_20260508_130016
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv5_l6_0_seed0_20260508_130016/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv5_l6_0' in control mode ...
+Couldn't find your model variant 'l6' for agent 'tfv5'.
+
+          -------------------------------
+          The guide to this framework available at
+          https://github.com/MasoudJTehrani/PCLA
+          -------------------------------
+          
+[INFO] Cleaning up...
+[INFO] Done.
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 611, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 334, in main
+    pcla = PCLA(args.agent, follower, route_path, client)
+  File "/home/vortex/PCLA/PCLA.py", line 45, in __init__
+    self.set(agent, vehicle, route, client)
+  File "/home/vortex/PCLA/PCLA.py", line 55, in set
+    self.setup_agent(agent)
+  File "/home/vortex/PCLA/PCLA.py", line 62, in setup_agent
+    self.agentPath, self.configPath = give_path(agent, self.current_dir, self.routePath)
+  File "/home/vortex/PCLA/pcla_functions/give_path.py", line 55, in give_path
+    raise ValueError(f"Unknown model variant '{variant}' for agent '{agent_name}'")
+ValueError: Unknown model variant 'l6' for agent 'tfv5'
+[13:00:19] FAIL condition=none agent=tfv5_l6_0 seed=0 (see experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/run_all.log)
+
+################################################################
+# RUN 5/24 — condition=none  agent=tfv5_l6_0  seed=1
+# 2026-05-08 13:00:19
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : none
+  Agent     : tfv5_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv5_l6_0_seed1_20260508_130019
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv5_l6_0_seed1_20260508_130019/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv5_l6_0' in control mode ...
+Couldn't find your model variant 'l6' for agent 'tfv5'.
+
+          -------------------------------
+          The guide to this framework available at
+          https://github.com/MasoudJTehrani/PCLA
+          -------------------------------
+          
+[INFO] Cleaning up...
+[INFO] Done.
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 611, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 334, in main
+    pcla = PCLA(args.agent, follower, route_path, client)
+  File "/home/vortex/PCLA/PCLA.py", line 45, in __init__
+    self.set(agent, vehicle, route, client)
+  File "/home/vortex/PCLA/PCLA.py", line 55, in set
+    self.setup_agent(agent)
+  File "/home/vortex/PCLA/PCLA.py", line 62, in setup_agent
+    self.agentPath, self.configPath = give_path(agent, self.current_dir, self.routePath)
+  File "/home/vortex/PCLA/pcla_functions/give_path.py", line 55, in give_path
+    raise ValueError(f"Unknown model variant '{variant}' for agent '{agent_name}'")
+ValueError: Unknown model variant 'l6' for agent 'tfv5'
+[13:00:23] FAIL condition=none agent=tfv5_l6_0 seed=1 (see experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/run_all.log)
+
+################################################################
+# RUN 6/24 — condition=none  agent=tfv5_l6_0  seed=2
+# 2026-05-08 13:00:23
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : none
+  Agent     : tfv5_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv5_l6_0_seed2_20260508_130024
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv5_l6_0_seed2_20260508_130024/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv5_l6_0' in control mode ...
+Couldn't find your model variant 'l6' for agent 'tfv5'.
+
+          -------------------------------
+          The guide to this framework available at
+          https://github.com/MasoudJTehrani/PCLA
+          -------------------------------
+          
+[INFO] Cleaning up...
+[INFO] Done.
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 611, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 334, in main
+    pcla = PCLA(args.agent, follower, route_path, client)
+  File "/home/vortex/PCLA/PCLA.py", line 45, in __init__
+    self.set(agent, vehicle, route, client)
+  File "/home/vortex/PCLA/PCLA.py", line 55, in set
+    self.setup_agent(agent)
+  File "/home/vortex/PCLA/PCLA.py", line 62, in setup_agent
+    self.agentPath, self.configPath = give_path(agent, self.current_dir, self.routePath)
+  File "/home/vortex/PCLA/pcla_functions/give_path.py", line 55, in give_path
+    raise ValueError(f"Unknown model variant '{variant}' for agent '{agent_name}'")
+ValueError: Unknown model variant 'l6' for agent 'tfv5'
+[13:00:27] FAIL condition=none agent=tfv5_l6_0 seed=2 (see experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/run_all.log)
+
+################################################################
+# RUN 7/24 — condition=none  agent=tfv4_l6_0  seed=0
+# 2026-05-08 13:00:27
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : none
+  Agent     : tfv4_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed0_20260508_130027
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed0_20260508_130027/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 754 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 753 : unable to destroy actor: not found 
+
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed0_20260508_130027/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed0_20260508_130027/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.0m | TTC=  infs | leader=28.1km/h | follower=21.8km/h | collisions=0
+  tick= 100 | dist= 19.1m | TTC=  infs | leader=25.9km/h | follower=20.8km/h | collisions=0
+  tick= 150 | dist= 22.1m | TTC=  infs | leader=25.9km/h | follower=20.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 25.1m | TTC=  infs | leader=25.8km/h | follower=21.0km/h | collisions=0
+  tick= 250 | dist= 15.6m | TTC= 39.3s | leader=0.0km/h | follower=1.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 18.149 m
+  Min dist   : 9.033 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed0_20260508_130027
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:00:49] OK   condition=none agent=tfv4_l6_0 seed=0
+
+################################################################
+# RUN 8/24 — condition=none  agent=tfv4_l6_0  seed=1
+# 2026-05-08 13:00:49
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : none
+  Agent     : tfv4_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed1_20260508_130050
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed1_20260508_130050/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 858 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 857 : unable to destroy actor: not found 
+
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed1_20260508_130050/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed1_20260508_130050/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.0m | TTC=  infs | leader=28.1km/h | follower=21.3km/h | collisions=0
+  tick= 100 | dist= 19.1m | TTC=  infs | leader=25.9km/h | follower=21.5km/h | collisions=0
+  tick= 150 | dist= 22.1m | TTC=  infs | leader=25.9km/h | follower=20.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 25.2m | TTC=  infs | leader=25.8km/h | follower=20.7km/h | collisions=0
+  tick= 250 | dist= 15.4m | TTC= 22.2s | leader=0.0km/h | follower=2.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 18.104 m
+  Min dist   : 8.781 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed1_20260508_130050
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:01:11] OK   condition=none agent=tfv4_l6_0 seed=1
+
+################################################################
+# RUN 9/24 — condition=none  agent=tfv4_l6_0  seed=2
+# 2026-05-08 13:01:11
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : none
+  Agent     : tfv4_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed2_20260508_130112
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed2_20260508_130112/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 962 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 961 : unable to destroy actor: not found 
+
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed2_20260508_130112/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed2_20260508_130112/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.0m | TTC=  infs | leader=28.1km/h | follower=21.4km/h | collisions=0
+  tick= 100 | dist= 19.0m | TTC=  infs | leader=25.9km/h | follower=21.1km/h | collisions=0
+  tick= 150 | dist= 22.1m | TTC=  infs | leader=25.9km/h | follower=21.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 25.2m | TTC=  infs | leader=25.8km/h | follower=21.2km/h | collisions=0
+  tick= 250 | dist= 15.3m | TTC=30093.9s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 18.119 m
+  Min dist   : 8.915 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_tfv4_l6_0_seed2_20260508_130112
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:01:33] OK   condition=none agent=tfv4_l6_0 seed=2
+
+################################################################
+# RUN 10/24 — condition=none  agent=simlingo_simlingo  seed=0
+# 2026-05-08 13:01:33
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+ERROR: failed to destroy actor 1065 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1064 : unable to destroy actor: not found 
+
+============================================================
+  Condition : none
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed0_20260508_130134
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed0_20260508_130134/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed0_20260508_130134/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 12.3m | TTC= 75.9s | leader=28.1km/h | follower=28.7km/h | collisions=0
+  tick= 100 | dist= 12.6m | TTC=  infs | leader=25.9km/h | follower=25.5km/h | collisions=0
+  tick= 150 | dist= 10.8m | TTC= 27.0s | leader=25.9km/h | follower=27.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 11.8m | TTC=  5.5s | leader=25.8km/h | follower=33.5km/h | collisions=0
+  tick= 250 | dist=  5.5m | TTC=1954940.4s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 9.399 m
+  Min dist   : 5.512 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed0_20260508_130134
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+[INFO] Done.
+[13:07:33] OK   condition=none agent=simlingo_simlingo seed=0
+
+################################################################
+# RUN 11/24 — condition=none  agent=simlingo_simlingo  seed=1
+# 2026-05-08 13:07:33
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+ERROR: failed to destroy actor 1168 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1167 : unable to destroy actor: not found 
+
+============================================================
+  Condition : none
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed1_20260508_130734
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed1_20260508_130734/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed1_20260508_130734/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 11.0m | TTC= 11.4s | leader=28.1km/h | follower=31.6km/h | collisions=0
+  tick= 100 | dist= 11.2m | TTC=  3.8s | leader=25.9km/h | follower=36.4km/h | collisions=0
+  tick= 150 | dist= 11.9m | TTC=  5.5s | leader=25.9km/h | follower=33.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 10.0m | TTC=  7.8s | leader=25.8km/h | follower=30.4km/h | collisions=0
+  tick= 250 | dist=  8.1m | TTC=6542254.4s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 9.973 m
+  Min dist   : 8.099 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed1_20260508_130734
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+[INFO] Done.
+[13:13:22] OK   condition=none agent=simlingo_simlingo seed=1
+
+################################################################
+# RUN 12/24 — condition=none  agent=simlingo_simlingo  seed=2
+# 2026-05-08 13:13:22
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+ERROR: failed to destroy actor 1271 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1270 : unable to destroy actor: not found 
+
+============================================================
+  Condition : none
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed2_20260508_131323
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed2_20260508_131323/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed2_20260508_131323/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 12.2m | TTC=215.3s | leader=28.1km/h | follower=28.3km/h | collisions=0
+  tick= 100 | dist= 12.7m | TTC=  infs | leader=25.9km/h | follower=25.3km/h | collisions=0
+  tick= 150 | dist= 10.7m | TTC= 16.2s | leader=25.9km/h | follower=28.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 11.3m | TTC=  4.9s | leader=25.8km/h | follower=34.1km/h | collisions=0
+  tick= 250 | dist=  6.2m | TTC=4236220.9s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 9.492 m
+  Min dist   : 6.156 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/none_simlingo_simlingo_seed2_20260508_131323
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+[INFO] Done.
+[13:19:18] OK   condition=none agent=simlingo_simlingo seed=2
+
+################################################################
+# CONDITION: raw
+# 2026-05-08 13:19:18
+################################################################
+
+
+################################################################
+# RUN 13/24 — condition=raw  agent=tfv6_visiononly  seed=0
+# 2026-05-08 13:23:28
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+
+============================================================
+  Condition : raw
+  Agent     : tfv6_visiononly  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed0_20260508_132328
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed0_20260508_132328/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_visiononly' in control mode ...
+2026-05-08 13:23:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:23:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:23:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:23:38 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:23:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:23:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:23:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:23:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:23:41 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:23:41 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:23:41 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:23:41 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:23:41 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+ERROR: failed to destroy actor 1405 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1404 : unable to destroy actor: not found 
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed0_20260508_132328/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed0_20260508_132328/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  7.1m | TTC=  infs | leader=28.1km/h | follower=24.9km/h | collisions=0
+  tick= 100 | dist= 10.0m | TTC=  2.4s | leader=25.9km/h | follower=41.0km/h | collisions=0
+  tick= 150 | dist=  9.1m | TTC=  2.8s | leader=25.9km/h | follower=37.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 13.1m | TTC=  7.7s | leader=25.8km/h | follower=31.9km/h | collisions=0
+  tick= 250 | dist=  4.2m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=14
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 14
+  Mean dist  : 8.371 m
+  Min dist   : 4.185 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed0_20260508_132328
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:24:25] OK   condition=raw agent=tfv6_visiononly seed=0
+
+################################################################
+# RUN 14/24 — condition=raw  agent=tfv6_visiononly  seed=1
+# 2026-05-08 13:24:25
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+
+============================================================
+  Condition : raw
+  Agent     : tfv6_visiononly  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed1_20260508_132426
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed1_20260508_132426/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_visiononly' in control mode ...
+2026-05-08 13:24:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:24:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:24:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:24:34 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:24:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:24:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:24:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:24:35 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:24:36 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:24:36 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:24:36 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:24:36 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:24:36 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+ERROR: failed to destroy actor 1516 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1515 : unable to destroy actor: not found 
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed1_20260508_132426/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed1_20260508_132426/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  7.1m | TTC=  infs | leader=28.1km/h | follower=24.3km/h | collisions=0
+  tick= 100 | dist= 10.5m | TTC=  2.3s | leader=25.9km/h | follower=42.1km/h | collisions=0
+  tick= 150 | dist=  9.0m | TTC=  infs | leader=25.9km/h | follower=9.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist=  9.3m | TTC=  6.1s | leader=25.8km/h | follower=31.3km/h | collisions=0
+  tick= 250 | dist=  4.2m | TTC=183.0s | leader=0.0km/h | follower=0.1km/h | collisions=23
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 72
+  Mean dist  : 7.933 m
+  Min dist   : 4.149 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed1_20260508_132426
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:25:21] OK   condition=raw agent=tfv6_visiononly seed=1
+
+################################################################
+# RUN 15/24 — condition=raw  agent=tfv6_visiononly  seed=2
+# 2026-05-08 13:25:21
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+
+============================================================
+  Condition : raw
+  Agent     : tfv6_visiononly  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed2_20260508_132521
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed2_20260508_132521/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_visiononly' in control mode ...
+2026-05-08 13:25:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:25:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:25:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:25:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:25:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:25:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:25:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:25:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:25:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.0.pos_emb: checkpoint torch.Size([1, 984, 64]) vs model torch.Size([1, 552, 64])
+2026-05-08 13:25:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.1.pos_emb: checkpoint torch.Size([1, 984, 128]) vs model torch.Size([1, 552, 128])
+2026-05-08 13:25:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.2.pos_emb: checkpoint torch.Size([1, 984, 256]) vs model torch.Size([1, 552, 256])
+2026-05-08 13:25:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/open_loop_inference.py:74] Dropping mismatched weight backbone.transformers.3.pos_emb: checkpoint torch.Size([1, 984, 512]) vs model torch.Size([1, 552, 512])
+2026-05-08 13:25:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+ERROR: failed to destroy actor 1627 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1626 : unable to destroy actor: not found 
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed2_20260508_132521/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed2_20260508_132521/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.5m | TTC=  infs | leader=28.1km/h | follower=14.0km/h | collisions=0
+  tick= 100 | dist=  8.8m | TTC= 14.3s | leader=25.9km/h | follower=28.1km/h | collisions=0
+  tick= 150 | dist=  7.8m | TTC=  7.5s | leader=25.9km/h | follower=29.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 12.4m | TTC= 15.3s | leader=25.8km/h | follower=28.7km/h | collisions=0
+  tick= 250 | dist=  4.2m | TTC=6114.7s | leader=0.0km/h | follower=0.0km/h | collisions=2
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 2
+  Mean dist  : 8.37 m
+  Min dist   : 4.192 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv6_visiononly_seed2_20260508_132521
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:26:16] OK   condition=raw agent=tfv6_visiononly seed=2
+
+################################################################
+# RUN 16/24 — condition=raw  agent=tfv5_l6_0  seed=0
+# 2026-05-08 13:26:16
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : raw
+  Agent     : tfv5_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv5_l6_0_seed0_20260508_132617
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv5_l6_0_seed0_20260508_132617/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv5_l6_0' in control mode ...
+Couldn't find your model variant 'l6' for agent 'tfv5'.
+
+          -------------------------------
+          The guide to this framework available at
+          https://github.com/MasoudJTehrani/PCLA
+          -------------------------------
+          
+[INFO] Cleaning up...
+[INFO] Done.
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 611, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 334, in main
+    pcla = PCLA(args.agent, follower, route_path, client)
+  File "/home/vortex/PCLA/PCLA.py", line 45, in __init__
+    self.set(agent, vehicle, route, client)
+  File "/home/vortex/PCLA/PCLA.py", line 55, in set
+    self.setup_agent(agent)
+  File "/home/vortex/PCLA/PCLA.py", line 62, in setup_agent
+    self.agentPath, self.configPath = give_path(agent, self.current_dir, self.routePath)
+  File "/home/vortex/PCLA/pcla_functions/give_path.py", line 55, in give_path
+    raise ValueError(f"Unknown model variant '{variant}' for agent '{agent_name}'")
+ValueError: Unknown model variant 'l6' for agent 'tfv5'
+[13:26:20] FAIL condition=raw agent=tfv5_l6_0 seed=0 (see experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/run_all.log)
+
+################################################################
+# RUN 17/24 — condition=raw  agent=tfv5_l6_0  seed=1
+# 2026-05-08 13:26:20
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : raw
+  Agent     : tfv5_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv5_l6_0_seed1_20260508_132621
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv5_l6_0_seed1_20260508_132621/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv5_l6_0' in control mode ...
+Couldn't find your model variant 'l6' for agent 'tfv5'.
+
+          -------------------------------
+          The guide to this framework available at
+          https://github.com/MasoudJTehrani/PCLA
+          -------------------------------
+          
+[INFO] Cleaning up...
+[INFO] Done.
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 611, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 334, in main
+    pcla = PCLA(args.agent, follower, route_path, client)
+  File "/home/vortex/PCLA/PCLA.py", line 45, in __init__
+    self.set(agent, vehicle, route, client)
+  File "/home/vortex/PCLA/PCLA.py", line 55, in set
+    self.setup_agent(agent)
+  File "/home/vortex/PCLA/PCLA.py", line 62, in setup_agent
+    self.agentPath, self.configPath = give_path(agent, self.current_dir, self.routePath)
+  File "/home/vortex/PCLA/pcla_functions/give_path.py", line 55, in give_path
+    raise ValueError(f"Unknown model variant '{variant}' for agent '{agent_name}'")
+ValueError: Unknown model variant 'l6' for agent 'tfv5'
+[13:26:24] FAIL condition=raw agent=tfv5_l6_0 seed=1 (see experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/run_all.log)
+
+################################################################
+# RUN 18/24 — condition=raw  agent=tfv5_l6_0  seed=2
+# 2026-05-08 13:26:24
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : raw
+  Agent     : tfv5_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv5_l6_0_seed2_20260508_132625
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv5_l6_0_seed2_20260508_132625/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv5_l6_0' in control mode ...
+Couldn't find your model variant 'l6' for agent 'tfv5'.
+
+          -------------------------------
+          The guide to this framework available at
+          https://github.com/MasoudJTehrani/PCLA
+          -------------------------------
+          
+[INFO] Cleaning up...
+[INFO] Done.
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 611, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/carla_scenario/scenario_two_vehicles.py", line 334, in main
+    pcla = PCLA(args.agent, follower, route_path, client)
+  File "/home/vortex/PCLA/PCLA.py", line 45, in __init__
+    self.set(agent, vehicle, route, client)
+  File "/home/vortex/PCLA/PCLA.py", line 55, in set
+    self.setup_agent(agent)
+  File "/home/vortex/PCLA/PCLA.py", line 62, in setup_agent
+    self.agentPath, self.configPath = give_path(agent, self.current_dir, self.routePath)
+  File "/home/vortex/PCLA/pcla_functions/give_path.py", line 55, in give_path
+    raise ValueError(f"Unknown model variant '{variant}' for agent '{agent_name}'")
+ValueError: Unknown model variant 'l6' for agent 'tfv5'
+[13:26:28] FAIL condition=raw agent=tfv5_l6_0 seed=2 (see experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/run_all.log)
+
+################################################################
+# RUN 19/24 — condition=raw  agent=tfv4_l6_0  seed=0
+# 2026-05-08 13:26:28
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed0_20260508_132629
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed0_20260508_132629/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 2025 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2024 : unable to destroy actor: not found 
+
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed0_20260508_132629/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed0_20260508_132629/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.0m | TTC=  infs | leader=28.1km/h | follower=21.8km/h | collisions=0
+  tick= 100 | dist= 19.1m | TTC=  infs | leader=25.9km/h | follower=21.3km/h | collisions=0
+  tick= 150 | dist= 22.1m | TTC=  infs | leader=25.9km/h | follower=22.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 25.2m | TTC=  infs | leader=25.8km/h | follower=22.1km/h | collisions=0
+  tick= 250 | dist= 15.7m | TTC= 39.2s | leader=0.0km/h | follower=1.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 18.187 m
+  Min dist   : 9.102 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed0_20260508_132629
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:26:51] OK   condition=raw agent=tfv4_l6_0 seed=0
+
+################################################################
+# RUN 20/24 — condition=raw  agent=tfv4_l6_0  seed=1
+# 2026-05-08 13:26:51
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed1_20260508_132651
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed1_20260508_132651/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 2129 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2128 : unable to destroy actor: not found 
+
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed1_20260508_132651/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed1_20260508_132651/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.0m | TTC=  infs | leader=28.1km/h | follower=21.4km/h | collisions=0
+  tick= 100 | dist= 19.0m | TTC=  infs | leader=25.9km/h | follower=20.9km/h | collisions=0
+  tick= 150 | dist= 22.1m | TTC=  infs | leader=25.9km/h | follower=20.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 25.2m | TTC=  infs | leader=25.8km/h | follower=20.8km/h | collisions=0
+  tick= 250 | dist= 15.4m | TTC=28603.6s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 18.13 m
+  Min dist   : 8.987 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed1_20260508_132651
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:27:13] OK   condition=raw agent=tfv4_l6_0 seed=1
+
+################################################################
+# RUN 21/24 — condition=raw  agent=tfv4_l6_0  seed=2
+# 2026-05-08 13:27:13
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_l6_0  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed2_20260508_132714
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed2_20260508_132714/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 2233 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2232 : unable to destroy actor: not found 
+
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed2_20260508_132714/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed2_20260508_132714/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.0m | TTC=  infs | leader=28.1km/h | follower=22.3km/h | collisions=0
+  tick= 100 | dist= 19.1m | TTC=  infs | leader=25.9km/h | follower=22.2km/h | collisions=0
+  tick= 150 | dist= 22.1m | TTC=  infs | leader=25.9km/h | follower=21.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 25.2m | TTC=  infs | leader=25.8km/h | follower=20.7km/h | collisions=0
+  tick= 250 | dist= 15.4m | TTC= 16.9s | leader=0.0km/h | follower=3.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 18.108 m
+  Min dist   : 8.677 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_tfv4_l6_0_seed2_20260508_132714
+============================================================
+
+[INFO] Cleaning up...
+[INFO] Done.
+[13:27:35] OK   condition=raw agent=tfv4_l6_0 seed=2
+
+################################################################
+# RUN 22/24 — condition=raw  agent=simlingo_simlingo  seed=0
+# 2026-05-08 13:27:35
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+ERROR: failed to destroy actor 2336 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2335 : unable to destroy actor: not found 
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 0
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed0_20260508_132736
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed0_20260508_132736/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed0_20260508_132736/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 12.6m | TTC=  infs | leader=28.1km/h | follower=23.1km/h | collisions=0
+  tick= 100 | dist= 10.4m | TTC= 48.5s | leader=25.9km/h | follower=26.6km/h | collisions=0
+  tick= 150 | dist= 11.7m | TTC=  5.8s | leader=25.9km/h | follower=33.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 10.2m | TTC= 12.2s | leader=25.8km/h | follower=28.8km/h | collisions=0
+  tick= 250 | dist=  7.8m | TTC=59058.9s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 9.76 m
+  Min dist   : 7.735 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed0_20260508_132736
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+[INFO] Done.
+[13:33:35] OK   condition=raw agent=simlingo_simlingo seed=0
+
+################################################################
+# RUN 23/24 — condition=raw  agent=simlingo_simlingo  seed=1
+# 2026-05-08 13:33:35
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+ERROR: failed to destroy actor 2439 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2438 : unable to destroy actor: not found 
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed1_20260508_133336
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed1_20260508_133336/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed1_20260508_133336/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 12.3m | TTC=  infs | leader=28.1km/h | follower=26.0km/h | collisions=0
+  tick= 100 | dist= 11.9m | TTC=  infs | leader=25.9km/h | follower=25.6km/h | collisions=0
+  tick= 150 | dist= 12.4m | TTC=148.9s | leader=25.9km/h | follower=26.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 10.1m | TTC= 15.9s | leader=25.8km/h | follower=28.1km/h | collisions=0
+  tick= 250 | dist=  8.1m | TTC=6232979.6s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 9.914 m
+  Min dist   : 7.994 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed1_20260508_133336
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+[INFO] Done.
+[13:39:28] OK   condition=raw agent=simlingo_simlingo seed=1
+
+################################################################
+# RUN 24/24 — condition=raw  agent=simlingo_simlingo  seed=2
+# 2026-05-08 13:39:28
+################################################################
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2-dirty 
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+ERROR: failed to destroy actor 2542 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2541 : unable to destroy actor: not found 
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town06
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.nissan.micraadv  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed2_20260508_133928
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+[INFO] World 'Town06' loaded.
+[INFO] Using cached spawn index [1] for Town06 (pass --rescan to override)
+[INFO] Shifted leader from lane -4 -> rightmost driving lane -7
+[INFO] Leader spawned at (584.9, -24.1) lane -7
+[INFO] Follower spawned at (594.9, -24.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed2_20260508_133928/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed2_20260508_133928/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=4720.5s | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 10.7m | TTC= 11.9s | leader=28.1km/h | follower=31.4km/h | collisions=0
+  tick= 100 | dist= 11.7m | TTC=  4.4s | leader=25.9km/h | follower=35.3km/h | collisions=0
+  tick= 150 | dist= 11.2m | TTC=  4.8s | leader=25.9km/h | follower=34.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist=  9.8m | TTC=  8.1s | leader=25.8km/h | follower=30.2km/h | collisions=0
+  tick= 250 | dist=  7.8m | TTC=1928693.1s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 9.727 m
+  Min dist   : 7.838 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/patch_on_surface/micra_rear_window_20260508_125721/raw_simlingo_simlingo_seed2_20260508_133928
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+[INFO] Done.
+[13:45:23] OK   condition=raw agent=simlingo_simlingo seed=2
+
+################################################################
+# RUN ALL — done. ok=18/24  failed=6
+# 2026-05-08 13:45:23
+################################################################
+

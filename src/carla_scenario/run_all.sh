@@ -36,7 +36,7 @@ mkdir -p "experiments/carla_scenarios/${SESSION_SUBDIR}"
 #   AGENTS="tfv6_visiononly tfv4_l6_0" bash src/carla_scenario/run_all.sh
 read -ra CONDITIONS <<< "${CONDITIONS:-none raw}"
 read -ra AGENTS     <<< "${AGENTS:-tfv6_visiononly tfv5_l6_0 tfv4_l6_0 simlingo_simlingo}"
-read -ra SEEDS      <<< "${SEEDS:-0 1 2 3 4}"
+read -ra SEEDS      <<< "${SEEDS:-0 1 2}"
 
 TGA_DIR="assets/carla_rear_window"
 declare -A TGA_HINT=(

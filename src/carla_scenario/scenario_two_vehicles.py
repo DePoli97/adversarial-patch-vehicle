@@ -87,7 +87,7 @@ from detection_probe import setup_detection_probe  # noqa: E402
 DEFAULT_AGENT = "tfv6_visiononly"
 DEFAULT_TOWN = "Town06"
 FOLLOWER_BLUEPRINT = "vehicle.tesla.model3"   # ego (PCLA agent), kept fixed
-LEADER_BLUEPRINT = "vehicle.carlamotors.european_hgv"  # NPC ahead — carries the patch
+LEADER_BLUEPRINT = "vehicle.carlamotors.carlacola"  # NPC ahead — carries the patch
 FOLLOWER_GAP_M = 10.0
 LEADER_SPEED_KMH = 30
 INITIAL_SPEED_KMH = 20

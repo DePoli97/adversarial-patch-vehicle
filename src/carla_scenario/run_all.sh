@@ -33,8 +33,7 @@ mkdir -p "experiments/carla_scenarios/${SESSION_SUBDIR}"
 
 CONDITIONS=("none" "raw")
 AGENTS=("tfv6_visiononly" "tfv5_l6_0" "tfv4_l6_0" "simlingo_simlingo")
-#SEEDS=(0 1 2 3 4)
-SEEDS=(0)
+SEEDS=(0 1 2 3 4)
 
 TGA_DIR="assets/carla_rear_window"
 declare -A TGA_HINT=(
@@ -65,7 +64,6 @@ for cond in "${CONDITIONS[@]}"; do
     banner "CONDITION: $cond"
     echo "Before starting, Reimport the rear-window texture in Unreal Editor:"
     echo "    ${TGA_HINT[$cond]}"
-    echo "(carla -> static -> car -> four_wheeled -> Nissan_Micra -> Element 4)"
     echo ""
     read -r -p "Press Enter when the Reimport is done (or type 'skip' to skip this condition): " ans
     if [[ "$ans" == "skip" ]]; then

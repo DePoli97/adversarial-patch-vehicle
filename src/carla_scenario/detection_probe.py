@@ -8,12 +8,18 @@ This gives a measurable signal -- internal to the agent -- of whether the
 adversarial patch reduces the agent's perception of the leader vehicle,
 analogous to the YOLO confidence analysis but inside the driving model.
 
-Output format (TSV):
-    step  score  x  y  w  h  class
+Outputs (TSV, two files per run):
+    detection_probe.tsv      front-vehicle bbox passing the FRONT_* filter
+        cols: step  score  x  y  w  h  class
 
-Where (x, y) is bbox center in vehicle frame (meters, +x forward, +y left),
-(w, h) bbox size, class is detected object class id.
-A row with score=0 means no vehicle was detected ahead this tick.
+    detection_probe_raw.tsv  every bbox the agent emits, unfiltered (for debug
+                             — used to recalibrate FRONT_* when score is always
+                             zero, e.g. with non-car leaders like trucks).
+        cols: step  idx  score  x  y  w  h  class
+
+(x, y) is bbox center in vehicle frame (meters, +x forward, +y left), (w, h)
+bbox size, class is detected object class id. A row in detection_probe.tsv
+with score=0 means no vehicle was detected ahead this tick.
 
 Usage from scenario script:
     from detection_probe import setup_detection_probe
@@ -31,9 +37,10 @@ IDX_X, IDX_Y, IDX_W, IDX_H = 0, 1, 2, 3
 IDX_CLASS, IDX_SCORE = 7, 8
 
 # Acceptance window for "vehicle ahead": positive x (forward), small lateral y.
+# Widened for trucks/HGVs (longer + wider than cars; centroid offsets vary).
 FRONT_X_MIN = 0.5      # meters -- ignore objects behind / very close
-FRONT_X_MAX = 60.0     # meters -- ignore far away
-FRONT_Y_ABS = 4.0      # meters -- lateral tolerance (~one lane width)
+FRONT_X_MAX = 80.0     # meters -- ignore far away
+FRONT_Y_ABS = 8.0      # meters -- lateral tolerance (was 4 — too tight for HGV)
 
 
 def _find_front_vehicle(bbs):
@@ -80,10 +87,43 @@ def _write_row(path: str, step: int, front):
             f.write(f"{step}\t{score:.4f}\t{x:.2f}\t{y:.2f}\t{w:.2f}\t{h:.2f}\t{cls}\n")
 
 
+def _write_raw_rows(path: str, step: int, bbs):
+    """Append every bbox (unfiltered) for this tick to the raw debug log."""
+    if bbs is None:
+        return
+    try:
+        n = len(bbs)
+    except TypeError:
+        return
+    if n == 0:
+        return
+    with open(path, "a") as f:
+        for i, row in enumerate(bbs):
+            try:
+                x = float(row[IDX_X]); y = float(row[IDX_Y])
+                w = float(row[IDX_W]); h = float(row[IDX_H])
+                score = float(row[IDX_SCORE]); cls = int(row[IDX_CLASS])
+            except (IndexError, TypeError, ValueError):
+                continue
+            f.write(f"{step}\t{i}\t{score:.4f}\t{x:.2f}\t{y:.2f}\t{w:.2f}\t{h:.2f}\t{cls}\n")
+
+
 def _init_log(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         f.write("step\tscore\tx\ty\tw\th\tclass\n")
+
+
+def _init_raw_log(path: str):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        f.write("step\tidx\tscore\tx\ty\tw\th\tclass\n")
+
+
+def _raw_path(out_path: str) -> str:
+    """Sibling file: detection_probe.tsv -> detection_probe_raw.tsv."""
+    base, ext = os.path.splitext(out_path)
+    return f"{base}_raw{ext}"
 
 
 def setup_detection_probe(pcla, agent_name: str, out_path: str) -> bool:
@@ -94,9 +134,11 @@ def setup_detection_probe(pcla, agent_name: str, out_path: str) -> bool:
     """
     agent_lower = agent_name.lower()
     agent = pcla.agent_instance
+    raw_path = _raw_path(out_path)
 
     if agent_lower.startswith("tfv6"):
         _init_log(out_path)
+        _init_raw_log(raw_path)
         orig_run_step = agent.run_step
 
         def wrapped_run_step(*args, **kwargs):
@@ -104,14 +146,17 @@ def setup_detection_probe(pcla, agent_name: str, out_path: str) -> bool:
             try:
                 buf = getattr(agent, "bb_buffer", None)
                 latest = buf[-1] if buf and len(buf) > 0 else None
+                step = getattr(agent, "step", -1)
+                _write_raw_rows(raw_path, step, latest)
                 front = _find_front_vehicle(latest)
-                _write_row(out_path, getattr(agent, "step", -1), front)
+                _write_row(out_path, step, front)
             except Exception as e:
                 print(f"[detection_probe:tfv6] log failed: {e}")
             return ctrl
 
         agent.run_step = wrapped_run_step
         print(f"[detection_probe] tfv6 hook installed -> {out_path}")
+        print(f"[detection_probe] tfv6 raw log         -> {raw_path}")
         return True
 
     if agent_lower.startswith("tfv4") or agent_lower.startswith("tfv3") or agent_lower.startswith("tfv5"):
@@ -121,20 +166,24 @@ def setup_detection_probe(pcla, agent_name: str, out_path: str) -> bool:
             print(f"[detection_probe] tfv4/5: no .nets found on agent")
             return False
         _init_log(out_path)
+        _init_raw_log(raw_path)
         net = nets[0]
         orig_conv = net.convert_features_to_bb_metric
 
         def wrapped_conv(*args, **kwargs):
             bbs = orig_conv(*args, **kwargs)
             try:
+                step = getattr(agent, "step", -1)
+                _write_raw_rows(raw_path, step, bbs)
                 front = _find_front_vehicle(bbs)
-                _write_row(out_path, getattr(agent, "step", -1), front)
+                _write_row(out_path, step, front)
             except Exception as e:
                 print(f"[detection_probe:tfv4] log failed: {e}")
             return bbs
 
         net.convert_features_to_bb_metric = wrapped_conv
         print(f"[detection_probe] tfv4-family hook installed -> {out_path}")
+        print(f"[detection_probe] tfv4-family raw log        -> {raw_path}")
         return True
 
     # SimLingo / LMDrive / others: VLM-based, no standard detection head.

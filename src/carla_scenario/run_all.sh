@@ -31,9 +31,12 @@ SESSION_SUBDIR="patch_on_surface/micra_rear_window_${SESSION_TS}"
 LOG="experiments/carla_scenarios/${SESSION_SUBDIR}/run_all.log"
 mkdir -p "experiments/carla_scenarios/${SESSION_SUBDIR}"
 
-CONDITIONS=("none" "raw")
-AGENTS=("tfv6_visiononly" "tfv5_l6_0" "tfv4_l6_0" "simlingo_simlingo")
-SEEDS=(0 1 2 3 4)
+# Defaults; override via env, e.g.:
+#   CONDITIONS="raw" SEEDS="0" bash src/carla_scenario/run_all.sh
+#   AGENTS="tfv6_visiononly tfv4_l6_0" bash src/carla_scenario/run_all.sh
+read -ra CONDITIONS <<< "${CONDITIONS:-none raw}"
+read -ra AGENTS     <<< "${AGENTS:-tfv6_visiononly tfv5_l6_0 tfv4_l6_0 simlingo_simlingo}"
+read -ra SEEDS      <<< "${SEEDS:-0 1 2 3 4}"
 
 TGA_DIR="assets/carla_rear_window"
 declare -A TGA_HINT=(

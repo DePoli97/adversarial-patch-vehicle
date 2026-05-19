@@ -1,21 +1,19 @@
-"""Generate the chroma-key (yellow marker) TGA for a target vehicle.
+"""Generate a standalone yellow chroma-key marker image.
 
-The yellow rectangle marks where the adversarial patch will eventually be
-warped onto the vehicle's body/glass during training. Yellow is chosen
-because it does not appear in CARLA natural scenes, so it can be reliably
-isolated with an HSV mask at extraction time.
+Just a solid yellow rectangle on a transparent background. You then drag
+this on top of the vehicle's texture in GIMP/Photoshop, position it where
+the rear surface lives in the UV map, flatten, and export the new TGA.
 
-Layout: the yellow block sits in the same region of the canvas used by
-`src/patch_on_surface/build_rear_window_tga.py` (rows 5H/16 : 9H/16,
-cols 0 : 7W/16), so the patch we already trained on the rear window can be
-overlaid back on top of it for visual demos.
-
-Outputs (default canvas 2048 x 2048, written to assets/chroma_key/):
-    rear_window_yellow.TGA   transparent canvas + opaque yellow block
+Outputs (default 512 x 256 yellow block on a 1024 x 1024 transparent canvas,
+written to assets/chroma_key/):
+    yellow_marker.PNG    standalone yellow patch (alpha = 255 on the block,
+                         0 elsewhere). Good to paste over an existing TGA.
+    yellow_marker.TGA    same, TGA format if you prefer.
 
 Usage (from repo root):
     python src/chroma_key_dataset_generator/build_yellow_tga.py \\
-        [--canvas 2048] [--rgb 255 220 0]
+        [--width 512] [--height 256] [--rgb 255 220 0] \\
+        [--canvas 1024]   # optional transparent canvas size (else tight crop)
 """
 from __future__ import annotations
 
@@ -30,28 +28,37 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = ROOT / "assets" / "chroma_key"
 
 
-def build_yellow_canvas(canvas: int, rgb: tuple[int, int, int]) -> np.ndarray:
-    """Transparent canvas with a solid yellow block in the patch region.
+def build_marker(width: int, height: int, rgb: tuple[int, int, int],
+                 canvas: int | None) -> np.ndarray:
+    """Solid yellow rectangle, opaque, on a transparent background.
 
-    Layout matches the canvas-trick from build_rear_window_tga.py:
-        rows [5H/16 : 9H/16], cols [0 : 7W/16]
+    If `canvas` is None: tight crop (image is exactly width x height,
+    fully opaque yellow). Easiest to paste.
+
+    If `canvas` is set: the yellow block is centered on a `canvas x canvas`
+    transparent canvas. Useful if you want positional headroom in your editor.
     """
+    if canvas is None:
+        out = np.zeros((height, width, 4), dtype=np.uint8)
+        out[:, :, 0] = rgb[0]
+        out[:, :, 1] = rgb[1]
+        out[:, :, 2] = rgb[2]
+        out[:, :, 3] = 255
+        return out
+
     out = np.zeros((canvas, canvas, 4), dtype=np.uint8)
-    H, W = canvas, canvas
-    row_start = 5 * H // 16
-    row_end = 9 * H // 16
-    col_start = 0
-    col_end = 7 * W // 16
-    out[row_start:row_end, col_start:col_end, 0] = rgb[0]
-    out[row_start:row_end, col_start:col_end, 1] = rgb[1]
-    out[row_start:row_end, col_start:col_end, 2] = rgb[2]
-    out[row_start:row_end, col_start:col_end, 3] = 255  # fully opaque
+    y0 = (canvas - height) // 2
+    x0 = (canvas - width) // 2
+    out[y0:y0 + height, x0:x0 + width, 0] = rgb[0]
+    out[y0:y0 + height, x0:x0 + width, 1] = rgb[1]
+    out[y0:y0 + height, x0:x0 + width, 2] = rgb[2]
+    out[y0:y0 + height, x0:x0 + width, 3] = 255
     return out
 
 
-def save_tga(path: Path, rgba: np.ndarray) -> None:
+def save(path: Path, rgba: np.ndarray, fmt: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    Image.fromarray(rgba, mode="RGBA").save(path, format="TGA")
+    Image.fromarray(rgba, mode="RGBA").save(path, format=fmt)
     H, W = rgba.shape[:2]
     print(f"  wrote {path}  ({W}x{H} RGBA)")
 
@@ -59,29 +66,30 @@ def save_tga(path: Path, rgba: np.ndarray) -> None:
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--canvas", type=int, default=2048,
-                   help="Canvas side in pixels (square). Match the vehicle's "
-                        "shared-glass texture Resource Size in Unreal Editor.")
+    p.add_argument("--width", type=int, default=512,
+                   help="Width of the yellow block in pixels (default 512).")
+    p.add_argument("--height", type=int, default=256,
+                   help="Height of the yellow block in pixels (default 256).")
     p.add_argument("--rgb", type=int, nargs=3, default=[255, 220, 0],
                    metavar=("R", "G", "B"),
                    help="Yellow marker color (default 255 220 0).")
-    p.add_argument("--name", default="rear_window_yellow",
-                   help="Output filename stem (default rear_window_yellow).")
+    p.add_argument("--canvas", type=int, default=None,
+                   help="Optional transparent canvas size (square). "
+                        "If omitted, image is a tight crop of the yellow block.")
+    p.add_argument("--name", default="yellow_marker",
+                   help="Output filename stem (default yellow_marker).")
     args = p.parse_args()
 
-    print(f"Canvas : {args.canvas} x {args.canvas}")
+    print(f"Block  : {args.width} x {args.height}")
+    print(f"Canvas : {args.canvas or 'tight crop'}")
     print(f"Color  : RGB{tuple(args.rgb)}")
-    print(f"Out dir: {OUT_DIR}")
-    print()
+    print(f"Out dir: {OUT_DIR}\n")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    canvas = build_yellow_canvas(args.canvas, tuple(args.rgb))
-    out_path = OUT_DIR / f"{args.name}.TGA"
-    save_tga(out_path, canvas)
+    rgba = build_marker(args.width, args.height, tuple(args.rgb), args.canvas)
 
-    # Sanity PNG preview
-    Image.fromarray(canvas, mode="RGBA").save(OUT_DIR / f"{args.name}_preview.png")
-    print(f"  preview: {OUT_DIR / f'{args.name}_preview.png'}")
+    save(OUT_DIR / f"{args.name}.PNG", rgba, "PNG")
+    save(OUT_DIR / f"{args.name}.TGA", rgba, "TGA")
 
 
 if __name__ == "__main__":

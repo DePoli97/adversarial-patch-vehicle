@@ -28,7 +28,7 @@ TOWNS="${TOWNS:-Town06}"
 WEATHER="${WEATHER:-ClearNoon WetCloudyNoon HardRainNoon}"
 SUN_ALTITUDES="${SUN_ALTITUDES:-60 20 -10}"
 DISTANCES="${DISTANCES:-8 15 25}"
-LEADER="${LEADER:-vehicle.carlamotors.european_hgv}"
+LEADER="${LEADER:-vehicle.carlamotors.carlacola}"
 FOLLOWER="${FOLLOWER:-vehicle.tesla.model3}"
 
 TS="$(date '+%Y%m%d_%H%M%S')"

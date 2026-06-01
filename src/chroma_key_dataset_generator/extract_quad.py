@@ -144,21 +144,40 @@ def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--image", type=Path, required=True,
-                   help="Input frame (jpg/png). Can be a single file or a glob pattern.")
+                   help="Input. Can be: a single file, a directory (recurses on "
+                        "*.png/*.jpg/*.jpeg), or a glob pattern.")
     p.add_argument("--patch", type=Path, default=None,
-                   help="Optional patch image (TGA/PNG) to warp onto the detected quad.")
+                   help="Optional patch image (PNG/JPG/TGA) to warp onto the detected quad.")
     p.add_argument("--out-dir", type=Path, default=Path("experiments/chroma_key_demo"),
                    help="Where to write debug outputs.")
     args = p.parse_args()
 
-    # Support glob via shell, so --image accepts either a file or whatever the shell expands
-    images = [args.image] if args.image.is_file() else sorted(args.image.parent.glob(args.image.name))
+    # Resolve --image to a list of files. Three accepted forms:
+    #   1) existing file       -> just that one
+    #   2) existing directory  -> all *.png/*.jpg/*.jpeg inside (non-recursive)
+    #   3) glob pattern        -> resolve via parent.glob
+    if args.image.is_file():
+        images = [args.image]
+    elif args.image.is_dir():
+        exts = ("*.png", "*.jpg", "*.jpeg", "*.PNG", "*.JPG", "*.JPEG")
+        images = sorted({p for ext in exts for p in args.image.glob(ext)})
+    else:
+        images = sorted(args.image.parent.glob(args.image.name))
+
     if not images:
         raise SystemExit(f"No images found at {args.image}")
 
     print(f"Processing {len(images)} image(s) -> {args.out_dir}\n")
+    n_ok = 0
+    n_fail = 0
     for img in images:
-        process(img, args.patch, args.out_dir)
+        try:
+            process(img, args.patch, args.out_dir)
+            n_ok += 1
+        except Exception as e:
+            print(f"[ERR] {img.name}: {e}")
+            n_fail += 1
+    print(f"\nDone. ok={n_ok}  failed={n_fail}  out={args.out_dir}")
 
 
 if __name__ == "__main__":

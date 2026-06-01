@@ -1,7 +1,7 @@
 {
   "base": "assets/chroma_key/Vh_Truck_CarlaCola_BodyworkMat_BaseColor.TGA",
   "overlay": "assets/chroma_key/yellow_marker.TGA",
-  "x": 2900,
+  "x": 2885,
   "y": 2400,
   "anchor": "top-left",
   "scale": 0.8,

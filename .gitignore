@@ -15,8 +15,9 @@ report/
 pretrained/
 
 # Datasets
-data/
-!data/chroma_key_dataset/*
+data/*
+!data/chroma_key_dataset
+!data/chroma_key_dataset/**
 datasets/
 
 # Training runs, results, predictions (pesanti, riproducibili)

@@ -1,0 +1,49 @@
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-01 20:46:52
+################################################################
+  towns      : Town06
+  weather    : ClearNoon WetCloudyNoon HardRainNoon
+  sun_alts   : 60 20 -10
+  distances  : 8 15 25
+  leader     : vehicle.carlamotors.carlacola
+  follower   : vehicle.tesla.model3
+  log        : data/chroma_key_dataset/run_capture_20260601_204652.log
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+Connecting to CARLA at localhost:2000 ...
+Will capture 27 frame(s) -> /home/vortex/adversarial-patch-vehicle/data/chroma_key_dataset/capture_20260601_204652
+
+
+--- Loading Town06 ---
+  [OK] 0001.png  (Town06, ClearNoon, sun=60.0°, dist=8.0m)
+  [OK] 0002.png  (Town06, ClearNoon, sun=60.0°, dist=15.0m)
+  [OK] 0003.png  (Town06, ClearNoon, sun=60.0°, dist=25.0m)
+  [OK] 0004.png  (Town06, ClearNoon, sun=20.0°, dist=8.0m)
+  [OK] 0005.png  (Town06, ClearNoon, sun=20.0°, dist=15.0m)
+  [OK] 0006.png  (Town06, ClearNoon, sun=20.0°, dist=25.0m)
+  [OK] 0007.png  (Town06, ClearNoon, sun=-10.0°, dist=8.0m)
+  [OK] 0008.png  (Town06, ClearNoon, sun=-10.0°, dist=15.0m)
+  [OK] 0009.png  (Town06, ClearNoon, sun=-10.0°, dist=25.0m)
+  [OK] 0010.png  (Town06, WetCloudyNoon, sun=60.0°, dist=8.0m)
+  [OK] 0011.png  (Town06, WetCloudyNoon, sun=60.0°, dist=15.0m)
+  [OK] 0012.png  (Town06, WetCloudyNoon, sun=60.0°, dist=25.0m)
+  [OK] 0013.png  (Town06, WetCloudyNoon, sun=20.0°, dist=8.0m)
+  [OK] 0014.png  (Town06, WetCloudyNoon, sun=20.0°, dist=15.0m)
+  [OK] 0015.png  (Town06, WetCloudyNoon, sun=20.0°, dist=25.0m)
+  [OK] 0016.png  (Town06, WetCloudyNoon, sun=-10.0°, dist=8.0m)
+  [OK] 0017.png  (Town06, WetCloudyNoon, sun=-10.0°, dist=15.0m)
+  [OK] 0018.png  (Town06, WetCloudyNoon, sun=-10.0°, dist=25.0m)
+  [OK] 0019.png  (Town06, HardRainNoon, sun=60.0°, dist=8.0m)
+  [OK] 0020.png  (Town06, HardRainNoon, sun=60.0°, dist=15.0m)
+  [OK] 0021.png  (Town06, HardRainNoon, sun=60.0°, dist=25.0m)
+  [OK] 0022.png  (Town06, HardRainNoon, sun=20.0°, dist=8.0m)
+  [OK] 0023.png  (Town06, HardRainNoon, sun=20.0°, dist=15.0m)
+  [OK] 0024.png  (Town06, HardRainNoon, sun=20.0°, dist=25.0m)
+  [OK] 0025.png  (Town06, HardRainNoon, sun=-10.0°, dist=8.0m)
+  [OK] 0026.png  (Town06, HardRainNoon, sun=-10.0°, dist=15.0m)
+  [OK] 0027.png  (Town06, HardRainNoon, sun=-10.0°, dist=25.0m)
+
+Done. 27 frame(s) written to /home/vortex/adversarial-patch-vehicle/data/chroma_key_dataset/capture_20260601_204652
+[20:47:01] DONE

@@ -1,0 +1,8 @@
+{
+  "town": "Town06",
+  "weather": "WetCloudyNoon",
+  "sun_altitude": 20.0,
+  "distance_m": 15.0,
+  "leader_blueprint": "vehicle.carlamotors.carlacola",
+  "follower_blueprint": "vehicle.tesla.model3"
+}

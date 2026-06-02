@@ -169,31 +169,47 @@ def shift_lanes(wp: carla.Waypoint, shift: int):
 
 
 def spawn_npc_traffic(world, anchor_loc: carla.Location, count: int, radius_m: float,
-                      tm_port: int = 8000) -> list:
-    """Spawn up to `count` random vehicles within `radius_m` of `anchor_loc`,
-    each in autopilot. Returns the spawned actors (caller destroys them)."""
-    if count <= 0:
+                      scattered: int = 0, tm_port: int = 8000) -> list:
+    """Spawn NPC traffic in two pools, both in autopilot:
+      - `count` vehicles within `radius_m` of the scene (likely to appear in
+        frame as visual noise; the patch must remain robust to them).
+      - `scattered` vehicles distributed randomly across the rest of the map
+        (ambient traffic; occasionally crosses the camera frustum).
+    Returns the combined list of spawned actors."""
+    total = max(0, count) + max(0, scattered)
+    if total <= 0:
         return []
+
     bplib = world.get_blueprint_library()
     vehicle_bps = [bp for bp in bplib.filter("vehicle.*")
                    if int(bp.get_attribute("number_of_wheels")) == 4]
     spawn_points = world.get_map().get_spawn_points()
+
     nearby = [sp for sp in spawn_points
               if sp.location.distance(anchor_loc) <= radius_m]
+    far = [sp for sp in spawn_points
+           if sp.location.distance(anchor_loc) > radius_m]
     random.shuffle(nearby)
+    random.shuffle(far)
+
+    def _spawn_from(points, target):
+        out = []
+        for sp in points:
+            if len(out) >= target:
+                break
+            bp = random.choice(vehicle_bps)
+            actor = world.try_spawn_actor(bp, sp)
+            if actor is not None:
+                out.append(actor)
+                try:
+                    actor.set_autopilot(True, tm_port)
+                except Exception:
+                    pass
+        return out
 
     spawned = []
-    for sp in nearby[:count * 3]:
-        if len(spawned) >= count:
-            break
-        bp = random.choice(vehicle_bps)
-        actor = world.try_spawn_actor(bp, sp)
-        if actor is not None:
-            spawned.append(actor)
-            try:
-                actor.set_autopilot(True, tm_port)
-            except Exception:
-                pass
+    spawned += _spawn_from(nearby, count)
+    spawned += _spawn_from(far, scattered)
     return spawned
 
 
@@ -237,7 +253,7 @@ def cleanup_world(world):
 def capture_one(world, leader_bp, follower_bp,
                 follower_wp: carla.Waypoint,
                 distance_m: float, lateral_offset: float, heading_offset_deg: float,
-                npc_count: int, npc_radius: float,
+                npc_count: int, npc_radius: float, npc_scattered: int,
                 out_dir: Path, frame_id: str, meta: dict,
                 settle_ticks: int = 50):
     """Spawn leader+follower(+NPCs), grab one camera frame, destroy everything."""
@@ -296,9 +312,11 @@ def capture_one(world, leader_bp, follower_bp,
         pass
     world.tick()   # commit leader
 
-    print(f"  [..] {frame_id}: spawn NPCs (count={npc_count})", flush=True)
+    print(f"  [..] {frame_id}: spawn NPCs (near={npc_count}, scattered={npc_scattered})",
+          flush=True)
     npcs = spawn_npc_traffic(world, anchor_loc=follower_tf.location,
-                             count=npc_count, radius_m=npc_radius)
+                             count=npc_count, radius_m=npc_radius,
+                             scattered=npc_scattered)
     world.tick()   # commit NPCs
 
     cam = None
@@ -418,6 +436,9 @@ def main():
                         "and can crash the server if they collide / disappear "
                         "during the settle ticks. Keep this 0 unless tested.")
     p.add_argument("--npc-radius", type=float, default=60.0)
+    p.add_argument("--npc-scattered", type=int, default=0,
+                   help="Extra NPC vehicles to spawn randomly across the map "
+                        "(outside --npc-radius), for ambient traffic.")
     p.add_argument("--settle-ticks", type=int, default=50,
                    help="World ticks (each 0.05 s sim time) between spawn and "
                         "frame capture. Higher = vehicles fall to ground more, "
@@ -427,6 +448,10 @@ def main():
     p.add_argument("--leader", default="vehicle.carlamotors.carlacola")
     p.add_argument("--follower", default="vehicle.tesla.model3")
     p.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
+    p.add_argument("--run-dir", type=Path, default=None,
+                   help="Explicit capture_<ts> directory to append to. "
+                        "If unset, a new one is created under --out-dir. "
+                        "Used by auto mode to pool multiple towns into one run.")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--max-frames", type=int, default=None,
                    help="Cap. With --shuffle, this samples uniformly across "
@@ -458,17 +483,23 @@ def main():
     random.seed(args.seed)
     np.random.seed(args.seed)
 
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_dir = args.out_dir / f"capture_{ts}"
-    run_dir.mkdir(parents=True, exist_ok=True)
+    if args.run_dir is not None:
+        run_dir = args.run_dir
+        run_dir.mkdir(parents=True, exist_ok=True)
+    else:
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        run_dir = args.out_dir / f"capture_{ts}"
+        run_dir.mkdir(parents=True, exist_ok=True)
 
     csv_path = run_dir / "captures_index.csv"
-    csv_file = open(csv_path, "w", newline="")
+    csv_existed = csv_path.exists()
+    csv_file = open(csv_path, "a" if csv_existed else "w", newline="")
     csv_writer = csv.writer(csv_file)
-    csv_writer.writerow(["frame_id", "town", "spawn_idx", "weather",
-                         "sun_altitude", "distance_m", "lateral_offset",
-                         "heading_offset", "npc_count", "leader_bp",
-                         "follower_bp"])
+    if not csv_existed:
+        csv_writer.writerow(["frame_id", "town", "spawn_idx", "weather",
+                             "sun_altitude", "distance_m", "lateral_offset",
+                             "heading_offset", "npc_count", "leader_bp",
+                             "follower_bp"])
 
     client = carla.Client(args.host, args.port)
     client.set_timeout(CLIENT_TIMEOUT_S)
@@ -542,7 +573,13 @@ def main():
             print(f"   {t:20s}  {n}")
     print(f"Out     : {run_dir}\n")
 
-    counter = 0
+    # If appending to an existing run, resume frame numbering from the highest
+    # PNG already in the folder so we never overwrite previous frames.
+    existing = sorted(run_dir.glob("[0-9]" * 6 + ".png"))
+    counter = int(existing[-1].stem) if existing else 0
+    if counter > 0:
+        print(f"[resume] appending to existing run, starting frame_id "
+              f"{counter+1:06d}", flush=True)
     current_town = None
     world = None
     spawn_pool = None
@@ -620,13 +657,14 @@ def main():
                 "lateral_offset": float(combo["lat"]),
                 "heading_offset": float(combo["hdg"]),
                 "npc_count_requested": args.npc_count,
+                "npc_scattered_requested": args.npc_scattered,
                 "leader_blueprint": args.leader,
                 "follower_blueprint": args.follower,
             }
             try:
                 ok = capture_one(world, leader_bp, follower_bp, follower_wp,
                                  combo["dist"], combo["lat"], combo["hdg"],
-                                 args.npc_count, args.npc_radius,
+                                 args.npc_count, args.npc_radius, args.npc_scattered,
                                  run_dir, frame_id, meta,
                                  settle_ticks=args.settle_ticks)
                 if ok:

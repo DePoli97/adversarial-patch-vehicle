@@ -38,6 +38,7 @@ LATERAL_OFFSETS="${LATERAL_OFFSETS:--1 0 1}"
 HEADING_OFFSETS="${HEADING_OFFSETS:--5 0 5}"
 NPC_COUNT="${NPC_COUNT:-0}"
 NPC_RADIUS="${NPC_RADIUS:-60}"
+NPC_SCATTERED="${NPC_SCATTERED:-0}"
 SETTLE_TICKS="${SETTLE_TICKS:-50}"
 SPAWN_POOL_SIZE="${SPAWN_POOL_SIZE:-4}"
 LEADER="${LEADER:-vehicle.carlamotors.carlacola}"
@@ -56,8 +57,15 @@ HEADING_OFFSET_RANGE="${HEADING_OFFSET_RANGE:--5 5}"
 
 TS="$(date '+%Y%m%d_%H%M%S')"
 LOG_DIR="data/chroma_key_dataset"
-LOG="${LOG_DIR}/run_capture_${TS}.log"
-mkdir -p "$LOG_DIR"
+# If RUN_DIR is provided (e.g. by auto-mode), the log lives inside it so all
+# towns of the same run share one log file alongside one capture_<ts>/ folder.
+if [[ -n "${RUN_DIR:-}" ]]; then
+    mkdir -p "${RUN_DIR}"
+    LOG="${RUN_DIR}/run_capture.log"
+else
+    mkdir -p "$LOG_DIR"
+    LOG="${LOG_DIR}/run_capture_${TS}.log"
+fi
 
 {
     echo "################################################################"
@@ -70,6 +78,7 @@ mkdir -p "$LOG_DIR"
     echo "  lateral_offs   : ${LATERAL_OFFSETS}"
     echo "  heading_offs   : ${HEADING_OFFSETS}"
     echo "  npc_count      : ${NPC_COUNT}  (radius ${NPC_RADIUS} m)"
+    echo "  npc_scattered  : ${NPC_SCATTERED}  (random across map)"
     echo "  spawn_pool     : ${SPAWN_POOL_SIZE}"
     echo "  leader         : ${LEADER}"
     echo "  follower       : ${FOLLOWER}"
@@ -99,6 +108,7 @@ if python -u "$SCRIPT" \
         --heading-offsets ${HEADING_OFFSETS} \
         --npc-count "${NPC_COUNT}" \
         --npc-radius "${NPC_RADIUS}" \
+        --npc-scattered "${NPC_SCATTERED}" \
         --settle-ticks "${SETTLE_TICKS}" \
         --spawn-pool-size "${SPAWN_POOL_SIZE}" \
         --leader "${LEADER}" \
@@ -111,6 +121,7 @@ if python -u "$SCRIPT" \
         --sun-altitude-range ${SUN_ALTITUDE_RANGE} \
         --distance-range ${DISTANCE_RANGE} \
         --heading-offset-range ${HEADING_OFFSET_RANGE} \
+        $( [[ -n "${RUN_DIR:-}" ]] && echo "--run-dir ${RUN_DIR}" ) \
         2>&1 | tee -a "$LOG"; then
     echo "[$(date '+%H:%M:%S')] DONE" | tee -a "$LOG"
     echo ""

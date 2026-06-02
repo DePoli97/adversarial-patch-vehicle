@@ -28,7 +28,10 @@
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
-MODE="${MODE:-manual}"
+MODE="${MODE:-auto}"
+# Default to the package built on Vortex. Override only if running elsewhere.
+: "${CARLA_PACKAGE_DIR:=/home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2/LinuxNoEditor}"
+export CARLA_PACKAGE_DIR
 
 # Master log captures EVERYTHING (this script's banners + stop/start CARLA
 # messages + the python output piped through run_capture.sh). Useful when
@@ -68,8 +71,9 @@ export HEADING_OFFSET_RANGE="${HEADING_OFFSET_RANGE:--5 5}"
 export WEATHER="${WEATHER:-ClearNoon CloudyNoon WetNoon MidRainyNoon}"
 export LATERAL_OFFSETS="${LATERAL_OFFSETS:--1 0 1}"
 export SPAWN_POOL_SIZE="${SPAWN_POOL_SIZE:-6}"
-export NPC_COUNT="${NPC_COUNT:-0}"
-export NPC_RADIUS="${NPC_RADIUS:-60}"
+export NPC_COUNT="${NPC_COUNT:-15}"
+export NPC_RADIUS="${NPC_RADIUS:-80}"
+export NPC_SCATTERED="${NPC_SCATTERED:-30}"
 export SETTLE_TICKS="${SETTLE_TICKS:-50}"
 export LEADER="${LEADER:-vehicle.carlamotors.carlacola}"
 export FOLLOWER="${FOLLOWER:-vehicle.tesla.model3}"
@@ -132,10 +136,18 @@ if [[ "$MODE" == "manual" ]]; then
   bash src/chroma_key_dataset_generator/run_capture.sh
 
 elif [[ "$MODE" == "auto" ]]; then
+  # One capture_<ts>/ directory shared by ALL towns in this auto run, so the
+  # whole sweep ends up in a single folder with a single run_capture.log and a
+  # single captures_index.csv. Frame numbering resumes across towns.
+  export RUN_DIR="data/chroma_key_dataset/capture_${MASTER_TS}"
+  mkdir -p "$RUN_DIR"
+
   echo "######################################################"
   echo " AUTO CAPTURE — sweep ${#AUTO_TOWNS[@]} towns"
   echo "  towns          : ${AUTO_TOWNS[*]}"
   echo "  attempts/town  : $FRAMES_PER_TOWN"
+  echo "  npc per scene  : $NPC_COUNT (radius ${NPC_RADIUS} m)"
+  echo "  run dir        : $RUN_DIR"
   echo "  package dir    : ${CARLA_PACKAGE_DIR:-<unset>}"
   echo "######################################################"
   echo ""
@@ -158,7 +170,9 @@ elif [[ "$MODE" == "auto" ]]; then
   stop_carla
   echo ""
   echo ">>> ALL TOWNS DONE."
-  find data/chroma_key_dataset/ -name "*.png" -type f 2>/dev/null | wc -l
+  echo ">>> Run directory: $RUN_DIR"
+  printf ">>> PNG count   : "
+  find "$RUN_DIR" -name "*.png" -type f 2>/dev/null | wc -l
 
 else
   echo "Unknown MODE: $MODE  (use 'manual' or 'auto')"

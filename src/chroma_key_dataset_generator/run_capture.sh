@@ -38,6 +38,7 @@ LATERAL_OFFSETS="${LATERAL_OFFSETS:--1.5 0 1.5}"
 HEADING_OFFSETS="${HEADING_OFFSETS:--5 0 5}"
 NPC_COUNT="${NPC_COUNT:-0}"
 NPC_RADIUS="${NPC_RADIUS:-60}"
+SETTLE_TICKS="${SETTLE_TICKS:-50}"
 SPAWN_POOL_SIZE="${SPAWN_POOL_SIZE:-4}"
 LEADER="${LEADER:-vehicle.carlamotors.carlacola}"
 FOLLOWER="${FOLLOWER:-vehicle.tesla.model3}"
@@ -82,6 +83,7 @@ if python "$SCRIPT" \
         --heading-offsets ${HEADING_OFFSETS} \
         --npc-count "${NPC_COUNT}" \
         --npc-radius "${NPC_RADIUS}" \
+        --settle-ticks "${SETTLE_TICKS}" \
         --spawn-pool-size "${SPAWN_POOL_SIZE}" \
         --leader "${LEADER}" \
         --follower "${FOLLOWER}" \

@@ -208,7 +208,8 @@ def capture_one(world, leader_bp, follower_bp,
                 follower_wp: carla.Waypoint,
                 distance_m: float, lateral_offset: float, heading_offset_deg: float,
                 npc_count: int, npc_radius: float,
-                out_dir: Path, frame_id: str, meta: dict):
+                out_dir: Path, frame_id: str, meta: dict,
+                settle_ticks: int = 50):
     """Spawn leader+follower(+NPCs), grab one camera frame, destroy everything."""
     # PCLA-style preflight: wipe any leftover sensor/vehicle from a previous
     # frame whose finally block didn't fully complete. Source of truth is the
@@ -221,12 +222,16 @@ def capture_one(world, leader_bp, follower_bp,
 
     leader_wp = walk_along_lane(follower_wp, distance_m)
 
+    # Small z bump to avoid spawning *inside* the road mesh; large bump means
+    # vehicles have to fall a long way during settle.
+    Z_BUMP = 0.10
+
     follower_tf = follower_wp.transform
-    follower_tf.location.z += 0.5
+    follower_tf.location.z += Z_BUMP
     follower_tf = offset_transform(follower_tf, lateral=0.0, heading_deg=heading_offset_deg)
 
     leader_tf = leader_wp.transform
-    leader_tf.location.z += 0.5
+    leader_tf.location.z += Z_BUMP
     leader_tf = offset_transform(leader_tf, lateral=lateral_offset, heading_deg=0.0)
 
     print(f"  [..] {frame_id}: spawn follower", flush=True)
@@ -234,6 +239,10 @@ def capture_one(world, leader_bp, follower_bp,
     if follower is None:
         print(f"  [SKIP] {frame_id}: follower spawn failed", flush=True)
         return False
+    try:
+        follower.set_simulate_physics(True)
+    except Exception:
+        pass
     world.tick()   # commit follower
 
     print(f"  [..] {frame_id}: spawn leader", flush=True)
@@ -242,6 +251,10 @@ def capture_one(world, leader_bp, follower_bp,
         safe_destroy(follower)
         print(f"  [SKIP] {frame_id}: leader spawn failed", flush=True)
         return False
+    try:
+        leader.set_simulate_physics(True)
+    except Exception:
+        pass
     world.tick()   # commit leader
 
     print(f"  [..] {frame_id}: spawn NPCs (count={npc_count})", flush=True)
@@ -270,12 +283,12 @@ def capture_one(world, leader_bp, follower_bp,
         print(f"  [..] {frame_id}: cam.listen", flush=True)
         cam.listen(on_image)
 
-        # Settle: ~1.25 s of simulated physics so vehicles fall to ground,
-        # weather/lighting fully apply, camera warms up.
-        for i in range(25):
+        # Settle: ~settle_ticks * 0.05 s of simulated physics so vehicles fall
+        # to ground, weather/lighting fully apply, camera warms up.
+        for i in range(settle_ticks):
             world.tick()
-            if (i + 1) % 5 == 0:
-                print(f"  [..] {frame_id}: tick {i+1}/25", flush=True)
+            if (i + 1) % 10 == 0:
+                print(f"  [..] {frame_id}: tick {i+1}/{settle_ticks}", flush=True)
 
         print(f"  [..] {frame_id}: waiting for image callback", flush=True)
         deadline = time.time() + 2.0
@@ -349,6 +362,10 @@ def main():
                         "and can crash the server if they collide / disappear "
                         "during the settle ticks. Keep this 0 unless tested.")
     p.add_argument("--npc-radius", type=float, default=60.0)
+    p.add_argument("--settle-ticks", type=int, default=50,
+                   help="World ticks (each 0.05 s sim time) between spawn and "
+                        "frame capture. Higher = vehicles fall to ground more, "
+                        "weather/lighting fully apply. 50 = 2.5 s of sim time.")
     p.add_argument("--spawn-pool-size", type=int, default=4,
                    help="Distinct starting waypoints per town.")
     p.add_argument("--leader", default="vehicle.carlamotors.carlacola")
@@ -510,7 +527,8 @@ def main():
                 ok = capture_one(world, leader_bp, follower_bp, follower_wp,
                                  combo["dist"], combo["lat"], combo["hdg"],
                                  args.npc_count, args.npc_radius,
-                                 run_dir, frame_id, meta)
+                                 run_dir, frame_id, meta,
+                                 settle_ticks=args.settle_ticks)
                 if ok:
                     csv_writer.writerow([frame_id, combo["town"], spawn_idx,
                                          combo["weather_name"], combo["sun_alt"],

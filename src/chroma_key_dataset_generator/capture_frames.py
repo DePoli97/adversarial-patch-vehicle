@@ -168,10 +168,36 @@ def spawn_npc_traffic(world, anchor_loc: carla.Location, count: int, radius_m: f
 
 
 def safe_destroy(actor):
+    """Destroy an actor only if it's still alive on the server. Mirrors the
+    PCLA.cleanup() pattern: check is_listening on sensors, is_alive on vehicles."""
     if actor is None:
         return
     try:
-        actor.destroy()
+        if hasattr(actor, "is_listening") and actor.is_listening():
+            actor.stop()
+    except Exception:
+        pass
+    try:
+        if not hasattr(actor, "is_alive") or actor.is_alive:
+            actor.destroy()
+    except Exception:
+        pass
+
+
+def cleanup_world(world):
+    """Wipe ALL stray sensors + NPC vehicles from the world. Inspired by
+    PCLA.cleanup() — uses the server's actor list, not stale Python references,
+    so it survives load_world() and dropped objects."""
+    if world is None:
+        return
+    try:
+        for sensor in world.get_actors().filter("*sensor*"):
+            try:
+                if sensor.is_listening():
+                    sensor.stop()
+                sensor.destroy()
+            except Exception:
+                pass
     except Exception:
         pass
 
@@ -225,8 +251,10 @@ def capture_one(world, leader_bp, follower_bp,
 
         cam.listen(on_image)
 
-        # Let weather/physics/rendering settle
-        for _ in range(6):
+        # Let weather/physics/rendering settle. At fixed_delta=0.05s, 25 ticks
+        # = 1.25 s — enough for vehicles to fall to ground, fluid camera ramp,
+        # and weather/lighting changes to fully apply.
+        for _ in range(25):
             world.tick()
 
         deadline = time.time() + 2.0
@@ -247,11 +275,13 @@ def capture_one(world, leader_bp, follower_bp,
         return True
 
     finally:
-        # Order matters: stop listener, drain one tick to flush pending
-        # callbacks, THEN destroy. Avoids "operate on destroyed actor".
+        # PCLA-style cleanup: stop listener first, drain a tick to flush any
+        # pending callback, then destroy in order (sensor → NPCs → vehicles).
+        # safe_destroy() checks is_alive / is_listening on each call.
         if cam is not None:
             try:
-                cam.stop()
+                if cam.is_listening():
+                    cam.stop()
             except Exception:
                 pass
         try:
@@ -263,6 +293,13 @@ def capture_one(world, leader_bp, follower_bp,
             safe_destroy(n)
         safe_destroy(leader)
         safe_destroy(follower)
+        # Extra tick so the destroy commands are processed by the server before
+        # we begin the next iteration. Without this the next spawn can race
+        # against pending destroy ops -> "operate on destroyed actor".
+        try:
+            world.tick()
+        except Exception:
+            pass
 
 
 # ---------- main -----------------------------------------------------------
@@ -375,6 +412,8 @@ def main():
             # Town switch
             if combo["town"] != current_town:
                 if world is not None:
+                    # Cleanup any stray sensors/NPCs before unloading the world
+                    cleanup_world(world)
                     try:
                         settings = world.get_settings()
                         settings.synchronous_mode = False
@@ -383,10 +422,15 @@ def main():
                         pass
                 print(f"\n--- Loading {combo['town']} ---")
                 world = client.load_world(combo["town"])
+                # Give UE a moment to settle the new map before we touch it
+                time.sleep(3.0)
                 settings = world.get_settings()
                 settings.synchronous_mode = True
                 settings.fixed_delta_seconds = 0.05
                 world.apply_settings(settings)
+                # Drain a few ticks so the world reaches steady state
+                for _ in range(10):
+                    world.tick()
 
                 bplib = world.get_blueprint_library()
                 try:
@@ -447,7 +491,9 @@ def main():
                                          args.npc_count, args.leader, args.follower])
                     csv_file.flush()
             except Exception as e:
-                print(f"  [ERR] {frame_id}: {e}")
+                import traceback
+                print(f"  [ERR] {frame_id}: {type(e).__name__}: {e}")
+                traceback.print_exc()
     finally:
         csv_file.close()
 

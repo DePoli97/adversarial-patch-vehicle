@@ -220,25 +220,34 @@ def capture_one(world, leader_bp, follower_bp,
     leader_tf.location.z += 0.5
     leader_tf = offset_transform(leader_tf, lateral=lateral_offset, heading_deg=0.0)
 
+    print(f"  [..] {frame_id}: spawn follower", flush=True)
     follower = world.try_spawn_actor(follower_bp, follower_tf)
     if follower is None:
-        print(f"  [SKIP] {frame_id}: follower spawn failed")
+        print(f"  [SKIP] {frame_id}: follower spawn failed", flush=True)
         return False
+    world.tick()   # commit follower
+
+    print(f"  [..] {frame_id}: spawn leader", flush=True)
     leader = world.try_spawn_actor(leader_bp, leader_tf)
     if leader is None:
         safe_destroy(follower)
-        print(f"  [SKIP] {frame_id}: leader spawn failed")
+        print(f"  [SKIP] {frame_id}: leader spawn failed", flush=True)
         return False
+    world.tick()   # commit leader
 
+    print(f"  [..] {frame_id}: spawn NPCs (count={npc_count})", flush=True)
     npcs = spawn_npc_traffic(world, anchor_loc=follower_tf.location,
                              count=npc_count, radius_m=npc_radius)
+    world.tick()   # commit NPCs
 
     cam = None
     saved = {"received": False}
     try:
+        print(f"  [..] {frame_id}: spawn camera", flush=True)
         cam_bp = make_camera_bp(world)
         cam_tf = carla.Transform(carla.Location(x=1.6, z=1.7))
         cam = world.spawn_actor(cam_bp, cam_tf, attach_to=follower)
+        world.tick()   # commit camera before .listen()
 
         out_dir.mkdir(parents=True, exist_ok=True)
         img_path = out_dir / f"{frame_id}.png"
@@ -249,11 +258,11 @@ def capture_one(world, leader_bp, follower_bp,
             save_frame(image, img_path)
             saved["received"] = True
 
+        print(f"  [..] {frame_id}: cam.listen + settle 25 ticks", flush=True)
         cam.listen(on_image)
 
-        # Let weather/physics/rendering settle. At fixed_delta=0.05s, 25 ticks
-        # = 1.25 s — enough for vehicles to fall to ground, fluid camera ramp,
-        # and weather/lighting changes to fully apply.
+        # Settle: ~1.25 s of simulated physics so vehicles fall to ground,
+        # weather/lighting fully apply, camera warms up.
         for _ in range(25):
             world.tick()
 

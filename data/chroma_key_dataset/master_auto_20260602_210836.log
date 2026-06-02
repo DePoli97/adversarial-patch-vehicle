@@ -1,0 +1,107 @@
+######################################################
+ AUTO CAPTURE — sweep 5 towns
+  towns          : Town01 Town03 Town04 Town05 Town10HD_Opt
+  attempts/town  : 50
+  npc per scene  : 15 (radius 80 m)
+  run dir        : data/chroma_key_dataset/capture_20260602_210836
+  package dir    : /home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2/LinuxNoEditor
+######################################################
+
+
+============================================================
+ TOWN: Town01
+============================================================
+>>> stopping CARLA
+>>> launching CarlaUE4.sh (headless, off-screen render)
+>>> CARLA up and listening on :2000
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-02 21:08:48
+################################################################
+  towns          : Town01
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 15  (radius 80 m)
+  npc_scattered  : 30  (random across map)
+  spawn_pool     : 6
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  continuous     : 1  (per-town: 50)
+  sun_range      : 25 70
+  dist_range     : 6 18
+  heading_range  : -5 5
+  seed           : 9509
+  log            : data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+
+>>> Full output saved to: data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+>>> Tail live with: tail -f data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Continuous sampling: 100 attempts across 1 towns (50/town)
+Sampled : 100 frame(s) (shuffled)
+   Town01                100
+Out     : data/chroma_key_dataset/capture_20260602_210836
+
+
+--- Loading Town01 ---
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/chroma_key_dataset_generator/capture_frames.py", line 721, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/chroma_key_dataset_generator/capture_frames.py", line 627, in main
+    world = client.load_world(combo["town"])
+RuntimeError: time-out of 180000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000
+[21:11:48] DONE
+
+==============================================================
+ Full log saved to: data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+ Read it with:      less data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+                    tail -50 data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+==============================================================
+
+============================================================
+ TOWN: Town03
+============================================================
+>>> stopping CARLA
+>>> launching CarlaUE4.sh (headless, off-screen render)
+>>> CARLA up and listening on :2000
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-02 21:12:00
+################################################################
+  towns          : Town03
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 15  (radius 80 m)
+  npc_scattered  : 30  (random across map)
+  spawn_pool     : 6
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  continuous     : 1  (per-town: 50)
+  sun_range      : 25 70
+  dist_range     : 6 18
+  heading_range  : -5 5
+  seed           : 7738
+  log            : data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+
+>>> Full output saved to: data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+>>> Tail live with: tail -f data/chroma_key_dataset/capture_20260602_210836/run_capture.log
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Continuous sampling: 100 attempts across 1 towns (50/town)
+Sampled : 100 frame(s) (shuffled)
+   Town03                100
+Out     : data/chroma_key_dataset/capture_20260602_210836
+
+
+--- Loading Town03 ---

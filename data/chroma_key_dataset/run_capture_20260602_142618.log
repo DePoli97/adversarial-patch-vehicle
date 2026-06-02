@@ -1,0 +1,1171 @@
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-02 14:26:18
+################################################################
+  towns          : Town01 Town03 Town04 Town06 Town10HD_Opt
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 0  (radius 60 m)
+  spawn_pool     : 4
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  seed           : 0
+  log            : data/chroma_key_dataset/run_capture_20260602_142618.log
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Full grid: 11520 combinations across 5 towns
+Sampled : 11520 frame(s) (shuffled)
+   Town01                2304
+   Town03                2304
+   Town04                2304
+   Town06                2304
+   Town10HD_Opt          2304
+Out     : /home/vortex/adversarial-patch-vehicle/data/chroma_key_dataset/capture_20260602_142618
+
+
+--- Loading Town01 ---
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+  warmup: 100 ticks
+  [..] 000001: spawn follower
+  [..] 000001: spawn leader
+  [..] 000001: spawn NPCs (count=0)
+  [..] 000001: spawn camera
+  [..] 000001: settle (no listener)
+  [..] 000001: tick 10/50
+  [..] 000001: tick 20/50
+  [..] 000001: tick 30/50
+  [..] 000001: tick 40/50
+  [..] 000001: tick 50/50
+  [..] 000001: cam.listen (skip 20 stale frames)
+  [OK] 000001.png  (Town01, WetNoon, sun=25°, dist=18m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000001: finally start
+  [..] 000001: drain tick
+  [..] 000001: destroy cam
+  [..] 000001: destroy 0 npcs
+  [..] 000001: destroy leader
+  [..] 000001: destroy follower
+  [..] 000001: post-cleanup tick
+  [..] 000001: finally end
+  [..] 000002: spawn follower
+  [..] 000002: spawn leader
+  [..] 000002: spawn NPCs (count=0)
+  [..] 000002: spawn camera
+  [..] 000002: settle (no listener)
+  [..] 000002: tick 10/50
+  [..] 000002: tick 20/50
+  [..] 000002: tick 30/50
+  [..] 000002: tick 40/50
+  [..] 000002: tick 50/50
+  [..] 000002: cam.listen (skip 20 stale frames)
+  [OK] 000002.png  (Town01, ClearNoon, sun=70°, dist=10m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000002: finally start
+  [..] 000002: drain tick
+  [..] 000002: destroy cam
+  [..] 000002: destroy 0 npcs
+  [..] 000002: destroy leader
+  [..] 000002: destroy follower
+  [..] 000002: post-cleanup tick
+  [..] 000002: finally end
+  [SKIP] 000003: no valid lane at shift=+1 from follower lane
+  [..] 000004: spawn follower
+  [..] 000004: spawn leader
+  [..] 000004: spawn NPCs (count=0)
+  [..] 000004: spawn camera
+  [..] 000004: settle (no listener)
+  [..] 000004: tick 10/50
+  [..] 000004: tick 20/50
+  [..] 000004: tick 30/50
+  [..] 000004: tick 40/50
+  [..] 000004: tick 50/50
+  [..] 000004: cam.listen (skip 20 stale frames)
+  [OK] 000004.png  (Town01, CloudyNoon, sun=25°, dist=6m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000004: finally start
+  [..] 000004: drain tick
+  [..] 000004: destroy cam
+  [..] 000004: destroy 0 npcs
+  [..] 000004: destroy leader
+  [..] 000004: destroy follower
+  [..] 000004: post-cleanup tick
+  [..] 000004: finally end
+  [..] 000005: spawn follower
+  [..] 000005: spawn leader
+  [..] 000005: spawn NPCs (count=0)
+  [..] 000005: spawn camera
+  [..] 000005: settle (no listener)
+  [..] 000005: tick 10/50
+  [..] 000005: tick 20/50
+  [..] 000005: tick 30/50
+  [..] 000005: tick 40/50
+  [..] 000005: tick 50/50
+  [..] 000005: cam.listen (skip 20 stale frames)
+  [OK] 000005.png  (Town01, ClearNoon, sun=55°, dist=10m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000005: finally start
+  [..] 000005: drain tick
+  [..] 000005: destroy cam
+  [..] 000005: destroy 0 npcs
+  [..] 000005: destroy leader
+  [..] 000005: destroy follower
+  [..] 000005: post-cleanup tick
+  [..] 000005: finally end
+  [SKIP] 000006: no valid lane at shift=+1 from follower lane
+  [..] 000007: spawn follower
+  [..] 000007: spawn leader
+  [..] 000007: spawn NPCs (count=0)
+  [..] 000007: spawn camera
+  [..] 000007: settle (no listener)
+  [..] 000007: tick 10/50
+  [..] 000007: tick 20/50
+  [..] 000007: tick 30/50
+  [..] 000007: tick 40/50
+  [..] 000007: tick 50/50
+  [..] 000007: cam.listen (skip 20 stale frames)
+  [OK] 000007.png  (Town01, CloudyNoon, sun=25°, dist=18m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000007: finally start
+  [..] 000007: drain tick
+  [..] 000007: destroy cam
+  [..] 000007: destroy 0 npcs
+  [..] 000007: destroy leader
+  [..] 000007: destroy follower
+  [..] 000007: post-cleanup tick
+  [..] 000007: finally end
+  [..] 000008: spawn follower
+  [..] 000008: spawn leader
+  [..] 000008: spawn NPCs (count=0)
+  [..] 000008: spawn camera
+  [..] 000008: settle (no listener)
+  [..] 000008: tick 10/50
+  [..] 000008: tick 20/50
+  [..] 000008: tick 30/50
+  [..] 000008: tick 40/50
+  [..] 000008: tick 50/50
+  [..] 000008: cam.listen (skip 20 stale frames)
+  [OK] 000008.png  (Town01, WetNoon, sun=70°, dist=10m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000008: finally start
+  [..] 000008: drain tick
+  [..] 000008: destroy cam
+  [..] 000008: destroy 0 npcs
+  [..] 000008: destroy leader
+  [..] 000008: destroy follower
+  [..] 000008: post-cleanup tick
+  [..] 000008: finally end
+  [..] 000009: spawn follower
+  [..] 000009: spawn leader
+  [..] 000009: spawn NPCs (count=0)
+  [..] 000009: spawn camera
+  [..] 000009: settle (no listener)
+  [..] 000009: tick 10/50
+  [..] 000009: tick 20/50
+  [..] 000009: tick 30/50
+  [..] 000009: tick 40/50
+  [..] 000009: tick 50/50
+  [..] 000009: cam.listen (skip 20 stale frames)
+  [OK] 000009.png  (Town01, WetNoon, sun=25°, dist=18m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000009: finally start
+  [..] 000009: drain tick
+  [..] 000009: destroy cam
+  [..] 000009: destroy 0 npcs
+  [..] 000009: destroy leader
+  [..] 000009: destroy follower
+  [..] 000009: post-cleanup tick
+  [..] 000009: finally end
+  [..] 000010: spawn follower
+  [..] 000010: spawn leader
+  [..] 000010: spawn NPCs (count=0)
+  [..] 000010: spawn camera
+  [..] 000010: settle (no listener)
+  [..] 000010: tick 10/50
+  [..] 000010: tick 20/50
+  [..] 000010: tick 30/50
+  [..] 000010: tick 40/50
+  [..] 000010: tick 50/50
+  [..] 000010: cam.listen (skip 20 stale frames)
+  [OK] 000010.png  (Town01, ClearNoon, sun=55°, dist=14m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000010: finally start
+  [..] 000010: drain tick
+  [..] 000010: destroy cam
+  [..] 000010: destroy 0 npcs
+  [..] 000010: destroy leader
+  [..] 000010: destroy follower
+  [..] 000010: post-cleanup tick
+  [..] 000010: finally end
+  [..] 000011: spawn follower
+  [..] 000011: spawn leader
+  [..] 000011: spawn NPCs (count=0)
+  [..] 000011: spawn camera
+  [..] 000011: settle (no listener)
+  [..] 000011: tick 10/50
+  [..] 000011: tick 20/50
+  [..] 000011: tick 30/50
+  [..] 000011: tick 40/50
+  [..] 000011: tick 50/50
+  [..] 000011: cam.listen (skip 20 stale frames)
+  [OK] 000011.png  (Town01, CloudyNoon, sun=55°, dist=18m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000011: finally start
+  [..] 000011: drain tick
+  [..] 000011: destroy cam
+  [..] 000011: destroy 0 npcs
+  [..] 000011: destroy leader
+  [..] 000011: destroy follower
+  [..] 000011: post-cleanup tick
+  [..] 000011: finally end
+  [..] 000012: spawn follower
+  [..] 000012: spawn leader
+  [..] 000012: spawn NPCs (count=0)
+  [..] 000012: spawn camera
+  [..] 000012: settle (no listener)
+  [..] 000012: tick 10/50
+  [..] 000012: tick 20/50
+  [..] 000012: tick 30/50
+  [..] 000012: tick 40/50
+  [..] 000012: tick 50/50
+  [..] 000012: cam.listen (skip 20 stale frames)
+  [OK] 000012.png  (Town01, ClearNoon, sun=25°, dist=10m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000012: finally start
+  [..] 000012: drain tick
+  [..] 000012: destroy cam
+  [..] 000012: destroy 0 npcs
+  [..] 000012: destroy leader
+  [..] 000012: destroy follower
+  [..] 000012: post-cleanup tick
+  [..] 000012: finally end
+  [..] 000013: spawn follower
+  [..] 000013: spawn leader
+  [..] 000013: spawn NPCs (count=0)
+  [..] 000013: spawn camera
+  [..] 000013: settle (no listener)
+  [..] 000013: tick 10/50
+  [..] 000013: tick 20/50
+  [..] 000013: tick 30/50
+  [..] 000013: tick 40/50
+  [..] 000013: tick 50/50
+  [..] 000013: cam.listen (skip 20 stale frames)
+  [OK] 000013.png  (Town01, ClearNoon, sun=70°, dist=14m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000013: finally start
+  [..] 000013: drain tick
+  [..] 000013: destroy cam
+  [..] 000013: destroy 0 npcs
+  [..] 000013: destroy leader
+  [..] 000013: destroy follower
+  [..] 000013: post-cleanup tick
+  [..] 000013: finally end
+  [..] 000014: spawn follower
+  [..] 000014: spawn leader
+  [..] 000014: spawn NPCs (count=0)
+  [..] 000014: spawn camera
+  [..] 000014: settle (no listener)
+  [..] 000014: tick 10/50
+  [..] 000014: tick 20/50
+  [..] 000014: tick 30/50
+  [..] 000014: tick 40/50
+  [..] 000014: tick 50/50
+  [..] 000014: cam.listen (skip 20 stale frames)
+  [OK] 000014.png  (Town01, MidRainyNoon, sun=55°, dist=10m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000014: finally start
+  [..] 000014: drain tick
+  [..] 000014: destroy cam
+  [..] 000014: destroy 0 npcs
+  [..] 000014: destroy leader
+  [..] 000014: destroy follower
+  [..] 000014: post-cleanup tick
+  [..] 000014: finally end
+  [..] 000015: spawn follower
+  [..] 000015: spawn leader
+  [..] 000015: spawn NPCs (count=0)
+  [..] 000015: spawn camera
+  [..] 000015: settle (no listener)
+  [..] 000015: tick 10/50
+  [..] 000015: tick 20/50
+  [..] 000015: tick 30/50
+  [..] 000015: tick 40/50
+  [..] 000015: tick 50/50
+  [..] 000015: cam.listen (skip 20 stale frames)
+  [OK] 000015.png  (Town01, ClearNoon, sun=25°, dist=6m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000015: finally start
+  [..] 000015: drain tick
+  [..] 000015: destroy cam
+  [..] 000015: destroy 0 npcs
+  [..] 000015: destroy leader
+  [..] 000015: destroy follower
+  [..] 000015: post-cleanup tick
+  [..] 000015: finally end
+  [..] 000016: spawn follower
+  [..] 000016: spawn leader
+  [..] 000016: spawn NPCs (count=0)
+  [..] 000016: spawn camera
+  [..] 000016: settle (no listener)
+  [..] 000016: tick 10/50
+  [..] 000016: tick 20/50
+  [..] 000016: tick 30/50
+  [..] 000016: tick 40/50
+  [..] 000016: tick 50/50
+  [..] 000016: cam.listen (skip 20 stale frames)
+  [OK] 000016.png  (Town01, ClearNoon, sun=40°, dist=10m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000016: finally start
+  [..] 000016: drain tick
+  [..] 000016: destroy cam
+  [..] 000016: destroy 0 npcs
+  [..] 000016: destroy leader
+  [..] 000016: destroy follower
+  [..] 000016: post-cleanup tick
+  [..] 000016: finally end
+  [SKIP] 000017: no valid lane at shift=+1 from follower lane
+  [..] 000018: spawn follower
+  [..] 000018: spawn leader
+  [..] 000018: spawn NPCs (count=0)
+  [..] 000018: spawn camera
+  [..] 000018: settle (no listener)
+  [..] 000018: tick 10/50
+  [..] 000018: tick 20/50
+  [..] 000018: tick 30/50
+  [..] 000018: tick 40/50
+  [..] 000018: tick 50/50
+  [..] 000018: cam.listen (skip 20 stale frames)
+  [OK] 000018.png  (Town01, CloudyNoon, sun=40°, dist=6m, lat=+0.0, hdg=+0°, npcs=0)
+  [..] 000018: finally start
+  [..] 000018: drain tick
+  [..] 000018: destroy cam
+  [..] 000018: destroy 0 npcs
+  [..] 000018: destroy leader
+  [..] 000018: destroy follower
+  [..] 000018: post-cleanup tick
+  [..] 000018: finally end
+  [..] 000019: spawn follower
+  [..] 000019: spawn leader
+  [..] 000019: spawn NPCs (count=0)
+  [..] 000019: spawn camera
+  [..] 000019: settle (no listener)
+  [..] 000019: tick 10/50
+  [..] 000019: tick 20/50
+  [..] 000019: tick 30/50
+  [..] 000019: tick 40/50
+  [..] 000019: tick 50/50
+  [..] 000019: cam.listen (skip 20 stale frames)
+  [OK] 000019.png  (Town01, WetNoon, sun=70°, dist=18m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000019: finally start
+  [..] 000019: drain tick
+  [..] 000019: destroy cam
+  [..] 000019: destroy 0 npcs
+  [..] 000019: destroy leader
+  [..] 000019: destroy follower
+  [..] 000019: post-cleanup tick
+  [..] 000019: finally end
+  [..] 000020: spawn follower
+  [..] 000020: spawn leader
+  [..] 000020: spawn NPCs (count=0)
+  [..] 000020: spawn camera
+  [..] 000020: settle (no listener)
+  [..] 000020: tick 10/50
+  [..] 000020: tick 20/50
+  [..] 000020: tick 30/50
+  [..] 000020: tick 40/50
+  [..] 000020: tick 50/50
+  [..] 000020: cam.listen (skip 20 stale frames)
+  [OK] 000020.png  (Town01, WetNoon, sun=40°, dist=10m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000020: finally start
+  [..] 000020: drain tick
+  [..] 000020: destroy cam
+  [..] 000020: destroy 0 npcs
+  [..] 000020: destroy leader
+  [..] 000020: destroy follower
+  [..] 000020: post-cleanup tick
+  [..] 000020: finally end
+  [..] 000021: spawn follower
+  [..] 000021: spawn leader
+  [..] 000021: spawn NPCs (count=0)
+  [..] 000021: spawn camera
+  [..] 000021: settle (no listener)
+  [..] 000021: tick 10/50
+  [..] 000021: tick 20/50
+  [..] 000021: tick 30/50
+  [..] 000021: tick 40/50
+  [..] 000021: tick 50/50
+  [..] 000021: cam.listen (skip 20 stale frames)
+  [OK] 000021.png  (Town01, MidRainyNoon, sun=70°, dist=14m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000021: finally start
+  [..] 000021: drain tick
+  [..] 000021: destroy cam
+  [..] 000021: destroy 0 npcs
+  [..] 000021: destroy leader
+  [..] 000021: destroy follower
+  [..] 000021: post-cleanup tick
+  [..] 000021: finally end
+  [SKIP] 000022: no valid lane at shift=+1 from follower lane
+  [..] 000023: spawn follower
+  [..] 000023: spawn leader
+  [..] 000023: spawn NPCs (count=0)
+  [..] 000023: spawn camera
+  [..] 000023: settle (no listener)
+  [..] 000023: tick 10/50
+  [..] 000023: tick 20/50
+  [..] 000023: tick 30/50
+  [..] 000023: tick 40/50
+  [..] 000023: tick 50/50
+  [..] 000023: cam.listen (skip 20 stale frames)
+  [OK] 000023.png  (Town01, MidRainyNoon, sun=55°, dist=6m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000023: finally start
+  [..] 000023: drain tick
+  [..] 000023: destroy cam
+  [..] 000023: destroy 0 npcs
+  [..] 000023: destroy leader
+  [..] 000023: destroy follower
+  [..] 000023: post-cleanup tick
+  [..] 000023: finally end
+  [SKIP] 000024: no valid lane at shift=+1 from follower lane
+  [..] 000025: spawn follower
+  [..] 000025: spawn leader
+  [..] 000025: spawn NPCs (count=0)
+  [..] 000025: spawn camera
+  [..] 000025: settle (no listener)
+  [..] 000025: tick 10/50
+  [..] 000025: tick 20/50
+  [..] 000025: tick 30/50
+  [..] 000025: tick 40/50
+  [..] 000025: tick 50/50
+  [..] 000025: cam.listen (skip 20 stale frames)
+  [OK] 000025.png  (Town01, CloudyNoon, sun=55°, dist=6m, lat=+0.0, hdg=+0°, npcs=0)
+  [..] 000025: finally start
+  [..] 000025: drain tick
+  [..] 000025: destroy cam
+  [..] 000025: destroy 0 npcs
+  [..] 000025: destroy leader
+  [..] 000025: destroy follower
+  [..] 000025: post-cleanup tick
+  [..] 000025: finally end
+  [..] 000026: spawn follower
+  [..] 000026: spawn leader
+  [..] 000026: spawn NPCs (count=0)
+  [..] 000026: spawn camera
+  [..] 000026: settle (no listener)
+  [..] 000026: tick 10/50
+  [..] 000026: tick 20/50
+  [..] 000026: tick 30/50
+  [..] 000026: tick 40/50
+  [..] 000026: tick 50/50
+  [..] 000026: cam.listen (skip 20 stale frames)
+  [OK] 000026.png  (Town01, ClearNoon, sun=25°, dist=18m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000026: finally start
+  [..] 000026: drain tick
+  [..] 000026: destroy cam
+  [..] 000026: destroy 0 npcs
+  [..] 000026: destroy leader
+  [..] 000026: destroy follower
+  [..] 000026: post-cleanup tick
+  [..] 000026: finally end
+  [..] 000027: spawn follower
+  [..] 000027: spawn leader
+  [..] 000027: spawn NPCs (count=0)
+  [..] 000027: spawn camera
+  [..] 000027: settle (no listener)
+  [..] 000027: tick 10/50
+  [..] 000027: tick 20/50
+  [..] 000027: tick 30/50
+  [..] 000027: tick 40/50
+  [..] 000027: tick 50/50
+  [..] 000027: cam.listen (skip 20 stale frames)
+  [OK] 000027.png  (Town01, WetNoon, sun=55°, dist=6m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000027: finally start
+  [..] 000027: drain tick
+  [..] 000027: destroy cam
+  [..] 000027: destroy 0 npcs
+  [..] 000027: destroy leader
+  [..] 000027: destroy follower
+  [..] 000027: post-cleanup tick
+  [..] 000027: finally end
+  [..] 000028: spawn follower
+  [..] 000028: spawn leader
+  [..] 000028: spawn NPCs (count=0)
+  [..] 000028: spawn camera
+  [..] 000028: settle (no listener)
+  [..] 000028: tick 10/50
+  [..] 000028: tick 20/50
+  [..] 000028: tick 30/50
+  [..] 000028: tick 40/50
+  [..] 000028: tick 50/50
+  [..] 000028: cam.listen (skip 20 stale frames)
+  [OK] 000028.png  (Town01, MidRainyNoon, sun=70°, dist=18m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000028: finally start
+  [..] 000028: drain tick
+  [..] 000028: destroy cam
+  [..] 000028: destroy 0 npcs
+  [..] 000028: destroy leader
+  [..] 000028: destroy follower
+  [..] 000028: post-cleanup tick
+  [..] 000028: finally end
+  [..] 000029: spawn follower
+  [..] 000029: spawn leader
+  [..] 000029: spawn NPCs (count=0)
+  [..] 000029: spawn camera
+  [..] 000029: settle (no listener)
+  [..] 000029: tick 10/50
+  [..] 000029: tick 20/50
+  [..] 000029: tick 30/50
+  [..] 000029: tick 40/50
+  [..] 000029: tick 50/50
+  [..] 000029: cam.listen (skip 20 stale frames)
+  [OK] 000029.png  (Town01, MidRainyNoon, sun=55°, dist=14m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000029: finally start
+  [..] 000029: drain tick
+  [..] 000029: destroy cam
+  [..] 000029: destroy 0 npcs
+  [..] 000029: destroy leader
+  [..] 000029: destroy follower
+  [..] 000029: post-cleanup tick
+  [..] 000029: finally end
+  [..] 000030: spawn follower
+  [..] 000030: spawn leader
+  [..] 000030: spawn NPCs (count=0)
+  [..] 000030: spawn camera
+  [..] 000030: settle (no listener)
+  [..] 000030: tick 10/50
+  [..] 000030: tick 20/50
+  [..] 000030: tick 30/50
+  [..] 000030: tick 40/50
+  [..] 000030: tick 50/50
+  [..] 000030: cam.listen (skip 20 stale frames)
+  [OK] 000030.png  (Town01, ClearNoon, sun=70°, dist=14m, lat=+0.0, hdg=+0°, npcs=0)
+  [..] 000030: finally start
+  [..] 000030: drain tick
+  [..] 000030: destroy cam
+  [..] 000030: destroy 0 npcs
+  [..] 000030: destroy leader
+  [..] 000030: destroy follower
+  [..] 000030: post-cleanup tick
+  [..] 000030: finally end
+  [..] 000031: spawn follower
+  [..] 000031: spawn leader
+  [..] 000031: spawn NPCs (count=0)
+  [..] 000031: spawn camera
+  [..] 000031: settle (no listener)
+  [..] 000031: tick 10/50
+  [..] 000031: tick 20/50
+  [..] 000031: tick 30/50
+  [..] 000031: tick 40/50
+  [..] 000031: tick 50/50
+  [..] 000031: cam.listen (skip 20 stale frames)
+  [OK] 000031.png  (Town01, MidRainyNoon, sun=40°, dist=6m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000031: finally start
+  [..] 000031: drain tick
+  [..] 000031: destroy cam
+  [..] 000031: destroy 0 npcs
+  [..] 000031: destroy leader
+  [..] 000031: destroy follower
+  [..] 000031: post-cleanup tick
+  [..] 000031: finally end
+  [SKIP] 000032: no valid lane at shift=+1 from follower lane
+  [..] 000033: spawn follower
+  [..] 000033: spawn leader
+  [..] 000033: spawn NPCs (count=0)
+  [..] 000033: spawn camera
+  [..] 000033: settle (no listener)
+  [..] 000033: tick 10/50
+  [..] 000033: tick 20/50
+  [..] 000033: tick 30/50
+  [..] 000033: tick 40/50
+  [..] 000033: tick 50/50
+  [..] 000033: cam.listen (skip 20 stale frames)
+  [OK] 000033.png  (Town01, CloudyNoon, sun=55°, dist=14m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000033: finally start
+  [..] 000033: drain tick
+  [..] 000033: destroy cam
+  [..] 000033: destroy 0 npcs
+  [..] 000033: destroy leader
+  [..] 000033: destroy follower
+  [..] 000033: post-cleanup tick
+  [..] 000033: finally end
+  [..] 000034: spawn follower
+  [..] 000034: spawn leader
+  [..] 000034: spawn NPCs (count=0)
+  [..] 000034: spawn camera
+  [..] 000034: settle (no listener)
+  [..] 000034: tick 10/50
+  [..] 000034: tick 20/50
+  [..] 000034: tick 30/50
+  [..] 000034: tick 40/50
+  [..] 000034: tick 50/50
+  [..] 000034: cam.listen (skip 20 stale frames)
+  [OK] 000034.png  (Town01, ClearNoon, sun=55°, dist=10m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000034: finally start
+  [..] 000034: drain tick
+  [..] 000034: destroy cam
+  [..] 000034: destroy 0 npcs
+  [..] 000034: destroy leader
+  [..] 000034: destroy follower
+  [..] 000034: post-cleanup tick
+  [..] 000034: finally end
+  [..] 000035: spawn follower
+  [..] 000035: spawn leader
+  [..] 000035: spawn NPCs (count=0)
+  [..] 000035: spawn camera
+  [..] 000035: settle (no listener)
+  [..] 000035: tick 10/50
+  [..] 000035: tick 20/50
+  [..] 000035: tick 30/50
+  [..] 000035: tick 40/50
+  [..] 000035: tick 50/50
+  [..] 000035: cam.listen (skip 20 stale frames)
+  [OK] 000035.png  (Town01, MidRainyNoon, sun=55°, dist=10m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000035: finally start
+  [..] 000035: drain tick
+  [..] 000035: destroy cam
+  [..] 000035: destroy 0 npcs
+  [..] 000035: destroy leader
+  [..] 000035: destroy follower
+  [..] 000035: post-cleanup tick
+  [..] 000035: finally end
+  [SKIP] 000036: no valid lane at shift=+1 from follower lane
+  [..] 000037: spawn follower
+  [..] 000037: spawn leader
+  [..] 000037: spawn NPCs (count=0)
+  [..] 000037: spawn camera
+  [..] 000037: settle (no listener)
+  [..] 000037: tick 10/50
+  [..] 000037: tick 20/50
+  [..] 000037: tick 30/50
+  [..] 000037: tick 40/50
+  [..] 000037: tick 50/50
+  [..] 000037: cam.listen (skip 20 stale frames)
+  [OK] 000037.png  (Town01, CloudyNoon, sun=55°, dist=6m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000037: finally start
+  [..] 000037: drain tick
+  [..] 000037: destroy cam
+  [..] 000037: destroy 0 npcs
+  [..] 000037: destroy leader
+  [..] 000037: destroy follower
+  [..] 000037: post-cleanup tick
+  [..] 000037: finally end
+  [SKIP] 000038: no valid lane at shift=+1 from follower lane
+  [..] 000039: spawn follower
+  [..] 000039: spawn leader
+  [..] 000039: spawn NPCs (count=0)
+  [..] 000039: spawn camera
+  [..] 000039: settle (no listener)
+  [..] 000039: tick 10/50
+  [..] 000039: tick 20/50
+  [..] 000039: tick 30/50
+  [..] 000039: tick 40/50
+  [..] 000039: tick 50/50
+  [..] 000039: cam.listen (skip 20 stale frames)
+  [OK] 000039.png  (Town01, WetNoon, sun=25°, dist=18m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000039: finally start
+  [..] 000039: drain tick
+  [..] 000039: destroy cam
+  [..] 000039: destroy 0 npcs
+  [..] 000039: destroy leader
+  [..] 000039: destroy follower
+  [..] 000039: post-cleanup tick
+  [..] 000039: finally end
+  [SKIP] 000040: no valid lane at shift=+1 from follower lane
+  [SKIP] 000041: no valid lane at shift=+1 from follower lane
+  [SKIP] 000042: no valid lane at shift=+1 from follower lane
+  [SKIP] 000043: no valid lane at shift=+1 from follower lane
+  [..] 000044: spawn follower
+  [..] 000044: spawn leader
+  [..] 000044: spawn NPCs (count=0)
+  [..] 000044: spawn camera
+  [..] 000044: settle (no listener)
+  [..] 000044: tick 10/50
+  [..] 000044: tick 20/50
+  [..] 000044: tick 30/50
+  [..] 000044: tick 40/50
+  [..] 000044: tick 50/50
+  [..] 000044: cam.listen (skip 20 stale frames)
+  [OK] 000044.png  (Town01, WetNoon, sun=70°, dist=14m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000044: finally start
+  [..] 000044: drain tick
+  [..] 000044: destroy cam
+  [..] 000044: destroy 0 npcs
+  [..] 000044: destroy leader
+  [..] 000044: destroy follower
+  [..] 000044: post-cleanup tick
+  [..] 000044: finally end
+  [..] 000045: spawn follower
+  [..] 000045: spawn leader
+  [..] 000045: spawn NPCs (count=0)
+  [..] 000045: spawn camera
+  [..] 000045: settle (no listener)
+  [..] 000045: tick 10/50
+  [..] 000045: tick 20/50
+  [..] 000045: tick 30/50
+  [..] 000045: tick 40/50
+  [..] 000045: tick 50/50
+  [..] 000045: cam.listen (skip 20 stale frames)
+  [OK] 000045.png  (Town01, CloudyNoon, sun=25°, dist=14m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000045: finally start
+  [..] 000045: drain tick
+  [..] 000045: destroy cam
+  [..] 000045: destroy 0 npcs
+  [..] 000045: destroy leader
+  [..] 000045: destroy follower
+  [..] 000045: post-cleanup tick
+  [..] 000045: finally end
+  [..] 000046: spawn follower
+  [..] 000046: spawn leader
+  [..] 000046: spawn NPCs (count=0)
+  [..] 000046: spawn camera
+  [..] 000046: settle (no listener)
+  [..] 000046: tick 10/50
+  [..] 000046: tick 20/50
+  [..] 000046: tick 30/50
+  [..] 000046: tick 40/50
+  [..] 000046: tick 50/50
+  [..] 000046: cam.listen (skip 20 stale frames)
+  [OK] 000046.png  (Town01, CloudyNoon, sun=70°, dist=18m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000046: finally start
+  [..] 000046: drain tick
+  [..] 000046: destroy cam
+  [..] 000046: destroy 0 npcs
+  [..] 000046: destroy leader
+  [..] 000046: destroy follower
+  [..] 000046: post-cleanup tick
+  [..] 000046: finally end
+  [SKIP] 000047: no valid lane at shift=+1 from follower lane
+  [..] 000048: spawn follower
+  [..] 000048: spawn leader
+  [..] 000048: spawn NPCs (count=0)
+  [..] 000048: spawn camera
+  [..] 000048: settle (no listener)
+  [..] 000048: tick 10/50
+  [..] 000048: tick 20/50
+  [..] 000048: tick 30/50
+  [..] 000048: tick 40/50
+  [..] 000048: tick 50/50
+  [..] 000048: cam.listen (skip 20 stale frames)
+  [OK] 000048.png  (Town01, WetNoon, sun=25°, dist=6m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000048: finally start
+  [..] 000048: drain tick
+  [..] 000048: destroy cam
+  [..] 000048: destroy 0 npcs
+  [..] 000048: destroy leader
+  [..] 000048: destroy follower
+  [..] 000048: post-cleanup tick
+  [..] 000048: finally end
+  [..] 000049: spawn follower
+  [..] 000049: spawn leader
+  [..] 000049: spawn NPCs (count=0)
+  [..] 000049: spawn camera
+  [..] 000049: settle (no listener)
+  [..] 000049: tick 10/50
+  [..] 000049: tick 20/50
+  [..] 000049: tick 30/50
+  [..] 000049: tick 40/50
+  [..] 000049: tick 50/50
+  [..] 000049: cam.listen (skip 20 stale frames)
+  [OK] 000049.png  (Town01, ClearNoon, sun=55°, dist=10m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000049: finally start
+  [..] 000049: drain tick
+  [..] 000049: destroy cam
+  [..] 000049: destroy 0 npcs
+  [..] 000049: destroy leader
+  [..] 000049: destroy follower
+  [..] 000049: post-cleanup tick
+  [..] 000049: finally end
+  [..] 000050: spawn follower
+  [..] 000050: spawn leader
+  [..] 000050: spawn NPCs (count=0)
+  [..] 000050: spawn camera
+  [..] 000050: settle (no listener)
+  [..] 000050: tick 10/50
+  [..] 000050: tick 20/50
+  [..] 000050: tick 30/50
+  [..] 000050: tick 40/50
+  [..] 000050: tick 50/50
+  [..] 000050: cam.listen (skip 20 stale frames)
+  [OK] 000050.png  (Town01, ClearNoon, sun=25°, dist=10m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000050: finally start
+  [..] 000050: drain tick
+  [..] 000050: destroy cam
+  [..] 000050: destroy 0 npcs
+  [..] 000050: destroy leader
+  [..] 000050: destroy follower
+  [..] 000050: post-cleanup tick
+  [..] 000050: finally end
+  [..] 000051: spawn follower
+  [..] 000051: spawn leader
+  [..] 000051: spawn NPCs (count=0)
+  [..] 000051: spawn camera
+  [..] 000051: settle (no listener)
+  [..] 000051: tick 10/50
+  [..] 000051: tick 20/50
+  [..] 000051: tick 30/50
+  [..] 000051: tick 40/50
+  [..] 000051: tick 50/50
+  [..] 000051: cam.listen (skip 20 stale frames)
+  [OK] 000051.png  (Town01, WetNoon, sun=55°, dist=18m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000051: finally start
+  [..] 000051: drain tick
+  [..] 000051: destroy cam
+  [..] 000051: destroy 0 npcs
+  [..] 000051: destroy leader
+  [..] 000051: destroy follower
+  [..] 000051: post-cleanup tick
+  [..] 000051: finally end
+  [SKIP] 000052: no valid lane at shift=+1 from follower lane
+  [SKIP] 000053: no valid lane at shift=+1 from follower lane
+  [..] 000054: spawn follower
+  [..] 000054: spawn leader
+  [..] 000054: spawn NPCs (count=0)
+  [..] 000054: spawn camera
+  [..] 000054: settle (no listener)
+  [..] 000054: tick 10/50
+  [..] 000054: tick 20/50
+  [..] 000054: tick 30/50
+  [..] 000054: tick 40/50
+  [..] 000054: tick 50/50
+  [..] 000054: cam.listen (skip 20 stale frames)
+  [OK] 000054.png  (Town01, CloudyNoon, sun=25°, dist=10m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000054: finally start
+  [..] 000054: drain tick
+  [..] 000054: destroy cam
+  [..] 000054: destroy 0 npcs
+  [..] 000054: destroy leader
+  [..] 000054: destroy follower
+  [..] 000054: post-cleanup tick
+  [..] 000054: finally end
+  [..] 000055: spawn follower
+  [..] 000055: spawn leader
+  [..] 000055: spawn NPCs (count=0)
+  [..] 000055: spawn camera
+  [..] 000055: settle (no listener)
+  [..] 000055: tick 10/50
+  [..] 000055: tick 20/50
+  [..] 000055: tick 30/50
+  [..] 000055: tick 40/50
+  [..] 000055: tick 50/50
+  [..] 000055: cam.listen (skip 20 stale frames)
+  [OK] 000055.png  (Town01, ClearNoon, sun=70°, dist=10m, lat=+0.0, hdg=+0°, npcs=0)
+  [..] 000055: finally start
+  [..] 000055: drain tick
+  [..] 000055: destroy cam
+  [..] 000055: destroy 0 npcs
+  [..] 000055: destroy leader
+  [..] 000055: destroy follower
+  [..] 000055: post-cleanup tick
+  [..] 000055: finally end
+  [SKIP] 000056: no valid lane at shift=+1 from follower lane
+  [..] 000057: spawn follower
+  [..] 000057: spawn leader
+  [..] 000057: spawn NPCs (count=0)
+  [..] 000057: spawn camera
+  [..] 000057: settle (no listener)
+  [..] 000057: tick 10/50
+  [..] 000057: tick 20/50
+  [..] 000057: tick 30/50
+  [..] 000057: tick 40/50
+  [..] 000057: tick 50/50
+  [..] 000057: cam.listen (skip 20 stale frames)
+  [OK] 000057.png  (Town01, ClearNoon, sun=70°, dist=10m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000057: finally start
+  [..] 000057: drain tick
+  [..] 000057: destroy cam
+  [..] 000057: destroy 0 npcs
+  [..] 000057: destroy leader
+  [..] 000057: destroy follower
+  [..] 000057: post-cleanup tick
+  [..] 000057: finally end
+  [SKIP] 000058: no valid lane at shift=+1 from follower lane
+  [..] 000059: spawn follower
+  [..] 000059: spawn leader
+  [..] 000059: spawn NPCs (count=0)
+  [..] 000059: spawn camera
+  [..] 000059: settle (no listener)
+  [..] 000059: tick 10/50
+  [..] 000059: tick 20/50
+  [..] 000059: tick 30/50
+  [..] 000059: tick 40/50
+  [..] 000059: tick 50/50
+  [..] 000059: cam.listen (skip 20 stale frames)
+  [OK] 000059.png  (Town01, MidRainyNoon, sun=25°, dist=14m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000059: finally start
+  [..] 000059: drain tick
+  [..] 000059: destroy cam
+  [..] 000059: destroy 0 npcs
+  [..] 000059: destroy leader
+  [..] 000059: destroy follower
+  [..] 000059: post-cleanup tick
+  [..] 000059: finally end
+  [..] 000060: spawn follower
+  [..] 000060: spawn leader
+  [..] 000060: spawn NPCs (count=0)
+  [..] 000060: spawn camera
+  [..] 000060: settle (no listener)
+  [..] 000060: tick 10/50
+  [..] 000060: tick 20/50
+  [..] 000060: tick 30/50
+  [..] 000060: tick 40/50
+  [..] 000060: tick 50/50
+  [..] 000060: cam.listen (skip 20 stale frames)
+  [OK] 000060.png  (Town01, MidRainyNoon, sun=55°, dist=6m, lat=-1.0, hdg=+0°, npcs=0)
+  [..] 000060: finally start
+  [..] 000060: drain tick
+  [..] 000060: destroy cam
+  [..] 000060: destroy 0 npcs
+  [..] 000060: destroy leader
+  [..] 000060: destroy follower
+  [..] 000060: post-cleanup tick
+  [..] 000060: finally end
+  [..] 000061: spawn follower
+  [..] 000061: spawn leader
+  [..] 000061: spawn NPCs (count=0)
+  [..] 000061: spawn camera
+  [..] 000061: settle (no listener)
+  [..] 000061: tick 10/50
+  [..] 000061: tick 20/50
+  [..] 000061: tick 30/50
+  [..] 000061: tick 40/50
+  [..] 000061: tick 50/50
+  [..] 000061: cam.listen (skip 20 stale frames)
+  [OK] 000061.png  (Town01, CloudyNoon, sun=55°, dist=18m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000061: finally start
+  [..] 000061: drain tick
+  [..] 000061: destroy cam
+  [..] 000061: destroy 0 npcs
+  [..] 000061: destroy leader
+  [..] 000061: destroy follower
+  [..] 000061: post-cleanup tick
+  [..] 000061: finally end
+  [SKIP] 000062: no valid lane at shift=+1 from follower lane
+  [..] 000063: spawn follower
+  [..] 000063: spawn leader
+  [..] 000063: spawn NPCs (count=0)
+  [..] 000063: spawn camera
+  [..] 000063: settle (no listener)
+  [..] 000063: tick 10/50
+  [..] 000063: tick 20/50
+  [..] 000063: tick 30/50
+  [..] 000063: tick 40/50
+  [..] 000063: tick 50/50
+  [..] 000063: cam.listen (skip 20 stale frames)
+  [OK] 000063.png  (Town01, WetNoon, sun=40°, dist=6m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000063: finally start
+  [..] 000063: drain tick
+  [..] 000063: destroy cam
+  [..] 000063: destroy 0 npcs
+  [..] 000063: destroy leader
+  [..] 000063: destroy follower
+  [..] 000063: post-cleanup tick
+  [..] 000063: finally end
+  [..] 000064: spawn follower
+  [..] 000064: spawn leader
+  [..] 000064: spawn NPCs (count=0)
+  [..] 000064: spawn camera
+  [..] 000064: settle (no listener)
+  [..] 000064: tick 10/50
+  [..] 000064: tick 20/50
+  [..] 000064: tick 30/50
+  [..] 000064: tick 40/50
+  [..] 000064: tick 50/50
+  [..] 000064: cam.listen (skip 20 stale frames)
+  [OK] 000064.png  (Town01, ClearNoon, sun=55°, dist=14m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000064: finally start
+  [..] 000064: drain tick
+  [..] 000064: destroy cam
+  [..] 000064: destroy 0 npcs
+  [..] 000064: destroy leader
+  [..] 000064: destroy follower
+  [..] 000064: post-cleanup tick
+  [..] 000064: finally end
+  [SKIP] 000065: no valid lane at shift=+1 from follower lane
+  [SKIP] 000066: no valid lane at shift=+1 from follower lane
+  [..] 000067: spawn follower
+  [..] 000067: spawn leader
+  [..] 000067: spawn NPCs (count=0)
+  [..] 000067: spawn camera
+  [..] 000067: settle (no listener)
+  [..] 000067: tick 10/50
+  [..] 000067: tick 20/50
+  [..] 000067: tick 30/50
+  [..] 000067: tick 40/50
+  [..] 000067: tick 50/50
+  [..] 000067: cam.listen (skip 20 stale frames)
+  [OK] 000067.png  (Town01, MidRainyNoon, sun=55°, dist=10m, lat=+0.0, hdg=+0°, npcs=0)
+  [..] 000067: finally start
+  [..] 000067: drain tick
+  [..] 000067: destroy cam
+  [..] 000067: destroy 0 npcs
+  [..] 000067: destroy leader
+  [..] 000067: destroy follower
+  [..] 000067: post-cleanup tick
+  [..] 000067: finally end
+  [SKIP] 000068: no valid lane at shift=+1 from follower lane
+  [SKIP] 000069: no valid lane at shift=+1 from follower lane
+  [..] 000070: spawn follower
+  [..] 000070: spawn leader
+  [..] 000070: spawn NPCs (count=0)
+  [..] 000070: spawn camera
+  [..] 000070: settle (no listener)
+  [..] 000070: tick 10/50
+  [..] 000070: tick 20/50
+  [..] 000070: tick 30/50
+  [..] 000070: tick 40/50
+  [..] 000070: tick 50/50
+  [..] 000070: cam.listen (skip 20 stale frames)
+  [OK] 000070.png  (Town01, WetNoon, sun=70°, dist=18m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000070: finally start
+  [..] 000070: drain tick
+  [..] 000070: destroy cam
+  [..] 000070: destroy 0 npcs
+  [..] 000070: destroy leader
+  [..] 000070: destroy follower
+  [..] 000070: post-cleanup tick
+  [..] 000070: finally end
+  [SKIP] 000071: no valid lane at shift=+1 from follower lane
+  [..] 000072: spawn follower
+  [..] 000072: spawn leader
+  [..] 000072: spawn NPCs (count=0)
+  [..] 000072: spawn camera
+  [..] 000072: settle (no listener)
+  [..] 000072: tick 10/50
+  [..] 000072: tick 20/50
+  [..] 000072: tick 30/50
+  [..] 000072: tick 40/50
+  [..] 000072: tick 50/50
+  [..] 000072: cam.listen (skip 20 stale frames)
+  [OK] 000072.png  (Town01, WetNoon, sun=25°, dist=10m, lat=-1.0, hdg=+5°, npcs=0)
+  [..] 000072: finally start
+  [..] 000072: drain tick
+  [..] 000072: destroy cam
+  [..] 000072: destroy 0 npcs
+  [..] 000072: destroy leader
+  [..] 000072: destroy follower
+  [..] 000072: post-cleanup tick
+  [..] 000072: finally end
+  [SKIP] 000073: no valid lane at shift=+1 from follower lane
+  [..] 000074: spawn follower
+  [..] 000074: spawn leader
+  [..] 000074: spawn NPCs (count=0)
+  [..] 000074: spawn camera
+  [..] 000074: settle (no listener)
+  [..] 000074: tick 10/50
+  [..] 000074: tick 20/50
+  [..] 000074: tick 30/50
+  [..] 000074: tick 40/50
+  [..] 000074: tick 50/50
+  [..] 000074: cam.listen (skip 20 stale frames)
+  [OK] 000074.png  (Town01, MidRainyNoon, sun=40°, dist=18m, lat=-1.0, hdg=-5°, npcs=0)
+  [..] 000074: finally start
+  [..] 000074: drain tick
+  [..] 000074: destroy cam
+  [..] 000074: destroy 0 npcs
+  [..] 000074: destroy leader
+  [..] 000074: destroy follower
+  [..] 000074: post-cleanup tick
+  [..] 000074: finally end
+  [..] 000075: spawn follower
+  [..] 000075: spawn leader
+  [..] 000075: spawn NPCs (count=0)
+  [..] 000075: spawn camera
+  [..] 000075: settle (no listener)
+  [..] 000075: tick 10/50
+  [..] 000075: tick 20/50
+  [..] 000075: tick 30/50
+  [..] 000075: tick 40/50
+  [..] 000075: tick 50/50
+  [..] 000075: cam.listen (skip 20 stale frames)
+  [OK] 000075.png  (Town01, ClearNoon, sun=55°, dist=6m, lat=+0.0, hdg=-5°, npcs=0)
+  [..] 000075: finally start
+  [..] 000075: drain tick
+  [..] 000075: destroy cam
+  [..] 000075: destroy 0 npcs
+  [..] 000075: destroy leader
+  [..] 000075: destroy follower
+  [..] 000075: post-cleanup tick
+  [..] 000075: finally end
+  [..] 000076: spawn follower
+  [..] 000076: spawn leader
+  [..] 000076: spawn NPCs (count=0)
+  [..] 000076: spawn camera
+  [..] 000076: settle (no listener)
+  [..] 000076: tick 10/50
+  [..] 000076: tick 20/50
+  [..] 000076: tick 30/50
+  [..] 000076: tick 40/50
+  [..] 000076: tick 50/50
+  [..] 000076: cam.listen (skip 20 stale frames)
+  [OK] 000076.png  (Town01, WetNoon, sun=25°, dist=14m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000076: finally start
+  [..] 000076: drain tick
+  [..] 000076: destroy cam
+  [..] 000076: destroy 0 npcs
+  [..] 000076: destroy leader
+  [..] 000076: destroy follower
+  [..] 000076: post-cleanup tick
+  [..] 000076: finally end
+  [..] 000077: spawn follower
+  [..] 000077: spawn leader
+  [..] 000077: spawn NPCs (count=0)
+  [..] 000077: spawn camera
+  [..] 000077: settle (no listener)
+  [..] 000077: tick 10/50
+  [..] 000077: tick 20/50
+  [..] 000077: tick 30/50
+  [..] 000077: tick 40/50
+  [..] 000077: tick 50/50
+  [..] 000077: cam.listen (skip 20 stale frames)
+  [OK] 000077.png  (Town01, ClearNoon, sun=40°, dist=14m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000077: finally start
+  [..] 000077: drain tick
+  [..] 000077: destroy cam
+  [..] 000077: destroy 0 npcs
+  [..] 000077: destroy leader
+  [..] 000077: destroy follower
+  [..] 000077: post-cleanup tick
+  [..] 000077: finally end
+  [..] 000078: spawn follower
+  [..] 000078: spawn leader
+  [..] 000078: spawn NPCs (count=0)
+  [..] 000078: spawn camera
+  [..] 000078: settle (no listener)
+  [..] 000078: tick 10/50
+  [..] 000078: tick 20/50
+  [..] 000078: tick 30/50
+  [..] 000078: tick 40/50
+  [..] 000078: tick 50/50
+  [..] 000078: cam.listen (skip 20 stale frames)
+  [OK] 000078.png  (Town01, ClearNoon, sun=55°, dist=14m, lat=+0.0, hdg=+0°, npcs=0)
+  [..] 000078: finally start
+  [..] 000078: drain tick
+  [..] 000078: destroy cam
+  [..] 000078: destroy 0 npcs
+  [..] 000078: destroy leader
+  [..] 000078: destroy follower
+  [..] 000078: post-cleanup tick
+  [..] 000078: finally end
+  [SKIP] 000079: no valid lane at shift=+1 from follower lane
+  [SKIP] 000080: no valid lane at shift=+1 from follower lane
+  [SKIP] 000081: no valid lane at shift=+1 from follower lane
+  [..] 000082: spawn follower
+  [..] 000082: spawn leader
+  [..] 000082: spawn NPCs (count=0)
+  [..] 000082: spawn camera
+  [..] 000082: settle (no listener)
+  [..] 000082: tick 10/50
+  [..] 000082: tick 20/50
+  [..] 000082: tick 30/50
+  [..] 000082: tick 40/50
+  [..] 000082: tick 50/50
+  [..] 000082: cam.listen (skip 20 stale frames)
+  [OK] 000082.png  (Town01, CloudyNoon, sun=70°, dist=14m, lat=+0.0, hdg=+5°, npcs=0)
+  [..] 000082: finally start
+  [..] 000082: drain tick
+  [..] 000082: destroy cam
+  [..] 000082: destroy 0 npcs
+  [..] 000082: destroy leader
+  [..] 000082: destroy follower
+  [..] 000082: post-cleanup tick
+  [..] 000082: finally end
+  [SKIP] 000083: no valid lane at shift=+1 from follower lane
+  [SKIP] 000084: no valid lane at shift=+1 from follower lane
+  [SKIP] 000085: no valid lane at shift=+1 from follower lane
+  [SKIP] 000086: no valid lane at shift=+1 from follower lane
+  [..] 000087: spawn follower
+  [..] 000087: spawn leader
+  [..] 000087: spawn NPCs (count=0)
+  [..] 000087: spawn camera
+  [..] 000087: settle (no listener)
+  [..] 000087: tick 10/50

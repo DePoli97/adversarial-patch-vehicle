@@ -2,15 +2,14 @@
 
 Generates a balanced grid dataset for adversarial-patch training. For every
 combination in the product of:
-  (town × weather × sun_altitude × distance × lateral_offset × heading_offset)
+  (town × spawn × weather × sun_altitude × distance × lateral_offset × heading_offset)
 the script:
   1. Spawns leader + follower on a long-enough lane, with optional lateral
      offset of the leader and rotation of the follower's heading.
-  2. Optionally spawns NPC traffic in a radius around the scene, started in
-     autopilot so the frame contains plausibly moving vehicles.
+  2. Optionally spawns NPC traffic in a radius around the scene, in autopilot.
   3. Ticks the world a few times so weather/physics/rendering settle.
   4. Grabs one frame from the follower's front camera + saves a sidecar JSON
-     with all the generation parameters.
+     with all generation parameters.
 
 Output:
     data/chroma_key_dataset/capture_<ts>/
@@ -26,9 +25,8 @@ Usage (on Vortex, with CARLA server running on :2000):
         --distances 6 10 14 18 \\
         --lateral-offsets -1.5 0 1.5 \\
         --heading-offsets -5 0 5 \\
-        --npc-count 10 --npc-radius 60
-
-Defaults give a ~1000-frame grid.
+        --npc-count 10 --npc-radius 60 \\
+        [--shuffle] [--max-frames 1000]
 """
 from __future__ import annotations
 
@@ -37,7 +35,6 @@ import csv
 import json
 import math
 import random
-import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -52,6 +49,10 @@ DEFAULT_OUT = ROOT / "data" / "chroma_key_dataset"
 IMAGE_W = 1280
 IMAGE_H = 720
 IMAGE_FOV = 90
+
+# 180 s timeout covers heavy town loads (Town10HD, Town12) where the server
+# stops answering RPCs for a minute or more while UE compiles shaders.
+CLIENT_TIMEOUT_S = 180.0
 
 DEFAULT_WEATHER = ["ClearNoon", "CloudyNoon", "WetNoon", "MidRainyNoon"]
 
@@ -119,10 +120,9 @@ def walk_along_lane(wp: carla.Waypoint, distance_m: float) -> carla.Waypoint:
 
 
 def offset_transform(tf: carla.Transform, lateral: float, heading_deg: float) -> carla.Transform:
-    """Return a copy of `tf` shifted laterally (perpendicular to its forward axis)
-    and rotated in yaw by `heading_deg`."""
+    """Shift `tf` perpendicular to its forward axis by `lateral` meters and rotate
+    its yaw by `heading_deg`."""
     yaw = math.radians(tf.rotation.yaw)
-    # Right vector in CARLA: (cos(yaw+90°), sin(yaw+90°)) = (-sin yaw, cos yaw)
     right_x = -math.sin(yaw)
     right_y = math.cos(yaw)
     new_loc = carla.Location(
@@ -140,28 +140,20 @@ def offset_transform(tf: carla.Transform, lateral: float, heading_deg: float) ->
 
 def spawn_npc_traffic(world, anchor_loc: carla.Location, count: int, radius_m: float,
                       tm_port: int = 8000) -> list:
-    """Spawn `count` random vehicles within `radius_m` of `anchor_loc`, enable autopilot.
-
-    Returns the list of spawned actors (caller must destroy)."""
+    """Spawn up to `count` random vehicles within `radius_m` of `anchor_loc`,
+    each in autopilot. Returns the spawned actors (caller destroys them)."""
     if count <= 0:
         return []
     bplib = world.get_blueprint_library()
     vehicle_bps = [bp for bp in bplib.filter("vehicle.*")
                    if int(bp.get_attribute("number_of_wheels")) == 4]
     spawn_points = world.get_map().get_spawn_points()
-    # Pick spawn points within radius
     nearby = [sp for sp in spawn_points
               if sp.location.distance(anchor_loc) <= radius_m]
     random.shuffle(nearby)
 
-    tm = None
-    try:
-        tm = world.get_blueprint_library()  # noqa: dummy
-    except Exception:
-        pass
-
     spawned = []
-    for sp in nearby[:count * 3]:  # try up to 3x to handle collisions
+    for sp in nearby[:count * 3]:
         if len(spawned) >= count:
             break
         bp = random.choice(vehicle_bps)
@@ -175,6 +167,15 @@ def spawn_npc_traffic(world, anchor_loc: carla.Location, count: int, radius_m: f
     return spawned
 
 
+def safe_destroy(actor):
+    if actor is None:
+        return
+    try:
+        actor.destroy()
+    except Exception:
+        pass
+
+
 # ---------- per-frame capture ---------------------------------------------
 
 def capture_one(world, leader_bp, follower_bp,
@@ -185,7 +186,6 @@ def capture_one(world, leader_bp, follower_bp,
     """Spawn leader+follower(+NPCs), grab one camera frame, destroy everything."""
     leader_wp = walk_along_lane(follower_wp, distance_m)
 
-    # Base transforms, slight z bump to avoid colliding with ground
     follower_tf = follower_wp.transform
     follower_tf.location.z += 0.5
     follower_tf = offset_transform(follower_tf, lateral=0.0, heading_deg=heading_offset_deg)
@@ -197,12 +197,12 @@ def capture_one(world, leader_bp, follower_bp,
     follower = world.try_spawn_actor(follower_bp, follower_tf)
     if follower is None:
         print(f"  [SKIP] {frame_id}: follower spawn failed")
-        return
+        return False
     leader = world.try_spawn_actor(leader_bp, leader_tf)
     if leader is None:
-        follower.destroy()
+        safe_destroy(follower)
         print(f"  [SKIP] {frame_id}: leader spawn failed")
-        return
+        return False
 
     npcs = spawn_npc_traffic(world, anchor_loc=follower_tf.location,
                              count=npc_count, radius_m=npc_radius)
@@ -236,7 +236,7 @@ def capture_one(world, leader_bp, follower_bp,
 
         if not saved["received"]:
             print(f"  [WARN] no image for {frame_id}")
-            return
+            return False
 
         with open(out_dir / f"{frame_id}.json", "w") as f:
             json.dump(meta, f, indent=2)
@@ -244,20 +244,25 @@ def capture_one(world, leader_bp, follower_bp,
               f"sun={meta['sun_altitude']:.0f}°, dist={meta['distance_m']:.0f}m, "
               f"lat={meta['lateral_offset']:+.1f}, hdg={meta['heading_offset']:+.0f}°, "
               f"npcs={len(npcs)})")
+        return True
 
     finally:
+        # Order matters: stop listener, drain one tick to flush pending
+        # callbacks, THEN destroy. Avoids "operate on destroyed actor".
         if cam is not None:
-            cam.stop()
-            cam.destroy()
-        for n in npcs:
             try:
-                n.destroy()
+                cam.stop()
             except Exception:
                 pass
-        if leader is not None:
-            leader.destroy()
-        if follower is not None:
-            follower.destroy()
+        try:
+            world.tick()
+        except Exception:
+            pass
+        safe_destroy(cam)
+        for n in npcs:
+            safe_destroy(n)
+        safe_destroy(leader)
+        safe_destroy(follower)
 
 
 # ---------- main -----------------------------------------------------------
@@ -278,20 +283,20 @@ def main():
                    default=[-1.5, 0.0, 1.5])
     p.add_argument("--heading-offsets", type=float, nargs="+",
                    default=[-5.0, 0.0, 5.0])
-    p.add_argument("--npc-count", type=int, default=10,
-                   help="NPCs to spawn around the scene (autopilot on).")
-    p.add_argument("--npc-radius", type=float, default=60.0,
-                   help="Radius around the follower in which to spawn NPCs (m).")
+    p.add_argument("--npc-count", type=int, default=10)
+    p.add_argument("--npc-radius", type=float, default=60.0)
     p.add_argument("--spawn-pool-size", type=int, default=4,
-                   help="How many distinct starting waypoints to cycle through "
-                        "per town (gives more visual variety).")
-    p.add_argument("--leader", default="vehicle.carlamotors.carlacola",
-                   help="Leader blueprint id (must wear the yellow TGA in UE).")
+                   help="Distinct starting waypoints per town.")
+    p.add_argument("--leader", default="vehicle.carlamotors.carlacola")
     p.add_argument("--follower", default="vehicle.tesla.model3")
     p.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--max-frames", type=int, default=None,
-                   help="Optional cap. If grid > this, the script stops early.")
+                   help="Cap. With --shuffle, this samples uniformly across "
+                        "the grid; without, takes the first max_frames combos.")
+    p.add_argument("--shuffle", action="store_true",
+                   help="Sample combinations randomly from the full grid "
+                        "(then re-sort by town so each town loads once).")
     args = p.parse_args()
 
     random.seed(args.seed)
@@ -301,7 +306,6 @@ def main():
     run_dir = args.out_dir / f"capture_{ts}"
     run_dir.mkdir(parents=True, exist_ok=True)
 
-    # CSV index — one row per frame
     csv_path = run_dir / "captures_index.csv"
     csv_file = open(csv_path, "w", newline="")
     csv_writer = csv.writer(csv_file)
@@ -311,103 +315,143 @@ def main():
                          "follower_bp"])
 
     client = carla.Client(args.host, args.port)
-    client.set_timeout(30.0)
-    print(f"Connecting to CARLA at {args.host}:{args.port} ...")
+    client.set_timeout(CLIENT_TIMEOUT_S)
+    print(f"Connecting to CARLA at {args.host}:{args.port} "
+          f"(timeout={CLIENT_TIMEOUT_S:.0f}s) ...")
 
     weather_presets = [(name, resolve_weather(name)) for name in args.weather]
 
-    # Total grid size (assuming spawn_pool_size waypoints per town)
-    n_combo_per_spawn = (len(weather_presets) * len(args.sun_altitudes)
-                        * len(args.distances) * len(args.lateral_offsets)
-                        * len(args.heading_offsets))
-    total = len(args.towns) * args.spawn_pool_size * n_combo_per_spawn
+    # Build the FULL grid of combinations. Each combo carries every value it
+    # needs so we can shuffle / slice independent of the town iteration order.
+    combos = []
+    town_order = {t: i for i, t in enumerate(args.towns)}
+    for town in args.towns:
+        for spawn_idx in range(args.spawn_pool_size):
+            for weather_name, weather_obj in weather_presets:
+                for sun_alt in args.sun_altitudes:
+                    for dist in args.distances:
+                        for lat in args.lateral_offsets:
+                            for hdg in args.heading_offsets:
+                                combos.append({
+                                    "town": town,
+                                    "spawn_idx": spawn_idx,
+                                    "weather_name": weather_name,
+                                    "weather_obj": weather_obj,
+                                    "sun_alt": sun_alt,
+                                    "dist": dist,
+                                    "lat": lat,
+                                    "hdg": hdg,
+                                })
+
+    print(f"Full grid: {len(combos)} combinations across {len(args.towns)} towns")
+
+    if args.shuffle:
+        random.shuffle(combos)
     if args.max_frames:
-        total = min(total, args.max_frames)
-    print(f"Grid: {len(args.towns)} towns × {args.spawn_pool_size} spawns × "
-          f"{n_combo_per_spawn} per-spawn combos = {total} frame(s)")
-    print(f"Out:  {run_dir}\n")
+        combos = combos[:args.max_frames]
+    # Group by town so each town is loaded only once
+    combos.sort(key=lambda c: town_order[c["town"]])
+
+    # Count per town after sampling (informational)
+    per_town = {}
+    for c in combos:
+        per_town[c["town"]] = per_town.get(c["town"], 0) + 1
+    print(f"Sampled : {len(combos)} frame(s) "
+          f"({'shuffled' if args.shuffle else 'deterministic'})")
+    for t in args.towns:
+        n = per_town.get(t, 0)
+        if n > 0:
+            print(f"   {t:20s}  {n}")
+    print(f"Out     : {run_dir}\n")
 
     counter = 0
+    current_town = None
+    world = None
+    spawn_pool = None
+    leader_bp = follower_bp = None
+
     try:
-        for town in args.towns:
-            print(f"\n--- Loading {town} ---")
-            world = client.load_world(town)
-            settings = world.get_settings()
-            settings.synchronous_mode = True
-            settings.fixed_delta_seconds = 0.05
-            world.apply_settings(settings)
+        for combo in combos:
+            # Town switch
+            if combo["town"] != current_town:
+                if world is not None:
+                    try:
+                        settings = world.get_settings()
+                        settings.synchronous_mode = False
+                        world.apply_settings(settings)
+                    except Exception:
+                        pass
+                print(f"\n--- Loading {combo['town']} ---")
+                world = client.load_world(combo["town"])
+                settings = world.get_settings()
+                settings.synchronous_mode = True
+                settings.fixed_delta_seconds = 0.05
+                world.apply_settings(settings)
 
-            bplib = world.get_blueprint_library()
+                bplib = world.get_blueprint_library()
+                try:
+                    leader_bp = bplib.filter(args.leader)[0]
+                    follower_bp = bplib.filter(args.follower)[0]
+                except IndexError:
+                    print(f"  [ERR] blueprint not found in {combo['town']}, skipping town")
+                    current_town = combo["town"]
+                    continue
+
+                all_spawns = find_all_straight_spawns(world, min_lane_length=80.0)
+                random.shuffle(all_spawns)
+                spawn_pool = all_spawns[:args.spawn_pool_size]
+                current_town = combo["town"]
+
+            # Apply weather
+            wo = combo["weather_obj"]
+            w = carla.WeatherParameters(
+                cloudiness=wo.cloudiness,
+                precipitation=wo.precipitation,
+                precipitation_deposits=wo.precipitation_deposits,
+                wind_intensity=wo.wind_intensity,
+                sun_azimuth_angle=wo.sun_azimuth_angle,
+                sun_altitude_angle=float(combo["sun_alt"]),
+                fog_density=wo.fog_density,
+                fog_distance=wo.fog_distance,
+                wetness=wo.wetness,
+            )
+            world.set_weather(w)
+
+            # Pick the spawn
+            spawn_idx = combo["spawn_idx"] % len(spawn_pool)
+            follower_wp = spawn_pool[spawn_idx]
+
+            counter += 1
+            frame_id = f"{counter:06d}"
+            meta = {
+                "town": combo["town"],
+                "spawn_idx": spawn_idx,
+                "weather": combo["weather_name"],
+                "sun_altitude": float(combo["sun_alt"]),
+                "distance_m": float(combo["dist"]),
+                "lateral_offset": float(combo["lat"]),
+                "heading_offset": float(combo["hdg"]),
+                "npc_count_requested": args.npc_count,
+                "leader_blueprint": args.leader,
+                "follower_blueprint": args.follower,
+            }
             try:
-                leader_bp = bplib.filter(args.leader)[0]
-                follower_bp = bplib.filter(args.follower)[0]
-            except IndexError:
-                print(f"  [ERR] blueprint not found in {town}")
-                continue
-
-            all_spawns = find_all_straight_spawns(world, min_lane_length=80.0)
-            random.shuffle(all_spawns)
-            spawn_pool = all_spawns[:args.spawn_pool_size]
-
-            for spawn_idx, follower_wp in enumerate(spawn_pool):
-                for weather_name, weather_obj in weather_presets:
-                    for sun_alt in args.sun_altitudes:
-                        w = carla.WeatherParameters(
-                            cloudiness=weather_obj.cloudiness,
-                            precipitation=weather_obj.precipitation,
-                            precipitation_deposits=weather_obj.precipitation_deposits,
-                            wind_intensity=weather_obj.wind_intensity,
-                            sun_azimuth_angle=weather_obj.sun_azimuth_angle,
-                            sun_altitude_angle=float(sun_alt),
-                            fog_density=weather_obj.fog_density,
-                            fog_distance=weather_obj.fog_distance,
-                            wetness=weather_obj.wetness,
-                        )
-                        world.set_weather(w)
-
-                        for dist in args.distances:
-                            for lat in args.lateral_offsets:
-                                for hdg in args.heading_offsets:
-                                    if args.max_frames and counter >= args.max_frames:
-                                        raise StopIteration
-                                    counter += 1
-                                    frame_id = f"{counter:06d}"
-                                    meta = {
-                                        "town": town,
-                                        "spawn_idx": spawn_idx,
-                                        "weather": weather_name,
-                                        "sun_altitude": float(sun_alt),
-                                        "distance_m": float(dist),
-                                        "lateral_offset": float(lat),
-                                        "heading_offset": float(hdg),
-                                        "npc_count_requested": args.npc_count,
-                                        "leader_blueprint": args.leader,
-                                        "follower_blueprint": args.follower,
-                                    }
-                                    try:
-                                        capture_one(world, leader_bp, follower_bp,
-                                                    follower_wp, dist, lat, hdg,
-                                                    args.npc_count, args.npc_radius,
-                                                    run_dir, frame_id, meta)
-                                        csv_writer.writerow([frame_id, town, spawn_idx,
-                                                             weather_name, sun_alt,
-                                                             dist, lat, hdg,
-                                                             args.npc_count,
-                                                             args.leader, args.follower])
-                                        csv_file.flush()
-                                    except Exception as e:
-                                        print(f"  [ERR] {frame_id}: {e}")
-
-            # async mode before town swap, prevents hang
-            settings.synchronous_mode = False
-            world.apply_settings(settings)
-
-    except StopIteration:
-        pass
+                ok = capture_one(world, leader_bp, follower_bp, follower_wp,
+                                 combo["dist"], combo["lat"], combo["hdg"],
+                                 args.npc_count, args.npc_radius,
+                                 run_dir, frame_id, meta)
+                if ok:
+                    csv_writer.writerow([frame_id, combo["town"], spawn_idx,
+                                         combo["weather_name"], combo["sun_alt"],
+                                         combo["dist"], combo["lat"], combo["hdg"],
+                                         args.npc_count, args.leader, args.follower])
+                    csv_file.flush()
+            except Exception as e:
+                print(f"  [ERR] {frame_id}: {e}")
     finally:
         csv_file.close()
 
-    print(f"\nDone. {counter} frame(s) written to {run_dir}")
+    print(f"\nDone. {counter} frame(s) attempted → {run_dir}")
     print(f"Index: {csv_path}")
 
 

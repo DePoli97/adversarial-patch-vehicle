@@ -43,6 +43,8 @@ LEADER="${LEADER:-vehicle.carlamotors.carlacola}"
 FOLLOWER="${FOLLOWER:-vehicle.tesla.model3}"
 MAX_FRAMES="${MAX_FRAMES:-1000}"
 SEED="${SEED:-0}"
+# Set SHUFFLE=1 to sample combos randomly (recommended when MAX_FRAMES < full grid).
+SHUFFLE="${SHUFFLE:-1}"
 
 TS="$(date '+%Y%m%d_%H%M%S')"
 LOG_DIR="data/chroma_key_dataset"
@@ -64,6 +66,7 @@ mkdir -p "$LOG_DIR"
     echo "  leader         : ${LEADER}"
     echo "  follower       : ${FOLLOWER}"
     echo "  max_frames     : ${MAX_FRAMES}"
+    echo "  shuffle        : ${SHUFFLE}"
     echo "  seed           : ${SEED}"
     echo "  log            : ${LOG}"
     echo ""
@@ -84,6 +87,7 @@ if python "$SCRIPT" \
         --follower "${FOLLOWER}" \
         --max-frames "${MAX_FRAMES}" \
         --seed "${SEED}" \
+        $( [[ "${SHUFFLE}" == "1" ]] && echo "--shuffle" ) \
         2>&1 | tee -a "$LOG"; then
     echo "[$(date '+%H:%M:%S')] DONE" | tee -a "$LOG"
 else

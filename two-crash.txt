@@ -1,0 +1,93 @@
+
+PRIMO CRASH
+
+
+LoginId:da213ddf9fad4ab78823a033c4bda18b-000003e8
+EpicAccountId:
+
+Caught signal 11 Segmentation fault
+
+libUE4Editor-Engine.so!FDistanceFieldVolumeTexture::IsValidDistanceFieldVolume() const [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Engine/Private/DistanceFieldAtlas.cpp:868]
+libUE4Editor-Engine.so!FPrimitiveSceneShaderData::FPrimitiveSceneShaderData(FPrimitiveSceneProxy const*) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Engine/Private/PrimitiveUniformShaderParameters.cpp:86]
+libUE4Editor-Renderer.so!void UpdateGPUSceneInternal<FRWBufferStructured>(FRHICommandListImmediate&, FScene&) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Renderer/Private/GPUScene.cpp:291]
+libUE4Editor-Renderer.so!FDeferredShadingSceneRenderer::Render_CARLA(FRHICommandListImmediate&, FGBufferRequest*) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Renderer/Private/DeferredShadingRenderer.cpp:1729]
+libUE4Editor-Renderer.so!RenderViewFamily_RenderThread(FRHICommandListImmediate&, FSceneRenderer*) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Renderer/Private/SceneRendering.cpp:3616]
+libUE4Editor-Renderer.so!TEnqueueUniqueRenderCommandType<FRendererModule::BeginRenderingViewFamily(FCanvas*, FSceneViewFamily*)::FDrawSceneCommandName, FRendererModule::BeginRenderingViewFamily(FCanvas*, FSceneViewFamily*)::$_45>::DoTask(ENamedThreads::Type, TRefCountPtr<FGraphEvent> const&) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/RenderCore/Public/RenderingThread.h:183]
+libUE4Editor-Renderer.so!TGraphTask<TEnqueueUniqueRenderCommandType<FRendererModule::BeginRenderingViewFamily(FCanvas*, FSceneViewFamily*)::FDrawSceneCommandName, FRendererModule::BeginRenderingViewFamily(FCanvas*, FSceneViewFamily*)::$_45> >::ExecuteTask(TArray<FBaseGraphTask*, TSizedDefaultAllocator<32> >&, ENamedThreads::Type) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Core/Public/Async/TaskGraphInterfaces.h:886]
+libUE4Editor-Core.so!FNamedTaskThread::ProcessTasksNamedThread(int, bool) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Core/Private/Async/TaskGraph.cpp:709]
+libUE4Editor-Core.so!FNamedTaskThread::ProcessTasksUntilQuit(int) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Core/Private/Async/TaskGraph.cpp:600]
+libUE4Editor-RenderCore.so!RenderingThreadMain(FEvent*) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/RenderCore/Private/RenderingThread.cpp:372]
+libUE4Editor-RenderCore.so!FRenderingThread::Run() [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/RenderCore/Private/RenderingThread.cpp:526]
+libUE4Editor-Core.so!FRunnableThreadPThread::Run() [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Core/Private/HAL/PThreadRunnableThread.cpp:25]
+libUE4Editor-Core.so!FRunnableThreadPThread::_ThreadProc(void*) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Core/Private/HAL/PThreadRunnableThread.h:185]
+libc.so.6!UnknownFunction(0x94ac2)
+libc.so.6!UnknownFunction(0x1268cf)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SECONDO CRASH
+
+
+LoginId:da213ddf9fad4ab78823a033c4bda18b-000003e8
+EpicAccountId:
+
+Fatal error: [File:/home/vortex/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Carla.cpp] [Line: 136] Exception thrown: bind: Address already in use << callstack too long >>
+
+libUE4Editor-Core.so!FGenericPlatformMisc::RaiseException(unsigned int) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Core/Private/GenericPlatform/GenericPlatformMisc.cpp:472]
+libUE4Editor-Core.so!FOutputDevice::LogfImpl(char16_t const*, ...) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Core/Private/Misc/OutputDevice.cpp:61]
+libUE4Editor-Carla.so!carla::throw_exception(std::exception const&) [/home/vortex/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Carla.cpp:136]
+libUE4Editor-Carla.so!void clmdep_asio::detail::throw_exception<std::__1::system_error>(std::__1::system_error const&)(+0x5)
+libUE4Editor-Carla.so!clmdep_asio::detail::do_throw_error(std::__1::error_code const&, char const*)(+0x3e)
+libUE4Editor-Carla.so!clmdep_asio::detail::throw_error(std::__1::error_code const&, char const*)(+0x31)
+libUE4Editor-Carla.so!clmdep_asio::basic_socket_acceptor<clmdep_asio::ip::tcp, clmdep_asio::socket_acceptor_service<clmdep_asio::ip::tcp> >::basic_socket_acceptor(clmdep_asio::io_service&, clmdep_asio::ip::basic_endpoint<clmdep_asio::ip::tcp> const&, bool)(+0x255)
+libUE4Editor-Carla.so!rpc::server::impl::impl(rpc::server*, unsigned short)(+0xc3)
+libUE4Editor-Carla.so!rpc::server::server(unsigned short)(+0x68)
+libUE4Editor-Carla.so!FCarlaServer::FPimpl::FPimpl(unsigned short, unsigned short, unsigned short) [/home/vortex/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp:99]
+libUE4Editor-Carla.so!FCarlaServer::Start(unsigned short, unsigned short, unsigned short) [/home/vortex/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Server/CarlaServer.cpp:2625]
+libUE4Editor-Carla.so!FCarlaEngine::NotifyInitGame(UCarlaSettings const&) [/home/vortex/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaEngine.cpp:87]
+libUE4Editor-Carla.so!ACarlaGameModeBase::InitGame(FString const&, FString const&, FString&) [/home/vortex/carla/Unreal/CarlaUE4/Plugins/Carla/Source/Carla/Game/CarlaGameModeBase.cpp:147]
+libUE4Editor-Engine.so!UWorld::InitializeActorsForPlay(FURL const&, bool, FRegisterComponentContext*) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Engine/Private/World.cpp:4252]
+libUE4Editor-Engine.so!UGameInstance::StartPlayInEditorGameInstance(ULocalPlayer*, FGameInstancePIEParameters const&) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Engine/Private/GameInstance.cpp:449]
+libUE4Editor-UnrealEd.so!UEditorEngine::CreateInnerProcessPIEGameInstance(FRequestPlaySessionParams&, FGameInstancePIEParameters const&, int) [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/PlayLevel.cpp:2941]
+libUE4Editor-UnrealEd.so!UEditorEngine::OnLoginPIEComplete_Deferred(int, bool, FString, FPieLoginStruct) [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/PlayLevel.cpp:1502]
+libUE4Editor-UnrealEd.so!UEditorEngine::CreateNewPlayInEditorInstance(FRequestPlaySessionParams&, bool, EPlayNetMode) [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/PlayLevel.cpp:1746]
+libUE4Editor-UnrealEd.so!UEditorEngine::StartPlayInEditorSession(FRequestPlaySessionParams&) [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/PlayLevel.cpp:2707]
+libUE4Editor-UnrealEd.so!UEditorEngine::StartQueuedPlaySessionRequestImpl() [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/PlayLevel.cpp:1103]
+libUE4Editor-UnrealEd.so!UEditorEngine::StartQueuedPlaySessionRequest() [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/PlayLevel.cpp:1015]
+libUE4Editor-UnrealEd.so!UEditorEngine::Tick(float, bool) [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/EditorEngine.cpp:1622]
+libUE4Editor-UnrealEd.so!UUnrealEdEngine::Tick(float, bool) [/home/vortex/UnrealEngine_4.26/Engine/Source/Editor/UnrealEd/Private/UnrealEdEngine.cpp:423]
+UE4Editor!FEngineLoop::Tick() [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Launch/Private/LaunchEngineLoop.cpp:4830]
+UE4Editor!GuardedMain(char16_t const*) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Launch/Private/Launch.cpp:171]
+libUE4Editor-UnixCommonStartup.so!CommonUnixMain(int, char**, int (*)(char16_t const*), void (*)()) [/home/vortex/UnrealEngine_4.26/Engine/Source/Runtime/Unix/UnixCommonStartup/Private/UnixCommonStartup.cpp:264]
+libc.so.6!UnknownFunction(0x29d8f)
+libc.so.6!__libc_start_main(+0x7f)
+UE4Editor!_start()
+
+

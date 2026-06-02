@@ -1,0 +1,24 @@
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-02 12:05:08
+################################################################
+  towns          : Town04
+  weather        : ClearNoon CloudyNoon
+  sun_alts       : 65 35
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : 0
+  npc_count      : 5  (radius 40 m)
+  spawn_pool     : 2
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 250
+  shuffle        : 1
+  seed           : 0
+  log            : data/chroma_key_dataset/run_capture_20260602_120508.log
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  trying to operate on a destroyed actor; an actor's function was called, but the actor is already destroyed.
+[12:05:20] DONE

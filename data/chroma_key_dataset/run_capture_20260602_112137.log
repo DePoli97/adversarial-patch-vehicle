@@ -1,0 +1,33 @@
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-02 11:21:37
+################################################################
+  towns          : Town04 Town06 Town10HD_Opt
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1.5 0 1.5
+  heading_offs   : -5 0 5
+  npc_count      : 10  (radius 60 m)
+  spawn_pool     : 4
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 1000
+  seed           : 0
+  log            : data/chroma_key_dataset/run_capture_20260602_112137.log
+
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+Connecting to CARLA at localhost:2000 ...
+Grid: 3 towns × 4 spawns × 576 per-spawn combos = 1000 frame(s)
+Out:  /home/vortex/adversarial-patch-vehicle/data/chroma_key_dataset/capture_20260602_112137
+
+
+--- Loading Town04 ---
+Traceback (most recent call last):
+  File "/home/vortex/adversarial-patch-vehicle/src/chroma_key_dataset_generator/capture_frames.py", line 415, in <module>
+    main()
+  File "/home/vortex/adversarial-patch-vehicle/src/chroma_key_dataset_generator/capture_frames.py", line 334, in main
+    world = client.load_world(town)
+RuntimeError: time-out of 30000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000
+[11:22:09] DONE

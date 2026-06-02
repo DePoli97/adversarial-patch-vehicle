@@ -185,9 +185,9 @@ def safe_destroy(actor):
 
 
 def cleanup_world(world):
-    """Wipe ALL stray sensors + NPC vehicles from the world. Inspired by
-    PCLA.cleanup() — uses the server's actor list, not stale Python references,
-    so it survives load_world() and dropped objects."""
+    """Wipe stray sensors from the world via server's actor list.
+    Do NOT touch vehicles: any vehicle the TrafficManager owns would crash the
+    server on its next tick. We trust the per-frame finally for vehicles."""
     if world is None:
         return
     try:
@@ -210,6 +210,15 @@ def capture_one(world, leader_bp, follower_bp,
                 npc_count: int, npc_radius: float,
                 out_dir: Path, frame_id: str, meta: dict):
     """Spawn leader+follower(+NPCs), grab one camera frame, destroy everything."""
+    # PCLA-style preflight: wipe any leftover sensor/vehicle from a previous
+    # frame whose finally block didn't fully complete. Source of truth is the
+    # CARLA server, not our Python references.
+    cleanup_world(world)
+    try:
+        world.tick()
+    except Exception:
+        pass
+
     leader_wp = walk_along_lane(follower_wp, distance_m)
 
     follower_tf = follower_wp.transform
@@ -258,21 +267,24 @@ def capture_one(world, leader_bp, follower_bp,
             save_frame(image, img_path)
             saved["received"] = True
 
-        print(f"  [..] {frame_id}: cam.listen + settle 25 ticks", flush=True)
+        print(f"  [..] {frame_id}: cam.listen", flush=True)
         cam.listen(on_image)
 
         # Settle: ~1.25 s of simulated physics so vehicles fall to ground,
         # weather/lighting fully apply, camera warms up.
-        for _ in range(25):
+        for i in range(25):
             world.tick()
+            if (i + 1) % 5 == 0:
+                print(f"  [..] {frame_id}: tick {i+1}/25", flush=True)
 
+        print(f"  [..] {frame_id}: waiting for image callback", flush=True)
         deadline = time.time() + 2.0
         while not saved["received"] and time.time() < deadline:
             world.tick()
             time.sleep(0.02)
 
         if not saved["received"]:
-            print(f"  [WARN] no image for {frame_id}")
+            print(f"  [WARN] no image for {frame_id}", flush=True)
             return False
 
         with open(out_dir / f"{frame_id}.json", "w") as f:
@@ -280,35 +292,37 @@ def capture_one(world, leader_bp, follower_bp,
         print(f"  [OK] {frame_id}.png  ({meta['town']}, {meta['weather']}, "
               f"sun={meta['sun_altitude']:.0f}°, dist={meta['distance_m']:.0f}m, "
               f"lat={meta['lateral_offset']:+.1f}, hdg={meta['heading_offset']:+.0f}°, "
-              f"npcs={len(npcs)})")
+              f"npcs={len(npcs)})", flush=True)
         return True
 
     finally:
-        # PCLA-style cleanup: stop listener first, drain a tick to flush any
-        # pending callback, then destroy in order (sensor → NPCs → vehicles).
-        # safe_destroy() checks is_alive / is_listening on each call.
+        print(f"  [..] {frame_id}: finally start", flush=True)
         if cam is not None:
             try:
                 if cam.is_listening():
                     cam.stop()
             except Exception:
                 pass
+        print(f"  [..] {frame_id}: drain tick", flush=True)
         try:
             world.tick()
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  [..] {frame_id}: drain tick raised {e}", flush=True)
+        print(f"  [..] {frame_id}: destroy cam", flush=True)
         safe_destroy(cam)
+        print(f"  [..] {frame_id}: destroy {len(npcs)} npcs", flush=True)
         for n in npcs:
             safe_destroy(n)
+        print(f"  [..] {frame_id}: destroy leader", flush=True)
         safe_destroy(leader)
+        print(f"  [..] {frame_id}: destroy follower", flush=True)
         safe_destroy(follower)
-        # Extra tick so the destroy commands are processed by the server before
-        # we begin the next iteration. Without this the next spawn can race
-        # against pending destroy ops -> "operate on destroyed actor".
+        print(f"  [..] {frame_id}: post-cleanup tick", flush=True)
         try:
             world.tick()
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  [..] {frame_id}: post-cleanup tick raised {e}", flush=True)
+        print(f"  [..] {frame_id}: finally end", flush=True)
 
 
 # ---------- main -----------------------------------------------------------
@@ -329,7 +343,11 @@ def main():
                    default=[-1.5, 0.0, 1.5])
     p.add_argument("--heading-offsets", type=float, nargs="+",
                    default=[-5.0, 0.0, 5.0])
-    p.add_argument("--npc-count", type=int, default=10)
+    p.add_argument("--npc-count", type=int, default=0,
+                   help="NPC vehicles to spawn in autopilot. WARNING: with "
+                        "autopilot on, the TrafficManager owns these actors "
+                        "and can crash the server if they collide / disappear "
+                        "during the settle ticks. Keep this 0 unless tested.")
     p.add_argument("--npc-radius", type=float, default=60.0)
     p.add_argument("--spawn-pool-size", type=int, default=4,
                    help="Distinct starting waypoints per town.")

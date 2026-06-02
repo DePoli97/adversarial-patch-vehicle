@@ -57,11 +57,12 @@ HEADING_OFFSET_RANGE="${HEADING_OFFSET_RANGE:--5 5}"
 
 TS="$(date '+%Y%m%d_%H%M%S')"
 LOG_DIR="data/chroma_key_dataset"
-# If RUN_DIR is provided (e.g. by auto-mode), the log lives inside it so all
-# towns of the same run share one log file alongside one capture_<ts>/ folder.
+# If RUN_DIR is set, test_capture.sh is already tee-logging everything to the
+# master log inside RUN_DIR, so we skip writing a second log here.
+# Standalone use of run_capture.sh still gets its own log.
 if [[ -n "${RUN_DIR:-}" ]]; then
     mkdir -p "${RUN_DIR}"
-    LOG="${RUN_DIR}/run_capture.log"
+    LOG="/dev/null"
 else
     mkdir -p "$LOG_DIR"
     LOG="${LOG_DIR}/run_capture_${TS}.log"
@@ -93,8 +94,10 @@ fi
     echo ""
 } | tee -a "$LOG"
 
-echo ">>> Full output saved to: $LOG"
-echo ">>> Tail live with: tail -f $LOG"
+if [[ "$LOG" != "/dev/null" ]]; then
+    echo ">>> Full output saved to: $LOG"
+    echo ">>> Tail live with: tail -f $LOG"
+fi
 echo ""
 
 # Force python stdout/stderr unbuffered so tee gets every line in real time.
@@ -124,14 +127,14 @@ if python -u "$SCRIPT" \
         $( [[ -n "${RUN_DIR:-}" ]] && echo "--run-dir ${RUN_DIR}" ) \
         2>&1 | tee -a "$LOG"; then
     echo "[$(date '+%H:%M:%S')] DONE" | tee -a "$LOG"
-    echo ""
-    echo "=============================================================="
-    echo " Full log saved to: $LOG"
-    echo " Read it with:      less $LOG"
-    echo "                    tail -50 $LOG"
-    echo "=============================================================="
+    if [[ "$LOG" != "/dev/null" ]]; then
+        echo ""
+        echo "=============================================================="
+        echo " Full log saved to: $LOG"
+        echo "=============================================================="
+    fi
 else
-    echo "[$(date '+%H:%M:%S')] FAILED (see $LOG)" | tee -a "$LOG"
-    echo "Log saved to: $LOG"
+    echo "[$(date '+%H:%M:%S')] FAILED" | tee -a "$LOG"
+    [[ "$LOG" != "/dev/null" ]] && echo "Log saved to: $LOG"
     exit 1
 fi

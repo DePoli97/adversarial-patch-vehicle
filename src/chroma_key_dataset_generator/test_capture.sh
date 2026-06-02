@@ -33,18 +33,23 @@ MODE="${MODE:-auto}"
 : "${CARLA_PACKAGE_DIR:=/home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2/LinuxNoEditor}"
 export CARLA_PACKAGE_DIR
 
-# Master log captures EVERYTHING (this script's banners + stop/start CARLA
-# messages + the python output piped through run_capture.sh). Useful when
-# running unattended.
+# One run = one folder = one log. In auto mode we create the capture folder
+# BEFORE re-exec so the master log can live inside it. In manual mode we still
+# log to a top-level file because the capture folder is created by run_capture.
 MASTER_LOG_DIR="data/chroma_key_dataset"
 MASTER_TS="$(date '+%Y%m%d_%H%M%S')"
-MASTER_LOG="${MASTER_LOG_DIR}/master_${MODE}_${MASTER_TS}.log"
-mkdir -p "$MASTER_LOG_DIR"
+if [[ "$MODE" == "auto" ]]; then
+  export RUN_DIR="${MASTER_LOG_DIR}/capture_${MASTER_TS}"
+  mkdir -p "$RUN_DIR"
+  MASTER_LOG="${RUN_DIR}/run.log"
+else
+  mkdir -p "$MASTER_LOG_DIR"
+  MASTER_LOG="${MASTER_LOG_DIR}/run_manual_${MASTER_TS}.log"
+fi
 
 # Re-exec the rest of the script with all output tee'd to MASTER_LOG.
-# This is the cleanest way to capture everything without sprinkling | tee.
 if [[ -z "${_RE_EXEC_:-}" ]]; then
-  echo "Master log: $MASTER_LOG"
+  echo "Log: $MASTER_LOG"
   export _RE_EXEC_=1
   exec bash "$0" "$@" 2>&1 | tee "$MASTER_LOG"
 fi
@@ -63,7 +68,7 @@ export TOWNS
 AUTO_TOWNS=(${AUTO_TOWNS:-Town01 Town03 Town04 Town05 Town10HD_Opt})
 
 # ===== Common config =====
-export FRAMES_PER_TOWN="${FRAMES_PER_TOWN:-50}"
+export FRAMES_PER_TOWN="${FRAMES_PER_TOWN:-200}"
 export CONTINUOUS=1
 export SUN_ALTITUDE_RANGE="${SUN_ALTITUDE_RANGE:-25 70}"
 export DISTANCE_RANGE="${DISTANCE_RANGE:-6 18}"
@@ -87,7 +92,8 @@ wait_for_carla() {
   local deadline=$((SECONDS + 90))
   while ((SECONDS < deadline)); do
     if ss -tln 2>/dev/null | grep -q ':2000 '; then
-      sleep 3 # small extra delay for the world to be ready
+      sleep 20  # UE4 opens the RPC port early; the world isn't actually ready
+                # to serve load_world until shader compile finishes.
       return 0
     fi
     sleep 2
@@ -141,11 +147,8 @@ if [[ "$MODE" == "manual" ]]; then
   bash src/chroma_key_dataset_generator/run_capture.sh
 
 elif [[ "$MODE" == "auto" ]]; then
-  # One capture_<ts>/ directory shared by ALL towns in this auto run, so the
-  # whole sweep ends up in a single folder with a single run_capture.log and a
-  # single captures_index.csv. Frame numbering resumes across towns.
-  export RUN_DIR="data/chroma_key_dataset/capture_${MASTER_TS}"
-  mkdir -p "$RUN_DIR"
+  # RUN_DIR was already created above (before re-exec) so the master log
+  # lives inside it. All towns share this single folder.
 
   echo "######################################################"
   echo " AUTO CAPTURE — sweep ${#AUTO_TOWNS[@]} towns"

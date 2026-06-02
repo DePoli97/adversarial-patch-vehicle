@@ -73,8 +73,13 @@ mkdir -p "$LOG_DIR"
     echo ""
 } | tee -a "$LOG"
 
+echo ">>> Full output saved to: $LOG"
+echo ">>> Tail live with: tail -f $LOG"
+echo ""
+
+# Force python stdout/stderr unbuffered so tee gets every line in real time.
 # shellcheck disable=SC2086  # we want word-splitting on the env vars
-if python "$SCRIPT" \
+if python -u "$SCRIPT" \
         --towns ${TOWNS} \
         --weather ${WEATHER} \
         --sun-altitudes ${SUN_ALTITUDES} \
@@ -92,7 +97,14 @@ if python "$SCRIPT" \
         $( [[ "${SHUFFLE}" == "1" ]] && echo "--shuffle" ) \
         2>&1 | tee -a "$LOG"; then
     echo "[$(date '+%H:%M:%S')] DONE" | tee -a "$LOG"
+    echo ""
+    echo "=============================================================="
+    echo " Full log saved to: $LOG"
+    echo " Read it with:      less $LOG"
+    echo "                    tail -50 $LOG"
+    echo "=============================================================="
 else
     echo "[$(date '+%H:%M:%S')] FAILED (see $LOG)" | tee -a "$LOG"
+    echo "Log saved to: $LOG"
     exit 1
 fi

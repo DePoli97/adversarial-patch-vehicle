@@ -308,8 +308,9 @@ def capture_one(world, leader_bp, follower_bp,
 
         # Counter to skip the first N camera frames the renderer produces
         # (they're stale: the render thread is behind sync ticks; the first
-        # 3-5 frames after `cam.listen()` show the pre-settle state).
-        SKIP_FRAMES = 5
+        # ~15 frames after `cam.listen()` show the pre-settle state, including
+        # shader-not-yet-compiled artifacts in the very first town session).
+        SKIP_FRAMES = 20
         captured = {"count": 0}
 
         def on_image(image):
@@ -334,7 +335,7 @@ def capture_one(world, leader_bp, follower_bp,
         print(f"  [..] {frame_id}: cam.listen (skip {SKIP_FRAMES} stale frames)", flush=True)
         cam.listen(on_image)
 
-        deadline = time.time() + 4.0
+        deadline = time.time() + 6.0
         while not saved["received"] and time.time() < deadline:
             world.tick()
             time.sleep(0.02)
@@ -520,8 +521,11 @@ def main():
                 settings.synchronous_mode = True
                 settings.fixed_delta_seconds = 0.05
                 world.apply_settings(settings)
-                # Drain a few ticks so the world reaches steady state
-                for _ in range(10):
+                # Long warmup so UE finishes shader compile / texture streaming
+                # before the first capture. Without this, frames 1-4 come back
+                # half-rendered (stale buffers).
+                print(f"  warmup: 100 ticks", flush=True)
+                for _ in range(100):
                     world.tick()
 
                 bplib = world.get_blueprint_library()

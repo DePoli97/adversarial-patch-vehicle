@@ -280,17 +280,19 @@ def capture_one(world, leader_bp, follower_bp,
             save_frame(image, img_path)
             saved["received"] = True
 
-        print(f"  [..] {frame_id}: cam.listen", flush=True)
-        cam.listen(on_image)
-
-        # Settle: ~settle_ticks * 0.05 s of simulated physics so vehicles fall
-        # to ground, weather/lighting fully apply, camera warms up.
+        # FIRST settle physics WITHOUT a listener so we don't accidentally
+        # capture the very first frame (vehicles still in mid-air).
+        print(f"  [..] {frame_id}: settle (no listener)", flush=True)
         for i in range(settle_ticks):
             world.tick()
             if (i + 1) % 10 == 0:
                 print(f"  [..] {frame_id}: tick {i+1}/{settle_ticks}", flush=True)
 
-        print(f"  [..] {frame_id}: waiting for image callback", flush=True)
+        # NOW register listener; the very next frame the camera produces will
+        # be the one we save (vehicles already on the ground, lighting OK).
+        print(f"  [..] {frame_id}: cam.listen + grab next frame", flush=True)
+        cam.listen(on_image)
+
         deadline = time.time() + 2.0
         while not saved["received"] and time.time() < deadline:
             world.tick()

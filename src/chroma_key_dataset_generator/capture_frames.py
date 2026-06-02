@@ -121,7 +121,8 @@ def walk_along_lane(wp: carla.Waypoint, distance_m: float) -> carla.Waypoint:
 
 def offset_transform(tf: carla.Transform, lateral: float, heading_deg: float) -> carla.Transform:
     """Shift `tf` perpendicular to its forward axis by `lateral` meters and rotate
-    its yaw by `heading_deg`."""
+    its yaw by `heading_deg`. Used only for the heading offset of the follower
+    now; lateral shift of the leader is done via lane shifts (`shift_lanes`)."""
     yaw = math.radians(tf.rotation.yaw)
     right_x = -math.sin(yaw)
     right_y = math.cos(yaw)
@@ -136,6 +137,28 @@ def offset_transform(tf: carla.Transform, lateral: float, heading_deg: float) ->
         roll=tf.rotation.roll,
     )
     return carla.Transform(new_loc, new_rot)
+
+
+def shift_lanes(wp: carla.Waypoint, shift: int):
+    """Move `shift` lanes left (negative) or right (positive) from `wp`.
+    Returns the resulting waypoint, or None if no valid Driving lane exists
+    that far in the requested direction.
+
+    Lane direction convention follows the waypoint's own forward axis:
+        shift = -1 -> one lane to the left of the vehicle
+        shift = +1 -> one lane to the right
+    """
+    if shift == 0:
+        return wp
+    cur = wp
+    for _ in range(abs(shift)):
+        if cur is None:
+            return None
+        nxt = cur.get_right_lane() if shift > 0 else cur.get_left_lane()
+        if nxt is None or nxt.lane_type != carla.LaneType.Driving:
+            return None
+        cur = nxt
+    return cur
 
 
 def spawn_npc_traffic(world, anchor_loc: carla.Location, count: int, radius_m: float,
@@ -222,6 +245,16 @@ def capture_one(world, leader_bp, follower_bp,
 
     leader_wp = walk_along_lane(follower_wp, distance_m)
 
+    # Apply lateral as lane shift (integer): 0 = same lane, -1/+1 = adjacent.
+    # Skip combos that fall off the road network.
+    shift = int(round(lateral_offset))
+    shifted_leader_wp = shift_lanes(leader_wp, shift)
+    if shifted_leader_wp is None:
+        print(f"  [SKIP] {frame_id}: no valid lane at shift={shift:+d} from follower lane",
+              flush=True)
+        return False
+    leader_wp = shifted_leader_wp
+
     # Small z bump to avoid spawning *inside* the road mesh; large bump means
     # vehicles have to fall a long way during settle.
     Z_BUMP = 0.10
@@ -232,7 +265,6 @@ def capture_one(world, leader_bp, follower_bp,
 
     leader_tf = leader_wp.transform
     leader_tf.location.z += Z_BUMP
-    leader_tf = offset_transform(leader_tf, lateral=lateral_offset, heading_deg=0.0)
 
     print(f"  [..] {frame_id}: spawn follower", flush=True)
     follower = world.try_spawn_actor(follower_bp, follower_tf)
@@ -274,7 +306,16 @@ def capture_one(world, leader_bp, follower_bp,
         out_dir.mkdir(parents=True, exist_ok=True)
         img_path = out_dir / f"{frame_id}.png"
 
+        # Counter to skip the first N camera frames the renderer produces
+        # (they're stale: the render thread is behind sync ticks; the first
+        # 3-5 frames after `cam.listen()` show the pre-settle state).
+        SKIP_FRAMES = 5
+        captured = {"count": 0}
+
         def on_image(image):
+            captured["count"] += 1
+            if captured["count"] <= SKIP_FRAMES:
+                return     # discard early stale frames
             if saved["received"]:
                 return
             save_frame(image, img_path)
@@ -288,12 +329,12 @@ def capture_one(world, leader_bp, follower_bp,
             if (i + 1) % 10 == 0:
                 print(f"  [..] {frame_id}: tick {i+1}/{settle_ticks}", flush=True)
 
-        # NOW register listener; the very next frame the camera produces will
-        # be the one we save (vehicles already on the ground, lighting OK).
-        print(f"  [..] {frame_id}: cam.listen + grab next frame", flush=True)
+        # NOW register listener. The first SKIP_FRAMES camera frames are
+        # discarded (renderer is still catching up); we save the next one.
+        print(f"  [..] {frame_id}: cam.listen (skip {SKIP_FRAMES} stale frames)", flush=True)
         cam.listen(on_image)
 
-        deadline = time.time() + 2.0
+        deadline = time.time() + 4.0
         while not saved["received"] and time.time() < deadline:
             world.tick()
             time.sleep(0.02)
@@ -355,7 +396,12 @@ def main():
     p.add_argument("--distances", type=float, nargs="+",
                    default=[6.0, 10.0, 14.0, 18.0])
     p.add_argument("--lateral-offsets", type=float, nargs="+",
-                   default=[-1.5, 0.0, 1.5])
+                   default=[-1, 0, 1],
+                   help="Lane shifts (NOT meters): integer count of lanes to "
+                        "move the LEADER relative to the follower's lane. "
+                        "-1 = one lane left, +1 = one lane right. Combos that "
+                        "have no valid driving lane in that direction are "
+                        "skipped. Non-integer values are rounded.")
     p.add_argument("--heading-offsets", type=float, nargs="+",
                    default=[-5.0, 0.0, 5.0])
     p.add_argument("--npc-count", type=int, default=0,

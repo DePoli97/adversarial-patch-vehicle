@@ -169,7 +169,8 @@ def shift_lanes(wp: carla.Waypoint, shift: int):
 
 
 def spawn_npc_traffic(world, anchor_loc: carla.Location, count: int, radius_m: float,
-                      scattered: int = 0, tm_port: int = 8000) -> list:
+                      scattered: int = 0, exclude_bps: tuple = (),
+                      tm_port: int = 8000) -> list:
     """Spawn NPC traffic in two pools, both in autopilot:
       - `count` vehicles within `radius_m` of the scene (likely to appear in
         frame as visual noise; the patch must remain robust to them).
@@ -181,8 +182,13 @@ def spawn_npc_traffic(world, anchor_loc: carla.Location, count: int, radius_m: f
         return []
 
     bplib = world.get_blueprint_library()
+    # Exclude the leader's blueprint (and any other listed) so we never spawn
+    # a duplicate of the textured vehicle — its bodywork material is shared,
+    # so any clone would also wear the yellow chroma-key patch.
+    exclude_set = set(exclude_bps)
     vehicle_bps = [bp for bp in bplib.filter("vehicle.*")
-                   if int(bp.get_attribute("number_of_wheels")) == 4]
+                   if int(bp.get_attribute("number_of_wheels")) == 4
+                   and bp.id not in exclude_set]
     spawn_points = world.get_map().get_spawn_points()
 
     nearby = [sp for sp in spawn_points
@@ -316,7 +322,8 @@ def capture_one(world, leader_bp, follower_bp,
           flush=True)
     npcs = spawn_npc_traffic(world, anchor_loc=follower_tf.location,
                              count=npc_count, radius_m=npc_radius,
-                             scattered=npc_scattered)
+                             scattered=npc_scattered,
+                             exclude_bps=(leader_bp.id,))
     world.tick()   # commit NPCs
 
     cam = None
@@ -467,8 +474,12 @@ def main():
                         "When this is set, --frames-per-town controls how many "
                         "attempts per town (instead of building a grid).")
     p.add_argument("--frames-per-town", type=int, default=300,
-                   help="In --continuous mode, attempts per town. Successes can "
-                        "be fewer (some shifts have no valid lane → skipped).")
+                   help="In --continuous mode, target number of SUCCESSFUL "
+                        "frames per town. Counter advances only on save.")
+    p.add_argument("--max-attempts-per-town", type=int, default=None,
+                   help="Safety cap on attempts per town (defaults to "
+                        "2 x frames-per-town). Prevents an infinite loop if "
+                        "skips are unusually high in some town.")
     p.add_argument("--sun-altitude-range", type=float, nargs=2,
                    metavar=("LOW", "HIGH"), default=[25.0, 70.0],
                    help="Uniform sun altitude range in degrees (continuous mode).")
@@ -518,8 +529,13 @@ def main():
         lo_d, hi_d = args.distance_range
         lo_h, hi_h = args.heading_offset_range
         lateral_choices = [int(round(v)) for v in args.lateral_offsets]
+        # Generate a safety cap of attempts per town. We stop drawing for a
+        # town as soon as `frames_per_town` successes are saved.
+        attempts_per_town = (args.max_attempts_per_town
+                             if args.max_attempts_per_town is not None
+                             else args.frames_per_town * 2)
         for town in args.towns:
-            for _ in range(args.frames_per_town):
+            for _ in range(attempts_per_town):
                 weather_name, weather_obj = random.choice(weather_presets)
                 combos.append({
                     "town": town,
@@ -580,6 +596,11 @@ def main():
     if counter > 0:
         print(f"[resume] appending to existing run, starting frame_id "
               f"{counter+1:06d}", flush=True)
+    # Track successful saves per town. In --continuous mode we stop sampling a
+    # town once it hits args.frames_per_town successes, so failed attempts
+    # (skipped lanes / spawn collisions) don't reduce the per-town target.
+    successes_per_town = {t: 0 for t in args.towns}
+    target_per_town = args.frames_per_town if args.continuous else None
     current_town = None
     world = None
     spawn_pool = None
@@ -587,6 +608,10 @@ def main():
 
     try:
         for combo in combos:
+            # In continuous mode, skip combos for towns that already hit target.
+            if target_per_town is not None and \
+                    successes_per_town[combo["town"]] >= target_per_town:
+                continue
             # Town switch
             if combo["town"] != current_town:
                 if world is not None:
@@ -646,8 +671,9 @@ def main():
             spawn_idx = combo["spawn_idx"] % len(spawn_pool)
             follower_wp = spawn_pool[spawn_idx]
 
-            counter += 1
-            frame_id = f"{counter:06d}"
+            # Tentative frame_id: only commit (counter += 1) if capture succeeds.
+            # Failed attempts leave no gap in the numbering.
+            frame_id = f"{counter + 1:06d}"
             meta = {
                 "town": combo["town"],
                 "spawn_idx": spawn_idx,
@@ -668,6 +694,8 @@ def main():
                                  run_dir, frame_id, meta,
                                  settle_ticks=args.settle_ticks)
                 if ok:
+                    counter += 1
+                    successes_per_town[combo["town"]] += 1
                     csv_writer.writerow([frame_id, combo["town"], spawn_idx,
                                          combo["weather_name"], combo["sun_alt"],
                                          combo["dist"], combo["lat"], combo["hdg"],
@@ -680,7 +708,12 @@ def main():
     finally:
         csv_file.close()
 
-    print(f"\nDone. {counter} frame(s) attempted → {run_dir}")
+    print(f"\nDone. {counter} frame(s) saved → {run_dir}")
+    if target_per_town is not None:
+        for t in args.towns:
+            got = successes_per_town.get(t, 0)
+            mark = "OK" if got >= target_per_town else "SHORT"
+            print(f"   {t:20s}  {got:>4d} / {target_per_town}  [{mark}]")
     print(f"Index: {csv_path}")
 
 

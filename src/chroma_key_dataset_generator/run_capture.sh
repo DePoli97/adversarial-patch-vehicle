@@ -46,6 +46,13 @@ MAX_FRAMES="${MAX_FRAMES:-1000}"
 SEED="${SEED:-0}"
 # Set SHUFFLE=1 to sample combos randomly (recommended when MAX_FRAMES < full grid).
 SHUFFLE="${SHUFFLE:-1}"
+# Continuous sampling mode (recommended): random sun/dist/heading within ranges,
+# random weather/lateral from the discrete lists, N attempts per town.
+CONTINUOUS="${CONTINUOUS:-0}"
+FRAMES_PER_TOWN="${FRAMES_PER_TOWN:-300}"
+SUN_ALTITUDE_RANGE="${SUN_ALTITUDE_RANGE:-25 70}"
+DISTANCE_RANGE="${DISTANCE_RANGE:-6 18}"
+HEADING_OFFSET_RANGE="${HEADING_OFFSET_RANGE:--5 5}"
 
 TS="$(date '+%Y%m%d_%H%M%S')"
 LOG_DIR="data/chroma_key_dataset"
@@ -68,6 +75,10 @@ mkdir -p "$LOG_DIR"
     echo "  follower       : ${FOLLOWER}"
     echo "  max_frames     : ${MAX_FRAMES}"
     echo "  shuffle        : ${SHUFFLE}"
+    echo "  continuous     : ${CONTINUOUS}  (per-town: ${FRAMES_PER_TOWN})"
+    echo "  sun_range      : ${SUN_ALTITUDE_RANGE}"
+    echo "  dist_range     : ${DISTANCE_RANGE}"
+    echo "  heading_range  : ${HEADING_OFFSET_RANGE}"
     echo "  seed           : ${SEED}"
     echo "  log            : ${LOG}"
     echo ""
@@ -95,6 +106,11 @@ if python -u "$SCRIPT" \
         --max-frames "${MAX_FRAMES}" \
         --seed "${SEED}" \
         $( [[ "${SHUFFLE}" == "1" ]] && echo "--shuffle" ) \
+        $( [[ "${CONTINUOUS}" == "1" ]] && echo "--continuous" ) \
+        --frames-per-town "${FRAMES_PER_TOWN}" \
+        --sun-altitude-range ${SUN_ALTITUDE_RANGE} \
+        --distance-range ${DISTANCE_RANGE} \
+        --heading-offset-range ${HEADING_OFFSET_RANGE} \
         2>&1 | tee -a "$LOG"; then
     echo "[$(date '+%H:%M:%S')] DONE" | tee -a "$LOG"
     echo ""

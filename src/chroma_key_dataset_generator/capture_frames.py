@@ -141,21 +141,28 @@ def offset_transform(tf: carla.Transform, lateral: float, heading_deg: float) ->
 
 def shift_lanes(wp: carla.Waypoint, shift: int):
     """Move `shift` lanes left (negative) or right (positive) from `wp`.
-    Returns the resulting waypoint, or None if no valid Driving lane exists
-    that far in the requested direction.
+    Returns the resulting waypoint, or None if no valid Driving lane in the
+    SAME driving direction exists at that distance.
 
-    Lane direction convention follows the waypoint's own forward axis:
-        shift = -1 -> one lane to the left of the vehicle
-        shift = +1 -> one lane to the right
+    CARLA's `get_left_lane()` / `get_right_lane()` can return lanes that travel
+    in the OPPOSITE direction (you cross the centerline). We reject those by
+    comparing forward_vector with the original wp — if they point opposite,
+    it's the wrong-way lane.
     """
     if shift == 0:
         return wp
+    orig_fwd = wp.transform.get_forward_vector()
     cur = wp
     for _ in range(abs(shift)):
         if cur is None:
             return None
         nxt = cur.get_right_lane() if shift > 0 else cur.get_left_lane()
         if nxt is None or nxt.lane_type != carla.LaneType.Driving:
+            return None
+        # Reject lanes going the opposite direction (oncoming traffic side).
+        nxt_fwd = nxt.transform.get_forward_vector()
+        dot = orig_fwd.x * nxt_fwd.x + orig_fwd.y * nxt_fwd.y
+        if dot < 0.5:    # ~60 deg or more apart → opposite direction
             return None
         cur = nxt
     return cur
@@ -427,6 +434,25 @@ def main():
     p.add_argument("--shuffle", action="store_true",
                    help="Sample combinations randomly from the full grid "
                         "(then re-sort by town so each town loads once).")
+    # --- Continuous-sampling mode -----------------------------------------
+    p.add_argument("--continuous", action="store_true",
+                   help="Use continuous random sampling instead of grid. "
+                        "Sun/distance/heading are drawn uniformly from their "
+                        "*-range args; weather and lateral stay categorical. "
+                        "When this is set, --frames-per-town controls how many "
+                        "attempts per town (instead of building a grid).")
+    p.add_argument("--frames-per-town", type=int, default=300,
+                   help="In --continuous mode, attempts per town. Successes can "
+                        "be fewer (some shifts have no valid lane → skipped).")
+    p.add_argument("--sun-altitude-range", type=float, nargs=2,
+                   metavar=("LOW", "HIGH"), default=[25.0, 70.0],
+                   help="Uniform sun altitude range in degrees (continuous mode).")
+    p.add_argument("--distance-range", type=float, nargs=2,
+                   metavar=("LOW", "HIGH"), default=[6.0, 18.0],
+                   help="Uniform leader-follower distance range in m (continuous mode).")
+    p.add_argument("--heading-offset-range", type=float, nargs=2,
+                   metavar=("LOW", "HIGH"), default=[-5.0, 5.0],
+                   help="Uniform follower heading offset range in degrees (continuous mode).")
     args = p.parse_args()
 
     random.seed(args.seed)
@@ -450,30 +476,52 @@ def main():
           f"(timeout={CLIENT_TIMEOUT_S:.0f}s) ...")
 
     weather_presets = [(name, resolve_weather(name)) for name in args.weather]
-
-    # Build the FULL grid of combinations. Each combo carries every value it
-    # needs so we can shuffle / slice independent of the town iteration order.
-    combos = []
     town_order = {t: i for i, t in enumerate(args.towns)}
-    for town in args.towns:
-        for spawn_idx in range(args.spawn_pool_size):
-            for weather_name, weather_obj in weather_presets:
-                for sun_alt in args.sun_altitudes:
-                    for dist in args.distances:
-                        for lat in args.lateral_offsets:
-                            for hdg in args.heading_offsets:
-                                combos.append({
-                                    "town": town,
-                                    "spawn_idx": spawn_idx,
-                                    "weather_name": weather_name,
-                                    "weather_obj": weather_obj,
-                                    "sun_alt": sun_alt,
-                                    "dist": dist,
-                                    "lat": lat,
-                                    "hdg": hdg,
-                                })
 
-    print(f"Full grid: {len(combos)} combinations across {len(args.towns)} towns")
+    combos = []
+    if args.continuous:
+        # Continuous sampling: for each town, draw `frames_per_town` random
+        # combos. Sun/distance/heading are uniform in their range, weather and
+        # lateral are categorical (random.choice).
+        lo_sun, hi_sun = args.sun_altitude_range
+        lo_d, hi_d = args.distance_range
+        lo_h, hi_h = args.heading_offset_range
+        lateral_choices = [int(round(v)) for v in args.lateral_offsets]
+        for town in args.towns:
+            for _ in range(args.frames_per_town):
+                weather_name, weather_obj = random.choice(weather_presets)
+                combos.append({
+                    "town": town,
+                    "spawn_idx": random.randrange(args.spawn_pool_size),
+                    "weather_name": weather_name,
+                    "weather_obj": weather_obj,
+                    "sun_alt": random.uniform(lo_sun, hi_sun),
+                    "dist": random.uniform(lo_d, hi_d),
+                    "lat": random.choice(lateral_choices),
+                    "hdg": random.uniform(lo_h, hi_h),
+                })
+        print(f"Continuous sampling: {len(combos)} attempts across "
+              f"{len(args.towns)} towns ({args.frames_per_town}/town)")
+    else:
+        # Discrete grid mode (original behavior).
+        for town in args.towns:
+            for spawn_idx in range(args.spawn_pool_size):
+                for weather_name, weather_obj in weather_presets:
+                    for sun_alt in args.sun_altitudes:
+                        for dist in args.distances:
+                            for lat in args.lateral_offsets:
+                                for hdg in args.heading_offsets:
+                                    combos.append({
+                                        "town": town,
+                                        "spawn_idx": spawn_idx,
+                                        "weather_name": weather_name,
+                                        "weather_obj": weather_obj,
+                                        "sun_alt": sun_alt,
+                                        "dist": dist,
+                                        "lat": lat,
+                                        "hdg": hdg,
+                                    })
+        print(f"Full grid: {len(combos)} combinations across {len(args.towns)} towns")
 
     if args.shuffle:
         random.shuffle(combos)

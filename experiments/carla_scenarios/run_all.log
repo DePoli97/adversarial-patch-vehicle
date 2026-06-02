@@ -109,8 +109,12 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
 [INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_tfv4_l6_0_20260423_230812/follower_route.xml (303 waypoints)
 [INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
-0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 483 : unable to destroy actor: not found 
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]ERROR: failed to destroy actor 483 : unable to destroy actor: not found 
 ERROR: failed to destroy actor 482 : unable to destroy actor: not found 
 
 [INFO] Agent attached.
@@ -309,8 +313,12 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
 [INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/raw_tfv4_l6_0_20260423_231731/follower_route.xml (303 waypoints)
 [INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
-0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 824 : unable to destroy actor: not found 
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]ERROR: failed to destroy actor 824 : unable to destroy actor: not found 
 ERROR: failed to destroy actor 823 : unable to destroy actor: not found 
 
 [INFO] Agent attached.
@@ -574,8 +582,12 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
 [INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/camouflaged_tfv4_l6_0_20260423_232814/follower_route.xml (303 waypoints)
 [INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
-0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 1188 : unable to destroy actor: not found 
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]ERROR: failed to destroy actor 1188 : unable to destroy actor: not found 
 ERROR: failed to destroy actor 1187 : unable to destroy actor: not found 
 
 [INFO] Agent attached.
@@ -787,8 +799,12 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
 [INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/none_tfv4_l6_0_20260429_133642/follower_route.xml (303 waypoints)
 [INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
-0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 238 : unable to destroy actor: not found 
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]ERROR: failed to destroy actor 238 : unable to destroy actor: not found 
 ERROR: failed to destroy actor 237 : unable to destroy actor: not found 
 
 [INFO] Agent attached.
@@ -991,8 +1007,12 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
 [INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/raw_tfv4_l6_0_20260429_135326/follower_route.xml (303 waypoints)
 [INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
-0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 579 : unable to destroy actor: not found 
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]ERROR: failed to destroy actor 579 : unable to destroy actor: not found 
 ERROR: failed to destroy actor 578 : unable to destroy actor: not found 
 
 [INFO] Agent attached.
@@ -1195,8 +1215,12 @@ WARNING: Simulator API version  = 0.9.15.2-dirty
 [INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/camouflaged_tfv4_l6_0_20260429_140152/follower_route.xml (303 waypoints)
 [INFO] Attaching PCLA agent 'tfv4_l6_0' in control mode ...
 /home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/longest6/tfpp_all_0/model_0030.pth
-0it [00:00, ?it/s]0it [00:00, ?it/s]
-0it [00:00, ?it/s]0it [00:00, ?it/s]ERROR: failed to destroy actor 920 : unable to destroy actor: not found 
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+
+0it [00:00, ?it/s]
+0it [00:00, ?it/s]ERROR: failed to destroy actor 920 : unable to destroy actor: not found 
 ERROR: failed to destroy actor 919 : unable to destroy actor: not found 
 
 [INFO] Agent attached.

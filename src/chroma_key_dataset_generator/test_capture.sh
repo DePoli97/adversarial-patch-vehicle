@@ -106,9 +106,13 @@ start_carla_package() {
     exit 1
   fi
   echo ">>> launching CarlaUE4.sh (headless, off-screen render)"
-  (cd "${CARLA_PACKAGE_DIR}" &&
-    nohup ./CarlaUE4.sh -RenderOffScreen -nosound -quality-level=Epic \
-      >/tmp/carla_server.log 2>&1 &)
+  # setsid puts CARLA in its own session so it cannot keep our terminal open
+  # via inherited file descriptors; </dev/null closes stdin; redirect both
+  # stdout and stderr to a log file, then background and disown.
+  setsid bash -c "cd '${CARLA_PACKAGE_DIR}' && \
+    exec ./CarlaUE4.sh -RenderOffScreen -nosound -quality-level=Epic" \
+    </dev/null >/tmp/carla_server.log 2>&1 &
+  disown
   sleep 5
   wait_for_carla || exit 1
   echo ">>> CARLA up and listening on :2000"
@@ -116,7 +120,8 @@ start_carla_package() {
 
 stop_carla() {
   echo ">>> stopping CARLA"
-  pkill -9 -f 'CarlaUE4-Linux\|CarlaUE4.sh' 2>/dev/null || true
+  # Match any UE4/Carla helper process — main binary, launcher, render helpers.
+  pkill -9 -f 'CarlaUE4\|UE4-Linux\|UnrealEditor\|Carla' 2>/dev/null || true
   sleep 4
 }
 
@@ -173,6 +178,7 @@ elif [[ "$MODE" == "auto" ]]; then
   echo ">>> Run directory: $RUN_DIR"
   printf ">>> PNG count   : "
   find "$RUN_DIR" -name "*.png" -type f 2>/dev/null | wc -l
+  exit 0
 
 else
   echo "Unknown MODE: $MODE  (use 'manual' or 'auto')"

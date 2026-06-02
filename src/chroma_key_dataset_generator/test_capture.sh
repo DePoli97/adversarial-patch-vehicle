@@ -30,6 +30,22 @@ cd "$REPO_ROOT"
 
 MODE="${MODE:-manual}"
 
+# Master log captures EVERYTHING (this script's banners + stop/start CARLA
+# messages + the python output piped through run_capture.sh). Useful when
+# running unattended.
+MASTER_LOG_DIR="data/chroma_key_dataset"
+MASTER_TS="$(date '+%Y%m%d_%H%M%S')"
+MASTER_LOG="${MASTER_LOG_DIR}/master_${MODE}_${MASTER_TS}.log"
+mkdir -p "$MASTER_LOG_DIR"
+
+# Re-exec the rest of the script with all output tee'd to MASTER_LOG.
+# This is the cleanest way to capture everything without sprinkling | tee.
+if [[ -z "${_RE_EXEC_:-}" ]]; then
+  echo "Master log: $MASTER_LOG"
+  export _RE_EXEC_=1
+  exec bash "$0" "$@" 2>&1 | tee "$MASTER_LOG"
+fi
+
 # ===== ACTIVE TOWN (manual mode only) =====
 # Uncomment ONE line below (or set TOWNS via env to override).
 # In auto mode, this is ignored and AUTO_TOWNS below is used instead.
@@ -41,7 +57,7 @@ MODE="${MODE:-manual}"
 export TOWNS
 
 # ===== AUTO MODE TOWN LIST =====
-AUTO_TOWNS=(${AUTO_TOWNS:-Town01 Town03 Town04 Town06 Town10HD_Opt})
+AUTO_TOWNS=(${AUTO_TOWNS:-Town01 Town03 Town04 Town05 Town10HD_Opt})
 
 # ===== Common config =====
 export FRAMES_PER_TOWN="${FRAMES_PER_TOWN:-50}"
@@ -63,88 +79,88 @@ export SHUFFLE="${SHUFFLE:-1}"
 # ===== Helpers =====
 
 wait_for_carla() {
-    # Wait up to 90 s for port 2000 to start listening.
-    local deadline=$((SECONDS + 90))
-    while (( SECONDS < deadline )); do
-        if ss -tln 2>/dev/null | grep -q ':2000 '; then
-            sleep 3   # small extra delay for the world to be ready
-            return 0
-        fi
-        sleep 2
-    done
-    echo "[ERR] CARLA did not open port 2000 within 90 s"
-    return 1
+  # Wait up to 90 s for port 2000 to start listening.
+  local deadline=$((SECONDS + 90))
+  while ((SECONDS < deadline)); do
+    if ss -tln 2>/dev/null | grep -q ':2000 '; then
+      sleep 3 # small extra delay for the world to be ready
+      return 0
+    fi
+    sleep 2
+  done
+  echo "[ERR] CARLA did not open port 2000 within 90 s"
+  return 1
 }
 
 start_carla_package() {
-    if [[ -z "${CARLA_PACKAGE_DIR:-}" ]]; then
-        echo "[ERR] auto mode requires CARLA_PACKAGE_DIR pointing at the CARLA package"
-        exit 1
-    fi
-    if [[ ! -x "${CARLA_PACKAGE_DIR}/CarlaUE4.sh" ]]; then
-        echo "[ERR] ${CARLA_PACKAGE_DIR}/CarlaUE4.sh not found / not executable"
-        exit 1
-    fi
-    echo ">>> launching CarlaUE4.sh (headless, off-screen render)"
-    (cd "${CARLA_PACKAGE_DIR}" && \
-        nohup ./CarlaUE4.sh -RenderOffScreen -nosound -quality-level=Epic \
-              >/tmp/carla_server.log 2>&1 &)
-    sleep 5
-    wait_for_carla || exit 1
-    echo ">>> CARLA up and listening on :2000"
+  if [[ -z "${CARLA_PACKAGE_DIR:-}" ]]; then
+    echo "[ERR] auto mode requires CARLA_PACKAGE_DIR pointing at the CARLA package"
+    exit 1
+  fi
+  if [[ ! -x "${CARLA_PACKAGE_DIR}/CarlaUE4.sh" ]]; then
+    echo "[ERR] ${CARLA_PACKAGE_DIR}/CarlaUE4.sh not found / not executable"
+    exit 1
+  fi
+  echo ">>> launching CarlaUE4.sh (headless, off-screen render)"
+  (cd "${CARLA_PACKAGE_DIR}" &&
+    nohup ./CarlaUE4.sh -RenderOffScreen -nosound -quality-level=Epic \
+      >/tmp/carla_server.log 2>&1 &)
+  sleep 5
+  wait_for_carla || exit 1
+  echo ">>> CARLA up and listening on :2000"
 }
 
 stop_carla() {
-    echo ">>> stopping CARLA"
-    pkill -9 -f 'CarlaUE4-Linux\|CarlaUE4.sh' 2>/dev/null || true
-    sleep 4
+  echo ">>> stopping CARLA"
+  pkill -9 -f 'CarlaUE4-Linux\|CarlaUE4.sh' 2>/dev/null || true
+  sleep 4
 }
 
 # ===== MAIN =====
 
 if [[ "$MODE" == "manual" ]]; then
-    echo "######################################################"
-    echo " MANUAL CAPTURE — single town"
-    echo "  active town    : $TOWNS"
-    echo "  attempts       : $FRAMES_PER_TOWN"
-    echo "  sun range      : $SUN_ALTITUDE_RANGE"
-    echo "  dist range     : $DISTANCE_RANGE"
-    echo "  heading range  : $HEADING_OFFSET_RANGE"
-    echo "######################################################"
-    echo ""
-    export SEED="${SEED:-$RANDOM}"
-    bash src/chroma_key_dataset_generator/run_capture.sh
+  echo "######################################################"
+  echo " MANUAL CAPTURE — single town"
+  echo "  active town    : $TOWNS"
+  echo "  attempts       : $FRAMES_PER_TOWN"
+  echo "  sun range      : $SUN_ALTITUDE_RANGE"
+  echo "  dist range     : $DISTANCE_RANGE"
+  echo "  heading range  : $HEADING_OFFSET_RANGE"
+  echo "######################################################"
+  echo ""
+  export SEED="${SEED:-$RANDOM}"
+  bash src/chroma_key_dataset_generator/run_capture.sh
 
 elif [[ "$MODE" == "auto" ]]; then
-    echo "######################################################"
-    echo " AUTO CAPTURE — sweep ${#AUTO_TOWNS[@]} towns"
-    echo "  towns          : ${AUTO_TOWNS[*]}"
-    echo "  attempts/town  : $FRAMES_PER_TOWN"
-    echo "  package dir    : ${CARLA_PACKAGE_DIR:-<unset>}"
-    echo "######################################################"
+  echo "######################################################"
+  echo " AUTO CAPTURE — sweep ${#AUTO_TOWNS[@]} towns"
+  echo "  towns          : ${AUTO_TOWNS[*]}"
+  echo "  attempts/town  : $FRAMES_PER_TOWN"
+  echo "  package dir    : ${CARLA_PACKAGE_DIR:-<unset>}"
+  echo "######################################################"
+  echo ""
+
+  for town in "${AUTO_TOWNS[@]}"; do
     echo ""
-
-    for town in "${AUTO_TOWNS[@]}"; do
-        echo ""
-        echo "============================================================"
-        echo " TOWN: $town"
-        echo "============================================================"
-
-        stop_carla
-        start_carla_package
-
-        export TOWNS="$town"
-        export SEED="$RANDOM"
-        bash src/chroma_key_dataset_generator/run_capture.sh || \
-            echo "[WARN] $town session exited non-zero — continuing"
-    done
+    echo "============================================================"
+    echo " TOWN: $town"
+    echo "============================================================"
 
     stop_carla
-    echo ""
-    echo ">>> ALL TOWNS DONE."
-    find data/chroma_key_dataset/ -name "*.png" -type f 2>/dev/null | wc -l
+    start_carla_package
+
+    export TOWNS="$town"
+    export SEED="$RANDOM"
+    bash src/chroma_key_dataset_generator/run_capture.sh ||
+      echo "[WARN] $town session exited non-zero — continuing"
+  done
+
+  stop_carla
+  echo ""
+  echo ">>> ALL TOWNS DONE."
+  find data/chroma_key_dataset/ -name "*.png" -type f 2>/dev/null | wc -l
 
 else
-    echo "Unknown MODE: $MODE  (use 'manual' or 'auto')"
-    exit 1
+  echo "Unknown MODE: $MODE  (use 'manual' or 'auto')"
+  exit 1
 fi

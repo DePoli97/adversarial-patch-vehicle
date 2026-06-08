@@ -152,12 +152,9 @@ def main():
                    help="Where to write debug outputs.")
     p.add_argument("--batch-index", type=Path, default=None,
                    help="If set, skip per-frame debug files and write a single "
-                        "JSON index: {frame_stem: {corners, shape}}. Useful for "
-                        "feeding a Dataset class without polluting disk.")
-    p.add_argument("--enrich-json", action="store_true",
-                   help="In --batch-index mode, also add a 'detected_corners' "
-                        "field to each per-frame <stem>.json sitting next to "
-                        "the image. Original capture metadata is preserved.")
+                        "JSON index + add 'detected_corners' to each per-frame "
+                        "<stem>.json sitting next to the image. Original capture "
+                        "metadata is preserved.")
     p.add_argument("--min-area", type=float, default=200.0,
                    help="Minimum contour area to keep a quad (in pixels^2).")
     args = p.parse_args()
@@ -207,24 +204,24 @@ def main():
                 index[img.stem] = entry
                 n_ok += 1
 
-                if args.enrich_json:
-                    # Add 'detected_corners' to the existing per-frame JSON
-                    # without touching anything the capture script wrote.
-                    sidecar = img.with_suffix(".json")
-                    if sidecar.exists():
-                        try:
-                            with open(sidecar) as sf:
-                                meta = json.load(sf)
-                        except Exception:
-                            meta = {}
-                        meta["detected_corners"] = {
-                            "corners": entry["corners"],
-                            "shape": entry["shape"],
-                            "area": entry["area"],
-                            "source": "extract_quad.py",
-                        }
-                        with open(sidecar, "w") as sf:
-                            json.dump(meta, sf, indent=2)
+                # Always enrich the per-frame JSON with detected_corners
+                # alongside the capture metadata. Additive write: original
+                # capture fields are preserved untouched.
+                sidecar = img.with_suffix(".json")
+                if sidecar.exists():
+                    try:
+                        with open(sidecar) as sf:
+                            meta = json.load(sf)
+                    except Exception:
+                        meta = {}
+                    meta["detected_corners"] = {
+                        "corners": entry["corners"],
+                        "shape": entry["shape"],
+                        "area": entry["area"],
+                        "source": "extract_quad.py",
+                    }
+                    with open(sidecar, "w") as sf:
+                        json.dump(meta, sf, indent=2)
             except Exception as e:
                 print(f"[ERR] {img.name}: {e}")
                 n_fail += 1

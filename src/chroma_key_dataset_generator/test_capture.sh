@@ -69,6 +69,9 @@ AUTO_TOWNS=(${AUTO_TOWNS:-Town01 Town03 Town04 Town05 Town10HD_Opt})
 
 # ===== Common config =====
 export FRAMES_PER_TOWN="${FRAMES_PER_TOWN:-200}"
+# Fixed RNG seed for the whole run. KEEP THIS THE SAME across paired datasets
+# (marker / clean / no-leader) so the scenes line up frame-for-frame.
+export SEED="${SEED:-42}"
 export CONTINUOUS=1
 export SUN_ALTITUDE_RANGE="${SUN_ALTITUDE_RANGE:-25 70}"
 export DISTANCE_RANGE="${DISTANCE_RANGE:-6 18}"
@@ -143,7 +146,6 @@ if [[ "$MODE" == "manual" ]]; then
   echo "  heading range  : $HEADING_OFFSET_RANGE"
   echo "######################################################"
   echo ""
-  export SEED="${SEED:-$RANDOM}"
   bash src/chroma_key_dataset_generator/run_capture.sh
 
 elif [[ "$MODE" == "auto" ]]; then
@@ -170,7 +172,6 @@ elif [[ "$MODE" == "auto" ]]; then
     start_carla_package
 
     export TOWNS="$town"
-    export SEED="$RANDOM"
     bash src/chroma_key_dataset_generator/run_capture.sh ||
       echo "[WARN] $town session exited non-zero — continuing"
   done

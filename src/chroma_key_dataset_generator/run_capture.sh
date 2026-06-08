@@ -125,6 +125,7 @@ if python -u "$SCRIPT" \
         --distance-range ${DISTANCE_RANGE} \
         --heading-offset-range ${HEADING_OFFSET_RANGE} \
         $( [[ -n "${RUN_DIR:-}" ]] && echo "--run-dir ${RUN_DIR}" ) \
+        $( [[ "${NO_LEADER:-0}" == "1" ]] && echo "--no-leader" ) \
         2>&1 | tee -a "$LOG"; then
     echo "[$(date '+%H:%M:%S')] DONE" | tee -a "$LOG"
     if [[ "$LOG" != "/dev/null" ]]; then

@@ -528,15 +528,6 @@ def main():
     print(f"Connecting to CARLA at {args.host}:{args.port} "
           f"(timeout={CLIENT_TIMEOUT_S:.0f}s) ...")
 
-    # Seed the TrafficManager so NPC routing is deterministic across runs
-    # with the same --seed (needed for paired clean/marker dataset generation).
-    try:
-        tm = client.get_trafficmanager(args.tm_port)
-        tm.set_random_device_seed(args.seed)
-        tm.set_synchronous_mode(True)
-    except Exception as e:
-        print(f"[WARN] could not seed TM ({e}); continuing without TM seed")
-
     weather_presets = [(name, resolve_weather(name)) for name in args.weather]
     town_order = {t: i for i, t in enumerate(args.towns)}
 
@@ -651,6 +642,19 @@ def main():
                 settings.synchronous_mode = True
                 settings.fixed_delta_seconds = 0.05
                 world.apply_settings(settings)
+
+                # Seed the TM now that the world is loaded — required for
+                # deterministic NPC routing across paired runs (same SEED).
+                # Must be called AFTER load_world; before, the TM has no map
+                # to bind to and the OpenDRIVE parser crashes.
+                try:
+                    tm = client.get_trafficmanager(args.tm_port)
+                    tm.set_synchronous_mode(True)
+                    tm.set_random_device_seed(args.seed)
+                except Exception as e:
+                    print(f"  [WARN] could not seed TM on {combo['town']}: {e}",
+                          flush=True)
+
                 # Long warmup so UE finishes shader compile / texture streaming
                 # before the first capture. Without this, frames 1-4 come back
                 # half-rendered (stale buffers).

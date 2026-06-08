@@ -134,8 +134,21 @@ start_carla_package() {
 stop_carla() {
   echo ">>> stopping CARLA"
   # Match any UE4/Carla helper process — main binary, launcher, render helpers.
-  pkill -9 -f 'CarlaUE4\|UE4-Linux\|UnrealEditor\|Carla' 2>/dev/null || true
-  sleep 4
+  # Two-stage: SIGTERM first (clean shutdown), then SIGKILL to anything left.
+  pkill -TERM -f 'CarlaUE4\|UE4-Linux\|UnrealEditor' 2>/dev/null || true
+  sleep 3
+  pkill -KILL -f 'CarlaUE4\|UE4-Linux\|UnrealEditor' 2>/dev/null || true
+  # Wait for the RPC ports (2000) and TM (8000) to actually free up. Without
+  # this, the next CARLA fails to bind the TM with 'bind error', leaving the
+  # next town without a seeded TrafficManager (and no determinism).
+  local deadline=$((SECONDS + 30))
+  while ((SECONDS < deadline)); do
+    if ! ss -tln 2>/dev/null | grep -qE ':(2000|8000) '; then
+      return 0
+    fi
+    sleep 1
+  done
+  echo "[WARN] CARLA ports still busy after 30s"
 }
 
 # ===== MAIN =====

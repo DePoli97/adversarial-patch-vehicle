@@ -150,6 +150,16 @@ def main():
                    help="Optional patch image (PNG/JPG/TGA) to warp onto the detected quad.")
     p.add_argument("--out-dir", type=Path, default=Path("experiments/chroma_key_demo"),
                    help="Where to write debug outputs.")
+    p.add_argument("--batch-index", type=Path, default=None,
+                   help="If set, skip per-frame debug files and write a single "
+                        "JSON index: {frame_stem: {corners, shape}}. Useful for "
+                        "feeding a Dataset class without polluting disk.")
+    p.add_argument("--enrich-json", action="store_true",
+                   help="In --batch-index mode, also add a 'detected_corners' "
+                        "field to each per-frame <stem>.json sitting next to "
+                        "the image. Original capture metadata is preserved.")
+    p.add_argument("--min-area", type=float, default=200.0,
+                   help="Minimum contour area to keep a quad (in pixels^2).")
     args = p.parse_args()
 
     # Resolve --image to a list of files. Three accepted forms:
@@ -167,17 +177,77 @@ def main():
     if not images:
         raise SystemExit(f"No images found at {args.image}")
 
-    print(f"Processing {len(images)} image(s) -> {args.out_dir}\n")
-    n_ok = 0
-    n_fail = 0
-    for img in images:
-        try:
-            process(img, args.patch, args.out_dir)
-            n_ok += 1
-        except Exception as e:
-            print(f"[ERR] {img.name}: {e}")
-            n_fail += 1
-    print(f"\nDone. ok={n_ok}  failed={n_fail}  out={args.out_dir}")
+    if args.batch_index is not None:
+        # Compact mode: no per-frame debug files, just one index JSON.
+        print(f"Batch indexing {len(images)} image(s) -> {args.batch_index}\n")
+        index = {}
+        n_ok = 0
+        n_no_quad = 0
+        n_fail = 0
+        for i, img in enumerate(images):
+            try:
+                bgr = cv2.imread(str(img))
+                if bgr is None:
+                    n_fail += 1
+                    continue
+                corners, _ = find_yellow_quad(bgr)
+                if corners is None:
+                    n_no_quad += 1
+                    continue
+                ordered = order_corners(corners)
+                area = cv2.contourArea(ordered.astype(np.float32))
+                if area < args.min_area:
+                    n_no_quad += 1
+                    continue
+                entry = {
+                    "corners": ordered.tolist(),
+                    "shape": list(bgr.shape),
+                    "area": float(area),
+                }
+                index[img.stem] = entry
+                n_ok += 1
+
+                if args.enrich_json:
+                    # Add 'detected_corners' to the existing per-frame JSON
+                    # without touching anything the capture script wrote.
+                    sidecar = img.with_suffix(".json")
+                    if sidecar.exists():
+                        try:
+                            with open(sidecar) as sf:
+                                meta = json.load(sf)
+                        except Exception:
+                            meta = {}
+                        meta["detected_corners"] = {
+                            "corners": entry["corners"],
+                            "shape": entry["shape"],
+                            "area": entry["area"],
+                            "source": "extract_quad.py",
+                        }
+                        with open(sidecar, "w") as sf:
+                            json.dump(meta, sf, indent=2)
+            except Exception as e:
+                print(f"[ERR] {img.name}: {e}")
+                n_fail += 1
+            if (i + 1) % 200 == 0:
+                print(f"  ... {i+1}/{len(images)}  ok={n_ok}  no_quad={n_no_quad}",
+                      flush=True)
+        args.batch_index.parent.mkdir(parents=True, exist_ok=True)
+        with open(args.batch_index, "w") as f:
+            json.dump(index, f)
+        print(f"\nDone. ok={n_ok}  no_quad={n_no_quad}  failed={n_fail}  "
+              f"-> {args.batch_index}")
+    else:
+        print(f"Processing {len(images)} image(s) -> {args.out_dir}\n")
+        n_ok = 0
+        n_fail = 0
+        for img in images:
+            try:
+                process(img, args.patch, args.out_dir)
+                n_ok += 1
+            except Exception as e:
+                print(f"[ERR] {img.name}: {e}")
+                n_fail += 1
+        print(f"\nDone. ok={n_ok}  failed={n_fail}  out={args.out_dir}")
 
 
 if __name__ == "__main__":

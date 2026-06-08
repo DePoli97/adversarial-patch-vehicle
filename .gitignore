@@ -24,6 +24,8 @@ datasets/
 # Training runs, results, predictions (pesanti, riproducibili)
 runs/
 results/
+experiments/yolo_attack/
+experiments/clip_attack/
 
 # Virtual environments (dentro i sottoprogetti)
 src/vehicle_counting_model/.venv/

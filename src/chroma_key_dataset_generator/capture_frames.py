@@ -261,7 +261,8 @@ def capture_one(world, leader_bp, follower_bp,
                 distance_m: float, lateral_offset: float, heading_offset_deg: float,
                 npc_count: int, npc_radius: float, npc_scattered: int,
                 out_dir: Path, frame_id: str, meta: dict,
-                settle_ticks: int = 50):
+                settle_ticks: int = 50,
+                no_leader: bool = False):
     """Spawn leader+follower(+NPCs), grab one camera frame, destroy everything."""
     # PCLA-style preflight: wipe any leftover sensor/vehicle from a previous
     # frame whose finally block didn't fully complete. Source of truth is the
@@ -306,17 +307,21 @@ def capture_one(world, leader_bp, follower_bp,
         pass
     world.tick()   # commit follower
 
-    print(f"  [..] {frame_id}: spawn leader", flush=True)
-    leader = world.try_spawn_actor(leader_bp, leader_tf)
-    if leader is None:
-        safe_destroy(follower)
-        print(f"  [SKIP] {frame_id}: leader spawn failed", flush=True)
-        return False
-    try:
-        leader.set_simulate_physics(True)
-    except Exception:
-        pass
-    world.tick()   # commit leader
+    leader = None
+    if not no_leader:
+        print(f"  [..] {frame_id}: spawn leader", flush=True)
+        leader = world.try_spawn_actor(leader_bp, leader_tf)
+        if leader is None:
+            safe_destroy(follower)
+            print(f"  [SKIP] {frame_id}: leader spawn failed", flush=True)
+            return False
+        try:
+            leader.set_simulate_physics(True)
+        except Exception:
+            pass
+        world.tick()   # commit leader
+    else:
+        print(f"  [..] {frame_id}: leader skipped (no-leader mode)", flush=True)
 
     print(f"  [..] {frame_id}: spawn NPCs (near={npc_count}, scattered={npc_scattered})",
           flush=True)
@@ -421,6 +426,12 @@ def main():
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--host", default="localhost")
     p.add_argument("--port", type=int, default=2000)
+    p.add_argument("--tm-port", type=int, default=8000,
+                   help="TrafficManager RPC port; seeded with --seed.")
+    p.add_argument("--no-leader", action="store_true",
+                   help="Skip spawning the leader vehicle. Used to generate "
+                        "the 'no leader' dataset for OpenCLIP counterfactual "
+                        "training (target embedding = scene without leader).")
     p.add_argument("--towns", nargs="+",
                    default=["Town04", "Town06", "Town10HD_Opt"])
     p.add_argument("--weather", nargs="+", default=DEFAULT_WEATHER)
@@ -516,6 +527,15 @@ def main():
     client.set_timeout(CLIENT_TIMEOUT_S)
     print(f"Connecting to CARLA at {args.host}:{args.port} "
           f"(timeout={CLIENT_TIMEOUT_S:.0f}s) ...")
+
+    # Seed the TrafficManager so NPC routing is deterministic across runs
+    # with the same --seed (needed for paired clean/marker dataset generation).
+    try:
+        tm = client.get_trafficmanager(args.tm_port)
+        tm.set_random_device_seed(args.seed)
+        tm.set_synchronous_mode(True)
+    except Exception as e:
+        print(f"[WARN] could not seed TM ({e}); continuing without TM seed")
 
     weather_presets = [(name, resolve_weather(name)) for name in args.weather]
     town_order = {t: i for i, t in enumerate(args.towns)}
@@ -684,6 +704,7 @@ def main():
                 "heading_offset": float(combo["hdg"]),
                 "npc_count_requested": args.npc_count,
                 "npc_scattered_requested": args.npc_scattered,
+                "no_leader": bool(args.no_leader),
                 "leader_blueprint": args.leader,
                 "follower_blueprint": args.follower,
             }
@@ -692,7 +713,8 @@ def main():
                                  combo["dist"], combo["lat"], combo["hdg"],
                                  args.npc_count, args.npc_radius, args.npc_scattered,
                                  run_dir, frame_id, meta,
-                                 settle_ticks=args.settle_ticks)
+                                 settle_ticks=args.settle_ticks,
+                                 no_leader=args.no_leader)
                 if ok:
                     counter += 1
                     successes_per_town[combo["town"]] += 1

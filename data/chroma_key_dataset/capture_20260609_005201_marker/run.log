@@ -1,0 +1,614 @@
+######################################################
+ AUTO CAPTURE — sweep 5 towns
+  towns          : Town01 Town03 Town04 Town05 Town10HD_Opt
+  attempts/town  : 4
+  npc per scene  : 15 (radius 80 m)
+  run dir        : data/chroma_key_dataset/capture_20260609_005201_marker
+  package dir    : /home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2_marker_yellow/LinuxNoEditor
+######################################################
+
+
+============================================================
+ TOWN: Town01
+============================================================
+>>> stopping CARLA
+>>> launching CarlaUE4.sh (headless, off-screen render)
+>>> CARLA up and listening on :2000
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-09 00:52:31
+################################################################
+  towns          : Town01
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 15  (radius 80 m)
+  npc_scattered  : 30  (random across map)
+  spawn_pool     : 6
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  continuous     : 1  (per-town: 4)
+  sun_range      : 25 70
+  dist_range     : 6 18
+  heading_range  : -5 5
+  seed           : 42
+  log            : /dev/null
+
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Continuous sampling: 8 attempts across 1 towns (4/town)
+Sampled : 8 frame(s) (shuffled)
+   Town01                8
+Out     : data/chroma_key_dataset/capture_20260609_005201_marker
+
+
+--- Loading Town01 ---
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+  warmup: 100 ticks
+  [SKIP] 000001: no valid lane at shift=+1 from follower lane
+  [SKIP] 000001: no valid lane at shift=+1 from follower lane
+  [..] 000001: spawn follower
+  [..] 000001: spawn leader
+  [..] 000001: spawn NPCs (near=15, scattered=30)
+  [..] 000001: spawn camera
+  [..] 000001: settle (no listener)
+  [..] 000001: tick 10/50
+  [..] 000001: tick 20/50
+  [..] 000001: tick 30/50
+  [..] 000001: tick 40/50
+  [..] 000001: tick 50/50
+  [..] 000001: cam.listen (skip 20 stale frames)
+  [OK] 000001.png  (Town01, MidRainyNoon, sun=41°, dist=10m, lat=+0.0, hdg=+3°, npcs=45)
+  [..] 000001: finally start
+  [..] 000001: drain tick
+  [..] 000001: destroy cam
+  [..] 000001: destroy 45 npcs
+  [..] 000001: destroy leader
+  [..] 000001: destroy follower
+  [..] 000001: post-cleanup tick
+  [..] 000001: finally end
+  [SKIP] 000002: no valid lane at shift=-1 from follower lane
+  [SKIP] 000002: no valid lane at shift=-1 from follower lane
+  [SKIP] 000002: no valid lane at shift=-1 from follower lane
+  [SKIP] 000002: no valid lane at shift=-1 from follower lane
+  [..] 000002: spawn follower
+  [..] 000002: spawn leader
+  [..] 000002: spawn NPCs (near=15, scattered=30)
+  [..] 000002: spawn camera
+  [..] 000002: settle (no listener)
+  [..] 000002: tick 10/50
+  [..] 000002: tick 20/50
+  [..] 000002: tick 30/50
+  [..] 000002: tick 40/50
+  [..] 000002: tick 50/50
+  [..] 000002: cam.listen (skip 20 stale frames)
+  [OK] 000002.png  (Town01, WetNoon, sun=32°, dist=17m, lat=+0.0, hdg=-4°, npcs=45)
+  [..] 000002: finally start
+  [..] 000002: drain tick
+  [..] 000002: destroy cam
+  [..] 000002: destroy 45 npcs
+  [..] 000002: destroy leader
+  [..] 000002: destroy follower
+  [..] 000002: post-cleanup tick
+  [..] 000002: finally end
+
+Done. 2 frame(s) saved → data/chroma_key_dataset/capture_20260609_005201_marker
+   Town01                   2 / 4  [SHORT]
+Index: data/chroma_key_dataset/capture_20260609_005201_marker/captures_index.csv
+[00:52:40] DONE
+
+============================================================
+ TOWN: Town03
+============================================================
+>>> stopping CARLA
+ 155375>>> launching CarlaUE4.sh (headless, off-screen render)
+>>> CARLA up and listening on :2000
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-09 00:53:12
+################################################################
+  towns          : Town03
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 15  (radius 80 m)
+  npc_scattered  : 30  (random across map)
+  spawn_pool     : 6
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  continuous     : 1  (per-town: 4)
+  sun_range      : 25 70
+  dist_range     : 6 18
+  heading_range  : -5 5
+  seed           : 42
+  log            : /dev/null
+
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Continuous sampling: 8 attempts across 1 towns (4/town)
+Sampled : 8 frame(s) (shuffled)
+   Town03                8
+Out     : data/chroma_key_dataset/capture_20260609_005201_marker
+
+[resume] appending to existing run, starting frame_id 000003
+
+--- Loading Town03 ---
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+  warmup: 100 ticks
+  [SKIP] 000003: no valid lane at shift=+1 from follower lane
+  [SKIP] 000003: no valid lane at shift=+1 from follower lane
+  [..] 000003: spawn follower
+  [..] 000003: spawn leader
+  [..] 000003: spawn NPCs (near=15, scattered=30)
+  [..] 000003: spawn camera
+  [..] 000003: settle (no listener)
+  [..] 000003: tick 10/50
+  [..] 000003: tick 20/50
+  [..] 000003: tick 30/50
+  [..] 000003: tick 40/50
+  [..] 000003: tick 50/50
+  [..] 000003: cam.listen (skip 20 stale frames)
+  [OK] 000003.png  (Town03, MidRainyNoon, sun=41°, dist=10m, lat=+0.0, hdg=+3°, npcs=45)
+  [..] 000003: finally start
+  [..] 000003: drain tick
+  [..] 000003: destroy cam
+  [..] 000003: destroy 45 npcs
+  [..] 000003: destroy leader
+  [..] 000003: destroy follower
+  [..] 000003: post-cleanup tick
+  [..] 000003: finally end
+  [SKIP] 000004: no valid lane at shift=-1 from follower lane
+  [SKIP] 000004: no valid lane at shift=-1 from follower lane
+  [SKIP] 000004: no valid lane at shift=-1 from follower lane
+  [..] 000004: spawn follower
+  [..] 000004: spawn leader
+  [..] 000004: spawn NPCs (near=15, scattered=30)
+  [..] 000004: spawn camera
+  [..] 000004: settle (no listener)
+  [..] 000004: tick 10/50
+  [..] 000004: tick 20/50
+  [..] 000004: tick 30/50
+  [..] 000004: tick 40/50
+  [..] 000004: tick 50/50
+  [..] 000004: cam.listen (skip 20 stale frames)
+  [OK] 000004.png  (Town03, ClearNoon, sun=58°, dist=9m, lat=-1.0, hdg=+2°, npcs=45)
+  [..] 000004: finally start
+  [..] 000004: drain tick
+  [..] 000004: destroy cam
+  [..] 000004: destroy 45 npcs
+  [..] 000004: destroy leader
+  [..] 000004: destroy follower
+  [..] 000004: post-cleanup tick
+  [..] 000004: finally end
+  [..] 000005: spawn follower
+  [..] 000005: spawn leader
+  [..] 000005: spawn NPCs (near=15, scattered=30)
+  [..] 000005: spawn camera
+  [..] 000005: settle (no listener)
+  [..] 000005: tick 10/50
+  [..] 000005: tick 20/50
+  [..] 000005: tick 30/50
+  [..] 000005: tick 40/50
+  [..] 000005: tick 50/50
+  [..] 000005: cam.listen (skip 20 stale frames)
+  [OK] 000005.png  (Town03, WetNoon, sun=32°, dist=17m, lat=+0.0, hdg=-4°, npcs=45)
+  [..] 000005: finally start
+  [..] 000005: drain tick
+  [..] 000005: destroy cam
+  [..] 000005: destroy 45 npcs
+  [..] 000005: destroy leader
+  [..] 000005: destroy follower
+  [..] 000005: post-cleanup tick
+  [..] 000005: finally end
+
+Done. 5 frame(s) saved → data/chroma_key_dataset/capture_20260609_005201_marker
+   Town03                   3 / 4  [SHORT]
+Index: data/chroma_key_dataset/capture_20260609_005201_marker/captures_index.csv
+[00:53:24] DONE
+
+============================================================
+ TOWN: Town04
+============================================================
+>>> stopping CARLA
+ 155778>>> launching CarlaUE4.sh (headless, off-screen render)
+>>> CARLA up and listening on :2000
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-09 00:53:56
+################################################################
+  towns          : Town04
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 15  (radius 80 m)
+  npc_scattered  : 30  (random across map)
+  spawn_pool     : 6
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  continuous     : 1  (per-town: 4)
+  sun_range      : 25 70
+  dist_range     : 6 18
+  heading_range  : -5 5
+  seed           : 42
+  log            : /dev/null
+
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Continuous sampling: 8 attempts across 1 towns (4/town)
+Sampled : 8 frame(s) (shuffled)
+   Town04                8
+Out     : data/chroma_key_dataset/capture_20260609_005201_marker
+
+[resume] appending to existing run, starting frame_id 000006
+
+--- Loading Town04 ---
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+  warmup: 100 ticks
+  [..] 000006: spawn follower
+  [..] 000006: spawn leader
+  [..] 000006: spawn NPCs (near=15, scattered=30)
+  [..] 000006: spawn camera
+  [..] 000006: settle (no listener)
+  [..] 000006: tick 10/50
+  [..] 000006: tick 20/50
+  [..] 000006: tick 30/50
+  [..] 000006: tick 40/50
+  [..] 000006: tick 50/50
+  [..] 000006: cam.listen (skip 20 stale frames)
+  [OK] 000006.png  (Town04, WetNoon, sun=34°, dist=7m, lat=+1.0, hdg=-3°, npcs=45)
+  [..] 000006: finally start
+  [..] 000006: drain tick
+  [..] 000006: destroy cam
+  [..] 000006: destroy 45 npcs
+  [..] 000006: destroy leader
+  [..] 000006: destroy follower
+  [..] 000006: post-cleanup tick
+  [..] 000006: finally end
+  [..] 000007: spawn follower
+  [..] 000007: spawn leader
+  [..] 000007: spawn NPCs (near=15, scattered=30)
+  [..] 000007: spawn camera
+  [..] 000007: settle (no listener)
+  [..] 000007: tick 10/50
+  [..] 000007: tick 20/50
+  [..] 000007: tick 30/50
+  [..] 000007: tick 40/50
+  [..] 000007: tick 50/50
+  [..] 000007: cam.listen (skip 20 stale frames)
+  [OK] 000007.png  (Town04, ClearNoon, sun=34°, dist=14m, lat=+1.0, hdg=-1°, npcs=45)
+  [..] 000007: finally start
+  [..] 000007: drain tick
+  [..] 000007: destroy cam
+  [..] 000007: destroy 45 npcs
+  [..] 000007: destroy leader
+  [..] 000007: destroy follower
+  [..] 000007: post-cleanup tick
+  [..] 000007: finally end
+  [..] 000008: spawn follower
+  [..] 000008: spawn leader
+  [..] 000008: spawn NPCs (near=15, scattered=30)
+  [..] 000008: spawn camera
+  [..] 000008: settle (no listener)
+  [..] 000008: tick 10/50
+  [..] 000008: tick 20/50
+  [..] 000008: tick 30/50
+  [..] 000008: tick 40/50
+  [..] 000008: tick 50/50
+  [..] 000008: cam.listen (skip 20 stale frames)
+  [OK] 000008.png  (Town04, MidRainyNoon, sun=41°, dist=10m, lat=+0.0, hdg=+3°, npcs=45)
+  [..] 000008: finally start
+  [..] 000008: drain tick
+  [..] 000008: destroy cam
+  [..] 000008: destroy 45 npcs
+  [..] 000008: destroy leader
+  [..] 000008: destroy follower
+  [..] 000008: post-cleanup tick
+  [..] 000008: finally end
+  [..] 000009: spawn follower
+  [..] 000009: spawn leader
+  [..] 000009: spawn NPCs (near=15, scattered=30)
+  [..] 000009: spawn camera
+  [..] 000009: settle (no listener)
+  [..] 000009: tick 10/50
+  [..] 000009: tick 20/50
+  [..] 000009: tick 30/50
+  [..] 000009: tick 40/50
+  [..] 000009: tick 50/50
+  [..] 000009: cam.listen (skip 20 stale frames)
+  [OK] 000009.png  (Town04, MidRainyNoon, sun=38°, dist=16m, lat=-1.0, hdg=+2°, npcs=45)
+  [..] 000009: finally start
+  [..] 000009: drain tick
+  [..] 000009: destroy cam
+  [..] 000009: destroy 45 npcs
+  [..] 000009: destroy leader
+  [..] 000009: destroy follower
+  [..] 000009: post-cleanup tick
+  [..] 000009: finally end
+
+Done. 9 frame(s) saved → data/chroma_key_dataset/capture_20260609_005201_marker
+   Town04                   4 / 4  [OK]
+Index: data/chroma_key_dataset/capture_20260609_005201_marker/captures_index.csv
+[00:54:08] DONE
+
+============================================================
+ TOWN: Town05
+============================================================
+>>> stopping CARLA
+ 156103>>> launching CarlaUE4.sh (headless, off-screen render)
+>>> CARLA up and listening on :2000
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-09 00:54:40
+################################################################
+  towns          : Town05
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 15  (radius 80 m)
+  npc_scattered  : 30  (random across map)
+  spawn_pool     : 6
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  continuous     : 1  (per-town: 4)
+  sun_range      : 25 70
+  dist_range     : 6 18
+  heading_range  : -5 5
+  seed           : 42
+  log            : /dev/null
+
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Continuous sampling: 8 attempts across 1 towns (4/town)
+Sampled : 8 frame(s) (shuffled)
+   Town05                8
+Out     : data/chroma_key_dataset/capture_20260609_005201_marker
+
+[resume] appending to existing run, starting frame_id 000010
+
+--- Loading Town05 ---
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+  warmup: 100 ticks
+  [..] 000010: spawn follower
+  [..] 000010: spawn leader
+  [..] 000010: spawn NPCs (near=15, scattered=30)
+  [..] 000010: spawn camera
+  [..] 000010: settle (no listener)
+  [..] 000010: tick 10/50
+  [..] 000010: tick 20/50
+  [..] 000010: tick 30/50
+  [..] 000010: tick 40/50
+  [..] 000010: tick 50/50
+  [..] 000010: cam.listen (skip 20 stale frames)
+  [OK] 000010.png  (Town05, WetNoon, sun=34°, dist=7m, lat=+1.0, hdg=-3°, npcs=45)
+  [..] 000010: finally start
+  [..] 000010: drain tick
+  [..] 000010: destroy cam
+  [..] 000010: destroy 45 npcs
+  [..] 000010: destroy leader
+  [..] 000010: destroy follower
+  [..] 000010: post-cleanup tick
+  [..] 000010: finally end
+  [..] 000011: spawn follower
+  [..] 000011: spawn leader
+  [..] 000011: spawn NPCs (near=15, scattered=30)
+  [..] 000011: spawn camera
+  [..] 000011: settle (no listener)
+  [..] 000011: tick 10/50
+  [..] 000011: tick 20/50
+  [..] 000011: tick 30/50
+  [..] 000011: tick 40/50
+  [..] 000011: tick 50/50
+  [..] 000011: cam.listen (skip 20 stale frames)
+  [OK] 000011.png  (Town05, ClearNoon, sun=34°, dist=14m, lat=+1.0, hdg=-1°, npcs=45)
+  [..] 000011: finally start
+  [..] 000011: drain tick
+  [..] 000011: destroy cam
+  [..] 000011: destroy 45 npcs
+  [..] 000011: destroy leader
+  [..] 000011: destroy follower
+  [..] 000011: post-cleanup tick
+  [..] 000011: finally end
+  [..] 000012: spawn follower
+  [..] 000012: spawn leader
+  [..] 000012: spawn NPCs (near=15, scattered=30)
+  [..] 000012: spawn camera
+  [..] 000012: settle (no listener)
+  [..] 000012: tick 10/50
+  [..] 000012: tick 20/50
+  [..] 000012: tick 30/50
+  [..] 000012: tick 40/50
+  [..] 000012: tick 50/50
+  [..] 000012: cam.listen (skip 20 stale frames)
+  [OK] 000012.png  (Town05, MidRainyNoon, sun=41°, dist=10m, lat=+0.0, hdg=+3°, npcs=45)
+  [..] 000012: finally start
+  [..] 000012: drain tick
+  [..] 000012: destroy cam
+  [..] 000012: destroy 45 npcs
+  [..] 000012: destroy leader
+  [..] 000012: destroy follower
+  [..] 000012: post-cleanup tick
+  [..] 000012: finally end
+  [SKIP] 000013: no valid lane at shift=-1 from follower lane
+  [SKIP] 000013: no valid lane at shift=-1 from follower lane
+  [SKIP] 000013: no valid lane at shift=-1 from follower lane
+  [..] 000013: spawn follower
+  [..] 000013: spawn leader
+  [..] 000013: spawn NPCs (near=15, scattered=30)
+  [..] 000013: spawn camera
+  [..] 000013: settle (no listener)
+  [..] 000013: tick 10/50
+  [..] 000013: tick 20/50
+  [..] 000013: tick 30/50
+  [..] 000013: tick 40/50
+  [..] 000013: tick 50/50
+  [..] 000013: cam.listen (skip 20 stale frames)
+  [OK] 000013.png  (Town05, ClearNoon, sun=58°, dist=9m, lat=-1.0, hdg=+2°, npcs=45)
+  [..] 000013: finally start
+  [..] 000013: drain tick
+  [..] 000013: destroy cam
+  [..] 000013: destroy 45 npcs
+  [..] 000013: destroy leader
+  [..] 000013: destroy follower
+  [..] 000013: post-cleanup tick
+  [..] 000013: finally end
+
+Done. 13 frame(s) saved → data/chroma_key_dataset/capture_20260609_005201_marker
+   Town05                   4 / 4  [OK]
+Index: data/chroma_key_dataset/capture_20260609_005201_marker/captures_index.csv
+[00:54:52] DONE
+
+============================================================
+ TOWN: Town10HD_Opt
+============================================================
+>>> stopping CARLA
+ 156426>>> launching CarlaUE4.sh (headless, off-screen render)
+>>> CARLA up and listening on :2000
+################################################################
+# CHROMA-KEY CAPTURE — 2026-06-09 00:55:24
+################################################################
+  towns          : Town10HD_Opt
+  weather        : ClearNoon CloudyNoon WetNoon MidRainyNoon
+  sun_alts       : 70 55 40 25
+  distances      : 6 10 14 18
+  lateral_offs   : -1 0 1
+  heading_offs   : -5 0 5
+  npc_count      : 15  (radius 80 m)
+  npc_scattered  : 30  (random across map)
+  spawn_pool     : 6
+  leader         : vehicle.carlamotors.carlacola
+  follower       : vehicle.tesla.model3
+  max_frames     : 99999
+  shuffle        : 1
+  continuous     : 1  (per-town: 4)
+  sun_range      : 25 70
+  dist_range     : 6 18
+  heading_range  : -5 5
+  seed           : 42
+  log            : /dev/null
+
+
+Connecting to CARLA at localhost:2000 (timeout=180s) ...
+Continuous sampling: 8 attempts across 1 towns (4/town)
+Sampled : 8 frame(s) (shuffled)
+   Town10HD_Opt          8
+Out     : data/chroma_key_dataset/capture_20260609_005201_marker
+
+[resume] appending to existing run, starting frame_id 000014
+
+--- Loading Town10HD_Opt ---
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+  warmup: 100 ticks
+  [SKIP] 000014: no valid lane at shift=+1 from follower lane
+  [SKIP] 000014: no valid lane at shift=+1 from follower lane
+  [..] 000014: spawn follower
+  [..] 000014: spawn leader
+  [..] 000014: spawn NPCs (near=15, scattered=30)
+  [..] 000014: spawn camera
+  [..] 000014: settle (no listener)
+  [..] 000014: tick 10/50
+  [..] 000014: tick 20/50
+  [..] 000014: tick 30/50
+  [..] 000014: tick 40/50
+  [..] 000014: tick 50/50
+  [..] 000014: cam.listen (skip 20 stale frames)
+  [OK] 000014.png  (Town10HD_Opt, MidRainyNoon, sun=41°, dist=10m, lat=+0.0, hdg=+3°, npcs=45)
+  [..] 000014: finally start
+  [..] 000014: drain tick
+  [..] 000014: destroy cam
+  [..] 000014: destroy 45 npcs
+  [..] 000014: destroy leader
+  [..] 000014: destroy follower
+  [..] 000014: post-cleanup tick
+  [..] 000014: finally end
+  [..] 000015: spawn follower
+  [..] 000015: spawn leader
+  [..] 000015: spawn NPCs (near=15, scattered=30)
+  [..] 000015: spawn camera
+  [..] 000015: settle (no listener)
+  [..] 000015: tick 10/50
+  [..] 000015: tick 20/50
+  [..] 000015: tick 30/50
+  [..] 000015: tick 40/50
+  [..] 000015: tick 50/50
+  [..] 000015: cam.listen (skip 20 stale frames)
+  [OK] 000015.png  (Town10HD_Opt, MidRainyNoon, sun=38°, dist=16m, lat=-1.0, hdg=+2°, npcs=45)
+  [..] 000015: finally start
+  [..] 000015: drain tick
+  [..] 000015: destroy cam
+  [..] 000015: destroy 45 npcs
+  [..] 000015: destroy leader
+  [..] 000015: destroy follower
+  [..] 000015: post-cleanup tick
+  [..] 000015: finally end
+  [..] 000016: spawn follower
+  [..] 000016: spawn leader
+  [..] 000016: spawn NPCs (near=15, scattered=30)
+  [..] 000016: spawn camera
+  [..] 000016: settle (no listener)
+  [..] 000016: tick 10/50
+  [..] 000016: tick 20/50
+  [..] 000016: tick 30/50
+  [..] 000016: tick 40/50
+  [..] 000016: tick 50/50
+  [..] 000016: cam.listen (skip 20 stale frames)
+  [OK] 000016.png  (Town10HD_Opt, MidRainyNoon, sun=31°, dist=17m, lat=-1.0, hdg=+1°, npcs=45)
+  [..] 000016: finally start
+  [..] 000016: drain tick
+  [..] 000016: destroy cam
+  [..] 000016: destroy 45 npcs
+  [..] 000016: destroy leader
+  [..] 000016: destroy follower
+  [..] 000016: post-cleanup tick
+  [..] 000016: finally end
+  [..] 000017: spawn follower
+  [..] 000017: spawn leader
+  [..] 000017: spawn NPCs (near=15, scattered=30)
+  [..] 000017: spawn camera
+  [..] 000017: settle (no listener)
+  [..] 000017: tick 10/50
+  [..] 000017: tick 20/50
+  [..] 000017: tick 30/50
+  [..] 000017: tick 40/50
+  [..] 000017: tick 50/50
+  [..] 000017: cam.listen (skip 20 stale frames)
+  [OK] 000017.png  (Town10HD_Opt, ClearNoon, sun=44°, dist=6m, lat=-1.0, hdg=-3°, npcs=45)
+  [..] 000017: finally start
+  [..] 000017: drain tick
+  [..] 000017: destroy cam
+  [..] 000017: destroy 45 npcs
+  [..] 000017: destroy leader
+  [..] 000017: destroy follower
+  [..] 000017: post-cleanup tick
+  [..] 000017: finally end
+
+Done. 17 frame(s) saved → data/chroma_key_dataset/capture_20260609_005201_marker
+   Town10HD_Opt             4 / 4  [OK]
+Index: data/chroma_key_dataset/capture_20260609_005201_marker/captures_index.csv
+[00:55:41] DONE
+>>> stopping CARLA
+ 156829
+>>> ALL TOWNS DONE.
+>>> Run directory: data/chroma_key_dataset/capture_20260609_005201_marker
+>>> PNG count   : 17

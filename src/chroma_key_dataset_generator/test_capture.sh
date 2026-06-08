@@ -37,14 +37,18 @@ export CARLA_PACKAGE_DIR
 # BEFORE re-exec so the master log can live inside it. In manual mode we still
 # log to a top-level file because the capture folder is created by run_capture.
 MASTER_LOG_DIR="data/chroma_key_dataset"
-MASTER_TS="$(date '+%Y%m%d_%H%M%S')"
+# RUN_TS can be set from outside (e.g. by generate_all_datasets.sh) so all
+# three paired datasets share the same timestamp. DATASET_NAME, also set
+# from outside, becomes a suffix on the capture folder (marker/clean/noleader).
+MASTER_TS="${RUN_TS:-$(date '+%Y%m%d_%H%M%S')}"
+DATASET_SUFFIX="${DATASET_NAME:+_${DATASET_NAME}}"
 if [[ "$MODE" == "auto" ]]; then
-  export RUN_DIR="${MASTER_LOG_DIR}/capture_${MASTER_TS}"
+  export RUN_DIR="${MASTER_LOG_DIR}/capture_${MASTER_TS}${DATASET_SUFFIX}"
   mkdir -p "$RUN_DIR"
   MASTER_LOG="${RUN_DIR}/run.log"
 else
   mkdir -p "$MASTER_LOG_DIR"
-  MASTER_LOG="${MASTER_LOG_DIR}/run_manual_${MASTER_TS}.log"
+  MASTER_LOG="${MASTER_LOG_DIR}/run_manual_${MASTER_TS}${DATASET_SUFFIX}.log"
 fi
 
 # Re-exec the rest of the script with all output tee'd to MASTER_LOG.

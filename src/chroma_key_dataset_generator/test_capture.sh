@@ -133,22 +133,28 @@ start_carla_package() {
 
 stop_carla() {
   echo ">>> stopping CARLA"
-  # Match any UE4/Carla helper process — main binary, launcher, render helpers.
-  # Two-stage: SIGTERM first (clean shutdown), then SIGKILL to anything left.
+  # Stage 1: SIGTERM for a clean shutdown.
   pkill -TERM -f 'CarlaUE4\|UE4-Linux\|UnrealEditor' 2>/dev/null || true
   sleep 3
+  # Stage 2: SIGKILL anything left.
   pkill -KILL -f 'CarlaUE4\|UE4-Linux\|UnrealEditor' 2>/dev/null || true
-  # Wait for the RPC ports (2000) and TM (8000) to actually free up. Without
-  # this, the next CARLA fails to bind the TM with 'bind error', leaving the
-  # next town without a seeded TrafficManager (and no determinism).
-  local deadline=$((SECONDS + 30))
+  sleep 2
+  # Stage 3: force-close whoever is still binding the RPC and TM ports.
+  fuser -k 2000/tcp 8000/tcp 2>/dev/null || true
+  # Wait actively for both ports + all matching processes to disappear, up
+  # to 60s. Without this, the next CARLA fails to bind the TM with 'bind
+  # error', and the new TrafficManager comes up unseeded (no determinism).
+  local deadline=$((SECONDS + 60))
   while ((SECONDS < deadline)); do
-    if ! ss -tln 2>/dev/null | grep -qE ':(2000|8000) '; then
+    local procs ports
+    procs=$(pgrep -f 'CarlaUE4\|UE4-Linux\|UnrealEditor' 2>/dev/null | wc -l)
+    ports=$(ss -tln 2>/dev/null | grep -cE ':(2000|8000) ')
+    if (( procs == 0 && ports == 0 )); then
       return 0
     fi
-    sleep 1
+    sleep 2
   done
-  echo "[WARN] CARLA ports still busy after 30s"
+  echo "[WARN] CARLA still has procs/ports busy after 60s"
 }
 
 # ===== MAIN =====

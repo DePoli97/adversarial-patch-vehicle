@@ -23,6 +23,9 @@ cd "$REPO_ROOT"
 N_RUNS="${N_RUNS:-10}"
 AGENT="${AGENT:-tfv6_visiononly}"
 LEADER_SPEED="${LEADER_SPEED:-40}"
+# Town06 (long highway) was NOT cooked into our packages — fall back to Town04
+# which has a comparable highway stretch and is shipped in _clean / _patch.
+TOWN="${TOWN:-Town04}"
 
 PACKAGE_CLEAN="${PACKAGE_CLEAN:-/home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2_clean/LinuxNoEditor}"
 PACKAGE_PATCH="${PACKAGE_PATCH:-/home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2_patch/LinuxNoEditor}"
@@ -102,7 +105,9 @@ run_condition() {
     python -u src/carla_scenario/scenario_two_vehicles.py \
         --condition "$cond" \
         --agent "$AGENT" \
+        --town "$TOWN" \
         --leader_speed "$LEADER_SPEED" \
+        --seed "$i" \
         --host localhost --port 2000 \
         --out_subdir "patch_vs_clean_${MASTER_TS}/$label" \
         2>&1 | tee -a "$out_dir/all_runs.log" || \

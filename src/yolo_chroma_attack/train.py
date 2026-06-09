@@ -61,7 +61,12 @@ def main():
                    help="Where to dump patch.pt + previews + log")
     p.add_argument("--yolo-weights", default="yolov8n.pt")
     p.add_argument("--image-size", type=int, default=640)
-    p.add_argument("--patch-size", type=int, default=256)
+    # Patch tensor dimensions. Default matches the yellow marker (512x256, AR=2.0)
+    # so the patch learns texture in its native aspect ratio — the differentiable
+    # warp only does perspective distortion, no anisotropic stretching, and the
+    # exported TGA drops in 1:1 over yellow_marker.TGA.
+    p.add_argument("--patch-h", type=int, default=256)
+    p.add_argument("--patch-w", type=int, default=512)
     p.add_argument("--batch-size", type=int, default=8)
     p.add_argument("--epochs", type=int, default=20)
     p.add_argument("--lr", type=float, default=0.02)
@@ -96,7 +101,7 @@ def main():
     print(f"image_size={image_size}, patch_size={args.patch_size}, "
           f"target_expand={target_expand}")
 
-    patch = init_patch((3, args.patch_size, args.patch_size),
+    patch = init_patch((3, args.patch_h, args.patch_w),
                        device=device, init=args.patch_init)
     optimizer = torch.optim.Adam([patch], lr=args.lr)
 

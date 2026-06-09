@@ -21,7 +21,9 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
 N_RUNS="${N_RUNS:-10}"
-AGENT="${AGENT:-tfv6_visiononly}"
+# Three PCLA agents to test, all vision-only camera (no LiDAR).
+# Override AGENTS env to run a subset.
+AGENTS="${AGENTS:-tfv4_aim tfv6_visiononly simlingo_simlingo}"
 LEADER_SPEED="${LEADER_SPEED:-40}"
 # Town06 (long highway) was NOT cooked into our packages — fall back to Town04
 # which has a comparable highway stretch and is shipped in _clean / _patch.
@@ -40,9 +42,10 @@ if [[ ! -x "${PACKAGE_PATCH}/CarlaUE4.sh" ]]; then
 fi
 
 MASTER_TS="$(date '+%Y%m%d_%H%M%S')"
-OUT_ROOT="experiments/carla_scenarios/patch_vs_clean_${MASTER_TS}"
+OUT_ROOT="experiments/carla_scenarios/multi_agent_${MASTER_TS}"
 mkdir -p "$OUT_ROOT"
 echo "Output root: $OUT_ROOT"
+echo "Agents     : $AGENTS"
 
 wait_for_carla() {
   local deadline=$((SECONDS + 90))
@@ -86,39 +89,48 @@ start_carla() {
 }
 
 run_condition() {
-  local label="$1"     # display label for our output organization
-  local cond="$2"      # value passed to --condition (must be in {none, raw, camouflaged})
+  local label="$1"     # display label: clean | patch
+  local cond="$2"      # --condition value: must be in {none, raw, camouflaged}
   local pkg="$3"
-  local out_dir="$OUT_ROOT/$label"
+  local agent="$4"
+  local out_dir="$OUT_ROOT/$agent/$label"
   mkdir -p "$out_dir"
   echo ""
-  echo "###################################################################"
-  echo " CONDITION: $label   (package=$(basename "$(dirname "$pkg")"))"
-  echo "###################################################################"
-
-  stop_carla
-  start_carla "$pkg"
+  echo "----[ $agent / $label  (package=$(basename "$(dirname "$pkg")")) ]----"
 
   for i in $(seq 1 "$N_RUNS"); do
-    echo ""
-    echo "--- $label run $i / $N_RUNS ---"
+    echo "--- $agent / $label  run $i / $N_RUNS ---"
     python -u src/carla_scenario/scenario_two_vehicles.py \
         --condition "$cond" \
-        --agent "$AGENT" \
+        --agent "$agent" \
         --town "$TOWN" \
         --leader_speed "$LEADER_SPEED" \
         --seed "$i" \
         --host localhost --port 2000 \
-        --out_subdir "patch_vs_clean_${MASTER_TS}/$label" \
+        --out_subdir "multi_agent_${MASTER_TS}/$agent/$label" \
         2>&1 | tee -a "$out_dir/all_runs.log" || \
-      echo "[WARN] run $i exited non-zero"
+      echo "[WARN] $agent $label run $i exited non-zero"
   done
 }
 
-# map our labels to the legal values of --condition in scenario_two_vehicles.py
-# clean → "none" (no patch on the leader), patch → "raw" (adversarial texture)
-run_condition clean none "$PACKAGE_CLEAN"
-run_condition patch raw  "$PACKAGE_PATCH"
+# Outer loop: condition (CLEAN package once, then PATCH package once)
+# Inner loop: each agent x N runs against the currently-running package.
+# Order matters because relaunching CARLA is much slower than swapping agents.
+for cond_label in clean patch; do
+  case "$cond_label" in
+    clean) pkg="$PACKAGE_CLEAN"; cond_arg="none" ;;
+    patch) pkg="$PACKAGE_PATCH"; cond_arg="raw"  ;;
+  esac
+  echo ""
+  echo "###################################################################"
+  echo " CONDITION: $cond_label  (package=$(basename "$(dirname "$pkg")"))"
+  echo "###################################################################"
+  stop_carla
+  start_carla "$pkg"
+  for agent in $AGENTS; do
+    run_condition "$cond_label" "$cond_arg" "$pkg" "$agent"
+  done
+done
 
 stop_carla
 echo ""

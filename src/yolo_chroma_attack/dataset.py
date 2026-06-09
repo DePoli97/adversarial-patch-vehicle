@@ -73,12 +73,13 @@ class ChromaKeyDataset(Dataset):
         val_fraction: float = 0.2,
         min_area: float = 400.0,
         min_side_ratio: float = 0.15,
+        index_name: str = "quads_index.json",
     ):
         self.run_dir = Path(run_dir)
         self.image_size = image_size
         self.target_expand = target_expand
 
-        index_path = self.run_dir / "quads_index.json"
+        index_path = self.run_dir / index_name
         if not index_path.exists():
             raise FileNotFoundError(
                 f"Missing {index_path}. Run extract_quad.py --batch-index first."

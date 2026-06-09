@@ -81,6 +81,10 @@ def main():
     p.add_argument("--num-workers", type=int, default=4)
     p.add_argument("--device", default="cuda")
     p.add_argument("--patch-init", choices=["uniform", "gray"], default="uniform")
+    p.add_argument("--index-name", default="quads_index.json",
+                   help="JSON index file inside --run-dir. Use "
+                        "'quads_index_visible.json' to train only on frames "
+                        "where YOLO actually detects the leader in clean.")
     p.add_argument("--eval-every", type=int, default=1, help="epochs")
     p.add_argument("--seed", type=int, default=0)
     args = p.parse_args()
@@ -93,9 +97,11 @@ def main():
     target_expand = (args.target_expand_x, args.target_expand_y)
 
     train_ds = ChromaKeyDataset(args.run_dir, split="train", seed=args.seed,
-                                image_size=image_size, target_expand=target_expand)
+                                image_size=image_size, target_expand=target_expand,
+                                index_name=args.index_name)
     val_ds = ChromaKeyDataset(args.run_dir, split="val", seed=args.seed,
-                              image_size=image_size, target_expand=target_expand)
+                              image_size=image_size, target_expand=target_expand,
+                              index_name=args.index_name)
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
                               num_workers=args.num_workers, collate_fn=collate,
                               pin_memory=True, drop_last=True)

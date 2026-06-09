@@ -98,7 +98,7 @@ def main():
                             num_workers=args.num_workers, collate_fn=collate)
 
     print(f"train: {len(train_ds)} samples / val: {len(val_ds)} samples")
-    print(f"image_size={image_size}, patch_size={args.patch_size}, "
+    print(f"image_size={image_size}, patch=({args.patch_h}, {args.patch_w}), "
           f"target_expand={target_expand}")
 
     patch = init_patch((3, args.patch_h, args.patch_w),

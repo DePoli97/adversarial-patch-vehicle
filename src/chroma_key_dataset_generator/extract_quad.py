@@ -34,9 +34,49 @@ import numpy as np
 HSV_LOW = np.array([20, 120, 100], dtype=np.uint8)
 HSV_HIGH = np.array([35, 255, 255], dtype=np.uint8)
 
+# Marker texture is 512x256 (yellow_marker.TGA) → aspect ratio 2.0 (W:H).
+# Perspective foreshortening can shrink one side; we tolerate a band around 2.0
+# but reject very elongated quads (grass, road paint catching the HSV range).
+MARKER_ASPECT_NOMINAL = 2.0
+MARKER_ASPECT_TOL_LOG = 0.6  # accept ratios in [2/e^0.6, 2*e^0.6] ≈ [1.10, 3.64]
+
+
+def _quad_aspect_ratio(corners: np.ndarray) -> float:
+    """Long-side / short-side of the quad's bounding parallelogram.
+    Computed from the 4 ordered corners using mean side-length pairs."""
+    pts = order_corners(corners)
+    top = np.linalg.norm(pts[1] - pts[0])
+    bottom = np.linalg.norm(pts[2] - pts[3])
+    left = np.linalg.norm(pts[3] - pts[0])
+    right = np.linalg.norm(pts[2] - pts[1])
+    width = (top + bottom) / 2.0
+    height = (left + right) / 2.0
+    if min(width, height) < 1e-6:
+        return float("inf")
+    return max(width, height) / min(width, height)
+
+
+def _is_convex_quad(corners: np.ndarray) -> bool:
+    """All cross products of consecutive edges have the same sign → convex."""
+    pts = order_corners(corners)
+    signs = []
+    for i in range(4):
+        a = pts[i]
+        b = pts[(i + 1) % 4]
+        c = pts[(i + 2) % 4]
+        cross = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0])
+        signs.append(cross > 0)
+    return all(signs) or not any(signs)
+
 
 def find_yellow_quad(bgr: np.ndarray):
-    """Return (corners[4,2] in pixel coords) or None if no quad found."""
+    """Return (corners[4,2] in pixel coords) or None if no quad found.
+
+    Filters that reject false positives (grass, road paint, distant blobs):
+      - contour area < 200 px
+      - quad not convex
+      - aspect ratio outside ~[1.10, 3.64] (nominal 2.0 ± log-tol 0.6)
+    """
     hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(hsv, HSV_LOW, HSV_HIGH)
     # Clean up speckle
@@ -46,19 +86,27 @@ def find_yellow_quad(bgr: np.ndarray):
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if not contours:
         return None, mask
-    largest = max(contours, key=cv2.contourArea)
-    if cv2.contourArea(largest) < 200:  # too small, probably noise
-        return None, mask
-
-    # Approximate to a polygon; relax epsilon until we get ~4 corners
-    for eps in (0.02, 0.03, 0.05, 0.08):
-        approx = cv2.approxPolyDP(largest, eps * cv2.arcLength(largest, True), True)
-        if len(approx) == 4:
-            return approx.reshape(4, 2), mask
-    # Fallback: use minAreaRect (oriented bbox), gives 4 ordered corners
-    rect = cv2.minAreaRect(largest)
-    box = cv2.boxPoints(rect).astype(np.int32)
-    return box, mask
+    # Try contours largest-first; first one that passes shape filters wins.
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)
+    for cnt in contours:
+        if cv2.contourArea(cnt) < 200:
+            break  # remaining contours are even smaller — stop
+        quad = None
+        for eps in (0.02, 0.03, 0.05, 0.08):
+            approx = cv2.approxPolyDP(cnt, eps * cv2.arcLength(cnt, True), True)
+            if len(approx) == 4:
+                quad = approx.reshape(4, 2)
+                break
+        if quad is None:
+            rect = cv2.minAreaRect(cnt)
+            quad = cv2.boxPoints(rect).astype(np.int32)
+        if not _is_convex_quad(quad):
+            continue
+        ar = _quad_aspect_ratio(quad)
+        if abs(np.log(ar / MARKER_ASPECT_NOMINAL)) > MARKER_ASPECT_TOL_LOG:
+            continue
+        return quad, mask
+    return None, mask
 
 
 def order_corners(corners: np.ndarray) -> np.ndarray:

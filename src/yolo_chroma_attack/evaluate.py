@@ -136,7 +136,7 @@ def main():
             #    paired truly-clean frame from --clean-run-dir if provided.
             clean_img = img
             if clean_dir is not None:
-                frame_ids = batch["frame_id"]
+                frame_ids = batch["stems"]
                 clean_imgs = []
                 for fid in frame_ids:
                     cp = clean_dir / f"{fid}.png"

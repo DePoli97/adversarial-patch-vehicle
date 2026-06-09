@@ -69,6 +69,9 @@ STATUS.md
 LOG.md
 docs/
 .claude/
+# Body-texture composites are >60MB each — keep them local, regenerate as needed.
 assets/chroma_key/*_with_yellow.TGA
 assets/chroma_key/*_with_patch.TGA
+# CarlaCola body baseColor (67MB) ships with CARLA, no need to commit
+assets/chroma_key/Vh_Truck_CarlaCola_BodyworkMat_BaseColor.TGA
 src/chroma_key_dataset_generator/.overlay_state.json

@@ -83,8 +83,9 @@ start_carla() {
 }
 
 run_condition() {
-  local label="$1"   # "clean" or "patch"
-  local pkg="$2"
+  local label="$1"     # display label for our output organization
+  local cond="$2"      # value passed to --condition (must be in {none, raw, camouflaged})
+  local pkg="$3"
   local out_dir="$OUT_ROOT/$label"
   mkdir -p "$out_dir"
   echo ""
@@ -99,18 +100,20 @@ run_condition() {
     echo ""
     echo "--- $label run $i / $N_RUNS ---"
     python -u src/carla_scenario/scenario_two_vehicles.py \
-        --condition "$label" \
+        --condition "$cond" \
         --agent "$AGENT" \
         --leader_speed "$LEADER_SPEED" \
         --host localhost --port 2000 \
-        --out-subdir "patch_vs_clean_${MASTER_TS}/$label" \
+        --out_subdir "patch_vs_clean_${MASTER_TS}/$label" \
         2>&1 | tee -a "$out_dir/all_runs.log" || \
       echo "[WARN] run $i exited non-zero"
   done
 }
 
-run_condition clean "$PACKAGE_CLEAN"
-run_condition patch "$PACKAGE_PATCH"
+# map our labels to the legal values of --condition in scenario_two_vehicles.py
+# clean → "none" (no patch on the leader), patch → "raw" (adversarial texture)
+run_condition clean none "$PACKAGE_CLEAN"
+run_condition patch raw  "$PACKAGE_PATCH"
 
 stop_carla
 echo ""

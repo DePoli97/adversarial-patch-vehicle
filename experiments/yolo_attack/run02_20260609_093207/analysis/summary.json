@@ -1,0 +1,13 @@
+{
+  "n_total": 358,
+  "n_visible_in_clean": 284,
+  "n_blind_in_clean": 74,
+  "mean_conf_clean": 0.6030034176270727,
+  "mean_conf_patched": 0.48946309666818294,
+  "delta_absolute": -0.11354032095888972,
+  "delta_relative_pct": -18.82913390535851,
+  "n_hidden_by_patch": 51,
+  "det_rate_clean_all": 0.7932960893854749,
+  "det_rate_patched_all": 0.659217877094972,
+  "det_rate_patched_on_visible": 0.8204225352112676
+}

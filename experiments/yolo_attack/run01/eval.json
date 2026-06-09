@@ -1,0 +1,32 @@
+{
+  "clean": {
+    "detected": 267,
+    "total": 334,
+    "detection_rate": 0.7994011976047904
+  },
+  "random": {
+    "detected": 222,
+    "total": 334,
+    "detection_rate": 0.6646706586826348
+  },
+  "trained": {
+    "detected": 181,
+    "total": 334,
+    "detection_rate": 0.5419161676646707
+  },
+  "args": {
+    "run_dir": "data/chroma_key_dataset/capture_20260602_211812",
+    "patch": "experiments/yolo_attack/run01/patch_final.pt",
+    "out": "experiments/yolo_attack/run01/eval.json",
+    "yolo_weights": "yolov8n.pt",
+    "image_size": "640",
+    "batch_size": "8",
+    "conf_threshold": "0.25",
+    "target_expand_x": "3.5",
+    "target_expand_y": "3.5",
+    "seed": "0",
+    "device": "cuda",
+    "max_batches": "None",
+    "save_previews": "8"
+  }
+}

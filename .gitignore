@@ -24,8 +24,16 @@ datasets/
 # Training runs, results, predictions (pesanti, riproducibili)
 runs/
 results/
-experiments/yolo_attack/
 experiments/clip_attack/
+# YOLO attack: track report files only, not raw weights / large preview tensors
+experiments/yolo_attack/**
+!experiments/yolo_attack/**/
+!experiments/yolo_attack/**/*.json
+!experiments/yolo_attack/**/*.csv
+!experiments/yolo_attack/**/*.html
+!experiments/yolo_attack/**/*.log
+!experiments/yolo_attack/**/*.md
+!experiments/yolo_attack/**/analysis/*.png
 
 # Virtual environments (dentro i sottoprogetti)
 src/vehicle_counting_model/.venv/

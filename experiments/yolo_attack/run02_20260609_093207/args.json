@@ -1,0 +1,22 @@
+{
+  "run_dir": "data/chroma_key_dataset/capture_20260609_014138_marker",
+  "out_dir": "experiments/yolo_attack/run02_20260609_093207",
+  "yolo_weights": "yolov8n.pt",
+  "image_size": 640,
+  "patch_h": 256,
+  "patch_w": 512,
+  "batch_size": 16,
+  "epochs": 100,
+  "lr": 0.05,
+  "target_expand_x": 2.5,
+  "target_expand_y": 2.5,
+  "eot_noise": 0.05,
+  "topk": 20,
+  "cosine_lr": true,
+  "lr_min": 0.001,
+  "num_workers": 4,
+  "device": "cuda",
+  "patch_init": "uniform",
+  "eval_every": 1,
+  "seed": 0
+}

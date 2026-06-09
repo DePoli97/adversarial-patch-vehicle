@@ -1,0 +1,62 @@
+<!doctype html><html><head><meta charset='utf-8'>
+    <title>Patch analysis: patch_final.pt</title>
+    <style>body{font-family:sans-serif;max-width:1400px;margin:20px auto;padding:0 20px}
+    table{border-collapse:collapse;margin-top:10px}th,td{padding:6px 12px}
+    img{max-width:100%;height:auto;display:block;margin:10px 0}</style>
+    </head><body>
+    <h1>YOLO adversarial patch — analysis</h1>
+    <p><b>Patch:</b> experiments/yolo_attack/run02_20260609_093207/patch_final.pt<br>
+       <b>Marker dataset:</b> data/chroma_key_dataset/capture_20260609_014138_marker<br>
+       <b>Clean dataset (true baseline):</b> data/chroma_key_dataset/capture_20260609_014138_clean<br>
+       <b>YOLO weights:</b> src/vehicle_counting_model/yolov8n.pt<br>
+       <b>Target bbox expand:</b> 2.5</p>
+    <h2>Metrics</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <tr><td>val frames total</td><td>358</td></tr>
+      <tr><td>leader visible in clean</td><td>284 (79.3%)</td></tr>
+      <tr><td>already blind in clean (excluded)</td><td>74 (20.7%)</td></tr>
+      <tr><th colspan=2>— on visible-in-clean only —</th></tr>
+      <tr><td>mean conf clean</td><td>0.6030</td></tr>
+      <tr><td>mean conf with patch</td><td>0.4895</td></tr>
+      <tr><td>absolute delta</td><td>-0.1135</td></tr>
+      <tr><td>relative delta</td><td>-18.83%</td></tr>
+      <tr><td>detections lost (visible→hidden)</td><td>51/284 (18.0%)</td></tr>
+      <tr><th colspan=2>— including blind frames —</th></tr>
+      <tr><td>det rate clean (all)</td><td>79.3%</td></tr>
+      <tr><td>det rate patched (all)</td><td>65.9%</td></tr>
+    </table>
+    
+    <h2>Class confusion (visible-in-clean only)</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>class</th>
+      <th>clean</th>
+      <th>patched</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&lt;HIDDEN&gt;</td>
+      <td>0</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <td>bus</td>
+      <td>34</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <td>car</td>
+      <td>48</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <td>truck</td>
+      <td>202</td>
+      <td>105</td>
+    </tr>
+  </tbody>
+</table>
+    <h2>Histograms</h2><img src='histograms.png'>
+    <h2>Side-by-side examples (top 6 drops + 2 failures)</h2><img src='side_by_side.png'>
+    </body></html>

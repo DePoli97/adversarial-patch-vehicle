@@ -22,6 +22,7 @@ import argparse
 import json
 from pathlib import Path
 
+import cv2
 import torch
 import torchvision.utils as vutils
 from torch.utils.data import DataLoader
@@ -61,7 +62,13 @@ def has_vehicle_in_bbox(image_bchw01: torch.Tensor, target_bbox_b4: torch.Tensor
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--run-dir", type=Path, required=True)
+    p.add_argument("--run-dir", type=Path, required=True,
+                   help="Marker dataset (with yellow chroma-key). Used for "
+                        "random/trained eval — patch is rendered onto the quad.")
+    p.add_argument("--clean-run-dir", type=Path, default=None,
+                   help="Optional paired CLEAN dataset (no marker). If set, the "
+                        "'clean' baseline reads frames from here instead of the "
+                        "marker frames without patch. Frame N must correspond.")
     p.add_argument("--patch", type=Path, required=True,
                    help="Trained patch .pt (3, Ph, Pw) in [0, 1].")
     p.add_argument("--out", type=Path, required=True, help="Output JSON path.")
@@ -87,7 +94,12 @@ def main():
                               image_size=image_size, target_expand=target_expand)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
                             num_workers=4, collate_fn=collate)
-    print(f"val: {len(val_ds)} frames")
+    print(f"val (marker): {len(val_ds)} frames")
+    # Optional paired clean dataset (true baseline: red CarlaCola, no marker).
+    # Frames share filenames with marker, so we just swap the directory.
+    clean_dir = args.clean_run_dir if args.clean_run_dir else None
+    if clean_dir is not None:
+        print(f"clean baseline dataset: {clean_dir}")
 
     # Load trained patch
     patch = torch.load(args.patch, map_location=device)
@@ -120,8 +132,23 @@ def main():
             corners = batch["corners"].to(device)
             tgt = batch["target_bbox"]
 
-            # 1. clean
-            for det in has_vehicle_in_bbox(img, tgt, yolo, args.conf_threshold):
+            # 1. clean — either marker frame without patch (default), or the
+            #    paired truly-clean frame from --clean-run-dir if provided.
+            clean_img = img
+            if clean_dir is not None:
+                frame_ids = batch["frame_id"]
+                clean_imgs = []
+                for fid in frame_ids:
+                    cp = clean_dir / f"{fid}.png"
+                    cbgr = cv2.imread(str(cp))
+                    if cbgr is None:
+                        clean_imgs.append(img[len(clean_imgs)].cpu())
+                        continue
+                    crgb = cv2.cvtColor(cbgr, cv2.COLOR_BGR2RGB)
+                    crgb = cv2.resize(crgb, (image_size[1], image_size[0]))
+                    clean_imgs.append(torch.from_numpy(crgb).permute(2, 0, 1).float() / 255.0)
+                clean_img = torch.stack(clean_imgs).to(device)
+            for det in has_vehicle_in_bbox(clean_img, tgt, yolo, args.conf_threshold):
                 counters["clean"]["total"] += 1
                 if det:
                     counters["clean"]["detected"] += 1

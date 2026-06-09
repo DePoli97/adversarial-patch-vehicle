@@ -73,6 +73,11 @@ def main():
     p.add_argument("--target-expand-x", type=float, default=3.5)
     p.add_argument("--target-expand-y", type=float, default=3.5)
     p.add_argument("--eot-noise", type=float, default=0.02)
+    p.add_argument("--topk", type=int, default=10,
+                   help="Top-k anchor aggregation in hide loss")
+    p.add_argument("--cosine-lr", action="store_true",
+                   help="Cosine LR schedule from --lr down to --lr-min")
+    p.add_argument("--lr-min", type=float, default=1e-3)
     p.add_argument("--num-workers", type=int, default=4)
     p.add_argument("--device", default="cuda")
     p.add_argument("--patch-init", choices=["uniform", "gray"], default="uniform")
@@ -106,7 +111,11 @@ def main():
     optimizer = torch.optim.Adam([patch], lr=args.lr)
 
     hide_loss = YoloHideLoss(weights=args.yolo_weights, device=args.device,
-                             conf_aggregation="topk", topk=10)
+                             conf_aggregation="topk", topk=args.topk)
+    scheduler = None
+    if args.cosine_lr:
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+            optimizer, T_max=args.epochs, eta_min=args.lr_min)
 
     log_path = args.out_dir / "train.log"
     log_file = open(log_path, "w")
@@ -148,6 +157,8 @@ def main():
                     f"veh_in_box={info['veh_max_in_box_mean']:.4f}")
             step += 1
 
+        if scheduler is not None:
+            scheduler.step()
         mean_train = sum(epoch_losses) / max(1, len(epoch_losses))
         if (epoch + 1) % args.eval_every == 0 or epoch == args.epochs - 1:
             val_loss, val_score = evaluate(val_loader, patch.detach(), hide_loss,

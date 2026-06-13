@@ -112,3 +112,18 @@ def save_spawn_cache(town: str, idx: int):
     print(f"[INFO] Spawn cache saved: {town} → [{idx}]")
 
 
+def load_spawn_pool(town: str) -> list[int] | None:
+    """Return the pool of pre-ranked straight spawn indices for the town, or None.
+
+    Populated by `tools/scan_spawn.py --top-k N`. Used by the scenario runner
+    to pick distinct starting points per seed instead of always reusing the
+    single legacy `best` index.
+    """
+    if not os.path.exists(SPAWN_CACHE_PATH):
+        return None
+    with open(SPAWN_CACHE_PATH) as f:
+        cache = json.load(f)
+    pool = cache.get("pools", {}).get(town)
+    return list(pool) if pool else None
+
+

@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
-# Run the scenario_two_vehicles experiment 2 x N times:
-#   - N runs with the CLEAN package (CarlaCola with original red skin)
-#   - N runs with the PATCH package (CarlaCola with the adversarial patch)
+# Run the scenario_two_vehicles experiment across multiple towns and seeds,
+# alternating between two CARLA packages (clean vs adversarial patch).
 #
-# Between conditions we stop CARLA, launch the other package, wait for the
-# RPC port to come up, then repeat.
+# Per (town, seed) the leader spawn index is picked from a per-town pool of
+# top-K straight highway spawns produced by tools/scan_spawn.py --top-k.
+# Different seeds → different starting points along the highway. The two towns
+# (Town04, Town06 by default) give two genuinely different road geometries.
 #
 # Run on Vortex:
 #   bash src/carla_scenario/run_patch_vs_clean.sh
 #
 # Env knobs:
-#   N_RUNS=10           runs per condition
-#   AGENT=tfv6_visiononly   PCLA agent
-#   LEADER_SPEED=40     km/h (urban-tuned PCLA prefers <=40)
+#   N_RUNS=10           seeds per (town, agent, condition)
+#   TOWNS="Town04 Town06"  whitespace-separated list of towns to sweep
+#   AGENTS="tfv4_aim_0 tfv6_visiononly simlingo_simlingo"
+#   LEADER_SPEED=40     km/h (PCLA agents are urban-tuned, keep <=40)
+#   SPAWN_POOL_K=10     number of distinct straight spawns to scan per town
 #   PACKAGE_CLEAN, PACKAGE_PATCH   override CARLA package paths
 
 set -u
@@ -21,34 +24,38 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
 N_RUNS="${N_RUNS:-10}"
-# Three PCLA agents to test, all vision-only camera (no LiDAR).
-# Override AGENTS env to run a subset.
-AGENTS="${AGENTS:-tfv4_aim tfv6_visiononly simlingo_simlingo}"
+AGENTS="${AGENTS:-tfv4_aim_0 tfv6_visiononly simlingo_simlingo}"
 LEADER_SPEED="${LEADER_SPEED:-40}"
-# Town06 (long highway) was NOT cooked into our packages — fall back to Town04
-# which has a comparable highway stretch and is shipped in _clean / _patch.
-TOWN="${TOWN:-Town04}"
+TOWNS="${TOWNS:-Town04 Town06}"
+SPAWN_POOL_K="${SPAWN_POOL_K:-10}"
 
 PACKAGE_CLEAN="${PACKAGE_CLEAN:-/home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2_clean/LinuxNoEditor}"
 PACKAGE_PATCH="${PACKAGE_PATCH:-/home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2_patch/LinuxNoEditor}"
 
 if [[ ! -x "${PACKAGE_CLEAN}/CarlaUE4.sh" ]]; then
-  echo "[ERR] missing CARLA clean package: ${PACKAGE_CLEAN}/CarlaUE4.sh"
-  exit 1
+  echo "[ERR] missing CARLA clean package: ${PACKAGE_CLEAN}/CarlaUE4.sh"; exit 1
 fi
 if [[ ! -x "${PACKAGE_PATCH}/CarlaUE4.sh" ]]; then
-  echo "[ERR] missing CARLA patch package: ${PACKAGE_PATCH}/CarlaUE4.sh"
-  exit 1
+  echo "[ERR] missing CARLA patch package: ${PACKAGE_PATCH}/CarlaUE4.sh"; exit 1
 fi
 
 MASTER_TS="$(date '+%Y%m%d_%H%M%S')"
 OUT_ROOT="experiments/carla_scenarios/multi_agent_${MASTER_TS}"
 mkdir -p "$OUT_ROOT"
-echo "Output root: $OUT_ROOT"
-echo "Agents     : $AGENTS"
+
+echo "###################################################################"
+echo " MULTI-TOWN, MULTI-SPAWN scenario sweep"
+echo "###################################################################"
+echo "  TOWNS         : $TOWNS"
+echo "  AGENTS        : $AGENTS"
+echo "  N_RUNS / cell : $N_RUNS  (= seeds, each picks a different spawn)"
+echo "  Spawn pool K  : $SPAWN_POOL_K  (top-K straight starts per town)"
+echo "  LEADER_SPEED  : $LEADER_SPEED km/h"
+echo "  OUT_ROOT      : $OUT_ROOT"
+echo "###################################################################"
 
 wait_for_carla() {
-  local deadline=$((SECONDS + 90))
+  local deadline=$((SECONDS + 120))
   while ((SECONDS < deadline)); do
     if ss -tln 2>/dev/null | grep -q ':2000 '; then
       sleep 15  # shader compile grace
@@ -56,7 +63,7 @@ wait_for_carla() {
     fi
     sleep 2
   done
-  echo "[ERR] CARLA did not open :2000 in 90s"
+  echo "[ERR] CARLA did not open :2000 in 120s"
   return 1
 }
 
@@ -88,34 +95,47 @@ start_carla() {
   wait_for_carla || exit 1
 }
 
-run_condition() {
-  local label="$1"     # display label: clean | patch
-  local cond="$2"      # --condition value: must be in {none, raw, camouflaged}
-  local pkg="$3"
-  local agent="$4"
-  local out_dir="$OUT_ROOT/$agent/$label"
-  mkdir -p "$out_dir"
-  echo ""
-  echo "----[ $agent / $label  (package=$(basename "$(dirname "$pkg")")) ]----"
-
-  for i in $(seq 1 "$N_RUNS"); do
-    echo "--- $agent / $label  run $i / $N_RUNS ---"
-    python -u src/carla_scenario/scenario_two_vehicles.py \
-        --condition "$cond" \
-        --agent "$agent" \
-        --town "$TOWN" \
-        --leader_speed "$LEADER_SPEED" \
-        --seed "$i" \
+prepare_pools() {
+  # Populate experiments/carla_scenarios/spawn_cache.json with per-town top-K
+  # pools. Done once per CARLA boot (any package is fine for scanning).
+  local town
+  for town in $TOWNS; do
+    echo ">>> scanning spawn pool for $town (top-${SPAWN_POOL_K})"
+    python -u src/carla_scenario/tools/scan_spawn.py \
+        --town "$town" --top-k "$SPAWN_POOL_K" \
         --host localhost --port 2000 \
-        --out_subdir "multi_agent_${MASTER_TS}/$agent/$label" \
-        2>&1 | tee -a "$out_dir/all_runs.log" || \
-      echo "[WARN] $agent $label run $i exited non-zero"
+        2>&1 | sed 's/^/  /'
   done
 }
 
-# Outer loop: condition (CLEAN package once, then PATCH package once)
-# Inner loop: each agent x N runs against the currently-running package.
-# Order matters because relaunching CARLA is much slower than swapping agents.
+run_condition_town_agent() {
+  local label="$1"     # clean | patch
+  local cond="$2"      # --condition value
+  local pkg="$3"
+  local town="$4"
+  local agent="$5"
+  local out_dir="$OUT_ROOT/$agent/$label/$town"
+  mkdir -p "$out_dir"
+  echo ""
+  echo "----[ $agent / $label / $town ]----"
+  for i in $(seq 1 "$N_RUNS"); do
+    echo "--- $agent / $label / $town  seed $i / $N_RUNS ---"
+    python -u src/carla_scenario/scenario_two_vehicles.py \
+        --condition "$cond" \
+        --agent "$agent" \
+        --town "$town" \
+        --leader_speed "$LEADER_SPEED" \
+        --seed "$i" \
+        --host localhost --port 2000 \
+        --out_subdir "multi_agent_${MASTER_TS}/$agent/$label/$town" \
+        2>&1 | tee -a "$out_dir/all_runs.log" || \
+      echo "[WARN] $agent $label $town seed=$i exited non-zero"
+  done
+}
+
+# Outer loop: condition (boot CARLA once per package, expensive).
+# Middle loop: town (load_world is cheap on a running server).
+# Inner loop: agent x N seeds against current town.
 for cond_label in clean patch; do
   case "$cond_label" in
     clean) pkg="$PACKAGE_CLEAN"; cond_arg="none" ;;
@@ -127,8 +147,11 @@ for cond_label in clean patch; do
   echo "###################################################################"
   stop_carla
   start_carla "$pkg"
-  for agent in $AGENTS; do
-    run_condition "$cond_label" "$cond_arg" "$pkg" "$agent"
+  prepare_pools
+  for town in $TOWNS; do
+    for agent in $AGENTS; do
+      run_condition_town_agent "$cond_label" "$cond_arg" "$pkg" "$town" "$agent"
+    done
   done
 done
 

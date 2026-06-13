@@ -67,6 +67,7 @@ from common import (
 from spawn_utils import (
     give_initial_velocity,
     load_spawn_cache,
+    load_spawn_pool,
     move_to_rightmost_driving_lane,
     spawn_follower_behind_leader,
 )
@@ -267,12 +268,23 @@ def main():
         follower_bp = bplib.filter(FOLLOWER_BLUEPRINT)[0]
         spawn_points = world.get_map().get_spawn_points()
 
-        leader_idx = load_spawn_cache(args.town)
-        if leader_idx is None:
-            raise RuntimeError(
-                f"No cached spawn index for '{args.town}'. "
-                f"Run: python src/carla_scenario/tools/scan_spawn.py --town {args.town}"
+        # Spawn selection: prefer the per-town pool (top-K straight spawns)
+        # so different --seed values land on different starting points.
+        # Fall back to the legacy single-best cache for backward compat.
+        spawn_pool = load_spawn_pool(args.town)
+        if spawn_pool:
+            leader_idx = spawn_pool[args.seed % len(spawn_pool)]
+            print(
+                f"[INFO] Spawn pool for {args.town} has {len(spawn_pool)} entries; "
+                f"seed={args.seed} -> index [{leader_idx}]"
             )
+        else:
+            leader_idx = load_spawn_cache(args.town)
+            if leader_idx is None:
+                raise RuntimeError(
+                    f"No cached spawn for '{args.town}'. Run: "
+                    f"python src/carla_scenario/tools/scan_spawn.py --town {args.town}"
+                )
         leader_sp = spawn_points[leader_idx]
         carla_map = world.get_map()
         leader_wp = carla_map.get_waypoint(
@@ -543,6 +555,11 @@ def main():
             "follower_blueprint": FOLLOWER_BLUEPRINT,
             "seed": args.seed,
             "town": args.town,
+            "leader_spawn_index": int(leader_idx),
+            "leader_spawn_xy": [
+                round(float(leader_transform.location.x), 2),
+                round(float(leader_transform.location.y), 2),
+            ],
             "num_ticks": args.num_ticks,
             "sim_duration_s": args.num_ticks * SIM_DELTA,
             "leader_speed_kmh": args.leader_speed,

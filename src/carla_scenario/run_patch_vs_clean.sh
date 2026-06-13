@@ -26,7 +26,9 @@ cd "$REPO_ROOT"
 N_RUNS="${N_RUNS:-10}"
 AGENTS="${AGENTS:-tfv4_aim_0 tfv6_visiononly simlingo_simlingo}"
 LEADER_SPEED="${LEADER_SPEED:-40}"
-TOWNS="${TOWNS:-Town04 Town06}"
+# Town04 (long highway segment) + Town05 (multi-lane suburban with longer
+# straight stretches). Town06 was NOT cooked into our shipping packages.
+TOWNS="${TOWNS:-Town04 Town05}"
 SPAWN_POOL_K="${SPAWN_POOL_K:-10}"
 
 PACKAGE_CLEAN="${PACKAGE_CLEAN:-/home/vortex/carla/Dist/CARLA_Shipping_0.9.15.2_clean/LinuxNoEditor}"

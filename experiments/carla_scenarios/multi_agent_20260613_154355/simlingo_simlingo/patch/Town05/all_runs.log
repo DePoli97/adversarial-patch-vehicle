@@ -1,0 +1,623 @@
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed1_20260613_190935
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=1 -> index [83]
+[INFO] Leader spawned at (0.6, -4.5) lane -2
+[INFO] Follower spawned at (10.6, -4.5, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed1_20260613_190935/follower_route.xml (82 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed1_20260613_190935/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.1m | TTC=  infs | leader=29.1km/h | follower=16.9km/h | collisions=0
+  tick= 100 | dist= 25.5m | TTC=  infs | leader=36.8km/h | follower=23.5km/h | collisions=0
+  tick= 150 | dist= 40.2m | TTC=  infs | leader=37.4km/h | follower=12.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 63.6m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist= 69.6m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 42.899 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed1_20260613_190935
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 6861 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6860 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed2_20260613_191449
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=2 -> index [166]
+[INFO] Leader spawned at (19.1, -91.4) lane 1
+[INFO] Follower spawned at (29.3, -87.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed2_20260613_191449/follower_route.xml (219 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed2_20260613_191449/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 11.1m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  8.0m | TTC=  7.7s | leader=29.0km/h | follower=32.7km/h | collisions=0
+  tick= 100 | dist= 11.8m | TTC=  infs | leader=36.9km/h | follower=0.0km/h | collisions=0
+  tick= 150 | dist= 37.3m | TTC=  infs | leader=37.3km/h | follower=0.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 63.1m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist= 69.1m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 38.352 m
+  Min dist   : 7.625 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed2_20260613_191449
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 6982 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6981 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 3
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed3_20260613_191929
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=3 -> index [187]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -2
+[INFO] Leader spawned at (-131.3, -127.4) lane -2
+[INFO] Follower spawned at (-135.5, -133.7, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed3_20260613_191929/follower_route.xml (69 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed3_20260613_191929/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist=  7.6m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 22.2m | TTC=  infs | leader=29.1km/h | follower=0.0km/h | collisions=0
+  tick= 100 | dist= 45.8m | TTC=  infs | leader=36.9km/h | follower=0.0km/h | collisions=0
+  tick= 150 | dist= 71.6m | TTC=  infs | leader=37.3km/h | follower=0.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 97.6m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist=103.6m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 66.015 m
+  Min dist   : 7.591 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed3_20260613_191929
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7103 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7102 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 4
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed4_20260613_192353
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=4 -> index [215]
+[INFO] Leader spawned at (17.7, 88.1) lane -1
+[INFO] Follower spawned at (27.9, 92.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed4_20260613_192353/follower_route.xml (204 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed4_20260613_192353/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 11.1m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 10.3m | TTC=  infs | leader=28.7km/h | follower=6.4km/h | collisions=0
+  tick= 100 | dist= 18.4m | TTC=  infs | leader=36.8km/h | follower=18.9km/h | collisions=0
+  tick= 150 | dist= 26.2m | TTC=  infs | leader=37.3km/h | follower=22.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 51.2m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist= 57.5m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.318 m
+  Min dist   : 9.337 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed4_20260613_192353
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7224 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7223 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 5
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed5_20260613_192905
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=5 -> index [168]
+[INFO] Leader spawned at (18.0, -94.9) lane -2
+[INFO] Follower spawned at (28.1, -94.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed5_20260613_192905/follower_route.xml (217 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed5_20260613_192905/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 10.1m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.9m | TTC=  infs | leader=29.1km/h | follower=15.3km/h | collisions=0
+  tick= 100 | dist= 31.9m | TTC=  infs | leader=36.9km/h | follower=24.2km/h | collisions=0
+  tick= 150 | dist= 35.6m | TTC=  infs | leader=37.3km/h | follower=25.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 58.9m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist= 64.9m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 41.131 m
+  Min dist   : 10.051 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed5_20260613_192905
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7345 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7344 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 6
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed6_20260613_193415
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=6 -> index [21]
+[INFO] Leader spawned at (-17.6, -4.4) lane -2
+[INFO] Follower spawned at (-7.6, -4.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed6_20260613_193415/follower_route.xml (81 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed6_20260613_193415/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 24.6m | TTC=  infs | leader=29.0km/h | follower=0.0km/h | collisions=0
+  tick= 100 | dist= 48.2m | TTC=  infs | leader=36.9km/h | follower=0.0km/h | collisions=0
+  tick= 150 | dist= 74.1m | TTC=  infs | leader=37.3km/h | follower=0.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist=100.0m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist=106.0m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 68.436 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed6_20260613_193415
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7466 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7465 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 7
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed7_20260613_193904
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=7 -> index [93]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -2
+[INFO] Leader spawned at (1.1, -94.9) lane -2
+[INFO] Follower spawned at (11.1, -94.9, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed7_20260613_193904/follower_route.xml (220 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed7_20260613_193904/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 20.9m | TTC=  infs | leader=29.2km/h | follower=16.7km/h | collisions=0
+  tick= 100 | dist= 33.1m | TTC=  infs | leader=36.9km/h | follower=24.9km/h | collisions=0
+  tick= 150 | dist= 42.4m | TTC=  infs | leader=37.4km/h | follower=14.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 64.9m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist= 70.9m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 45.201 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed7_20260613_193904
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7587 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7586 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 8
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed8_20260613_194405
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=8 -> index [94]
+[INFO] Leader spawned at (-0.3, -94.9) lane -2
+[INFO] Follower spawned at (9.7, -94.9, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed8_20260613_194405/follower_route.xml (219 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed8_20260613_194405/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 22.0m | TTC=  infs | leader=28.9km/h | follower=21.1km/h | collisions=0
+  tick= 100 | dist= 25.1m | TTC=  infs | leader=36.9km/h | follower=22.7km/h | collisions=0
+  tick= 150 | dist= 42.2m | TTC=  infs | leader=37.4km/h | follower=0.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 50.6m | TTC=  infs | leader=0.1km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist= 50.6m | TTC=9276414.2s | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 36.997 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed8_20260613_194405
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7708 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7707 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 9
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed9_20260613_194901
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=9 -> index [120]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -2
+[INFO] Leader spawned at (-9.6, 84.6) lane -2
+[INFO] Follower spawned at (0.4, 84.6, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed9_20260613_194901/follower_route.xml (109 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed9_20260613_194901/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 19.9m | TTC=  infs | leader=29.0km/h | follower=28.2km/h | collisions=0
+  tick= 100 | dist= 27.4m | TTC=  infs | leader=36.8km/h | follower=16.2km/h | collisions=0
+  tick= 150 | dist= 49.5m | TTC=  infs | leader=37.3km/h | follower=0.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 75.5m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist= 81.5m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 49.771 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed9_20260613_194901
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7829 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7828 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : simlingo_simlingo  (IN CONTROL)
+  Town      : Town05
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 10
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed10_20260613_195355
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town05' loaded.
+[INFO] Spawn pool for Town05 has 10 entries; seed=10 -> index [176]
+[INFO] Leader spawned at (17.9, -4.5) lane -1
+[INFO] Follower spawned at (23.8, -9.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed10_20260613_195355/follower_route.xml (160 waypoints)
+[INFO] Attaching PCLA agent 'simlingo_simlingo' in control mode ...
+Config path: /home/vortex/PCLA/pcla_agents/simlingo_pretrained/checkpoints/epoch=013.ckpt/pytorch_model.pt
+Save path root: None
+FlashAttention2 is not installed.
+[91mUsing OpenGVLab/InternVL2-1B as the image encoder.[0m
+Using PEFT model
+trainable params: 17,596,416 || all params: 647,260,288 || trainable%: 2.7186
+[INFO] Agent attached.
+[INFO] SimLingo language logging enabled -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed10_20260613_195355/simlingo_language.tsv
+[detection_probe] no probe available for agent 'simlingo_simlingo'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+  tick=   0 | dist=  7.5m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 22.0m | TTC=  infs | leader=29.2km/h | follower=0.0km/h | collisions=0
+  tick= 100 | dist= 45.7m | TTC=  infs | leader=36.9km/h | follower=0.0km/h | collisions=0
+  tick= 150 | dist= 71.5m | TTC=  infs | leader=37.3km/h | follower=0.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 97.4m | TTC=  infs | leader=37.2km/h | follower=0.0km/h | collisions=0
+  tick= 250 | dist=103.4m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 65.888 m
+  Min dist   : 7.479 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town05/raw_simlingo_simlingo_seed10_20260613_195355
+============================================================
+
+[INFO] Cleaning up...
+No cfg or encoder to delete processor
+ERROR: failed to destroy actor 7950 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7949 : unable to destroy actor: not found 
+[INFO] Done.

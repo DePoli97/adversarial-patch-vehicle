@@ -1,0 +1,31 @@
+{
+  "condition": "raw",
+  "agent": "simlingo_simlingo",
+  "leader_blueprint": "vehicle.carlamotors.carlacola",
+  "follower_blueprint": "vehicle.tesla.model3",
+  "seed": 10,
+  "town": "Town04",
+  "leader_spawn_index": 53,
+  "leader_spawn_xy": [
+    83.7,
+    6.42
+  ],
+  "num_ticks": 300,
+  "sim_duration_s": 15.0,
+  "leader_speed_kmh": 40.0,
+  "initial_gap_m": 10.0,
+  "brake_start_tick": 200,
+  "brake_start_s": 10.0,
+  "brake_strength": 0.8,
+  "agent_ticks_ok": 300,
+  "agent_ticks_none": 0,
+  "agent_ticks_error": 0,
+  "total_collisions": 53,
+  "mean_distance_m": 13.67,
+  "min_distance_m": 4.94,
+  "max_distance_m": 19.584,
+  "images_saved": 30,
+  "simlingo_language_log": "simlingo_language.tsv",
+  "detection_probe_log": null,
+  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260613_154355/simlingo_simlingo/patch/Town04/raw_simlingo_simlingo_seed10_20260613_185118"
+}

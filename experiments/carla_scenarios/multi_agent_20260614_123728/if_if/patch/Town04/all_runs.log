@@ -1,0 +1,1740 @@
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed1_20260614_132755
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=1 -> index [54]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (86.6, 6.4) lane -4
+[INFO] Follower spawned at (96.5, 6.5, 11.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed1_20260614_132755/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_28_01
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.9m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 14.3m | TTC=  infs | leader=28.5km/h | follower=17.8km/h | collisions=0
+  tick= 100 | dist= 25.3m | TTC=  infs | leader=36.8km/h | follower=18.2km/h | collisions=0
+  tick= 150 | dist= 38.7m | TTC=  infs | leader=37.3km/h | follower=17.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 52.3m | TTC=  infs | leader=37.5km/h | follower=17.6km/h | collisions=0
+  tick= 250 | dist= 46.0m | TTC=  9.3s | leader=0.0km/h | follower=17.9km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/interfuser_controller.py:55: RuntimeWarning: invalid value encountered in divide
+  ratio = float(np.sum(overlap_map)) / np.sum(map2 > 0)
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.285 m
+  Min dist   : 9.854 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed1_20260614_132755
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 279 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 278 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed2_20260614_132825
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=2 -> index [55]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.6, 6.4) lane -4
+[INFO] Follower spawned at (93.4, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed2_20260614_132825/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_28_31
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.3m | TTC=  infs | leader=28.6km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 26.4m | TTC=  infs | leader=36.8km/h | follower=17.8km/h | collisions=0
+  tick= 150 | dist= 39.8m | TTC=  infs | leader=37.3km/h | follower=17.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.3m | TTC=  infs | leader=37.5km/h | follower=17.7km/h | collisions=0
+  tick= 250 | dist= 47.1m | TTC=  9.6s | leader=0.0km/h | follower=17.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.284 m
+  Min dist   : 9.796 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed2_20260614_132825
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 412 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 411 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 3
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed3_20260614_132855
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=3 -> index [57]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (-85.3, 5.8) lane -4
+[INFO] Follower spawned at (-75.3, 5.8, 10.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed3_20260614_132855/follower_route.xml (301 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_29_01
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 17.0m | TTC=  infs | leader=30.3km/h | follower=18.3km/h | collisions=0
+  tick= 100 | dist= 29.2m | TTC=  infs | leader=38.2km/h | follower=18.0km/h | collisions=0
+  tick= 150 | dist= 43.7m | TTC=  infs | leader=39.0km/h | follower=17.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 58.4m | TTC=  infs | leader=38.9km/h | follower=18.1km/h | collisions=0
+  tick= 250 | dist= 53.2m | TTC= 10.8s | leader=0.0km/h | follower=17.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 38.14 m
+  Min dist   : 9.998 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed3_20260614_132855
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 545 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 544 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 4
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed4_20260614_132924
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=4 -> index [58]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (-81.9, 5.8) lane -4
+[INFO] Follower spawned at (-71.9, 5.9, 10.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed4_20260614_132924/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_29_30
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 17.1m | TTC=  infs | leader=30.1km/h | follower=18.3km/h | collisions=0
+  tick= 100 | dist= 30.5m | TTC=  infs | leader=38.0km/h | follower=17.9km/h | collisions=0
+  tick= 150 | dist= 48.5m | TTC=  infs | leader=39.0km/h | follower=17.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 69.5m | TTC=  infs | leader=38.9km/h | follower=18.1km/h | collisions=0
+  tick= 250 | dist= 75.4m | TTC= 14.9s | leader=0.0km/h | follower=18.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 47.61 m
+  Min dist   : 9.998 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed4_20260614_132924
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 678 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 677 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 5
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed5_20260614_132953
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=5 -> index [59]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (-85.3, 5.8) lane -4
+[INFO] Follower spawned at (-75.3, 5.8, 10.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed5_20260614_132953/follower_route.xml (301 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_29_59
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 17.0m | TTC=  infs | leader=30.2km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 29.1m | TTC=  infs | leader=38.2km/h | follower=17.6km/h | collisions=0
+  tick= 150 | dist= 43.6m | TTC=  infs | leader=39.0km/h | follower=17.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 58.2m | TTC=  infs | leader=38.9km/h | follower=18.0km/h | collisions=0
+  tick= 250 | dist= 53.0m | TTC= 10.8s | leader=0.0km/h | follower=17.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 38.024 m
+  Min dist   : 9.998 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed5_20260614_132953
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 811 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 810 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 6
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed6_20260614_133022
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=6 -> index [60]
+[INFO] Leader spawned at (-81.9, 5.8) lane -4
+[INFO] Follower spawned at (-71.9, 5.9, 10.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed6_20260614_133022/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_30_28
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 17.0m | TTC=  infs | leader=30.0km/h | follower=17.7km/h | collisions=0
+  tick= 100 | dist= 30.3m | TTC=  infs | leader=38.0km/h | follower=17.5km/h | collisions=0
+  tick= 150 | dist= 48.3m | TTC=  infs | leader=39.0km/h | follower=17.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 69.2m | TTC=  infs | leader=38.9km/h | follower=18.2km/h | collisions=0
+  tick= 250 | dist= 75.1m | TTC= 15.3s | leader=0.0km/h | follower=17.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 47.409 m
+  Min dist   : 9.998 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed6_20260614_133022
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 944 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 943 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 7
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed7_20260614_133051
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=7 -> index [75]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -187.9) lane 6
+[INFO] Follower spawned at (-16.8, -197.6, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed7_20260614_133051/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_30_57
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.4m | TTC=  infs | leader=29.1km/h | follower=17.6km/h | collisions=0
+  tick= 100 | dist= 26.7m | TTC=  infs | leader=36.9km/h | follower=17.5km/h | collisions=0
+  tick= 150 | dist= 40.1m | TTC=  infs | leader=37.3km/h | follower=17.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.6m | TTC=  infs | leader=37.2km/h | follower=17.9km/h | collisions=0
+  tick= 250 | dist= 47.2m | TTC=  9.5s | leader=0.0km/h | follower=18.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.452 m
+  Min dist   : 9.719 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed7_20260614_133051
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1077 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1076 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 8
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed8_20260614_133120
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=8 -> index [76]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -185.4) lane 6
+[INFO] Follower spawned at (-16.8, -195.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed8_20260614_133120/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_31_27
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.4m | TTC=  infs | leader=29.2km/h | follower=17.8km/h | collisions=0
+  tick= 100 | dist= 26.8m | TTC=  infs | leader=36.9km/h | follower=18.0km/h | collisions=0
+  tick= 150 | dist= 40.2m | TTC=  infs | leader=37.3km/h | follower=17.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.7m | TTC=  infs | leader=37.2km/h | follower=17.8km/h | collisions=0
+  tick= 250 | dist= 47.3m | TTC=  9.4s | leader=0.0km/h | follower=18.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.525 m
+  Min dist   : 9.719 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed8_20260614_133120
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1210 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1209 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 9
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed9_20260614_133149
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=9 -> index [77]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -187.7) lane 6
+[INFO] Follower spawned at (-16.8, -197.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed9_20260614_133149/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_31_55
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 14.3m | TTC=  infs | leader=29.1km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 25.6m | TTC=  infs | leader=36.9km/h | follower=18.0km/h | collisions=0
+  tick= 150 | dist= 39.0m | TTC=  infs | leader=37.3km/h | follower=18.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 52.5m | TTC=  infs | leader=37.2km/h | follower=18.7km/h | collisions=0
+  tick= 250 | dist= 46.0m | TTC=  9.5s | leader=0.0km/h | follower=17.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.411 m
+  Min dist   : 9.719 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed9_20260614_133149
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1343 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1342 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 10
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed10_20260614_133217
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=10 -> index [79]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -212.5) lane 6
+[INFO] Follower spawned at (-16.9, -222.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed10_20260614_133217/follower_route.xml (306 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_32_23
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 14.6m | TTC=  infs | leader=29.1km/h | follower=17.7km/h | collisions=0
+  tick= 100 | dist= 25.9m | TTC=  infs | leader=36.9km/h | follower=18.0km/h | collisions=0
+  tick= 150 | dist= 39.3m | TTC=  infs | leader=37.3km/h | follower=18.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 52.8m | TTC=  infs | leader=37.2km/h | follower=18.2km/h | collisions=0
+  tick= 250 | dist= 46.4m | TTC=  9.4s | leader=0.0km/h | follower=17.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.721 m
+  Min dist   : 9.983 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed10_20260614_133217
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1476 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1475 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 11
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed11_20260614_133246
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=11 -> index [80]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -211.1) lane 6
+[INFO] Follower spawned at (-16.9, -220.9, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed11_20260614_133246/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_32_52
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 14.4m | TTC=  infs | leader=29.0km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 25.7m | TTC=  infs | leader=36.9km/h | follower=17.6km/h | collisions=0
+  tick= 150 | dist= 39.1m | TTC=  infs | leader=37.3km/h | follower=18.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 52.6m | TTC=  infs | leader=37.2km/h | follower=17.8km/h | collisions=0
+  tick= 250 | dist= 46.2m | TTC=  9.3s | leader=0.0km/h | follower=17.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.501 m
+  Min dist   : 9.849 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed11_20260614_133246
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1609 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1608 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 12
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed12_20260614_133314
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=12 -> index [81]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -212.3) lane 6
+[INFO] Follower spawned at (-16.9, -222.3, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed12_20260614_133314/follower_route.xml (306 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_33_20
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.1km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.8km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=17.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=18.0km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.6s | leader=0.0km/h | follower=17.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.692 m
+  Min dist   : 9.971 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed12_20260614_133314
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1742 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1741 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 13
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed13_20260614_133344
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=13 -> index [82]
+[INFO] Leader spawned at (-16.9, -211.0) lane 6
+[INFO] Follower spawned at (-16.9, -220.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed13_20260614_133344/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_33_50
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.5m | TTC=  infs | leader=29.1km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.5km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=18.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=17.6km/h | collisions=0
+  tick= 250 | dist= 47.3m | TTC=  9.7s | leader=0.0km/h | follower=17.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.601 m
+  Min dist   : 9.837 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed13_20260614_133344
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1875 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1874 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 14
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed14_20260614_133413
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=14 -> index [90]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -87.5) lane 6
+[INFO] Follower spawned at (-16.4, -97.5, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed14_20260614_133413/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_34_19
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 16.8m | TTC=  infs | leader=29.1km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 28.1m | TTC=  infs | leader=36.9km/h | follower=17.6km/h | collisions=0
+  tick= 150 | dist= 41.5m | TTC=  infs | leader=37.3km/h | follower=17.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 55.0m | TTC=  infs | leader=36.5km/h | follower=17.9km/h | collisions=0
+  tick= 250 | dist= 48.1m | TTC=  9.9s | leader=0.0km/h | follower=17.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 35.694 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed14_20260614_133413
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2008 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2007 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 15
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed15_20260614_133444
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=15 -> index [91]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -85.1) lane 6
+[INFO] Follower spawned at (-16.4, -95.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed15_20260614_133444/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_34_50
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.7m | TTC=  infs | leader=29.0km/h | follower=18.4km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=18.1km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=18.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=18.1km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.2s | leader=0.0km/h | follower=18.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.682 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed15_20260614_133444
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2141 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2140 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 16
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed16_20260614_133517
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=16 -> index [92]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -87.5) lane 6
+[INFO] Follower spawned at (-16.4, -97.5, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed16_20260614_133517/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_35_24
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 16.8m | TTC=  infs | leader=29.1km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 28.1m | TTC=  infs | leader=36.9km/h | follower=17.5km/h | collisions=0
+  tick= 150 | dist= 41.6m | TTC=  infs | leader=37.3km/h | follower=17.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 55.0m | TTC=  infs | leader=36.5km/h | follower=17.9km/h | collisions=0
+  tick= 250 | dist= 48.1m | TTC=  9.8s | leader=0.0km/h | follower=17.7km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 35.695 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed16_20260614_133517
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2274 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2273 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 17
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed17_20260614_133549
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=17 -> index [94]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -119.4) lane 6
+[INFO] Follower spawned at (-16.6, -129.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed17_20260614_133549/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_35_56
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.1km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.7km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=17.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=18.1km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.7s | leader=0.0km/h | follower=17.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.691 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed17_20260614_133549
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2407 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2406 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 18
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed18_20260614_133620
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=18 -> index [95]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -117.0) lane 6
+[INFO] Follower spawned at (-16.6, -127.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed18_20260614_133620/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_36_27
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.1km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=18.6km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=18.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=17.7km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.6s | leader=0.0km/h | follower=17.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.707 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed18_20260614_133620
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2540 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2539 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 19
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed19_20260614_133652
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=19 -> index [96]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -119.4) lane 6
+[INFO] Follower spawned at (-16.6, -129.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed19_20260614_133652/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_36_59
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.1km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.8km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=18.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=18.1km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.5s | leader=0.0km/h | follower=17.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.678 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed19_20260614_133652
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2673 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2672 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 20
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed20_20260614_133724
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=20 -> index [98]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -146.1) lane 6
+[INFO] Follower spawned at (-16.7, -156.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed20_20260614_133724/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_37_31
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.0km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=18.1km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=17.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=17.5km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.5s | leader=0.0km/h | follower=18.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.671 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed20_20260614_133724
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2806 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2805 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 21
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed21_20260614_133754
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=21 -> index [99]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -143.7) lane 6
+[INFO] Follower spawned at (-16.7, -153.7, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed21_20260614_133754/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_38_00
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 14.7m | TTC=  infs | leader=29.1km/h | follower=17.6km/h | collisions=0
+  tick= 100 | dist= 26.0m | TTC=  infs | leader=36.9km/h | follower=18.6km/h | collisions=0
+  tick= 150 | dist= 39.4m | TTC=  infs | leader=37.3km/h | follower=18.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 52.8m | TTC=  infs | leader=37.2km/h | follower=18.0km/h | collisions=0
+  tick= 250 | dist= 46.5m | TTC=  9.6s | leader=0.0km/h | follower=17.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.762 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed21_20260614_133754
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2939 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2938 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 22
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed22_20260614_133822
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=22 -> index [100]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -146.1) lane 6
+[INFO] Follower spawned at (-16.7, -156.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed22_20260614_133822/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_38_29
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.0km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.6km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=18.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=17.4km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.7s | leader=0.0km/h | follower=17.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.667 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed22_20260614_133822
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3072 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3071 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 23
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed23_20260614_133851
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=23 -> index [107]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 98.4) lane -4
+[INFO] Follower spawned at (16.0, 108.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed23_20260614_133851/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_38_57
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 16.8m | TTC=  infs | leader=29.1km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 28.1m | TTC=  infs | leader=36.9km/h | follower=17.9km/h | collisions=0
+  tick= 150 | dist= 41.5m | TTC=  infs | leader=37.3km/h | follower=17.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 55.4m | TTC=  infs | leader=37.2km/h | follower=17.6km/h | collisions=0
+  tick= 250 | dist= 49.0m | TTC=  9.6s | leader=0.0km/h | follower=18.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 35.975 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed23_20260614_133851
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3205 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3204 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 24
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed24_20260614_133924
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=24 -> index [108]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 96.3) lane -4
+[INFO] Follower spawned at (16.0, 106.3, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed24_20260614_133924/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_39_30
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.1km/h | follower=17.7km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=18.1km/h | collisions=0
+  tick= 150 | dist= 40.5m | TTC=  infs | leader=37.3km/h | follower=18.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 54.2m | TTC=  infs | leader=37.2km/h | follower=17.9km/h | collisions=0
+  tick= 250 | dist= 47.8m | TTC=  9.4s | leader=0.0km/h | follower=18.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.872 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed24_20260614_133924
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3338 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3337 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 25
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed25_20260614_133958
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=25 -> index [109]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 98.4) lane -4
+[INFO] Follower spawned at (16.0, 108.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed25_20260614_133958/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_40_04
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 16.8m | TTC=  infs | leader=29.1km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 28.1m | TTC=  infs | leader=36.9km/h | follower=17.7km/h | collisions=0
+  tick= 150 | dist= 41.5m | TTC=  infs | leader=37.3km/h | follower=17.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 55.6m | TTC=  infs | leader=37.2km/h | follower=18.3km/h | collisions=0
+  tick= 250 | dist= 49.2m | TTC= 10.1s | leader=0.0km/h | follower=17.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 36.045 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed25_20260614_133958
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3471 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3470 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 26
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed26_20260614_134032
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=26 -> index [111]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 130.8) lane -4
+[INFO] Follower spawned at (16.1, 140.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed26_20260614_134032/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_40_38
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.0km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.6km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=17.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=17.9km/h | collisions=0
+  tick= 250 | dist= 47.3m | TTC=  9.5s | leader=0.0km/h | follower=18.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.704 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed26_20260614_134032
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3604 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3603 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 27
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed27_20260614_134103
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=27 -> index [112]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 128.8) lane -4
+[INFO] Follower spawned at (16.1, 138.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed27_20260614_134103/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_41_09
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.1km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.9km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=18.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=17.9km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.6s | leader=0.0km/h | follower=17.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.778 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed27_20260614_134103
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3737 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3736 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 28
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed28_20260614_134135
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=28 -> index [113]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 130.8) lane -4
+[INFO] Follower spawned at (16.1, 140.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed28_20260614_134135/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_41_41
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.0km/h | follower=17.8km/h | collisions=0
+  tick= 100 | dist= 26.9m | TTC=  infs | leader=36.9km/h | follower=17.7km/h | collisions=0
+  tick= 150 | dist= 40.3m | TTC=  infs | leader=37.3km/h | follower=18.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.8m | TTC=  infs | leader=37.2km/h | follower=17.5km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC=  9.8s | leader=0.0km/h | follower=17.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.674 m
+  Min dist   : 10.0 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed28_20260614_134135
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3870 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3869 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 29
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed29_20260614_134207
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=29 -> index [115]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.2, 152.5) lane -4
+[INFO] Follower spawned at (16.2, 162.2, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed29_20260614_134207/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_42_13
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 14.3m | TTC=  infs | leader=29.0km/h | follower=18.0km/h | collisions=0
+  tick= 100 | dist= 25.6m | TTC=  infs | leader=36.9km/h | follower=17.7km/h | collisions=0
+  tick= 150 | dist= 39.0m | TTC=  infs | leader=37.3km/h | follower=18.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 52.5m | TTC=  infs | leader=37.2km/h | follower=17.9km/h | collisions=0
+  tick= 250 | dist= 46.1m | TTC=  9.3s | leader=0.0km/h | follower=17.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.404 m
+  Min dist   : 9.68 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed29_20260614_134207
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4003 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4002 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : if_if  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 30
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed30_20260614_134235
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=30 -> index [53]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed30_20260614_134235/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'if_if' in control mode ...
+pygame 2.5.2 (SDL 2.28.2, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+load model: /home/vortex/PCLA/pcla_agents/interfuser/../interfuser_pretrained/interfuser.pth.tar
+follower_route_06_14_13_42_41
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'if_if'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+/home/vortex/PCLA/pcla_agents/interfuser/tracker.py:141: RuntimeWarning: divide by zero encountered in scalar divide
+  speed = 0.5 * self.frequency * np.sqrt((prev_pos[0]-cur_pos[0])**2+(prev_pos[1]-cur_pos[1])**2) / (to.historical_steps[i+1]-to.historical_steps[i])
+  tick=  50 | dist= 15.3m | TTC=  infs | leader=28.6km/h | follower=17.9km/h | collisions=0
+  tick= 100 | dist= 26.3m | TTC=  infs | leader=36.8km/h | follower=17.9km/h | collisions=0
+  tick= 150 | dist= 39.7m | TTC=  infs | leader=37.3km/h | follower=18.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.3m | TTC=  infs | leader=37.5km/h | follower=17.8km/h | collisions=0
+  tick= 250 | dist= 47.0m | TTC=  9.6s | leader=0.0km/h | follower=17.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 34.222 m
+  Min dist   : 9.796 m
+  Images     : 30
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/if_if/patch/Town04/raw_if_if_seed30_20260614_134235
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4136 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4135 : unable to destroy actor: not found 
+[INFO] Done.

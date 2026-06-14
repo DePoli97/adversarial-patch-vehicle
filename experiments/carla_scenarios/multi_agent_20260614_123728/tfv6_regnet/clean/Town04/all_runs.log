@@ -1,0 +1,1708 @@
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed1_20260614_125317
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=1 -> index [54]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (86.6, 6.4) lane -4
+[INFO] Follower spawned at (96.5, 6.5, 11.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed1_20260614_125317/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 12:53:30 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed1_20260614_125317/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed1_20260614_125317/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.9m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.3m | TTC=  infs | leader=28.5km/h | follower=25.2km/h | collisions=0
+  tick= 100 | dist= 17.2m | TTC=  infs | leader=36.8km/h | follower=36.2km/h | collisions=0
+  tick= 150 | dist= 18.5m | TTC=  infs | leader=37.3km/h | follower=33.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 22.9m | TTC=  infs | leader=37.5km/h | follower=29.1km/h | collisions=0
+  tick= 250 | dist= 12.5m | TTC=  3.1s | leader=0.0km/h | follower=14.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 16.29 m
+  Min dist   : 9.749 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed1_20260614_125317
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4274 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4273 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed2_20260614_125427
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=2 -> index [55]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.6, 6.4) lane -4
+[INFO] Follower spawned at (93.4, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed2_20260614_125427/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 12:54:39 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed2_20260614_125427/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed2_20260614_125427/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.0m | TTC=351.6s | leader=28.6km/h | follower=28.8km/h | collisions=0
+  tick= 100 | dist= 17.3m | TTC=  infs | leader=36.8km/h | follower=35.1km/h | collisions=0
+  tick= 150 | dist= 18.3m | TTC=  infs | leader=37.3km/h | follower=37.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 22.8m | TTC=  infs | leader=37.5km/h | follower=29.4km/h | collisions=0
+  tick= 250 | dist= 12.8m | TTC=  2.0s | leader=0.0km/h | follower=22.7km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 16.433 m
+  Min dist   : 9.796 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed2_20260614_125427
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4412 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4411 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 3
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed3_20260614_125536
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=3 -> index [57]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (-85.3, 5.8) lane -4
+[INFO] Follower spawned at (-75.3, 5.8, 10.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed3_20260614_125536/follower_route.xml (301 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 12:55:49 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed3_20260614_125536/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed3_20260614_125536/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 12.9m | TTC=  infs | leader=30.3km/h | follower=27.4km/h | collisions=0
+  tick= 100 | dist= 15.4m | TTC= 23.5s | leader=38.2km/h | follower=40.5km/h | collisions=0
+  tick= 150 | dist= 17.3m | TTC=  infs | leader=39.0km/h | follower=37.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 19.8m | TTC=  infs | leader=38.9km/h | follower=36.8km/h | collisions=0
+  tick= 250 | dist=  9.9m | TTC= 14.9s | leader=0.0km/h | follower=2.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.506 m
+  Min dist   : 9.929 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed3_20260614_125536
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4550 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4549 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 4
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed4_20260614_125643
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=4 -> index [58]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (-81.9, 5.8) lane -4
+[INFO] Follower spawned at (-71.9, 5.9, 10.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed4_20260614_125643/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 12:56:56 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed4_20260614_125643/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed4_20260614_125643/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 14.9m | TTC= 13.3s | leader=30.1km/h | follower=34.2km/h | collisions=0
+  tick= 100 | dist= 24.5m | TTC=  infs | leader=38.0km/h | follower=24.0km/h | collisions=0
+  tick= 150 | dist= 44.9m | TTC=  infs | leader=39.0km/h | follower=28.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 73.8m | TTC=  infs | leader=38.9km/h | follower=30.0km/h | collisions=0
+  tick= 250 | dist= 94.6m | TTC= 11.3s | leader=0.0km/h | follower=30.2km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 52.162 m
+  Min dist   : 9.998 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed4_20260614_125643
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4688 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4687 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 5
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed5_20260614_125751
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=5 -> index [59]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (-85.3, 5.8) lane -4
+[INFO] Follower spawned at (-75.3, 5.8, 10.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed5_20260614_125751/follower_route.xml (301 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 12:58:04 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed5_20260614_125751/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed5_20260614_125751/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 12.9m | TTC=  infs | leader=30.2km/h | follower=27.8km/h | collisions=0
+  tick= 100 | dist= 15.4m | TTC= 26.4s | leader=38.2km/h | follower=40.3km/h | collisions=0
+  tick= 150 | dist= 17.3m | TTC=  infs | leader=39.0km/h | follower=37.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 19.5m | TTC=  infs | leader=38.9km/h | follower=35.9km/h | collisions=0
+  tick= 250 | dist=  9.5m | TTC=  3.1s | leader=0.0km/h | follower=11.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.308 m
+  Min dist   : 8.772 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed5_20260614_125751
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4826 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4825 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 6
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed6_20260614_125859
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=6 -> index [60]
+[INFO] Leader spawned at (-81.9, 5.8) lane -4
+[INFO] Follower spawned at (-71.9, 5.9, 10.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed6_20260614_125859/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 12:59:12 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed6_20260614_125859/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed6_20260614_125859/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 14.8m | TTC= 13.4s | leader=30.0km/h | follower=34.0km/h | collisions=0
+  tick= 100 | dist= 24.3m | TTC=  infs | leader=38.0km/h | follower=24.2km/h | collisions=0
+  tick= 150 | dist= 44.7m | TTC=  infs | leader=39.0km/h | follower=28.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 73.5m | TTC=  infs | leader=38.9km/h | follower=29.7km/h | collisions=0
+  tick= 250 | dist= 94.1m | TTC= 11.3s | leader=0.0km/h | follower=29.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 51.911 m
+  Min dist   : 9.998 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed6_20260614_125859
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4964 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4963 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 7
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed7_20260614_130007
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=7 -> index [75]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -187.9) lane 6
+[INFO] Follower spawned at (-16.8, -197.6, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed7_20260614_130007/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:00:19 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed7_20260614_130007/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed7_20260614_130007/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 14.4m | TTC= 28.8s | leader=29.1km/h | follower=30.9km/h | collisions=0
+  tick= 100 | dist= 16.2m | TTC=  infs | leader=36.9km/h | follower=33.5km/h | collisions=0
+  tick= 150 | dist= 17.4m | TTC=  infs | leader=37.3km/h | follower=34.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.9m | TTC=  infs | leader=37.2km/h | follower=33.1km/h | collisions=0
+  tick= 250 | dist=  9.9m | TTC=  3.1s | leader=0.0km/h | follower=11.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.659 m
+  Min dist   : 9.166 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed7_20260614_130007
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 5102 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 5101 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 8
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed8_20260614_130114
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=8 -> index [76]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -185.4) lane 6
+[INFO] Follower spawned at (-16.8, -195.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed8_20260614_130114/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:01:27 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed8_20260614_130114/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed8_20260614_130114/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 13.8m | TTC=  infs | leader=29.2km/h | follower=26.6km/h | collisions=0
+  tick= 100 | dist= 16.1m | TTC=  infs | leader=36.9km/h | follower=35.2km/h | collisions=0
+  tick= 150 | dist= 17.3m | TTC=  infs | leader=37.3km/h | follower=32.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.5m | TTC=  infs | leader=37.2km/h | follower=34.2km/h | collisions=0
+  tick= 250 | dist= 11.2m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.795 m
+  Min dist   : 9.719 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed8_20260614_130114
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 5240 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 5239 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 9
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed9_20260614_130223
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=9 -> index [77]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -187.7) lane 6
+[INFO] Follower spawned at (-16.8, -197.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed9_20260614_130223/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:02:36 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed9_20260614_130223/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed9_20260614_130223/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 14.3m | TTC= 20.0s | leader=29.1km/h | follower=31.6km/h | collisions=0
+  tick= 100 | dist= 15.7m | TTC=  infs | leader=36.9km/h | follower=33.3km/h | collisions=0
+  tick= 150 | dist= 17.0m | TTC=  infs | leader=37.3km/h | follower=36.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.3m | TTC=  infs | leader=37.2km/h | follower=35.0km/h | collisions=0
+  tick= 250 | dist= 11.1m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.713 m
+  Min dist   : 9.719 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed9_20260614_130223
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 5378 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 5377 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 10
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed10_20260614_130331
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=10 -> index [79]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -212.5) lane 6
+[INFO] Follower spawned at (-16.9, -222.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed10_20260614_130331/follower_route.xml (306 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:03:44 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed10_20260614_130331/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed10_20260614_130331/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.3m | TTC= 22.0s | leader=29.1km/h | follower=31.7km/h | collisions=0
+  tick= 100 | dist= 16.0m | TTC=  infs | leader=36.9km/h | follower=35.1km/h | collisions=0
+  tick= 150 | dist= 17.0m | TTC=116.3s | leader=37.3km/h | follower=37.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.2m | TTC=  infs | leader=37.2km/h | follower=36.3km/h | collisions=0
+  tick= 250 | dist=  9.0m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.546 m
+  Min dist   : 9.028 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed10_20260614_130331
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 5516 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 5515 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 11
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed11_20260614_130439
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=11 -> index [80]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -211.1) lane 6
+[INFO] Follower spawned at (-16.9, -220.9, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed11_20260614_130439/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:04:52 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed11_20260614_130439/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed11_20260614_130439/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.1m | TTC= 32.2s | leader=29.0km/h | follower=30.8km/h | collisions=0
+  tick= 100 | dist= 16.2m | TTC=  infs | leader=36.9km/h | follower=33.9km/h | collisions=0
+  tick= 150 | dist= 17.4m | TTC=  infs | leader=37.3km/h | follower=35.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.7m | TTC=  infs | leader=37.2km/h | follower=35.8km/h | collisions=0
+  tick= 250 | dist= 11.1m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 15.084 m
+  Min dist   : 9.849 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed11_20260614_130439
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 5654 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 5653 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 12
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed12_20260614_130548
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=12 -> index [81]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -212.3) lane 6
+[INFO] Follower spawned at (-16.9, -222.3, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed12_20260614_130548/follower_route.xml (306 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:06:00 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed12_20260614_130548/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed12_20260614_130548/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.5m | TTC= 10.3s | leader=29.1km/h | follower=34.9km/h | collisions=0
+  tick= 100 | dist= 16.2m | TTC=  infs | leader=36.9km/h | follower=33.9km/h | collisions=0
+  tick= 150 | dist= 17.6m | TTC=  infs | leader=37.3km/h | follower=34.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.7m | TTC=  infs | leader=37.2km/h | follower=37.0km/h | collisions=0
+  tick= 250 | dist=  9.0m | TTC=  4.0s | leader=0.0km/h | follower=8.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.784 m
+  Min dist   : 8.859 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed12_20260614_130548
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 5792 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 5791 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 13
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed13_20260614_130656
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=13 -> index [82]
+[INFO] Leader spawned at (-16.9, -211.0) lane 6
+[INFO] Follower spawned at (-16.9, -220.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed13_20260614_130656/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:07:09 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed13_20260614_130656/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed13_20260614_130656/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.8m | TTC= 64.2s | leader=29.1km/h | follower=30.0km/h | collisions=0
+  tick= 100 | dist= 16.0m | TTC=  infs | leader=36.9km/h | follower=35.3km/h | collisions=0
+  tick= 150 | dist= 17.1m | TTC=  infs | leader=37.3km/h | follower=35.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 19.3m | TTC=  infs | leader=37.2km/h | follower=33.4km/h | collisions=0
+  tick= 250 | dist= 10.5m | TTC=  3.4s | leader=0.0km/h | follower=11.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 15.013 m
+  Min dist   : 9.837 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed13_20260614_130656
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 5930 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 5929 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 14
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed14_20260614_130804
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=14 -> index [90]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -87.5) lane 6
+[INFO] Follower spawned at (-16.4, -97.5, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed14_20260614_130804/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:08:16 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed14_20260614_130804/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed14_20260614_130804/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.6m | TTC=  infs | leader=29.1km/h | follower=26.6km/h | collisions=0
+  tick= 100 | dist= 22.4m | TTC=  infs | leader=36.9km/h | follower=25.1km/h | collisions=0
+  tick= 150 | dist= 25.0m | TTC= 34.5s | leader=37.3km/h | follower=39.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 28.8m | TTC=  infs | leader=36.5km/h | follower=30.2km/h | collisions=0
+  tick= 250 | dist= 14.2m | TTC=  1.7s | leader=0.0km/h | follower=30.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 19.331 m
+  Min dist   : 5.814 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed14_20260614_130804
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 6068 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6067 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 15
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed15_20260614_130911
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=15 -> index [91]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -85.1) lane 6
+[INFO] Follower spawned at (-16.4, -95.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed15_20260614_130911/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:09:24 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed15_20260614_130911/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed15_20260614_130911/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.9m | TTC=  infs | leader=29.0km/h | follower=23.6km/h | collisions=0
+  tick= 100 | dist= 22.2m | TTC=  infs | leader=36.9km/h | follower=35.2km/h | collisions=0
+  tick= 150 | dist= 24.4m | TTC=161.7s | leader=37.3km/h | follower=37.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 24.7m | TTC=  infs | leader=37.2km/h | follower=36.8km/h | collisions=0
+  tick= 250 | dist= 11.9m | TTC=  5.7s | leader=0.0km/h | follower=7.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 18.392 m
+  Min dist   : 9.295 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed15_20260614_130911
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 6206 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6205 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 16
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed16_20260614_131019
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=16 -> index [92]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -87.5) lane 6
+[INFO] Follower spawned at (-16.4, -97.5, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed16_20260614_131019/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:10:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed16_20260614_131019/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed16_20260614_131019/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.9m | TTC=  infs | leader=29.1km/h | follower=27.3km/h | collisions=0
+  tick= 100 | dist= 21.5m | TTC=  infs | leader=36.9km/h | follower=30.3km/h | collisions=0
+  tick= 150 | dist= 24.5m | TTC=  infs | leader=37.3km/h | follower=35.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 28.6m | TTC=  infs | leader=36.5km/h | follower=24.0km/h | collisions=0
+  tick= 250 | dist= 14.9m | TTC=  1.7s | leader=0.0km/h | follower=31.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 19.216 m
+  Min dist   : 5.898 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed16_20260614_131019
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 6344 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6343 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 17
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed17_20260614_131127
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=17 -> index [94]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -119.4) lane 6
+[INFO] Follower spawned at (-16.6, -129.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed17_20260614_131127/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:11:40 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed17_20260614_131127/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed17_20260614_131127/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.6m | TTC=  infs | leader=29.1km/h | follower=24.3km/h | collisions=0
+  tick= 100 | dist= 19.9m | TTC=  infs | leader=36.9km/h | follower=33.7km/h | collisions=0
+  tick= 150 | dist= 19.7m | TTC=  infs | leader=37.3km/h | follower=36.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 21.3m | TTC=  infs | leader=37.2km/h | follower=34.4km/h | collisions=0
+  tick= 250 | dist= 11.0m | TTC=  3.0s | leader=0.0km/h | follower=13.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 16.585 m
+  Min dist   : 9.608 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed17_20260614_131127
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 6482 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6481 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 18
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed18_20260614_131235
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=18 -> index [95]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -117.0) lane 6
+[INFO] Follower spawned at (-16.6, -127.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed18_20260614_131235/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:12:48 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed18_20260614_131235/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed18_20260614_131235/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.6m | TTC=  infs | leader=29.1km/h | follower=24.3km/h | collisions=0
+  tick= 100 | dist= 20.4m | TTC=  infs | leader=36.9km/h | follower=35.8km/h | collisions=0
+  tick= 150 | dist= 19.7m | TTC=  infs | leader=37.3km/h | follower=37.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 22.0m | TTC=  infs | leader=37.2km/h | follower=35.6km/h | collisions=0
+  tick= 250 | dist= 10.4m | TTC=  1.5s | leader=0.0km/h | follower=25.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 16.675 m
+  Min dist   : 8.71 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed18_20260614_131235
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 6620 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6619 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 19
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed19_20260614_131344
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=19 -> index [96]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -119.4) lane 6
+[INFO] Follower spawned at (-16.6, -129.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed19_20260614_131344/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:13:56 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed19_20260614_131344/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed19_20260614_131344/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.3m | TTC=  infs | leader=29.1km/h | follower=24.8km/h | collisions=0
+  tick= 100 | dist= 20.0m | TTC=  infs | leader=36.9km/h | follower=32.9km/h | collisions=0
+  tick= 150 | dist= 20.0m | TTC=  infs | leader=37.3km/h | follower=36.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 21.6m | TTC=  infs | leader=37.2km/h | follower=34.5km/h | collisions=0
+  tick= 250 | dist= 11.5m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 16.762 m
+  Min dist   : 9.771 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed19_20260614_131344
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 6758 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6757 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 20
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed20_20260614_131453
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=20 -> index [98]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -146.1) lane 6
+[INFO] Follower spawned at (-16.7, -156.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed20_20260614_131453/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:15:06 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed20_20260614_131453/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed20_20260614_131453/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.4m | TTC= 11.2s | leader=29.0km/h | follower=33.9km/h | collisions=0
+  tick= 100 | dist= 15.9m | TTC=  infs | leader=36.9km/h | follower=35.9km/h | collisions=0
+  tick= 150 | dist= 17.6m | TTC=  infs | leader=37.3km/h | follower=32.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.5m | TTC=  infs | leader=37.2km/h | follower=36.0km/h | collisions=0
+  tick= 250 | dist=  7.4m | TTC= 14.4s | leader=0.0km/h | follower=1.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.272 m
+  Min dist   : 7.414 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed20_20260614_131453
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 6896 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 6895 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 21
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed21_20260614_131601
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=21 -> index [99]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -143.7) lane 6
+[INFO] Follower spawned at (-16.7, -153.7, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed21_20260614_131601/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:16:14 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed21_20260614_131601/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed21_20260614_131601/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.1m | TTC=  infs | leader=29.1km/h | follower=28.4km/h | collisions=0
+  tick= 100 | dist= 16.2m | TTC=  infs | leader=36.9km/h | follower=34.9km/h | collisions=0
+  tick= 150 | dist= 17.6m | TTC=116.8s | leader=37.3km/h | follower=37.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.4m | TTC=  infs | leader=37.2km/h | follower=35.9km/h | collisions=0
+  tick= 250 | dist=  8.7m | TTC=  5.1s | leader=0.0km/h | follower=6.2km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.477 m
+  Min dist   : 8.618 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed21_20260614_131601
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 7034 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7033 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 22
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed22_20260614_131710
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=22 -> index [100]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -146.1) lane 6
+[INFO] Follower spawned at (-16.7, -156.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed22_20260614_131710/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:17:23 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed22_20260614_131710/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed22_20260614_131710/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.4m | TTC= 18.9s | leader=29.0km/h | follower=31.9km/h | collisions=0
+  tick= 100 | dist= 16.3m | TTC=  infs | leader=36.9km/h | follower=36.3km/h | collisions=0
+  tick= 150 | dist= 17.8m | TTC=  infs | leader=37.3km/h | follower=32.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 18.6m | TTC=  infs | leader=37.2km/h | follower=37.0km/h | collisions=0
+  tick= 250 | dist=  8.0m | TTC=  infs | leader=0.0km/h | follower=0.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 14.439 m
+  Min dist   : 7.984 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed22_20260614_131710
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 7172 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7171 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 23
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed23_20260614_131820
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=23 -> index [107]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 98.4) lane -4
+[INFO] Follower spawned at (16.0, 108.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed23_20260614_131820/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:18:32 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed23_20260614_131820/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed23_20260614_131820/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.1m | TTC=  infs | leader=29.1km/h | follower=28.9km/h | collisions=0
+  tick= 100 | dist= 17.7m | TTC=  infs | leader=36.9km/h | follower=31.5km/h | collisions=0
+  tick= 150 | dist= 21.5m | TTC=  infs | leader=37.3km/h | follower=30.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 26.9m | TTC=  infs | leader=37.2km/h | follower=29.6km/h | collisions=0
+  tick= 250 | dist= 14.7m | TTC=  3.5s | leader=0.0km/h | follower=15.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 17.704 m
+  Min dist   : 9.901 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed23_20260614_131820
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 7310 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7309 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 24
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed24_20260614_131927
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=24 -> index [108]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 96.3) lane -4
+[INFO] Follower spawned at (16.0, 106.3, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed24_20260614_131927/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:19:40 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed24_20260614_131927/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed24_20260614_131927/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 14.5m | TTC= 42.0s | leader=29.1km/h | follower=30.3km/h | collisions=0
+  tick= 100 | dist= 17.7m | TTC=  infs | leader=36.9km/h | follower=31.8km/h | collisions=0
+  tick= 150 | dist= 21.8m | TTC=  infs | leader=37.3km/h | follower=30.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 27.3m | TTC=  infs | leader=37.2km/h | follower=29.5km/h | collisions=0
+  tick= 250 | dist= 14.3m | TTC=  3.3s | leader=0.0km/h | follower=15.7km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 17.767 m
+  Min dist   : 9.966 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed24_20260614_131927
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 7448 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7447 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 25
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed25_20260614_132035
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=25 -> index [109]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 98.4) lane -4
+[INFO] Follower spawned at (16.0, 108.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed25_20260614_132035/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:20:48 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed25_20260614_132035/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed25_20260614_132035/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 15.1m | TTC=297.6s | leader=29.1km/h | follower=29.3km/h | collisions=0
+  tick= 100 | dist= 17.5m | TTC=  infs | leader=36.9km/h | follower=31.5km/h | collisions=0
+  tick= 150 | dist= 21.2m | TTC=  infs | leader=37.3km/h | follower=29.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 26.6m | TTC=  infs | leader=37.2km/h | follower=29.2km/h | collisions=0
+  tick= 250 | dist= 14.1m | TTC=  2.8s | leader=0.0km/h | follower=18.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 17.553 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed25_20260614_132035
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 7586 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7585 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 26
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed26_20260614_132144
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=26 -> index [111]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 130.8) lane -4
+[INFO] Follower spawned at (16.1, 140.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed26_20260614_132144/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:21:56 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed26_20260614_132144/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed26_20260614_132144/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.3m | TTC=  8.3s | leader=29.0km/h | follower=36.5km/h | collisions=0
+  tick= 100 | dist= 16.3m | TTC=  infs | leader=36.9km/h | follower=36.4km/h | collisions=0
+  tick= 150 | dist= 18.3m | TTC=  infs | leader=37.3km/h | follower=35.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 21.5m | TTC=  infs | leader=37.2km/h | follower=29.7km/h | collisions=0
+  tick= 250 | dist= 10.8m | TTC=  3.4s | leader=0.0km/h | follower=11.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 15.926 m
+  Min dist   : 9.956 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed26_20260614_132144
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 7724 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7723 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 27
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed27_20260614_132252
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=27 -> index [112]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 128.8) lane -4
+[INFO] Follower spawned at (16.1, 138.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed27_20260614_132252/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:23:05 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed27_20260614_132252/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed27_20260614_132252/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.9m | TTC=  infs | leader=29.1km/h | follower=24.5km/h | collisions=0
+  tick= 100 | dist= 21.0m | TTC= 23.8s | leader=36.9km/h | follower=40.1km/h | collisions=0
+  tick= 150 | dist= 21.8m | TTC=133.3s | leader=37.3km/h | follower=37.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 23.2m | TTC=  infs | leader=37.2km/h | follower=29.3km/h | collisions=0
+  tick= 250 | dist= 12.3m | TTC=  4.3s | leader=0.0km/h | follower=10.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 17.792 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed27_20260614_132252
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 7862 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7861 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 28
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed28_20260614_132400
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=28 -> index [113]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 130.8) lane -4
+[INFO] Follower spawned at (16.1, 140.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed28_20260614_132400/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:24:13 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed28_20260614_132400/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed28_20260614_132400/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.4m | TTC=  9.2s | leader=29.0km/h | follower=35.8km/h | collisions=0
+  tick= 100 | dist= 16.5m | TTC=  infs | leader=36.9km/h | follower=34.9km/h | collisions=0
+  tick= 150 | dist= 18.3m | TTC=  infs | leader=37.3km/h | follower=32.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 21.6m | TTC=  infs | leader=37.2km/h | follower=30.5km/h | collisions=0
+  tick= 250 | dist= 10.8m | TTC=  6.7s | leader=0.0km/h | follower=5.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 15.948 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed28_20260614_132400
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 8000 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 7999 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 29
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed29_20260614_132508
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=29 -> index [115]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.2, 152.5) lane -4
+[INFO] Follower spawned at (16.2, 162.2, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed29_20260614_132508/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:25:21 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed29_20260614_132508/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed29_20260614_132508/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 16.6m | TTC=  infs | leader=29.0km/h | follower=24.9km/h | collisions=0
+  tick= 100 | dist= 21.3m | TTC= 18.7s | leader=36.9km/h | follower=41.0km/h | collisions=0
+  tick= 150 | dist= 20.1m | TTC= 37.2s | leader=37.3km/h | follower=39.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 21.3m | TTC=  infs | leader=37.2km/h | follower=35.8km/h | collisions=0
+  tick= 250 | dist= 11.0m | TTC=  3.0s | leader=0.0km/h | follower=13.2km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 16.763 m
+  Min dist   : 9.296 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed29_20260614_132508
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 8138 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 8137 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : none
+  Agent     : tfv6_regnet  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 30
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed30_20260614_132617
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=30 -> index [53]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed30_20260614_132617/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv6_regnet' in control mode ...
+/home/vortex/miniconda3/envs/PCLA310/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  warnings.warn(msg, RuntimeWarning)
+2026-06-14 13:26:29 [WARNING] [/home/vortex/PCLA/pcla_agents/transfuserv6/lead/inference/sensor_agent.py:141] ffmpeg not found; demo/debug video outputs will be disabled.
+[INFO] Agent attached.
+[detection_probe] tfv6 hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed30_20260614_132617/detection_probe.tsv
+[detection_probe] tfv6 raw log         -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed30_20260614_132617/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.8m | TTC=  infs | leader=28.6km/h | follower=24.2km/h | collisions=0
+  tick= 100 | dist= 17.9m | TTC=  infs | leader=36.8km/h | follower=36.0km/h | collisions=0
+  tick= 150 | dist= 19.1m | TTC= 88.5s | leader=37.3km/h | follower=38.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 24.0m | TTC=  infs | leader=37.5km/h | follower=29.4km/h | collisions=0
+  tick= 250 | dist= 12.6m | TTC= 10.0s | leader=0.0km/h | follower=4.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 16.93 m
+  Min dist   : 9.101 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed30_20260614_132617
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 8276 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 8275 : unable to destroy actor: not found 
+[INFO] Done.

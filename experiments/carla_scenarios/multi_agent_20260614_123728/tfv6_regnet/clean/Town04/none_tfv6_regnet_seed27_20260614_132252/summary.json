@@ -1,0 +1,31 @@
+{
+  "condition": "none",
+  "agent": "tfv6_regnet",
+  "leader_blueprint": "vehicle.carlamotors.carlacola",
+  "follower_blueprint": "vehicle.tesla.model3",
+  "seed": 27,
+  "town": "Town04",
+  "leader_spawn_index": 112,
+  "leader_spawn_xy": [
+    16.07,
+    128.82
+  ],
+  "num_ticks": 300,
+  "sim_duration_s": 15.0,
+  "leader_speed_kmh": 40.0,
+  "initial_gap_m": 10.0,
+  "brake_start_tick": 200,
+  "brake_start_s": 10.0,
+  "brake_strength": 0.8,
+  "agent_ticks_ok": 300,
+  "agent_ticks_none": 0,
+  "agent_ticks_error": 0,
+  "total_collisions": 0,
+  "mean_distance_m": 17.792,
+  "min_distance_m": 10.0,
+  "max_distance_m": 23.73,
+  "images_saved": 29,
+  "simlingo_language_log": null,
+  "detection_probe_log": "detection_probe.tsv",
+  "output_dir": "/home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/tfv6_regnet/clean/Town04/none_tfv6_regnet_seed27_20260614_132252"
+}

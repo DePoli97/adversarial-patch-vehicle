@@ -1,0 +1,1618 @@
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed1_20260614_171543
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=1 -> index [54]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (86.6, 6.4) lane -4
+[INFO] Follower spawned at (96.5, 6.5, 11.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed1_20260614_171543/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.9m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.6m | TTC=  infs | leader=28.5km/h | follower=15.7km/h | collisions=0
+  tick= 100 | dist= 28.2m | TTC=  infs | leader=36.8km/h | follower=21.1km/h | collisions=0
+  tick= 150 | dist= 37.2m | TTC=  infs | leader=37.3km/h | follower=23.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 48.7m | TTC=  infs | leader=37.5km/h | follower=14.7km/h | collisions=0
+  tick= 250 | dist= 40.7m | TTC=  7.4s | leader=0.0km/h | follower=19.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 32.136 m
+  Min dist   : 9.854 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed1_20260614_171543
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 277 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 276 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed2_20260614_171556
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=2 -> index [55]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.6, 6.4) lane -4
+[INFO] Follower spawned at (93.4, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed2_20260614_171556/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.6m | TTC=  infs | leader=28.6km/h | follower=16.5km/h | collisions=0
+  tick= 100 | dist= 28.4m | TTC=  infs | leader=36.8km/h | follower=22.9km/h | collisions=0
+  tick= 150 | dist= 38.3m | TTC=  infs | leader=37.3km/h | follower=25.5km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 48.6m | TTC=  infs | leader=37.5km/h | follower=22.7km/h | collisions=0
+  tick= 250 | dist= 43.7m | TTC= 13.1s | leader=0.0km/h | follower=12.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.163 m
+  Min dist   : 9.796 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed2_20260614_171556
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 408 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 407 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 3
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed3_20260614_171610
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=3 -> index [57]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (-85.3, 5.8) lane -4
+[INFO] Follower spawned at (-75.3, 5.8, 10.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed3_20260614_171610/follower_route.xml (301 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 19.1m | TTC=  infs | leader=30.3km/h | follower=14.1km/h | collisions=0
+  tick= 100 | dist= 30.6m | TTC=  infs | leader=38.2km/h | follower=23.9km/h | collisions=0
+  tick= 150 | dist= 40.5m | TTC=  infs | leader=39.0km/h | follower=24.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 50.7m | TTC=  infs | leader=38.9km/h | follower=23.1km/h | collisions=0
+  tick= 250 | dist= 41.6m | TTC=  7.1s | leader=0.0km/h | follower=21.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.718 m
+  Min dist   : 9.998 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed3_20260614_171610
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 539 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 538 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 4
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed4_20260614_171623
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=4 -> index [58]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (-81.9, 5.8) lane -4
+[INFO] Follower spawned at (-71.9, 5.9, 10.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed4_20260614_171623/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 19.2m | TTC=  infs | leader=30.1km/h | follower=15.7km/h | collisions=0
+  tick= 100 | dist= 30.6m | TTC=  infs | leader=38.0km/h | follower=23.8km/h | collisions=0
+  tick= 150 | dist= 46.7m | TTC=  infs | leader=39.0km/h | follower=24.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 69.0m | TTC=  infs | leader=38.9km/h | follower=25.5km/h | collisions=0
+  tick= 250 | dist= 81.1m | TTC= 11.7s | leader=0.0km/h | follower=25.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 49.526 m
+  Min dist   : 9.998 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed4_20260614_171623
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 670 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 669 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 5
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed5_20260614_171635
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=5 -> index [59]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (-85.3, 5.8) lane -4
+[INFO] Follower spawned at (-75.3, 5.8, 10.2)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed5_20260614_171635/follower_route.xml (301 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 19.0m | TTC=  infs | leader=30.2km/h | follower=14.6km/h | collisions=0
+  tick= 100 | dist= 30.3m | TTC=  infs | leader=38.2km/h | follower=23.1km/h | collisions=0
+  tick= 150 | dist= 40.1m | TTC=  infs | leader=39.0km/h | follower=24.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 50.8m | TTC=  infs | leader=38.9km/h | follower=23.6km/h | collisions=0
+  tick= 250 | dist= 41.4m | TTC=  6.2s | leader=0.0km/h | follower=24.2km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.588 m
+  Min dist   : 9.998 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed5_20260614_171635
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 801 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 800 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 6
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed6_20260614_171648
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=6 -> index [60]
+[INFO] Leader spawned at (-81.9, 5.8) lane -4
+[INFO] Follower spawned at (-71.9, 5.9, 10.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed6_20260614_171648/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 19.0m | TTC=  infs | leader=30.0km/h | follower=16.2km/h | collisions=0
+  tick= 100 | dist= 30.6m | TTC=  infs | leader=38.0km/h | follower=23.8km/h | collisions=0
+  tick= 150 | dist= 46.5m | TTC=  infs | leader=39.0km/h | follower=25.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.7m | TTC=  infs | leader=38.9km/h | follower=25.7km/h | collisions=0
+  tick= 250 | dist= 80.6m | TTC= 11.8s | leader=0.0km/h | follower=24.7km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 49.319 m
+  Min dist   : 9.998 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed6_20260614_171648
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 932 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 931 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 7
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed7_20260614_171701
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=7 -> index [75]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -187.9) lane 6
+[INFO] Follower spawned at (-16.8, -197.6, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed7_20260614_171701/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.2m | TTC=  infs | leader=29.1km/h | follower=16.1km/h | collisions=0
+  tick= 100 | dist= 27.8m | TTC=  infs | leader=36.9km/h | follower=25.5km/h | collisions=0
+  tick= 150 | dist= 36.8m | TTC=  infs | leader=37.3km/h | follower=26.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 45.7m | TTC=  infs | leader=37.2km/h | follower=24.7km/h | collisions=0
+  tick= 250 | dist= 34.8m | TTC=  5.5s | leader=0.0km/h | follower=22.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 29.952 m
+  Min dist   : 9.719 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed7_20260614_171701
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1063 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1062 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 8
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed8_20260614_171715
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=8 -> index [76]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -185.4) lane 6
+[INFO] Follower spawned at (-16.8, -195.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed8_20260614_171715/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.2m | TTC=  infs | leader=29.2km/h | follower=16.3km/h | collisions=0
+  tick= 100 | dist= 27.7m | TTC=  infs | leader=36.9km/h | follower=25.2km/h | collisions=0
+  tick= 150 | dist= 36.9m | TTC=  infs | leader=37.3km/h | follower=24.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 45.8m | TTC=  infs | leader=37.2km/h | follower=24.8km/h | collisions=0
+  tick= 250 | dist= 35.0m | TTC=  5.0s | leader=0.0km/h | follower=25.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 30.062 m
+  Min dist   : 9.719 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed8_20260614_171715
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1194 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1193 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 9
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed9_20260614_171728
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=9 -> index [77]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.8, -187.7) lane 6
+[INFO] Follower spawned at (-16.8, -197.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed9_20260614_171728/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.2m | TTC=  infs | leader=29.1km/h | follower=16.4km/h | collisions=0
+  tick= 100 | dist= 27.8m | TTC=  infs | leader=36.9km/h | follower=25.3km/h | collisions=0
+  tick= 150 | dist= 36.8m | TTC=  infs | leader=37.3km/h | follower=25.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 45.6m | TTC=  infs | leader=37.2km/h | follower=25.5km/h | collisions=0
+  tick= 250 | dist= 34.9m | TTC=  5.4s | leader=0.0km/h | follower=23.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 29.957 m
+  Min dist   : 9.719 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed9_20260614_171728
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1325 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1324 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 10
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed10_20260614_171741
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=10 -> index [79]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -212.5) lane 6
+[INFO] Follower spawned at (-16.9, -222.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed10_20260614_171741/follower_route.xml (306 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.9m | TTC=  infs | leader=29.1km/h | follower=16.0km/h | collisions=0
+  tick= 100 | dist= 27.8m | TTC=  infs | leader=36.9km/h | follower=22.3km/h | collisions=0
+  tick= 150 | dist= 37.3m | TTC=  infs | leader=37.3km/h | follower=23.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 46.0m | TTC=  infs | leader=37.2km/h | follower=23.9km/h | collisions=0
+  tick= 250 | dist= 35.1m | TTC=  5.3s | leader=0.0km/h | follower=23.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 30.126 m
+  Min dist   : 9.983 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed10_20260614_171741
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1456 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1455 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 11
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed11_20260614_171754
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=11 -> index [80]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -211.1) lane 6
+[INFO] Follower spawned at (-16.9, -220.9, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed11_20260614_171754/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.0m | TTC=  infs | leader=29.0km/h | follower=17.8km/h | collisions=0
+  tick= 100 | dist= 28.0m | TTC=  infs | leader=36.9km/h | follower=23.7km/h | collisions=0
+  tick= 150 | dist= 37.1m | TTC=  infs | leader=37.3km/h | follower=24.4km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 45.9m | TTC=  infs | leader=37.2km/h | follower=24.0km/h | collisions=0
+  tick= 250 | dist= 35.2m | TTC=  5.4s | leader=0.0km/h | follower=23.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 30.11 m
+  Min dist   : 9.849 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed11_20260614_171754
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1587 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1586 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 12
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed12_20260614_171807
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=12 -> index [81]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.9, -212.3) lane 6
+[INFO] Follower spawned at (-16.9, -222.3, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed12_20260614_171807/follower_route.xml (306 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.0m | TTC=  infs | leader=29.1km/h | follower=16.9km/h | collisions=0
+  tick= 100 | dist= 28.1m | TTC=  infs | leader=36.9km/h | follower=25.4km/h | collisions=0
+  tick= 150 | dist= 37.2m | TTC=  infs | leader=37.3km/h | follower=23.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 46.1m | TTC=  infs | leader=37.2km/h | follower=25.3km/h | collisions=0
+  tick= 250 | dist= 35.4m | TTC=  5.3s | leader=0.0km/h | follower=24.2km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 30.215 m
+  Min dist   : 9.971 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed12_20260614_171807
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1718 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1717 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 13
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed13_20260614_171821
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=13 -> index [82]
+[INFO] Leader spawned at (-16.9, -211.0) lane 6
+[INFO] Follower spawned at (-16.9, -220.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed13_20260614_171821/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.1m | TTC=  infs | leader=29.1km/h | follower=17.4km/h | collisions=0
+  tick= 100 | dist= 28.2m | TTC=  infs | leader=36.9km/h | follower=21.9km/h | collisions=0
+  tick= 150 | dist= 37.4m | TTC=  infs | leader=37.3km/h | follower=25.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 46.2m | TTC=  infs | leader=37.2km/h | follower=24.8km/h | collisions=0
+  tick= 250 | dist= 35.6m | TTC=  5.2s | leader=0.0km/h | follower=24.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 30.346 m
+  Min dist   : 9.837 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed13_20260614_171821
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1849 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1848 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 14
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed14_20260614_171834
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=14 -> index [90]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -87.5) lane 6
+[INFO] Follower spawned at (-16.4, -97.5, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed14_20260614_171834/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.2m | TTC=  infs | leader=29.1km/h | follower=16.3km/h | collisions=0
+  tick= 100 | dist= 30.1m | TTC=  infs | leader=36.9km/h | follower=21.9km/h | collisions=0
+  tick= 150 | dist= 43.3m | TTC=  infs | leader=37.3km/h | follower=18.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 56.1m | TTC=  infs | leader=36.5km/h | follower=22.8km/h | collisions=0
+  tick= 250 | dist= 48.6m | TTC= 10.4s | leader=0.0km/h | follower=16.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 36.982 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed14_20260614_171834
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1980 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1979 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 15
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed15_20260614_171847
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=15 -> index [91]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -85.1) lane 6
+[INFO] Follower spawned at (-16.4, -95.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed15_20260614_171847/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.1m | TTC=  infs | leader=29.0km/h | follower=16.6km/h | collisions=0
+  tick= 100 | dist= 30.2m | TTC=  infs | leader=36.9km/h | follower=22.7km/h | collisions=0
+  tick= 150 | dist= 43.4m | TTC=  infs | leader=37.3km/h | follower=24.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 53.4m | TTC=  infs | leader=37.2km/h | follower=21.8km/h | collisions=0
+  tick= 250 | dist= 49.6m | TTC= 12.2s | leader=0.0km/h | follower=14.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 36.877 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed15_20260614_171847
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2111 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2110 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 16
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed16_20260614_171901
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=16 -> index [92]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.4, -87.5) lane 6
+[INFO] Follower spawned at (-16.4, -97.5, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed16_20260614_171901/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.3m | TTC=  infs | leader=29.1km/h | follower=15.2km/h | collisions=0
+  tick= 100 | dist= 30.1m | TTC=  infs | leader=36.9km/h | follower=23.4km/h | collisions=0
+  tick= 150 | dist= 42.2m | TTC=  infs | leader=37.3km/h | follower=25.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 52.1m | TTC=  infs | leader=36.5km/h | follower=22.4km/h | collisions=0
+  tick= 250 | dist= 46.8m | TTC= 14.5s | leader=0.0km/h | follower=11.6km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 35.718 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed16_20260614_171901
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2242 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2241 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 17
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed17_20260614_171914
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=17 -> index [94]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -119.4) lane 6
+[INFO] Follower spawned at (-16.6, -129.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed17_20260614_171914/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.3m | TTC=  infs | leader=29.1km/h | follower=16.0km/h | collisions=0
+  tick= 100 | dist= 29.6m | TTC=  infs | leader=36.9km/h | follower=19.4km/h | collisions=0
+  tick= 150 | dist= 39.0m | TTC=  infs | leader=37.3km/h | follower=25.3km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 48.7m | TTC=  infs | leader=37.2km/h | follower=23.8km/h | collisions=0
+  tick= 250 | dist= 42.4m | TTC=  6.8s | leader=0.0km/h | follower=22.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 32.968 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed17_20260614_171914
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2373 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2372 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 18
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed18_20260614_171927
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=18 -> index [95]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -117.0) lane 6
+[INFO] Follower spawned at (-16.6, -127.0, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed18_20260614_171927/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.3m | TTC=  infs | leader=29.1km/h | follower=14.5km/h | collisions=0
+  tick= 100 | dist= 29.3m | TTC=  infs | leader=36.9km/h | follower=24.5km/h | collisions=0
+  tick= 150 | dist= 38.5m | TTC=  infs | leader=37.3km/h | follower=22.7km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 48.4m | TTC=  infs | leader=37.2km/h | follower=24.4km/h | collisions=0
+  tick= 250 | dist= 41.4m | TTC=  6.4s | leader=0.0km/h | follower=23.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 32.697 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed18_20260614_171927
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2504 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2503 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 19
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed19_20260614_171940
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=19 -> index [96]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.5, -119.4) lane 6
+[INFO] Follower spawned at (-16.6, -129.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed19_20260614_171940/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.4m | TTC=  infs | leader=29.1km/h | follower=16.1km/h | collisions=0
+  tick= 100 | dist= 29.6m | TTC=  infs | leader=36.9km/h | follower=20.9km/h | collisions=0
+  tick= 150 | dist= 38.9m | TTC=  infs | leader=37.3km/h | follower=25.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 48.0m | TTC=  infs | leader=37.2km/h | follower=22.6km/h | collisions=0
+  tick= 250 | dist= 41.7m | TTC=  6.1s | leader=0.0km/h | follower=24.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 32.728 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed19_20260614_171940
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2635 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2634 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 20
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed20_20260614_171953
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=20 -> index [98]
+[INFO] Shifted leader from lane 5 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -146.1) lane 6
+[INFO] Follower spawned at (-16.7, -156.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed20_20260614_171953/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.0m | TTC=  infs | leader=29.0km/h | follower=16.6km/h | collisions=0
+  tick= 100 | dist= 28.7m | TTC=  infs | leader=36.9km/h | follower=24.4km/h | collisions=0
+  tick= 150 | dist= 38.0m | TTC=  infs | leader=37.3km/h | follower=23.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 47.4m | TTC=  infs | leader=37.2km/h | follower=24.7km/h | collisions=0
+  tick= 250 | dist= 36.3m | TTC=  5.4s | leader=0.0km/h | follower=24.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 31.044 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed20_20260614_171953
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2766 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2765 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 21
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed21_20260614_172006
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=21 -> index [99]
+[INFO] Shifted leader from lane 4 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -143.7) lane 6
+[INFO] Follower spawned at (-16.7, -153.7, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed21_20260614_172006/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.1m | TTC=  infs | leader=29.1km/h | follower=15.4km/h | collisions=0
+  tick= 100 | dist= 28.5m | TTC=  infs | leader=36.9km/h | follower=23.4km/h | collisions=0
+  tick= 150 | dist= 39.1m | TTC=  infs | leader=37.3km/h | follower=18.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 48.8m | TTC=  infs | leader=37.2km/h | follower=26.0km/h | collisions=0
+  tick= 250 | dist= 37.8m | TTC=  6.0s | leader=0.0km/h | follower=22.8km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 31.736 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed21_20260614_172006
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 2897 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 2896 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 22
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed22_20260614_172019
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=22 -> index [100]
+[INFO] Shifted leader from lane 3 -> rightmost driving lane 6
+[INFO] Leader spawned at (-16.6, -146.1) lane 6
+[INFO] Follower spawned at (-16.7, -156.1, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed22_20260614_172019/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.0m | TTC=  infs | leader=29.0km/h | follower=17.5km/h | collisions=0
+  tick= 100 | dist= 28.6m | TTC=  infs | leader=36.9km/h | follower=24.5km/h | collisions=0
+  tick= 150 | dist= 38.4m | TTC=  infs | leader=37.3km/h | follower=23.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 47.9m | TTC=  infs | leader=37.2km/h | follower=22.6km/h | collisions=0
+  tick= 250 | dist= 37.1m | TTC=  5.1s | leader=0.0km/h | follower=26.3km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 31.429 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed22_20260614_172019
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3028 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3027 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 23
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed23_20260614_172032
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=23 -> index [107]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 98.4) lane -4
+[INFO] Follower spawned at (16.0, 108.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed23_20260614_172032/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.1m | TTC=  infs | leader=29.1km/h | follower=16.7km/h | collisions=0
+  tick= 100 | dist= 28.9m | TTC=  infs | leader=36.9km/h | follower=23.3km/h | collisions=0
+  tick= 150 | dist= 43.7m | TTC=  infs | leader=37.3km/h | follower=10.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 59.3m | TTC=  infs | leader=37.2km/h | follower=15.5km/h | collisions=0
+  tick= 250 | dist= 54.9m | TTC= 14.1s | leader=0.0km/h | follower=14.1km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 38.902 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed23_20260614_172032
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3159 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3158 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 24
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed24_20260614_172049
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=24 -> index [108]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 96.3) lane -4
+[INFO] Follower spawned at (16.0, 106.3, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed24_20260614_172049/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.2m | TTC=  infs | leader=29.1km/h | follower=14.1km/h | collisions=0
+  tick= 100 | dist= 29.4m | TTC=  infs | leader=36.9km/h | follower=20.1km/h | collisions=0
+  tick= 150 | dist= 43.9m | TTC=  infs | leader=37.3km/h | follower=15.0km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 59.7m | TTC=  infs | leader=37.2km/h | follower=16.8km/h | collisions=0
+  tick= 250 | dist= 54.9m | TTC= 14.1s | leader=0.0km/h | follower=14.0km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 39.17 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed24_20260614_172049
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3290 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3289 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 25
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed25_20260614_172105
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=25 -> index [109]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (15.9, 98.4) lane -4
+[INFO] Follower spawned at (16.0, 108.4, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed25_20260614_172105/follower_route.xml (303 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.2m | TTC=  infs | leader=29.1km/h | follower=15.6km/h | collisions=0
+  tick= 100 | dist= 29.0m | TTC=  infs | leader=36.9km/h | follower=23.1km/h | collisions=0
+  tick= 150 | dist= 44.1m | TTC=  infs | leader=37.3km/h | follower=10.8km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 59.5m | TTC=  infs | leader=37.2km/h | follower=15.9km/h | collisions=0
+  tick= 250 | dist= 54.6m | TTC= 12.0s | leader=0.0km/h | follower=16.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 39.053 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed25_20260614_172105
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3421 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3420 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 26
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed26_20260614_172122
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=26 -> index [111]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 130.8) lane -4
+[INFO] Follower spawned at (16.1, 140.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed26_20260614_172122/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 19.1m | TTC=  infs | leader=29.0km/h | follower=14.7km/h | collisions=0
+  tick= 100 | dist= 29.7m | TTC=  infs | leader=36.9km/h | follower=18.2km/h | collisions=0
+  tick= 150 | dist= 43.3m | TTC=  infs | leader=37.3km/h | follower=19.1km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 55.6m | TTC=  infs | leader=37.2km/h | follower=21.9km/h | collisions=0
+  tick= 250 | dist= 49.8m | TTC= 10.9s | leader=0.0km/h | follower=16.5km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 37.373 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed26_20260614_172122
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3552 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3551 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 27
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed27_20260614_172140
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=27 -> index [112]
+[INFO] Shifted leader from lane -2 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 128.8) lane -4
+[INFO] Follower spawned at (16.1, 138.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed27_20260614_172140/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.9m | TTC=  infs | leader=29.1km/h | follower=16.1km/h | collisions=0
+  tick= 100 | dist= 30.1m | TTC=  infs | leader=36.9km/h | follower=21.7km/h | collisions=0
+  tick= 150 | dist= 43.1m | TTC=  infs | leader=37.3km/h | follower=21.9km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 54.6m | TTC=  infs | leader=37.2km/h | follower=22.3km/h | collisions=0
+  tick= 250 | dist= 47.5m | TTC= 15.7s | leader=0.0km/h | follower=10.9km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 36.57 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed27_20260614_172140
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3683 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3682 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 28
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed28_20260614_172157
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=28 -> index [113]
+[INFO] Shifted leader from lane -3 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.1, 130.8) lane -4
+[INFO] Follower spawned at (16.1, 140.8, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed28_20260614_172157/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist= 10.0m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.9m | TTC=  infs | leader=29.0km/h | follower=15.7km/h | collisions=0
+  tick= 100 | dist= 29.8m | TTC=  infs | leader=36.9km/h | follower=20.1km/h | collisions=0
+  tick= 150 | dist= 42.1m | TTC=  infs | leader=37.3km/h | follower=19.6km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 55.0m | TTC=  infs | leader=37.2km/h | follower=23.9km/h | collisions=0
+  tick= 250 | dist= 47.4m | TTC= 10.9s | leader=0.0km/h | follower=15.7km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 36.375 m
+  Min dist   : 10.0 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed28_20260614_172157
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3814 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3813 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 29
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed29_20260614_172213
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=29 -> index [115]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (16.2, 152.5) lane -4
+[INFO] Follower spawned at (16.2, 162.2, 0.5)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed29_20260614_172213/follower_route.xml (304 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.7m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 18.4m | TTC=  infs | leader=29.0km/h | follower=12.4km/h | collisions=0
+  tick= 100 | dist= 30.8m | TTC=  infs | leader=36.9km/h | follower=16.1km/h | collisions=0
+  tick= 150 | dist= 44.2m | TTC=  infs | leader=37.3km/h | follower=22.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 54.1m | TTC=  infs | leader=37.2km/h | follower=21.0km/h | collisions=0
+  tick= 250 | dist= 48.8m | TTC=  9.1s | leader=0.0km/h | follower=19.4km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 36.823 m
+  Min dist   : 9.68 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed29_20260614_172213
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 3945 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 3944 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : neat_aim2dsem  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 30
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed30_20260614_172231
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Spawn pool for Town04 has 30 entries; seed=30 -> index [53]
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed30_20260614_172231/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'neat_aim2dsem' in control mode ...
+[INFO] Agent attached.
+[detection_probe] no probe available for agent 'neat_aim2dsem'
+
+[INFO] Starting simulation loop (300 ticks)...
+
+/home/vortex/PCLA/pcla_agents/neat/aim_mt_2d_agent.py:150: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:206.)
+  rgb = torch.from_numpy(scale_and_crop_image(Image.fromarray(tick_data['rgb']), scale=self.config.scale, crop=self.config.input_resolution)).unsqueeze(0)
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist= 17.6m | TTC=  infs | leader=28.6km/h | follower=16.9km/h | collisions=0
+  tick= 100 | dist= 28.0m | TTC=  infs | leader=36.8km/h | follower=24.6km/h | collisions=0
+  tick= 150 | dist= 37.5m | TTC=  infs | leader=37.3km/h | follower=24.2km/h | collisions=0
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 49.8m | TTC=  infs | leader=37.5km/h | follower=19.1km/h | collisions=0
+  tick= 250 | dist= 44.5m | TTC= 14.4s | leader=0.0km/h | follower=11.2km/h | collisions=0
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 0
+  Mean dist  : 33.333 m
+  Min dist   : 9.796 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260614_123728/neat_aim2dsem/patch/Town04/raw_neat_aim2dsem_seed30_20260614_172231
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 4076 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 4075 : unable to destroy actor: not found 
+[INFO] Done.

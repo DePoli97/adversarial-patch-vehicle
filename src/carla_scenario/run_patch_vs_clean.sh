@@ -41,7 +41,10 @@ if [[ ! -x "${PACKAGE_PATCH}/CarlaUE4.sh" ]]; then
   echo "[ERR] missing CARLA patch package: ${PACKAGE_PATCH}/CarlaUE4.sh"; exit 1
 fi
 
-MASTER_TS="$(date '+%Y%m%d_%H%M%S')"
+# Allow overriding the master timestamp so that follow-up agents can be
+# appended into an existing multi_agent_<ts>/ folder (e.g., to add NEAT to
+# a family-2 sweep already produced earlier on the same day).
+MASTER_TS="${MASTER_TS:-$(date '+%Y%m%d_%H%M%S')}"
 OUT_ROOT="experiments/carla_scenarios/multi_agent_${MASTER_TS}"
 mkdir -p "$OUT_ROOT"
 

@@ -82,3 +82,6 @@ experiments/carla_scenarios/**/*.jpg
 # Per-run comparison videos (heavy, regeneratable). Keep only the overview.mp4
 # (committed per agent/town directory) to give a quick visual summary.
 experiments/carla_scenarios/**/videos/run_*.mp4
+
+#roba di Maosud?
+eval/

@@ -1,0 +1,560 @@
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 1
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed1_20260609_141419
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed1_20260609_141419/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed1_20260609_141419/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed1_20260609_141419/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.3km/h | collisions=0
+  tick= 100 | dist= 19.2m | TTC=  infs | leader=36.8km/h | follower=18.1km/h | collisions=0
+  tick= 150 | dist= 42.4m | TTC=  infs | leader=37.3km/h | follower=0.0km/h | collisions=33
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.4m | TTC=  infs | leader=37.5km/h | follower=0.1km/h | collisions=83
+  tick= 250 | dist= 74.5m | TTC=7202.2s | leader=0.0km/h | follower=0.1km/h | collisions=133
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 182
+  Mean dist  : 42.498 m
+  Min dist   : 8.801 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed1_20260609_141419
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 153 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 152 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 2
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed2_20260609_141432
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed2_20260609_141432/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed2_20260609_141432/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed2_20260609_141432/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=23.2km/h | collisions=0
+  tick= 100 | dist= 18.1m | TTC=  infs | leader=36.8km/h | follower=18.6km/h | collisions=0
+  tick= 150 | dist= 42.4m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=41
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.4m | TTC=  infs | leader=37.5km/h | follower=0.0km/h | collisions=91
+  tick= 250 | dist= 74.5m | TTC=6432.8s | leader=0.0km/h | follower=0.1km/h | collisions=141
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 190
+  Mean dist  : 42.397 m
+  Min dist   : 8.783 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed2_20260609_141432
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 283 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 282 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 3
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed3_20260609_141445
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed3_20260609_141445/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed3_20260609_141445/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed3_20260609_141445/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.1km/h | collisions=0
+  tick= 100 | dist= 18.0m | TTC=  infs | leader=36.8km/h | follower=18.8km/h | collisions=0
+  tick= 150 | dist= 42.3m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=42
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.3m | TTC=  infs | leader=37.5km/h | follower=0.1km/h | collisions=92
+  tick= 250 | dist= 74.4m | TTC=4085.7s | leader=0.0km/h | follower=0.1km/h | collisions=142
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 191
+  Mean dist  : 42.329 m
+  Min dist   : 8.821 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed3_20260609_141445
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 413 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 412 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 4
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed4_20260609_141458
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed4_20260609_141458/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed4_20260609_141458/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed4_20260609_141458/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.6km/h | collisions=0
+  tick= 100 | dist= 17.7m | TTC=  infs | leader=36.8km/h | follower=19.5km/h | collisions=0
+  tick= 150 | dist= 42.3m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=43
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.2m | TTC=  infs | leader=37.5km/h | follower=0.1km/h | collisions=93
+  tick= 250 | dist= 74.3m | TTC=3696.5s | leader=0.0km/h | follower=0.1km/h | collisions=143
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 192
+  Mean dist  : 42.28 m
+  Min dist   : 8.826 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed4_20260609_141458
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 543 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 542 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 5
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed5_20260609_141511
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed5_20260609_141511/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed5_20260609_141511/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed5_20260609_141511/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.1km/h | collisions=0
+  tick= 100 | dist= 18.1m | TTC=  infs | leader=36.8km/h | follower=18.6km/h | collisions=0
+  tick= 150 | dist= 42.4m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=41
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.3m | TTC=  infs | leader=37.5km/h | follower=0.0km/h | collisions=91
+  tick= 250 | dist= 74.5m | TTC=6406.0s | leader=0.0km/h | follower=0.1km/h | collisions=141
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 190
+  Mean dist  : 42.399 m
+  Min dist   : 8.805 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed5_20260609_141511
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 673 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 672 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 6
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed6_20260609_141525
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed6_20260609_141525/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed6_20260609_141525/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed6_20260609_141525/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.5km/h | collisions=0
+  tick= 100 | dist= 17.7m | TTC=  infs | leader=36.8km/h | follower=21.2km/h | collisions=0
+  tick= 150 | dist= 42.2m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=42
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.1m | TTC=  infs | leader=37.5km/h | follower=0.2km/h | collisions=92
+  tick= 250 | dist= 74.2m | TTC=2343.6s | leader=0.0km/h | follower=0.1km/h | collisions=142
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 191
+  Mean dist  : 42.196 m
+  Min dist   : 8.805 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed6_20260609_141525
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 803 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 802 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 7
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed7_20260609_141538
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed7_20260609_141538/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed7_20260609_141538/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed7_20260609_141538/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.2m | TTC=  infs | leader=28.6km/h | follower=24.4km/h | collisions=0
+  tick= 100 | dist= 18.1m | TTC=  infs | leader=36.8km/h | follower=19.2km/h | collisions=0
+  tick= 150 | dist= 42.4m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=42
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.3m | TTC=  infs | leader=37.5km/h | follower=0.1km/h | collisions=92
+  tick= 250 | dist= 74.4m | TTC=4899.3s | leader=0.0km/h | follower=0.1km/h | collisions=142
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 191
+  Mean dist  : 42.369 m
+  Min dist   : 8.78 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed7_20260609_141538
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 933 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 932 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 8
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed8_20260609_141551
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed8_20260609_141551/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed8_20260609_141551/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed8_20260609_141551/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.0km/h | collisions=0
+  tick= 100 | dist= 17.7m | TTC=  infs | leader=36.8km/h | follower=20.1km/h | collisions=0
+  tick= 150 | dist= 42.2m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=42
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.2m | TTC=  infs | leader=37.5km/h | follower=0.1km/h | collisions=92
+  tick= 250 | dist= 74.3m | TTC=3597.6s | leader=0.0km/h | follower=0.1km/h | collisions=142
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 191
+  Mean dist  : 42.243 m
+  Min dist   : 8.851 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed8_20260609_141551
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1063 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1062 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 9
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed9_20260609_141604
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed9_20260609_141604/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed9_20260609_141604/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed9_20260609_141604/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.2km/h | collisions=0
+  tick= 100 | dist= 17.7m | TTC=  infs | leader=36.8km/h | follower=21.3km/h | collisions=0
+  tick= 150 | dist= 42.2m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=42
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.1m | TTC=  infs | leader=37.5km/h | follower=0.1km/h | collisions=92
+  tick= 250 | dist= 74.2m | TTC=2975.3s | leader=0.0km/h | follower=0.1km/h | collisions=142
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 191
+  Mean dist  : 42.22 m
+  Min dist   : 8.801 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed9_20260609_141604
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1193 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1192 : unable to destroy actor: not found 
+[INFO] Done.
+
+============================================================
+  Condition : raw
+  Agent     : tfv4_aim_0  (IN CONTROL)
+  Town      : Town04
+  Ticks     : 300  (15.0s sim time)
+  Leader BP : vehicle.carlamotors.carlacola  (NPC, carries patch)
+  Follower  : vehicle.tesla.model3  (ego, PCLA agent)
+  Seed      : 10
+  Output    : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed10_20260609_141618
+============================================================
+
+[INFO] Connecting to CARLA at localhost:2000 ...
+WARNING: Version mismatch detected: You are trying to connect to a simulator that might be incompatible with this API 
+WARNING: Client API version     = 0.9.15 
+WARNING: Simulator API version  = 0.9.15.2 
+[INFO] World 'Town04' loaded.
+[INFO] Using cached spawn index [53] for Town04 (pass --rescan to override)
+[INFO] Shifted leader from lane -1 -> rightmost driving lane -4
+[INFO] Leader spawned at (83.7, 6.4) lane -4
+[INFO] Follower spawned at (93.5, 6.5, 11.3)
+[INFO] Initial velocity set to 20 km/h
+[INFO] Route saved to /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed10_20260609_141618/follower_route.xml (305 waypoints)
+[INFO] Attaching PCLA agent 'tfv4_aim_0' in control mode ...
+/home/vortex/PCLA/pcla_agents/transfuserv4_pretrained/lav/aim_02_05_withheld_0/model_0030.pth
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+[INFO] Agent attached.
+[detection_probe] tfv4-family hook installed -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed10_20260609_141618/detection_probe.tsv
+[detection_probe] tfv4-family raw log        -> /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed10_20260609_141618/detection_probe_raw.tsv
+
+[INFO] Starting simulation loop (300 ticks)...
+
+  tick=   0 | dist=  9.8m | TTC=  infs | leader=21.2km/h | follower=21.2km/h | collisions=0
+  tick=  50 | dist=  9.3m | TTC=  infs | leader=28.6km/h | follower=24.3km/h | collisions=0
+  tick= 100 | dist= 18.3m | TTC=  infs | leader=36.8km/h | follower=18.5km/h | collisions=0
+  tick= 150 | dist= 42.4m | TTC=  infs | leader=37.3km/h | follower=0.1km/h | collisions=40
+
+[EVENT] t=10.0s  ->  leader emergency brake
+  tick= 200 | dist= 68.4m | TTC=  infs | leader=37.5km/h | follower=0.1km/h | collisions=90
+  tick= 250 | dist= 74.5m | TTC=63655.4s | leader=0.0km/h | follower=0.0km/h | collisions=140
+
+============================================================
+  Run complete.
+  Agent      : ok=300 none=0 error=0
+  Collisions : 189
+  Mean dist  : 42.434 m
+  Min dist   : 8.808 m
+  Images     : 29
+  Output     : /home/vortex/adversarial-patch-vehicle/experiments/carla_scenarios/multi_agent_20260609_130722/tfv4_aim_0/patch/raw_tfv4_aim_0_seed10_20260609_141618
+============================================================
+
+[INFO] Cleaning up...
+ERROR: failed to destroy actor 1323 : unable to destroy actor: not found 
+ERROR: failed to destroy actor 1322 : unable to destroy actor: not found 
+[INFO] Done.

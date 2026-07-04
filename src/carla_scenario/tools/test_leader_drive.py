@@ -186,7 +186,7 @@ def main() -> None:
             try:
                 actor.destroy()
             except Exception:
-            pass
+                pass
 
 
 if __name__ == "__main__":

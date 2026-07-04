@@ -63,10 +63,8 @@ def make_camera_bp(world):
 
 
 def save_frame(image: carla.Image, path: Path) -> None:
-    arr = np.frombuffer(image.raw_data, dtype=np.uint8).reshape(image.height, image.width, 4)
-    bgr = arr[..., :3].copy()
-    import cv2
-    cv2.imwrite(str(path), bgr)
+    # CARLA's built-in save handles BGRA -> PNG conversion. No cv2/pillow needed.
+    image.save_to_disk(str(path))
 
 
 def resolve_weather(name: str) -> carla.WeatherParameters:

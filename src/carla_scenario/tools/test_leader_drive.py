@@ -100,34 +100,51 @@ def main() -> None:
         f"yaw={sp.rotation.yaw:.1f} road={wp.road_id} lane={wp.lane_id}"
     )
 
-    route = build_route(wp, args.route_m, args.step_m)
-    print(f"[INFO] Route: {len(route)} waypoints over ~{args.route_m:.0f} m")
+    # Where to put each vehicle:
+    # - No follower: leader at the chosen spawn (backward compat).
+    # - With follower: user's spawn is the FOLLOWER position (guaranteed to be a
+    #   nice road spot they picked visually); leader goes N meters AHEAD along
+    #   the same road via wp.next(). Forward walk stays on the same road_id
+    #   continuation, avoiding the "follower lands in the previous junction"
+    #   problem that comes from wp.previous(gap) on spawns placed just after
+    #   an intersection.
+    if args.with_follower:
+        follower_wp = wp
+        leader_wps = wp.next(args.follower_gap_m)
+        if not leader_wps:
+            raise SystemExit(f"cannot walk {args.follower_gap_m} m forward from spawn — no next waypoint")
+        leader_wp_placed = leader_wps[0]
+    else:
+        follower_wp = None
+        leader_wp_placed = wp
+
+    route = build_route(leader_wp_placed, args.route_m, args.step_m)
+    print(f"[INFO] Route: {len(route)} waypoints over ~{args.route_m:.0f} m (from leader position)")
     draw_route(world, route, life_time=args.wait_s + args.drive_s + 10)
 
     bplib = world.get_blueprint_library()
     bp = bplib.filter(args.vehicle)[0]
 
-    spawn_t = wp.transform
-    spawn_t.location.z += 0.5  # lift so the wheels aren't clipped in the road
-    leader = world.try_spawn_actor(bp, spawn_t)
+    leader_t = leader_wp_placed.transform
+    leader_t.location.z += 0.5
+    leader = world.try_spawn_actor(bp, leader_t)
     if leader is None:
         raise SystemExit("failed to spawn leader — try a different spawn or check the road is clear")
-    print(f"[INFO] Spawned {bp.id} at spawn {args.spawn}")
+    print(f"[INFO] Spawned {bp.id} as leader at road={leader_wp_placed.road_id} lane={leader_wp_placed.lane_id}")
 
     follower = None
     if args.with_follower:
-        prev_wps = wp.previous(args.follower_gap_m)
-        if not prev_wps:
-            print(f"[WARN] Can't place follower {args.follower_gap_m} m behind — no previous waypoint")
+        follower_bp = bplib.filter(args.follower_vehicle)[0]
+        follower_t = follower_wp.transform
+        follower_t.location.z += 0.5
+        follower = world.try_spawn_actor(follower_bp, follower_t)
+        if follower is None:
+            print("[WARN] Failed to spawn follower")
         else:
-            follower_bp = bplib.filter(args.follower_vehicle)[0]
-            follower_t = prev_wps[0].transform
-            follower_t.location.z += 0.5
-            follower = world.try_spawn_actor(follower_bp, follower_t)
-            if follower is None:
-                print("[WARN] Failed to spawn follower")
-            else:
-                print(f"[INFO] Spawned {follower_bp.id} follower {args.follower_gap_m:.1f} m behind leader")
+            print(
+                f"[INFO] Spawned {follower_bp.id} follower at spawn {args.spawn} "
+                f"({args.follower_gap_m:.1f} m behind leader on same road)"
+            )
 
     print(f"[INFO] Waiting {args.wait_s:.1f} s so you can look at the vehicle in the spectator...")
     time.sleep(args.wait_s)

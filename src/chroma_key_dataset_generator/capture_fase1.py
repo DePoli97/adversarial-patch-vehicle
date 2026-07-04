@@ -125,9 +125,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    tag = args.run_tag or f"{ts}_{args.town}_spawn{args.spawn}_{args.leader_mode}"
-    run_dir = args.out_dir / f"fase1_{tag}"
+    # Nested layout so all variants of the same (town, spawn) live under one
+    # parent — makes it easy to diff clean vs marker vs noleader frame-by-frame.
+    #   data/chroma_key_dataset/fase1/<town>_spawn<N>/<mode>/
+    parent_tag = args.run_tag or f"{args.town}_spawn{args.spawn}"
+    run_dir = args.out_dir / "fase1" / parent_tag / args.leader_mode
     run_dir.mkdir(parents=True, exist_ok=True)
     print(f"[INFO] Output: {run_dir}")
 

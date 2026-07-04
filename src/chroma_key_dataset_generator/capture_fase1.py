@@ -117,6 +117,10 @@ def parse_args() -> argparse.Namespace:
 
     p.add_argument("--settle-ticks", type=int, default=30, help="ticks between spawn and camera capture, for physics + rendering to settle")
     p.add_argument("--warmup-ticks", type=int, default=200, help="ticks after town load, for texture streaming")
+    p.add_argument("--first-frame-extra-ticks", type=int, default=60,
+                   help="extra settle ticks ONLY on the first captured frame — gives CarlaCola texture "
+                        "time to stream in on huge tile-based maps (Town11/12) where the first spawn "
+                        "may otherwise render untextured")
     p.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
     p.add_argument("--run-tag", default=None, help="folder tag; defaults to timestamp_town_spawn")
     return p.parse_args()
@@ -241,8 +245,10 @@ def main() -> None:
             container["img"] = image
         cam.listen(_on)
 
-        # settle
-        for _ in range(args.settle_ticks):
+        # settle. On frame 0 we allow extra ticks so the CarlaCola texture has
+        # a chance to stream in on huge tile-based maps.
+        extra = args.first_frame_extra_ticks if i == 0 else 0
+        for _ in range(args.settle_ticks + extra):
             world.tick()
 
         img = got["img"]

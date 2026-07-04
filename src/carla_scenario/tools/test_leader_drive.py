@@ -69,7 +69,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--step-m", type=float, default=2.0, help="waypoint sampling step")
     p.add_argument("--wait-s", type=float, default=5.0, help="idle time before releasing TM")
     p.add_argument("--drive-s", type=float, default=30.0, help="seconds of driving after release")
-    p.add_argument("--vehicle", default="model3", help="blueprint filter (model3, carlacola, ...)")
+    p.add_argument("--vehicle", default="model3", help="leader blueprint filter (model3, carlacola, ...)")
+    p.add_argument("--with-follower", action="store_true", help="also spawn a follower vehicle behind the leader (for demo videos)")
+    p.add_argument("--follower-vehicle", default="model3", help="follower blueprint filter")
+    p.add_argument("--follower-gap-m", type=float, default=10.0, help="gap between leader and follower (m)")
     return p.parse_args()
 
 
@@ -111,6 +114,21 @@ def main() -> None:
         raise SystemExit("failed to spawn leader — try a different spawn or check the road is clear")
     print(f"[INFO] Spawned {bp.id} at spawn {args.spawn}")
 
+    follower = None
+    if args.with_follower:
+        prev_wps = wp.previous(args.follower_gap_m)
+        if not prev_wps:
+            print(f"[WARN] Can't place follower {args.follower_gap_m} m behind — no previous waypoint")
+        else:
+            follower_bp = bplib.filter(args.follower_vehicle)[0]
+            follower_t = prev_wps[0].transform
+            follower_t.location.z += 0.5
+            follower = world.try_spawn_actor(follower_bp, follower_t)
+            if follower is None:
+                print("[WARN] Failed to spawn follower")
+            else:
+                print(f"[INFO] Spawned {follower_bp.id} follower {args.follower_gap_m:.1f} m behind leader")
+
     print(f"[INFO] Waiting {args.wait_s:.1f} s so you can look at the vehicle in the spectator...")
     time.sleep(args.wait_s)
 
@@ -123,7 +141,21 @@ def main() -> None:
     tm.set_desired_speed(leader, args.speed_kmh)
     tm.set_path(leader, route)
     leader.set_autopilot(True, tm.get_port())
-    print(f"[INFO] TM enabled: speed={args.speed_kmh} km/h, {len(route)}-point path, autopilot ON")
+    print(f"[INFO] TM enabled on leader: speed={args.speed_kmh} km/h, {len(route)}-point path")
+
+    if follower is not None:
+        tm.ignore_lights_percentage(follower, 100)
+        tm.ignore_signs_percentage(follower, 100)
+        tm.auto_lane_change(follower, False)
+        tm.set_desired_speed(follower, args.speed_kmh)
+        # Same route — since the follower is on the same lane behind the leader,
+        # driving through the same waypoints keeps it aligned and TM handles the
+        # leader-following distance automatically.
+        tm.set_path(follower, route)
+        # Extra safety: keep >=6 m gap from any vehicle ahead
+        tm.distance_to_leading_vehicle(follower, 6.0)
+        follower.set_autopilot(True, tm.get_port())
+        print(f"[INFO] TM enabled on follower")
 
     t_start = time.monotonic()
     try:
@@ -143,10 +175,17 @@ def main() -> None:
     except KeyboardInterrupt:
         print("\n[INFO] Interrupted.")
     finally:
-        print("[INFO] Destroying leader.")
-        try:
-            leader.destroy()
-        except Exception:
+        print("[INFO] Destroying actors.")
+        for actor in (follower, leader):
+            if actor is None:
+                continue
+            try:
+                actor.set_autopilot(False, tm.get_port())
+            except Exception:
+                pass
+            try:
+                actor.destroy()
+            except Exception:
             pass
 
 

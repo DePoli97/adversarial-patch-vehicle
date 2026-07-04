@@ -92,6 +92,12 @@ def parse_args() -> argparse.Namespace:
         default=1.5,
         help="vertical lift (m) of the label above the road, so it isn't clipped by the asphalt",
     )
+    p.add_argument(
+        "--max-labels",
+        type=int,
+        default=0,
+        help="hard cap on labels drawn (default 0 = no cap). Use on huge maps (Town11/12) to avoid overloading the renderer",
+    )
     return p.parse_args()
 
 
@@ -123,6 +129,11 @@ def main() -> None:
         if args.one_way_only and not is_one_way(wp):
             continue
         keep.append((idx, sp, wp))
+
+    if args.max_labels > 0 and len(keep) > args.max_labels:
+        step = max(1, len(keep) // args.max_labels)
+        keep = keep[::step][: args.max_labels]
+        print(f"[INFO] Capped labels to {len(keep)} (every {step}th spawn)")
 
     print(
         f"[INFO] Drawing {len(keep)} spawn labels "

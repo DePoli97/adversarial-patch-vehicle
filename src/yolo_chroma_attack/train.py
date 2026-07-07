@@ -32,7 +32,7 @@ from torch.utils.data import DataLoader
 from src.yolo_chroma_attack.dataset import ChromaKeyDataset, collate
 from src.yolo_chroma_attack.patch_render import init_patch, render_patch_on_image
 from src.yolo_chroma_attack.yolo_loss import YoloHideLoss
-from src.yolo_chroma_attack.eot import eot_apply
+from src.yolo_chroma_attack.eot import eot_apply, total_variation
 
 try:
     import wandb
@@ -78,6 +78,14 @@ def main():
     p.add_argument("--target-expand-x", type=float, default=3.5)
     p.add_argument("--target-expand-y", type=float, default=3.5)
     p.add_argument("--eot-noise", type=float, default=0.02)
+    p.add_argument("--geom-eot", action="store_true",
+                   help="Enable geometric EOT (random rotation/scale/translation "
+                        "of the patch). Needed on low-pose-variety datasets to "
+                        "avoid high-frequency-noise overfitting.")
+    p.add_argument("--tv-weight", type=float, default=0.0,
+                   help="Total-variation regularization weight. >0 penalizes "
+                        "high-frequency noise, pushing toward smooth structured "
+                        "patterns. Typical: 0.5-5.")
     p.add_argument("--topk", type=int, default=10,
                    help="Top-k anchor aggregation in hide loss")
     p.add_argument("--margin-tau", type=float, default=0.0,
@@ -169,9 +177,14 @@ def main():
             corners = batch["corners"].to(device, non_blocking=True)
             tgt = batch["target_bbox"].to(device, non_blocking=True)
 
-            patch_aug = eot_apply(patch, noise_std=args.eot_noise)
+            patch_aug = eot_apply(patch, noise_std=args.eot_noise,
+                                  geom=args.geom_eot)
             out = render_patch_on_image(img, patch_aug, corners)
-            loss, info = hide_loss(out, tgt)
+            hide, info = hide_loss(out, tgt)
+            # Total-variation regularization on the raw (un-augmented) patch:
+            # smooths high-frequency noise into structured regions.
+            tv = total_variation(patch) if args.tv_weight > 0 else torch.zeros((), device=device)
+            loss = hide + args.tv_weight * tv
 
             optimizer.zero_grad()
             loss.backward()
@@ -181,10 +194,11 @@ def main():
 
             epoch_losses.append(info["loss"])
             if step % 20 == 0:
-                log(f"  step {step:5d}  ep {epoch:2d}  loss={info['loss']:.4f}  "
-                    f"veh_in_box={info['veh_max_in_box_mean']:.4f}")
+                log(f"  step {step:5d}  ep {epoch:2d}  hide={info['loss']:.4f}  "
+                    f"tv={float(tv):.4f}  veh_in_box={info['veh_max_in_box_mean']:.4f}")
                 if use_wandb:
-                    wandb.log({"step": step, "train/loss_step": info["loss"],
+                    wandb.log({"step": step, "train/hide_step": info["loss"],
+                               "train/tv_step": float(tv),
                                "train/veh_in_box_step": info["veh_max_in_box_mean"]})
             step += 1
 

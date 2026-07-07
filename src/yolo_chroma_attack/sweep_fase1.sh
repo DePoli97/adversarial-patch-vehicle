@@ -23,10 +23,20 @@ cd "$REPO_ROOT"
 EPOCHS="${EPOCHS:-30}"
 BATCH="${BATCH:-16}"
 LR="${LR:-0.05}"
-TOPK="${TOPK:-20}"
+# Winning config from the 2026-07-07 Town04_day ablation:
+#   topk=3  (attack the strongest anchors, not a diluted top-20 mean)
+#   margin-tau=0.05  (hinge just above noise floor, not the crippling 0.2)
+#   geom-eot  (the decisive lever: rotation/scale/translation forces the patch
+#              to a spatially-coherent structured pattern instead of the
+#              high-frequency noise the low-pose-variety dataset overfits to)
+# TV loss helped smoothness but blurred the pattern with no perf gain, so it's
+# off — geom alone reaches 99% confidence drop / 100% frames hidden.
+TOPK="${TOPK:-3}"
 EXPAND="${EXPAND:-2.5}"
 YOLO_WEIGHTS="${YOLO_WEIGHTS:-yolov8m.pt}"   # m detects the clean carlacola; n/s/x do not
-MARGIN_TAU="${MARGIN_TAU:-0.2}"              # C&W hinge: stop once conf < detection threshold
+MARGIN_TAU="${MARGIN_TAU:-0.05}"
+GEOM_EOT="${GEOM_EOT:-1}"                    # 1 = enable geometric EOT
+TV_WEIGHT="${TV_WEIGHT:-0.0}"
 WANDB_PROJECT="${WANDB_PROJECT:-adversarial-patch-fase1}"
 WANDB_GROUP="sweep_$(date +%Y%m%d_%H%M%S)"
 
@@ -45,7 +55,7 @@ COMBOS=(
 
 echo "######################################################"
 echo " FASE 1 sweep — patch vs YOLO"
-echo "  WEIGHTS: $YOLO_WEIGHTS   MARGIN_TAU: $MARGIN_TAU"
+echo "  WEIGHTS: $YOLO_WEIGHTS   MARGIN_TAU: $MARGIN_TAU   GEOM_EOT: $GEOM_EOT   TV: $TV_WEIGHT"
 echo "  EPOCHS/BATCH/LR/TOPK/EXPAND: $EPOCHS/$BATCH/$LR/$TOPK/$EXPAND"
 echo "  WANDB_PROJECT : $WANDB_PROJECT"
 echo "  WANDB_GROUP   : $WANDB_GROUP"
@@ -63,6 +73,8 @@ train_one() {
   # $1 = run-dir  $2 = out-dir  $3 = wandb run name
   local run_dir="$1" out_dir="$2" name="$3"
   echo "=== $name  (dataset=${run_dir}  out=${out_dir}) ==="
+  local geom_flag=""
+  [ "$GEOM_EOT" = "1" ] && geom_flag="--geom-eot"
   python -u -m src.yolo_chroma_attack.train \
       --run-dir "$run_dir" \
       --out-dir "$out_dir" \
@@ -74,6 +86,8 @@ train_one() {
       --patch-h 256 --patch-w 512 \
       --topk "$TOPK" \
       --margin-tau "$MARGIN_TAU" \
+      $geom_flag \
+      --tv-weight "$TV_WEIGHT" \
       --target-expand-x "$EXPAND" --target-expand-y "$EXPAND" \
       --eot-noise 0.05 \
       --seed 0 \

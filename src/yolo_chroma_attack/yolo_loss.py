@@ -51,6 +51,7 @@ class YoloHideLoss:
         vehicle_classes: tuple[int, ...] = VEHICLE_CLASSES,
         conf_aggregation: str = "topk",
         topk: int = 10,
+        margin_tau: float = 0.0,
     ):
         self.device = torch.device(device)
         # Load via Ultralytics wrapper, keep underlying nn.Module for forward.
@@ -62,6 +63,13 @@ class YoloHideLoss:
         self.vehicle_classes = vehicle_classes
         self.conf_aggregation = conf_aggregation
         self.topk = topk
+        # Margin/hinge threshold (C&W-style). When > 0, the loss becomes
+        # relu(conf - tau): once a frame's confidence is pushed below the
+        # detection threshold tau (~0.2), it is already "hidden" and stops
+        # contributing gradient. This avoids wasting capacity driving an
+        # already-invisible target to exactly 0, and prevents strong-detection
+        # frames from being dominated by the flat tail of easy frames.
+        self.margin_tau = margin_tau
 
     def __call__(
         self,
@@ -106,6 +114,10 @@ class YoloHideLoss:
                 n_matched.append(0)
                 continue
             scores_b = veh_max[b][mask_b]  # (M_b,)
+            # Margin/hinge: only penalize confidence above tau. relu keeps the
+            # gradient alive while conf > tau and zeroes it once hidden.
+            if self.margin_tau > 0.0:
+                scores_b = torch.relu(scores_b - self.margin_tau)
             n_matched.append(int(mask_b.sum().item()))
             if self.conf_aggregation == "max":
                 losses.append(scores_b.max())

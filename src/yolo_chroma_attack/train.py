@@ -34,6 +34,11 @@ from src.yolo_chroma_attack.patch_render import init_patch, render_patch_on_imag
 from src.yolo_chroma_attack.yolo_loss import YoloHideLoss
 from src.yolo_chroma_attack.eot import eot_apply
 
+try:
+    import wandb
+except ImportError:
+    wandb = None
+
 
 def evaluate(loader, patch, hide_loss, device, max_batches: int | None = None):
     """Compute mean hide-loss on a loader (no grad). Returns (loss, mean_in_box_score)."""
@@ -75,6 +80,10 @@ def main():
     p.add_argument("--eot-noise", type=float, default=0.02)
     p.add_argument("--topk", type=int, default=10,
                    help="Top-k anchor aggregation in hide loss")
+    p.add_argument("--margin-tau", type=float, default=0.0,
+                   help="Margin/hinge threshold: penalize only confidence above "
+                        "tau (C&W-style). 0 disables (plain absolute loss). "
+                        "~0.2 = detection threshold, stop once hidden.")
     p.add_argument("--cosine-lr", action="store_true",
                    help="Cosine LR schedule from --lr down to --lr-min")
     p.add_argument("--lr-min", type=float, default=1e-3)
@@ -87,10 +96,22 @@ def main():
                         "where YOLO actually detects the leader in clean.")
     p.add_argument("--eval-every", type=int, default=1, help="epochs")
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--wandb-project", default=None,
+                   help="If set, log this run to Weights & Biases under this project.")
+    p.add_argument("--wandb-name", default=None, help="W&B run name (e.g. Town04_day)")
+    p.add_argument("--wandb-group", default=None,
+                   help="W&B group, to cluster runs from the same sweep")
     args = p.parse_args()
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     torch.manual_seed(args.seed)
+
+    use_wandb = args.wandb_project is not None
+    if use_wandb:
+        if wandb is None:
+            raise SystemExit("--wandb-project set but wandb is not installed")
+        wandb.init(project=args.wandb_project, name=args.wandb_name,
+                   group=args.wandb_group, config=vars(args))
 
     device = torch.device(args.device)
     image_size = (args.image_size, args.image_size)
@@ -117,7 +138,8 @@ def main():
     optimizer = torch.optim.Adam([patch], lr=args.lr)
 
     hide_loss = YoloHideLoss(weights=args.yolo_weights, device=args.device,
-                             conf_aggregation="topk", topk=args.topk)
+                             conf_aggregation="topk", topk=args.topk,
+                             margin_tau=args.margin_tau)
     scheduler = None
     if args.cosine_lr:
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
@@ -161,6 +183,9 @@ def main():
             if step % 20 == 0:
                 log(f"  step {step:5d}  ep {epoch:2d}  loss={info['loss']:.4f}  "
                     f"veh_in_box={info['veh_max_in_box_mean']:.4f}")
+                if use_wandb:
+                    wandb.log({"step": step, "train/loss_step": info["loss"],
+                               "train/veh_in_box_step": info["veh_max_in_box_mean"]})
             step += 1
 
         if scheduler is not None:
@@ -174,24 +199,36 @@ def main():
                 f"val_veh_score={val_score:.4f}  "
                 f"elapsed={(time.time()-t0)/60:.1f} min")
 
+            patch_path = args.out_dir / f"patch_ep{epoch+1:03d}.png"
+            preview_path = args.out_dir / f"preview_ep{epoch+1:03d}.png"
             torch.save(patch.detach().cpu(), args.out_dir / f"patch_ep{epoch+1:03d}.pt")
-            vutils.save_image(patch.detach().cpu(),
-                              args.out_dir / f"patch_ep{epoch+1:03d}.png")
+            vutils.save_image(patch.detach().cpu(), patch_path)
             with torch.no_grad():
                 # preview composite on the first val batch
                 vbatch = next(iter(val_loader))
                 vimg = vbatch["image"].to(device)
                 vcorners = vbatch["corners"].to(device)
                 preview = render_patch_on_image(vimg, patch.detach(), vcorners)
-                vutils.save_image(preview.cpu(),
-                                  args.out_dir / f"preview_ep{epoch+1:03d}.png",
-                                  nrow=4)
+                vutils.save_image(preview.cpu(), preview_path, nrow=4)
+
+            if use_wandb:
+                wandb.log({
+                    "epoch": epoch + 1,
+                    "train/loss_epoch": mean_train,
+                    "val/loss": val_loss,
+                    "val/veh_score": val_score,
+                    "patch": wandb.Image(str(patch_path)),
+                    "preview": wandb.Image(str(preview_path)),
+                })
 
     # Final dump
     torch.save(patch.detach().cpu(), args.out_dir / "patch_final.pt")
     vutils.save_image(patch.detach().cpu(), args.out_dir / "patch_final.png")
     with open(args.out_dir / "args.json", "w") as f:
         json.dump(vars(args), f, default=str, indent=2)
+    if use_wandb:
+        wandb.log({"final/val_veh_score": val_score, "final/val_loss": val_loss})
+        wandb.finish()
     log(f"\nDONE. patch_final.pt -> {args.out_dir}")
     log_file.close()
 

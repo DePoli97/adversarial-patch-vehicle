@@ -404,6 +404,15 @@ def main():
         collision_events: list = []
         col_sensor.listen(lambda e: collision_events.append(e))
 
+        # Gap (bumper-to-bumper) below which a collision event counts as a
+        # rear-end into the leader. Rejects unrelated crashes (guardrail, other
+        # traffic) that happen to occur elsewhere during the same run — those
+        # used to be counted as "attack success" simply because *some*
+        # collision fired on the follower's sensor, regardless of what it hit.
+        NEAR_LEADER_GAP_M = 1.0
+        leader_half_length = leader.bounding_box.extent.x
+        follower_half_length = follower.bounding_box.extent.x
+
         spectator = world.get_spectator()
 
         telemetry_path = os.path.join(out_dir, "telemetry.csv")
@@ -417,6 +426,7 @@ def main():
             "follower_y",
             "follower_speed_kmh",
             "distance_m",
+            "gap_m",
             "ttc_s",
             "collision_detected",
         ]
@@ -514,10 +524,25 @@ def main():
                 follower_spd = get_speed_kmh(follower)
                 ttc = compute_ttc(dist_m, follower_spd / 3.6, leader_spd / 3.6)
 
-                has_collision = len(collision_events) > 0
+                # Bumper-to-bumper gap (subtracts both vehicles' half-length
+                # from the centroid distance, which is what dist_m measures).
+                gap_m = dist_m - leader_half_length - follower_half_length
+
+                # A collision event counts only if it's plausibly the
+                # follower rear-ending the leader: either CARLA reports the
+                # leader as the other actor, or the two vehicles are near
+                # bumper-to-bumper when the event fires. This is the spatial
+                # gate — without it, any unrelated crash elsewhere in the
+                # scene (guardrail, other traffic) got counted as a "success".
+                valid_events = [
+                    e for e in collision_events
+                    if (e.other_actor is not None and e.other_actor.id == leader.id)
+                    or gap_m <= NEAR_LEADER_GAP_M
+                ]
+                has_collision = len(valid_events) > 0
                 if has_collision:
-                    collision_count += len(collision_events)
-                    collision_events.clear()
+                    collision_count += len(valid_events)
+                collision_events.clear()
 
                 distances.append(dist_m)
 
@@ -532,6 +557,7 @@ def main():
                         "follower_y": round(floc.y, 3),
                         "follower_speed_kmh": round(follower_spd, 2),
                         "distance_m": round(dist_m, 3),
+                        "gap_m": round(gap_m, 3),
                         "ttc_s": round(ttc, 3) if ttc != float("inf") else -1,
                         "collision_detected": int(has_collision),
                     }

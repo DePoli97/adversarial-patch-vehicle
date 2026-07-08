@@ -47,6 +47,11 @@ FRAME_CUTOFF = {
 
 COMBOS = list(FRAME_CUTOFF.keys())
 
+# Leader-gap distances captured for Fase 1 (bumper-to-bumper ~1-15 m depending
+# on town/gap). Each is a fully independent deterministic capture, so day/night
+# corner transfer is done per-distance (day dist6m -> night dist6m, etc.).
+DISTANCES = ["dist6m", "dist10m", "dist20m"]
+
 
 def order_corners(pts: np.ndarray) -> np.ndarray:
     """Order 4 points TL, TR, BR, BL by the sum/diff trick."""
@@ -94,10 +99,13 @@ def detect_marker_day(marker_day: np.ndarray,
     return None
 
 
-def build_combo(fase1_root: Path, combo: str) -> None:
-    day_marker = fase1_root / combo / "day" / "marker"
-    day_noleader = fase1_root / combo / "day" / "noleader"
-    night_marker = fase1_root / combo / "night" / "marker"
+def build_combo(fase1_root: Path, combo: str, dist: str) -> None:
+    day_marker = fase1_root / combo / "day" / dist / "marker"
+    day_noleader = fase1_root / combo / "day" / dist / "noleader"
+    night_marker = fase1_root / combo / "night" / dist / "marker"
+    if not day_marker.exists():
+        print(f"{combo}/{dist}: no data, skipping")
+        return
     cutoff = FRAME_CUTOFF[combo]
 
     day_index: dict[str, dict] = {}
@@ -133,7 +141,7 @@ def build_combo(fase1_root: Path, combo: str) -> None:
 
     (day_marker / "quads_index.json").write_text(json.dumps(day_index))
     (night_marker / "quads_index.json").write_text(json.dumps(night_index))
-    print(f"{combo}: day {len(day_index)} / night {len(night_index)} "
+    print(f"{combo}/{dist}: day {len(day_index)} / night {len(night_index)} "
           f"(detected {n_ok}, missed {n_miss}, cutoff {cutoff})")
 
 
@@ -144,7 +152,8 @@ def main() -> None:
                    default=Path("data/chroma_key_dataset/fase1"))
     args = p.parse_args()
     for combo in COMBOS:
-        build_combo(args.fase1_root, combo)
+        for dist in DISTANCES:
+            build_combo(args.fase1_root, combo, dist)
     print("done.")
 
 

@@ -98,49 +98,67 @@ train_one() {
       2>&1 | tee -a "$OUT_ROOT/all_runs.log"
 }
 
-# ---- 6 per-combo runs ----
-for combo in "${COMBOS[@]}"; do
-  read -r town light <<< "$combo"
-  marker_dir="$FASE1_ROOT/$town/$light/marker"
-  name="${town}_${light}"
-  train_one "$marker_dir" "$OUT_ROOT/$name" "$name"
-done
-
-# ---- 1 pooled run: symlink all marker dirs' frames + merge quads_index ----
-POOLED_DIR="$FASE1_ROOT/_pooled_marker"
-if [ ! -d "$POOLED_DIR" ]; then
-  echo "=== building pooled dataset -> $POOLED_DIR ==="
-  mkdir -p "$POOLED_DIR"
-  python - <<'PYEOF'
-import json
+# Pool a list of marker dirs (each a "town/light/distXm/marker") into one
+# symlinked dataset dir with a merged quads_index.json. Used both to fuse the
+# 3 distances of a single combo, and to fuse all 6 combos into the final
+# pooled-all baseline.
+pool_dirs() {
+  # $1 = output pool dir   $2.. = source marker dirs
+  local pool_dir="$1"; shift
+  if [ -d "$pool_dir" ]; then return 0; fi
+  mkdir -p "$pool_dir"
+  python - "$pool_dir" "$@" <<'PYEOF'
+import json, sys
 from pathlib import Path
 
-fase1_root = Path("data/chroma_key_dataset/fase1")
-pooled_dir = fase1_root / "_pooled_marker"
-combos = [
-    ("Town04_spawn273", "day"), ("Town04_spawn273", "night"),
-    ("Town07_spawn38", "day"), ("Town07_spawn38", "night"),
-    ("Town11_spawn1713", "day"), ("Town11_spawn1713", "night"),
-]
+pool_dir = Path(sys.argv[1])
+marker_dirs = [Path(p) for p in sys.argv[2:]]
 
 pooled_index = {}
-for town, light in combos:
-    marker_dir = fase1_root / town / light / "marker"
+for marker_dir in marker_dirs:
     index_path = marker_dir / "quads_index.json"
+    if not index_path.exists():
+        continue
     with open(index_path) as f:
         index = json.load(f)
-    prefix = f"{town}_{light}_"
+    # marker_dir looks like .../<town>/<light>/<distXm>/marker -> use the 3
+    # parent components as a unique prefix so frames from different
+    # distances/combos never collide.
+    prefix = "_".join(marker_dir.parts[-4:-1]) + "_"
     for stem, entry in index.items():
         new_stem = prefix + stem
-        (pooled_dir / f"{new_stem}.png").symlink_to(
-            (marker_dir / f"{stem}.png").resolve())
+        (pool_dir / f"{new_stem}.png").symlink_to((marker_dir / f"{stem}.png").resolve())
         pooled_index[new_stem] = entry
 
-with open(pooled_dir / "quads_index.json", "w") as f:
+with open(pool_dir / "quads_index.json", "w") as f:
     json.dump(pooled_index, f)
-print(f"pooled dataset: {len(pooled_index)} frames -> {pooled_dir}")
+print(f"pooled dataset: {len(pooled_index)} frames -> {pool_dir}")
 PYEOF
-fi
+}
+
+DISTANCES=(dist6m dist10m dist20m)
+
+# ---- 6 per-combo runs: pool the 3 distances of each (town, light) ----
+ALL_MARKER_DIRS=()
+for combo in "${COMBOS[@]}"; do
+  read -r town light <<< "$combo"
+  combo_dirs=()
+  for dist in "${DISTANCES[@]}"; do
+    d="$FASE1_ROOT/$town/$light/$dist/marker"
+    [ -d "$d" ] && combo_dirs+=("$d")
+  done
+  ALL_MARKER_DIRS+=("${combo_dirs[@]}")
+  pool_dir="$FASE1_ROOT/_pooled_${town}_${light}"
+  echo "=== pooling distances for ${town}_${light} -> $pool_dir ==="
+  pool_dirs "$pool_dir" "${combo_dirs[@]}"
+  name="${town}_${light}"
+  train_one "$pool_dir" "$OUT_ROOT/$name" "$name"
+done
+
+# ---- 1 pooled run: all 6 combos x 3 distances together ----
+POOLED_DIR="$FASE1_ROOT/_pooled_all"
+echo "=== pooling ALL combos+distances -> $POOLED_DIR ==="
+pool_dirs "$POOLED_DIR" "${ALL_MARKER_DIRS[@]}"
 train_one "$POOLED_DIR" "$OUT_ROOT/pooled" "pooled_all"
 
 echo ""

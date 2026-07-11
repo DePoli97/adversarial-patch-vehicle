@@ -21,8 +21,10 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
 EPOCHS="${EPOCHS:-30}"
-BATCH="${BATCH:-16}"
-LR="${LR:-0.05}"
+# Batch 32 (up from 16): the per-road datasets are now large (666-906 frames,
+# ~2300 pooled) so a bigger batch uses the 20 GB GPU better; LR scaled up ~sqrt.
+BATCH="${BATCH:-32}"
+LR="${LR:-0.07}"
 # Winning config from the 2026-07-07 Town04_day ablation:
 #   topk=3  (attack the strongest anchors, not a diluted top-20 mean)
 #   margin-tau=0.05  (hinge just above noise floor, not the crippling 0.2)
@@ -44,14 +46,16 @@ FASE1_ROOT="data/chroma_key_dataset/fase1"
 OUT_ROOT="experiments/yolo_attack/fase1_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$OUT_ROOT"
 
-COMBOS=(
-  "Town04_spawn273 day"
-  "Town04_spawn273 night"
-  "Town07_spawn38 day"
-  "Town07_spawn38 night"
-  "Town11_spawn1713 day"
-  "Town11_spawn1713 night"
+# One patch per ROAD: the whole road context (day + night + all distances)
+# pooled together. This tests Tonella's hypothesis that a patch trained
+# specifically on the final deployment context beats a generalist patch. Do NOT
+# split by lighting — a road's context includes both day and night.
+TOWNS=(
+  "Town04_spawn273"
+  "Town07_spawn38"
+  "Town11_spawn1713"
 )
+LIGHTS=(day night)
 
 echo "######################################################"
 echo " FASE 1 sweep — patch vs YOLO"
@@ -138,29 +142,29 @@ PYEOF
 
 DISTANCES=(dist6m dist10m dist20m)
 
-# ---- 6 per-combo runs: pool the 3 distances of each (town, light) ----
+# ---- 3 per-ROAD runs: pool day+night x all distances for each town ----
 ALL_MARKER_DIRS=()
-for combo in "${COMBOS[@]}"; do
-  read -r town light <<< "$combo"
-  combo_dirs=()
-  for dist in "${DISTANCES[@]}"; do
-    d="$FASE1_ROOT/$town/$light/$dist/marker"
-    [ -d "$d" ] && combo_dirs+=("$d")
+for town in "${TOWNS[@]}"; do
+  road_dirs=()
+  for light in "${LIGHTS[@]}"; do
+    for dist in "${DISTANCES[@]}"; do
+      d="$FASE1_ROOT/$town/$light/$dist/marker"
+      [ -d "$d" ] && road_dirs+=("$d")
+    done
   done
-  ALL_MARKER_DIRS+=("${combo_dirs[@]}")
-  pool_dir="$FASE1_ROOT/_pooled_${town}_${light}"
-  echo "=== pooling distances for ${town}_${light} -> $pool_dir ==="
-  pool_dirs "$pool_dir" "${combo_dirs[@]}"
-  name="${town}_${light}"
-  train_one "$pool_dir" "$OUT_ROOT/$name" "$name"
+  ALL_MARKER_DIRS+=("${road_dirs[@]}")
+  pool_dir="$FASE1_ROOT/_pooled_${town}"
+  echo "=== pooling day+night+distances for ${town} -> $pool_dir ==="
+  pool_dirs "$pool_dir" "${road_dirs[@]}"
+  train_one "$pool_dir" "$OUT_ROOT/$town" "$town"
 done
 
-# ---- 1 pooled run: all 6 combos x 3 distances together ----
+# ---- 1 generalist run: all roads x lighting x distances together ----
 POOLED_DIR="$FASE1_ROOT/_pooled_all"
-echo "=== pooling ALL combos+distances -> $POOLED_DIR ==="
+echo "=== pooling ALL roads+lighting+distances -> $POOLED_DIR ==="
 pool_dirs "$POOLED_DIR" "${ALL_MARKER_DIRS[@]}"
 train_one "$POOLED_DIR" "$OUT_ROOT/pooled" "pooled_all"
 
 echo ""
-echo "ALL 7 RUNS DONE -> $OUT_ROOT"
+echo "ALL 4 RUNS DONE (3 per-road + 1 generalist) -> $OUT_ROOT"
 echo "Compare on wandb.ai: project=$WANDB_PROJECT group=$WANDB_GROUP"

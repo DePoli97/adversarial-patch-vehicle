@@ -21,10 +21,12 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
 EPOCHS="${EPOCHS:-30}"
-# Batch 32 (up from 16): the per-road datasets are now large (666-906 frames,
-# ~2300 pooled) so a bigger batch uses the 20 GB GPU better; LR scaled up ~sqrt.
-BATCH="${BATCH:-32}"
-LR="${LR:-0.07}"
+# Batch 24 (up from 16, down from a first attempt at 32 which OOM'd on the
+# 20 GB GPU with yolov8m + geom-eot's extra grid_sample buffers): the per-road
+# datasets are now large (666-906 frames, ~2300 pooled) so a bigger batch still
+# uses the GPU better than 16; LR scaled up accordingly.
+BATCH="${BATCH:-24}"
+LR="${LR:-0.06}"
 # Winning config from the 2026-07-07 Town04_day ablation:
 #   topk=3  (attack the strongest anchors, not a diluted top-20 mean)
 #   margin-tau=0.05  (hinge just above noise floor, not the crippling 0.2)

@@ -95,23 +95,21 @@ FASE1_SPAWN = {"Town04": 273, "Town07": 38, "Town11": 1713}
 LEADER_SPEED_KMH = 30
 INITIAL_SPEED_KMH = 20
 SAVE_INTERVAL_TICKS = 10
-# 25 s at SIM_DELTA=0.05. The brake fires somewhere in [BRAKE_MIN_S, BRAKE_MAX_S],
-# so the run must last well past BRAKE_MAX_S to leave room to observe the
-# reaction: at 300 ticks a brake at 13.8 s left only 1.2 s of run.
-MAX_TICKS = 500
 DEFAULT_SEED = 0
 
-# Leader emergency brake: fixed event that forces the follower-agent to react.
-# Comparing none vs raw vs camouflaged shows how the plate patch affects the
-# agent's ability to brake in time.
-BRAKE_START_TICK = 200  # t = 10 s (default; overridden per-seed when randomized)
-# Randomized pre-brake delay: leader cruises for a seed-dependent time in
-# [BRAKE_MIN_S, BRAKE_MAX_S] then hard-brakes, so runs end at different points
-# on the road. Same seed -> same delay across all combinations (paired design).
-# 7 s floor, not 5: the leader needs the extra time to reach cruise speed, and
-# the 4K patch texture needs a moment to stream in to its top mip.
-BRAKE_MIN_S = 7.0
-BRAKE_MAX_S = 15.0
+# Run timeline: SETTLE_S + a seed-drawn delay in [JITTER_MIN_S, JITTER_MAX_S],
+# then the leader hard-brakes, then POST_BRAKE_S of observation.
+#
+#   |<-- 7 s settle -->|<-- 5..10 s jitter -->| BRAKE |<-- 5 s -->|
+#
+# The settle phase lets the leader reach cruise speed and the 4K patch texture
+# stream in to its top mip (sharp by ~1.5 s). The jitter moves the brake to a
+# different point on the road per seed; the same seed draws the same delay in
+# every condition, which is what makes clean-vs-patch a paired comparison.
+SETTLE_S = 7.0
+JITTER_MIN_S = 5.0
+JITTER_MAX_S = 10.0
+POST_BRAKE_S = 5.0
 BRAKE_STRENGTH = 0.8
 
 
@@ -153,7 +151,11 @@ def parse_args():
     p.add_argument("--town", default=DEFAULT_TOWN)
     p.add_argument("--light", choices=["day", "night"], default="day",
                    help="Sun altitude preset: day=45deg, night=-30deg (matches fase1 dataset).")
-    p.add_argument("--num_ticks", type=int, default=MAX_TICKS)
+    p.add_argument(
+        "--num_ticks", type=int, default=None,
+        help="run length in ticks; default = brake tick + POST_BRAKE_S, so every "
+             "seed records the same reaction window",
+    )
     p.add_argument("--save_interval", type=int, default=SAVE_INTERVAL_TICKS)
     p.add_argument("--host", default="localhost")
     p.add_argument("--port", type=int, default=2000)
@@ -264,8 +266,12 @@ def main():
     # (agent, town, light, condition) combination -> paired clean-vs-patch.
     import random as _rnd
     _brake_rng = _rnd.Random(args.seed)
-    brake_delay_s = round(_brake_rng.uniform(BRAKE_MIN_S, BRAKE_MAX_S), 1)
+    brake_delay_s = round(SETTLE_S + _brake_rng.uniform(JITTER_MIN_S, JITTER_MAX_S), 1)
     brake_start_tick = int(round(brake_delay_s / SIM_DELTA))
+    # The run ends a fixed POST_BRAKE_S after the brake, so every seed gets the
+    # same amount of reaction time on record regardless of when it braked.
+    if args.num_ticks is None:
+        args.num_ticks = brake_start_tick + int(round(POST_BRAKE_S / SIM_DELTA))
     out_dir = build_output_dir(args.condition, args.agent, args.seed, args.out_subdir)
 
     print(f"\n{'=' * 60}")
@@ -706,6 +712,9 @@ def main():
             ],
             "num_ticks": args.num_ticks,
             "sim_duration_s": args.num_ticks * SIM_DELTA,
+            "settle_s": SETTLE_S,
+            "jitter_range_s": [JITTER_MIN_S, JITTER_MAX_S],
+            "post_brake_s": POST_BRAKE_S,
             "leader_speed_kmh": args.leader_speed,
             "initial_gap_m": args.gap_m,
             "brake_start_tick": brake_start_tick,

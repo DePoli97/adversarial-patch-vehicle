@@ -84,14 +84,23 @@ def main():
                    help="If set, limit eval to first N batches (debug).")
     p.add_argument("--save-previews", type=int, default=8,
                    help="N composite previews to save per condition.")
+    p.add_argument("--illum-fix", action="store_true",
+                   help="Light the patch by each frame's marker luminance "
+                        "(deployment-realistic; must match how the patch was trained).")
+    p.add_argument("--illum-yellow-ref", type=float, default=0.65)
+    p.add_argument("--patch-h", type=int, default=256)
+    p.add_argument("--patch-w", type=int, default=512)
     args = p.parse_args()
 
     device = torch.device(args.device)
     target_expand = (args.target_expand_x, args.target_expand_y)
     image_size = (args.image_size, args.image_size)
 
+    illum_hw = (args.patch_h, args.patch_w) if args.illum_fix else None
     val_ds = ChromaKeyDataset(args.run_dir, split="val", seed=args.seed,
-                              image_size=image_size, target_expand=target_expand)
+                              image_size=image_size, target_expand=target_expand,
+                              illum_patch_hw=illum_hw,
+                              illum_yellow_ref=args.illum_yellow_ref)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
                             num_workers=4, collate_fn=collate)
     print(f"val (marker): {len(val_ds)} frames")
@@ -131,6 +140,7 @@ def main():
             img = batch["image"].to(device)
             corners = batch["corners"].to(device)
             tgt = batch["target_bbox"]
+            illum = batch["illum"].to(device) if "illum" in batch else None
 
             # 1. clean — either marker frame without patch (default), or the
             #    paired truly-clean frame from --clean-run-dir if provided.
@@ -154,14 +164,14 @@ def main():
                     counters["clean"]["detected"] += 1
 
             # 2. random
-            out_random = render_patch_on_image(img, random_patch, corners)
+            out_random = render_patch_on_image(img, random_patch, corners, illum=illum)
             for det in has_vehicle_in_bbox(out_random, tgt, yolo, args.conf_threshold):
                 counters["random"]["total"] += 1
                 if det:
                     counters["random"]["detected"] += 1
 
             # 3. trained
-            out_trained = render_patch_on_image(img, patch, corners)
+            out_trained = render_patch_on_image(img, patch, corners, illum=illum)
             for det in has_vehicle_in_bbox(out_trained, tgt, yolo, args.conf_threshold):
                 counters["trained"]["total"] += 1
                 if det:

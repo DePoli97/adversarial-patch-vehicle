@@ -37,11 +37,13 @@ import numpy as np
 HSV_LOW = np.array([20, 120, 100], dtype=np.uint8)
 HSV_HIGH = np.array([35, 255, 255], dtype=np.uint8)
 
-# Per-town frame cutoff: beyond these indices the vehicle leaves the chosen
-# road stretch (validated visually). Town11 has no cutoff (open fields).
+# Frame cutoff removed (2026-07-11, Paolo): the vehicle drifts slightly past the
+# designated road on Town04/Town07 but the scenario is still the same, so all
+# 151 frames per distance are kept. Left as a dict (all effectively unbounded)
+# so a per-town cutoff can be reinstated later if needed.
 FRAME_CUTOFF = {
-    "Town04_spawn273": 111,
-    "Town07_spawn38": 124,
+    "Town04_spawn273": 10**9,
+    "Town07_spawn38": 10**9,
     "Town11_spawn1713": 10**9,
 }
 

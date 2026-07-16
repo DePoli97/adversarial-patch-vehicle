@@ -50,7 +50,8 @@ def evaluate(loader, patch, hide_loss, device, max_batches: int | None = None):
             img = batch["image"].to(device)
             corners = batch["corners"].to(device)
             tgt = batch["target_bbox"].to(device)
-            out = render_patch_on_image(img, patch, corners)
+            illum = batch["illum"].to(device) if "illum" in batch else None
+            out = render_patch_on_image(img, patch, corners, illum=illum)
             loss, info = hide_loss(out, tgt)
             losses.append(info["loss"])
             in_box_scores.append(info["veh_max_in_box_mean"])
@@ -98,6 +99,12 @@ def main():
     p.add_argument("--num-workers", type=int, default=4)
     p.add_argument("--device", default="cuda")
     p.add_argument("--patch-init", choices=["uniform", "gray"], default="uniform")
+    p.add_argument("--illum-fix", action="store_true",
+                   help="Light the patch by each frame's marker luminance "
+                        "(closes the train-deploy night lighting gap).")
+    p.add_argument("--illum-yellow-ref", type=float, default=0.65,
+                   help="Yellow-marker albedo reference (day marker luminance). "
+                        "map = marker_luminance / this; day~1, night<1.")
     p.add_argument("--index-name", default="quads_index.json",
                    help="JSON index file inside --run-dir. Use "
                         "'quads_index_visible.json' to train only on frames "
@@ -125,12 +132,17 @@ def main():
     image_size = (args.image_size, args.image_size)
     target_expand = (args.target_expand_x, args.target_expand_y)
 
+    illum_hw = (args.patch_h, args.patch_w) if args.illum_fix else None
     train_ds = ChromaKeyDataset(args.run_dir, split="train", seed=args.seed,
                                 image_size=image_size, target_expand=target_expand,
-                                index_name=args.index_name)
+                                index_name=args.index_name,
+                                illum_patch_hw=illum_hw,
+                                illum_yellow_ref=args.illum_yellow_ref)
     val_ds = ChromaKeyDataset(args.run_dir, split="val", seed=args.seed,
                               image_size=image_size, target_expand=target_expand,
-                              index_name=args.index_name)
+                              index_name=args.index_name,
+                              illum_patch_hw=illum_hw,
+                              illum_yellow_ref=args.illum_yellow_ref)
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
                               num_workers=args.num_workers, collate_fn=collate,
                               pin_memory=True, drop_last=True)
@@ -176,10 +188,11 @@ def main():
             img = batch["image"].to(device, non_blocking=True)
             corners = batch["corners"].to(device, non_blocking=True)
             tgt = batch["target_bbox"].to(device, non_blocking=True)
+            illum = batch["illum"].to(device, non_blocking=True) if "illum" in batch else None
 
             patch_aug = eot_apply(patch, noise_std=args.eot_noise,
                                   geom=args.geom_eot)
-            out = render_patch_on_image(img, patch_aug, corners)
+            out = render_patch_on_image(img, patch_aug, corners, illum=illum)
             hide, info = hide_loss(out, tgt)
             # Total-variation regularization on the raw (un-augmented) patch:
             # smooths high-frequency noise into structured regions.
@@ -231,6 +244,11 @@ def main():
                     "train/loss_epoch": mean_train,
                     "val/loss": val_loss,
                     "val/veh_score": val_score,
+                    # Same two curves under one prefix so W&B plots them on a
+                    # single chart -> overfitting (val diverging from train) is
+                    # visible at a glance.
+                    "overfit/train_loss": mean_train,
+                    "overfit/val_loss": val_loss,
                     "patch": wandb.Image(str(patch_path)),
                     "preview": wandb.Image(str(preview_path)),
                 })

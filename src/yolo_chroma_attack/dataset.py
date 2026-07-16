@@ -25,6 +25,8 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+from src.yolo_chroma_attack.illumination import illumination_map_ref
+
 
 def expand_bbox(corners: np.ndarray, img_shape: tuple,
                 expand_x: float = 3.5, expand_y: float = 3.5) -> np.ndarray:
@@ -74,10 +76,19 @@ class ChromaKeyDataset(Dataset):
         min_area: float = 400.0,
         min_side_ratio: float = 0.15,
         index_name: str = "quads_index.json",
+        illum_patch_hw: tuple[int, int] | None = None,
+        illum_yellow_ref: float = 0.65,
     ):
         self.run_dir = Path(run_dir)
         self.image_size = image_size
         self.target_expand = target_expand
+        # If illum_patch_hw is set, each item carries a per-frame illumination
+        # map (marker luminance / yellow_ref) at patch resolution, computed once
+        # and cached. Multiplying the patch by it lights the patch like the
+        # scene (dark at night) — closes the train↔deploy lighting gap.
+        self.illum_patch_hw = illum_patch_hw
+        self.illum_yellow_ref = illum_yellow_ref
+        self._illum_cache: dict[str, torch.Tensor] = {}
 
         index_path = self.run_dir / index_name
         if not index_path.exists():
@@ -151,12 +162,23 @@ class ChromaKeyDataset(Dataset):
         )
 
         image = torch.from_numpy(rgb).float().permute(2, 0, 1) / 255.0  # (3, H, W)
-        return {
+        item = {
             "image": image,
             "corners": torch.from_numpy(corners),         # (4, 2)
             "target_bbox": torch.from_numpy(target_bbox), # (4,)
             "stem": stem,
         }
+        if self.illum_patch_hw is not None:
+            if stem not in self._illum_cache:
+                ph, pw = self.illum_patch_hw
+                # rgb here is already at the training image_size (corners rescaled
+                # to match), so the rectified marker is consistent with rendering.
+                bgr_now = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+                m = illumination_map_ref(bgr_now, corners, ph, pw,
+                                         yellow_ref=self.illum_yellow_ref)
+                self._illum_cache[stem] = torch.from_numpy(m).unsqueeze(0)  # (1,ph,pw)
+            item["illum"] = self._illum_cache[stem]
+        return item
 
 
 def collate(batch):
@@ -165,4 +187,7 @@ def collate(batch):
     corners = torch.stack([b["corners"] for b in batch], dim=0)
     bboxes = torch.stack([b["target_bbox"] for b in batch], dim=0)
     stems = [b["stem"] for b in batch]
-    return {"image": images, "corners": corners, "target_bbox": bboxes, "stems": stems}
+    out = {"image": images, "corners": corners, "target_bbox": bboxes, "stems": stems}
+    if "illum" in batch[0]:
+        out["illum"] = torch.stack([b["illum"] for b in batch], dim=0)  # (B,1,ph,pw)
+    return out

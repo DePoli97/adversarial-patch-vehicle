@@ -42,6 +42,7 @@ def render_patch_on_image(
     patch: torch.Tensor,            # (3, Ph, Pw) in [0, 1], learnable
     corners_dst: torch.Tensor,      # (B, 4, 2) destination quad in image pixels
     min_det: float = 1e-3,
+    illum: torch.Tensor | None = None,  # (B, 1, Ph, Pw) per-frame illumination map
 ) -> torch.Tensor:
     """Render the patch onto each image's quad. Returns (B, 3, H, W).
 
@@ -49,6 +50,11 @@ def render_patch_on_image(
     are skipped — their output is the original image. This protects training
     from rare degenerate quads (e.g. captured at extreme glancing angles)
     that would otherwise crash `torch.linalg.inv`.
+
+    `illum`, if given, is a per-frame illumination map at patch resolution: the
+    patch (an albedo) is multiplied by it before warping so it appears lit by
+    the scene — at night the map is small, darkening the patch to match, closing
+    the train↔deploy lighting gap (see illumination.py). Differentiable.
     """
     B, _, H, W = image.shape
     Ph, Pw = patch.shape[-2], patch.shape[-1]
@@ -59,11 +65,13 @@ def render_patch_on_image(
     # forward, and lets us skip degenerate quads gracefully.
     src_one = patch_canonical_corners(Ph, Pw, device, 1)
     mask_one = torch.ones((1, 1, Ph, Pw), device=device, dtype=patch.dtype)
-    patch_one = patch.unsqueeze(0)  # (1, 3, Ph, Pw)
     out_patched = torch.zeros((B, 3, H, W), device=device, dtype=image.dtype)
     out_mask = torch.zeros((B, 1, H, W), device=device, dtype=image.dtype)
     for b in range(B):
         dst_b = corners_dst[b:b+1].to(device)
+        # Light the patch (albedo) by this frame's illumination map, if given.
+        patch_b = patch if illum is None else patch * illum[b]
+        patch_one = patch_b.unsqueeze(0)  # (1, 3, Ph, Pw)
         try:
             M_b = get_perspective_transform(src_one, dst_b)            # (1, 3, 3)
             pw = warp_perspective(patch_one, M_b, dsize=(H, W),

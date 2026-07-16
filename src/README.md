@@ -1,19 +1,30 @@
 # src/ — Codice sorgente
-**Ultimo aggiornamento:** 2026-04-29
+**Ultimo aggiornamento:** 2026-07-11
 
 ## Struttura
 
 ```
 src/
-├── patch_on_surface/         ← Esperimento: texture su superficie veicolo + confronto YOLO
+├── chroma_key_dataset_generator/ ← Genera il dataset (cattura CARLA + indicizza marker)
+│                                   capture_fase1.py, capture_distances.sh,
+│                                   build_fase1_indexes.py  →  vedi il suo README
+├── yolo_chroma_attack/       ← Training patch adversariale CONTRO YOLO  ←★ pipeline principale
+│                               train.py, sweep_fase1.sh, ...  →  vedi il suo README
+├── clip_chroma_attack/       ← Variante dell'attacco contro CLIP (Fase 3)
+├── carla_scenario/           ← Scenario CARLA two-vehicles + eval system-level (collisioni)
+├── patch_on_surface/         ← Esperimento iniziale: texture su superficie veicolo vs YOLO
 │   ├── patch_on_surface.py   ← Script principale
 │   └── adversarial_patch_lab.ipynb  ← Notebook training patch (rear-window 1024×512)
-├── carla_scenario/           ← Scenario CARLA two-vehicles (Nissan Micra leader)
 ├── vehicle_counting_model/   ← YOLOv8n pre-trainato per vehicle counting
 │   ├── yolov8n.pt
 │   └── ...
 └── README.md
 ```
+
+**Da dove partire:** il cuore della tesi è la pipeline patch-vs-YOLO in
+`yolo_chroma_attack/` (leggi il suo README). Il dataset che la alimenta lo
+produce `chroma_key_dataset_generator/`. La valutazione closed-loop (il
+follower sbatte davvero contro il leader con la patch?) sta in `carla_scenario/`.
 
 ## patch_on_surface
 

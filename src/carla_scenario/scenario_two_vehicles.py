@@ -46,6 +46,7 @@ import csv
 import json
 import math
 import sys
+import time
 import traceback
 from datetime import datetime
 
@@ -60,17 +61,10 @@ from common import (
     REPO_ROOT,
     SIM_DELTA,
     compute_ttc,
-    cruise_control,
     euclidean_distance,
     get_speed_kmh,
 )
-from spawn_utils import (
-    give_initial_velocity,
-    load_spawn_cache,
-    load_spawn_pool,
-    move_to_rightmost_driving_lane,
-    spawn_follower_behind_leader,
-)
+from spawn_utils import give_initial_velocity
 
 if PCLA_DIR not in sys.path:
     sys.path.insert(0, PCLA_DIR)
@@ -90,17 +84,52 @@ DEFAULT_TOWN = "Town06"
 FOLLOWER_BLUEPRINT = "vehicle.tesla.model3"   # ego (PCLA agent), kept fixed
 LEADER_BLUEPRINT = "vehicle.carlamotors.carlacola"  # NPC ahead — carries the adversarial patch on its rear panel
 FOLLOWER_GAP_M = 10.0
+
+# The exact spawn points the Fase 1 training capture used, per map. The patches
+# were optimized on frames taken from these positions, so the closed-loop runs
+# must start from the same place. NOT interchangeable with the spawn pool in
+# spawn_cache.json, which belongs to the older experiment and puts the follower
+# on a road where it takes an exit / sits before a junction.
+FASE1_SPAWN = {"Town04": 273, "Town07": 38, "Town11": 1713}
+
 LEADER_SPEED_KMH = 30
 INITIAL_SPEED_KMH = 20
 SAVE_INTERVAL_TICKS = 10
-MAX_TICKS = 300  # 15 s at SIM_DELTA=0.05
+# 25 s at SIM_DELTA=0.05. The brake fires somewhere in [BRAKE_MIN_S, BRAKE_MAX_S],
+# so the run must last well past BRAKE_MAX_S to leave room to observe the
+# reaction: at 300 ticks a brake at 13.8 s left only 1.2 s of run.
+MAX_TICKS = 500
 DEFAULT_SEED = 0
 
 # Leader emergency brake: fixed event that forces the follower-agent to react.
 # Comparing none vs raw vs camouflaged shows how the plate patch affects the
 # agent's ability to brake in time.
-BRAKE_START_TICK = 200  # t = 10 s
+BRAKE_START_TICK = 200  # t = 10 s (default; overridden per-seed when randomized)
+# Randomized pre-brake delay: leader cruises for a seed-dependent time in
+# [BRAKE_MIN_S, BRAKE_MAX_S] then hard-brakes, so runs end at different points
+# on the road. Same seed -> same delay across all combinations (paired design).
+# 7 s floor, not 5: the leader needs the extra time to reach cruise speed, and
+# the 4K patch texture needs a moment to stream in to its top mip.
+BRAKE_MIN_S = 7.0
+BRAKE_MAX_S = 15.0
 BRAKE_STRENGTH = 0.8
+
+
+def walk_forward(wp, distance_m: float, step: float = 2.0):
+    """Waypoint reached by walking distance_m forward along the lane.
+
+    Same implementation as capture_fase1.py, so the leader lands where the
+    training capture put it. None if the road ends first.
+    """
+    cur = wp
+    total = 0.0
+    while total < distance_m:
+        nxts = cur.next(step)
+        if not nxts:
+            return None
+        cur = nxts[0]
+        total += step
+    return cur
 
 
 # ---------------------------------------------------------------------------
@@ -122,11 +151,14 @@ def parse_args():
         help="PCLA agent name to drive the follower (one per run).",
     )
     p.add_argument("--town", default=DEFAULT_TOWN)
+    p.add_argument("--light", choices=["day", "night"], default="day",
+                   help="Sun altitude preset: day=45deg, night=-30deg (matches fase1 dataset).")
     p.add_argument("--num_ticks", type=int, default=MAX_TICKS)
     p.add_argument("--save_interval", type=int, default=SAVE_INTERVAL_TICKS)
     p.add_argument("--host", default="localhost")
     p.add_argument("--port", type=int, default=2000)
     p.add_argument("--leader_speed", type=float, default=LEADER_SPEED_KMH)
+    p.add_argument("--tm_port", type=int, default=8000, help="Traffic Manager port driving the leader")
     p.add_argument("--gap_m", type=float, default=FOLLOWER_GAP_M)
     p.add_argument("--initial_speed", type=float, default=INITIAL_SPEED_KMH)
     p.add_argument(
@@ -228,6 +260,12 @@ def build_output_dir(condition: str, agent: str, seed: int, out_subdir: str = ""
 def main():
     args = parse_args()
     set_global_seed(args.seed)
+    # Seed-derived brake delay: deterministic per seed, identical across every
+    # (agent, town, light, condition) combination -> paired clean-vs-patch.
+    import random as _rnd
+    _brake_rng = _rnd.Random(args.seed)
+    brake_delay_s = round(_brake_rng.uniform(BRAKE_MIN_S, BRAKE_MAX_S), 1)
+    brake_start_tick = int(round(brake_delay_s / SIM_DELTA))
     out_dir = build_output_dir(args.condition, args.agent, args.seed, args.out_subdir)
 
     print(f"\n{'=' * 60}")
@@ -251,10 +289,36 @@ def main():
 
     world = client.get_world()
 
+    # Lighting: identical to the fase1 training capture — start from the
+    # ClearNoon preset and override ONLY the sun angles (day=45, night=-30),
+    # inheriting cloudiness/precipitation/fog/wind from the preset exactly as
+    # capture_fase1.py did. Any other choice would introduce a gratuitous
+    # train-deploy appearance gap.
+    _sun_alt = 45.0 if args.light == "day" else -30.0
+    _w = carla.WeatherParameters.ClearNoon
+    world.set_weather(carla.WeatherParameters(
+        cloudiness=_w.cloudiness,
+        precipitation=_w.precipitation,
+        precipitation_deposits=_w.precipitation_deposits,
+        wind_intensity=_w.wind_intensity,
+        sun_azimuth_angle=90.0,
+        sun_altitude_angle=_sun_alt,
+        fog_density=_w.fog_density,
+        fog_distance=_w.fog_distance,
+        wetness=_w.wetness))
+    print(f"[INFO] Lighting: {args.light} (ClearNoon preset, sun_altitude={_sun_alt})")
+
     settings = world.get_settings()
     settings.synchronous_mode = True
     settings.fixed_delta_seconds = SIM_DELTA
     world.apply_settings(settings)
+
+    # The leader drives on the Traffic Manager so it follows the lane through
+    # curves. A straight-line controller (steer=0) only worked on Town06's
+    # highway; on the Fase 1 spawns the road bends and the leader drove off it
+    # and stopped, ending the scenario before the scripted brake ever fired.
+    tm = client.get_trafficmanager(args.tm_port)
+    tm.set_synchronous_mode(True)
 
     leader = None
     follower = None
@@ -268,51 +332,83 @@ def main():
         follower_bp = bplib.filter(FOLLOWER_BLUEPRINT)[0]
         spawn_points = world.get_map().get_spawn_points()
 
-        # Spawn selection: prefer the per-town pool (top-K straight spawns)
-        # so different --seed values land on different starting points.
-        # Fall back to the legacy single-best cache for backward compat.
-        spawn_pool = load_spawn_pool(args.town)
-        if spawn_pool:
-            leader_idx = spawn_pool[args.seed % len(spawn_pool)]
-            print(
-                f"[INFO] Spawn pool for {args.town} has {len(spawn_pool)} entries; "
-                f"seed={args.seed} -> index [{leader_idx}]"
+        # Placement follows capture_fase1.py exactly: the FOLLOWER sits on the
+        # spawn point and the leader is walked forward from there. Putting the
+        # leader on the spawn instead (the old layout) pushes the follower
+        # backwards into the previous junction, where it turns off the road.
+        # The spawn index is fixed per map — the same one the patches were
+        # trained on — not drawn from the seed-indexed pool.
+        spawn_idx = FASE1_SPAWN.get(args.town)
+        if spawn_idx is None:
+            raise RuntimeError(
+                f"No Fase 1 spawn recorded for '{args.town}'. Known: "
+                f"{sorted(FASE1_SPAWN)}. Do not fall back to spawn_cache.json — "
+                f"it holds the old experiment's spawns."
             )
-        else:
-            leader_idx = load_spawn_cache(args.town)
-            if leader_idx is None:
-                raise RuntimeError(
-                    f"No cached spawn for '{args.town}'. Run: "
-                    f"python src/carla_scenario/tools/scan_spawn.py --town {args.town}"
-                )
-        leader_sp = spawn_points[leader_idx]
+        if spawn_idx >= len(spawn_points):
+            raise RuntimeError(
+                f"Fase 1 spawn {spawn_idx} out of range for {args.town} "
+                f"({len(spawn_points)} spawn points)"
+            )
+        base_sp = spawn_points[spawn_idx]
         carla_map = world.get_map()
-        leader_wp = carla_map.get_waypoint(
-            leader_sp.location, project_to_road=True, lane_type=carla.LaneType.Driving
+        base_wp = carla_map.get_waypoint(
+            base_sp.location, project_to_road=True, lane_type=carla.LaneType.Driving
         )
-        rightmost_wp = move_to_rightmost_driving_lane(leader_wp)
-        leader_transform = rightmost_wp.transform
-        leader_transform.location.z += 0.5
-        if rightmost_wp.lane_id != leader_wp.lane_id:
-            print(
-                f"[INFO] Shifted leader from lane {leader_wp.lane_id} "
-                f"-> rightmost driving lane {rightmost_wp.lane_id}"
-            )
-        leader = world.try_spawn_actor(leader_bp, leader_transform)
-        if leader is None:
-            raise RuntimeError(f"Failed to spawn leader near spawn {leader_idx}")
         print(
-            f"[INFO] Leader spawned at "
-            f"({leader_transform.location.x:.1f}, {leader_transform.location.y:.1f}) "
-            f"lane {rightmost_wp.lane_id}"
+            f"[INFO] Fase 1 spawn {spawn_idx} for {args.town}: "
+            f"loc=({base_sp.location.x:.1f},{base_sp.location.y:.1f}) "
+            f"road={base_wp.road_id} lane={base_wp.lane_id}"
         )
 
-        follower = spawn_follower_behind_leader(
-            world, follower_bp, leader_transform, args.gap_m
-        )
+        # Large-map tile-streaming warmup: move spectator to the spawn area and
+        # tick so tiles/textures stream in BEFORE spawning vehicles + camera
+        # sensors. On Town11 (133-tile large map) spawning a camera sensor before
+        # tiles are loaded segfaults the server. Cheap on small maps (~a few s).
+        world.get_spectator().set_transform(carla.Transform(
+            carla.Location(base_sp.location.x, base_sp.location.y,
+                           base_sp.location.z + 30.0),
+            carla.Rotation(pitch=-40.0)))
+        for _ in range(200):
+            world.tick()
+
+        follower_tf = base_wp.transform
+        follower_tf.location.z += 0.10
+        follower = world.try_spawn_actor(follower_bp, follower_tf)
+        if follower is None:
+            raise RuntimeError(f"Failed to spawn follower at spawn {spawn_idx}")
         world.tick()
         fpos = follower.get_location()
         print(f"[INFO] Follower spawned at ({fpos.x:.1f}, {fpos.y:.1f}, {fpos.z:.1f})")
+
+        leader_wp = walk_forward(base_wp, args.gap_m)
+        if leader_wp is None:
+            raise RuntimeError(
+                f"Cannot place leader {args.gap_m} m ahead of spawn {spawn_idx} "
+                f"on {args.town} (road ends)"
+            )
+        leader_transform = leader_wp.transform
+        leader_transform.location.z += 0.10
+        leader = world.try_spawn_actor(leader_bp, leader_transform)
+        if leader is None:
+            raise RuntimeError(f"Failed to spawn leader {args.gap_m} m ahead")
+        print(
+            f"[INFO] Leader spawned at "
+            f"({leader_transform.location.x:.1f}, {leader_transform.location.y:.1f}) "
+            f"lane {leader_wp.lane_id}, {args.gap_m} m ahead of the follower"
+        )
+        world.tick()
+
+        # Leader on autopilot: follows the lane, holds a fixed speed, and is not
+        # allowed to change lane or react to lights/signs — the only event the
+        # follower must react to is the scripted brake, nothing else.
+        leader.set_autopilot(True, args.tm_port)
+        tm.auto_lane_change(leader, False)
+        tm.ignore_lights_percentage(leader, 100.0)
+        tm.ignore_signs_percentage(leader, 100.0)
+        tm.ignore_vehicles_percentage(leader, 100.0)
+        tm.set_desired_speed(leader, float(args.leader_speed))
+        print(f"[INFO] Leader on Traffic Manager at {args.leader_speed} km/h")
 
         give_initial_velocity(leader, args.initial_speed)
         give_initial_velocity(follower, args.initial_speed)
@@ -410,6 +506,10 @@ def main():
         # used to be counted as "attack success" simply because *some*
         # collision fired on the follower's sensor, regardless of what it hit.
         NEAR_LEADER_GAP_M = 1.0
+        # Outcome trackers (post-processable, per-run):
+        first_crash_tick = None      # first tick a leader rear-end is detected
+        min_gap_m_run = float('inf')  # closest bumper gap over the run
+        min_ttc_run = float('inf')    # smallest positive TTC over the run
         leader_half_length = leader.bounding_box.extent.x
         follower_half_length = follower.bounding_box.extent.x
 
@@ -432,7 +532,7 @@ def main():
         ]
 
         agent_path = os.path.join(out_dir, "agent.csv")
-        agent_fields = ["tick", "sim_time_s", "throttle", "steer", "brake"]
+        agent_fields = ["tick", "sim_time_s", "throttle", "steer", "brake", "agent_ms"]
 
         collision_count = 0
         distances: list[float] = []
@@ -457,21 +557,24 @@ def main():
             for tick in range(args.num_ticks):
                 sim_time = tick * SIM_DELTA
 
-                if tick == BRAKE_START_TICK:
+                if tick == brake_start_tick:
                     print(f"\n[EVENT] t={sim_time:.1f}s  ->  leader emergency brake")
+                    # Hand control back from the Traffic Manager so the brake
+                    # is not immediately overridden by autopilot throttle.
+                    leader.set_autopilot(False, args.tm_port)
 
-                # Leader: cruise straight at target speed until t=10s, then
-                # hard-brake. This is the event the follower-agent has to
-                # react to; the plate patch should degrade that reaction.
-                if tick < BRAKE_START_TICK:
-                    leader.apply_control(cruise_control(leader, args.leader_speed))
-                else:
+                # Leader: the Traffic Manager drives it along the lane until the
+                # seed-drawn brake time, then it hard-brakes. That brake is the
+                # event the follower-agent has to react to; the patch should
+                # degrade that reaction.
+                if tick >= brake_start_tick:
                     leader.apply_control(
                         carla.VehicleControl(throttle=0.0, brake=BRAKE_STRENGTH)
                     )
 
                 # Follower: PCLA agent in CONTROL
                 ctrl = None
+                _t_action0 = time.perf_counter()
                 try:
                     ctrl = pcla.get_action()
                 except Exception:
@@ -480,6 +583,7 @@ def main():
                         print(f"[WARN] agent.get_action() raised at tick {tick}:")
                         print(traceback.format_exc())
                         first_agent_error_logged = True
+                agent_ms = (time.perf_counter() - _t_action0) * 1000.0
 
                 if ctrl is None:
                     agent_none += 1
@@ -494,6 +598,7 @@ def main():
                             "throttle": round(ctrl.throttle, 4),
                             "steer": round(ctrl.steer, 4),
                             "brake": round(ctrl.brake, 4),
+                            "agent_ms": round(agent_ms, 1),
                         }
                     )
 
@@ -534,15 +639,27 @@ def main():
                 # bumper-to-bumper when the event fires. This is the spatial
                 # gate — without it, any unrelated crash elsewhere in the
                 # scene (guardrail, other traffic) got counted as a "success".
+                # Spatial gate (AND, not OR): an event counts as a leader
+                # rear-end only if CARLA names the leader as the other actor,
+                # OR (no actor id available) the bumpers are essentially
+                # touching. gap_m>NEAR_LEADER_GAP_M alone never counts.
                 valid_events = [
                     e for e in collision_events
                     if (e.other_actor is not None and e.other_actor.id == leader.id)
-                    or gap_m <= NEAR_LEADER_GAP_M
+                    or (e.other_actor is None and gap_m <= NEAR_LEADER_GAP_M)
                 ]
                 has_collision = len(valid_events) > 0
+                # Per-run outcome is a BIT, not a count of duplicate events.
+                if has_collision and first_crash_tick is None:
+                    first_crash_tick = tick
                 if has_collision:
-                    collision_count += len(valid_events)
+                    collision_count += 1  # frames-with-crash, for reference only
                 collision_events.clear()
+                # Track run minima for post-hoc near-miss thresholding.
+                if gap_m < min_gap_m_run:
+                    min_gap_m_run = gap_m
+                if ttc != float('inf') and 0 < ttc < min_ttc_run:
+                    min_ttc_run = ttc
 
                 distances.append(dist_m)
 
@@ -581,7 +698,8 @@ def main():
             "follower_blueprint": FOLLOWER_BLUEPRINT,
             "seed": args.seed,
             "town": args.town,
-            "leader_spawn_index": int(leader_idx),
+            "light": args.light,
+            "spawn_index": int(spawn_idx),  # follower sits here; leader is gap_m ahead
             "leader_spawn_xy": [
                 round(float(leader_transform.location.x), 2),
                 round(float(leader_transform.location.y), 2),
@@ -590,13 +708,21 @@ def main():
             "sim_duration_s": args.num_ticks * SIM_DELTA,
             "leader_speed_kmh": args.leader_speed,
             "initial_gap_m": args.gap_m,
-            "brake_start_tick": BRAKE_START_TICK,
-            "brake_start_s": BRAKE_START_TICK * SIM_DELTA,
+            "brake_start_tick": brake_start_tick,
+            "brake_start_s": brake_delay_s,
+            "brake_delay_s": brake_delay_s,
             "brake_strength": BRAKE_STRENGTH,
             "agent_ticks_ok": agent_ok,
             "agent_ticks_none": agent_none,
             "agent_ticks_error": agent_error,
-            "total_collisions": collision_count,
+            "total_collisions": collision_count,  # frames-with-crash (reference; NOT the outcome)
+            # --- primary outcome fields (post-processable) ---
+            "crashed": bool(first_crash_tick is not None),
+            "crash_tick": first_crash_tick,
+            "crash_time_since_brake_s": (round((first_crash_tick - brake_start_tick) * SIM_DELTA, 3)
+                                         if first_crash_tick is not None else None),
+            "min_gap_m": round(min_gap_m_run, 3) if min_gap_m_run != float("inf") else None,
+            "min_ttc_s": round(min_ttc_run, 3) if min_ttc_run != float("inf") else None,
             "mean_distance_m": round(float(np.mean(distances)), 3)
             if distances
             else None,
@@ -619,7 +745,8 @@ def main():
         print(
             f"  Agent      : ok={agent_ok} none={agent_none} error={agent_error}"
         )
-        print(f"  Collisions : {collision_count}")
+        print(f"  CRASHED    : {summary['crashed']}"          + (f"  (t+{summary['crash_time_since_brake_s']}s after brake, tick {summary['crash_tick']})" if summary['crashed'] else ""))
+        print(f"  min_gap    : {summary['min_gap_m']} m   min_TTC : {summary['min_ttc_s']} s")
         print(f"  Mean dist  : {summary['mean_distance_m']} m")
         print(f"  Min dist   : {summary['min_distance_m']} m")
         print(f"  Images     : {cam_listener.tick_idx}")
@@ -644,6 +771,10 @@ def main():
             follower.destroy()
         if leader is not None and leader.is_alive:
             leader.destroy()
+        try:
+            tm.set_synchronous_mode(False)
+        except Exception:
+            pass
         settings.synchronous_mode = False
         world.apply_settings(settings)
         print("[INFO] Done.")

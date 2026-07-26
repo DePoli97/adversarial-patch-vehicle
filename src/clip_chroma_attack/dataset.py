@@ -60,6 +60,10 @@ class ClipChromaDataset(Dataset):
         min_area     : skip quads smaller than this many pixels in the original frame.
         min_side_ratio: skip ribbon-like quads (failed marker detection).
         index_name   : JSON file inside marker_dir produced by extract_quad.
+        require_noleader: when False the no-leader pass is optional and items
+                       carry only the marker frame. The crop-based text loss
+                       needs no target image, which lets it train on the fase1
+                       pooled captures (`_pooled_*`), which have no triplet.
     """
 
     def __init__(
@@ -73,9 +77,15 @@ class ClipChromaDataset(Dataset):
         min_area: float = 400.0,
         min_side_ratio: float = 0.15,
         index_name: str = "quads_index.json",
+        require_noleader: bool = True,
     ):
         self.marker_dir = Path(marker_dir)
-        self.noleader_dir = Path(noleader_dir) if noleader_dir else _resolve_noleader_dir(self.marker_dir)
+        if noleader_dir is not None:
+            self.noleader_dir = Path(noleader_dir)
+        elif require_noleader:
+            self.noleader_dir = _resolve_noleader_dir(self.marker_dir)
+        else:
+            self.noleader_dir = None
         self.image_size = image_size
 
         index_path = self.marker_dir / index_name
@@ -101,10 +111,11 @@ class ClipChromaDataset(Dataset):
         self.index = {k: v for k, v in raw_index.items() if _ok(v)}
 
         # Need the matching noleader image to exist for every retained stem.
-        self.index = {
-            k: v for k, v in self.index.items()
-            if (self.noleader_dir / f"{k}.png").exists()
-        }
+        if self.noleader_dir is not None:
+            self.index = {
+                k: v for k, v in self.index.items()
+                if (self.noleader_dir / f"{k}.png").exists()
+            }
 
         stems = sorted(self.index.keys())
         rng = np.random.default_rng(seed)
@@ -142,28 +153,33 @@ class ClipChromaDataset(Dataset):
         orig_shape = entry["shape"]
 
         marker_rgb, sx, sy = self._load_resized(self.marker_dir / f"{stem}.png", orig_shape)
-        noleader_rgb, _, _ = self._load_resized(self.noleader_dir / f"{stem}.png", orig_shape)
         corners = corners * np.array([sx, sy], dtype=np.float32)
 
         marker_t = torch.from_numpy(marker_rgb).float().permute(2, 0, 1) / 255.0
-        noleader_t = torch.from_numpy(noleader_rgb).float().permute(2, 0, 1) / 255.0
 
-        return {
+        item = {
             "marker_image": marker_t,
-            "noleader_image": noleader_t,
             "corners": torch.from_numpy(corners),
             "stem": stem,
         }
+        if self.noleader_dir is not None:
+            noleader_rgb, _, _ = self._load_resized(
+                self.noleader_dir / f"{stem}.png", orig_shape)
+            item["noleader_image"] = (
+                torch.from_numpy(noleader_rgb).float().permute(2, 0, 1) / 255.0)
+        return item
 
 
 def collate(batch):
     marker = torch.stack([b["marker_image"] for b in batch], dim=0)
-    noleader = torch.stack([b["noleader_image"] for b in batch], dim=0)
     corners = torch.stack([b["corners"] for b in batch], dim=0)
     stems = [b["stem"] for b in batch]
-    return {
+    out = {
         "marker_image": marker,
-        "noleader_image": noleader,
         "corners": corners,
         "stems": stems,
     }
+    if "noleader_image" in batch[0]:
+        out["noleader_image"] = torch.stack(
+            [b["noleader_image"] for b in batch], dim=0)
+    return out

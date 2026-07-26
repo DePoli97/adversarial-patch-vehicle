@@ -92,24 +92,54 @@ FOLLOWER_GAP_M = 10.0
 # on a road where it takes an exit / sits before a junction.
 FASE1_SPAWN = {"Town04": 273, "Town07": 38, "Town11": 1713}
 
-LEADER_SPEED_KMH = 30
-INITIAL_SPEED_KMH = 20
+# Cruise speed per agent, measured 2026-07-16 on Town04 (2 seeds each).
+#
+# Every PCLA agent enforces its own top speed and ignores what the leader does:
+# spawned at 50 km/h they command brake=1.0 from tick 0 and settle at the same
+# value they settle at when spawned at 40. They are trained on urban scenarios,
+# so 50 km/h is out of distribution and they simply refuse it.
+#
+#   agent              spawned @40   spawned @50
+#   neat_aim2dsem         23.8/23.3      23.9
+#   tfv6_visiononly       29.1/29.2      29.7
+#   simlingo_simlingo     34.3           34.8
+#
+# So the leader is matched to the agent it is being followed by. Setting it
+# above the agent's ceiling only grows the gap (neat: 58 m @40 -> 80 m @50),
+# which pushes the patched truck far away and makes the scenario test nothing.
+# Cross-agent crash rates are therefore NOT comparable — the meaningful
+# comparison is clean-vs-patch within one agent, which this preserves.
+# The leader is set BELOW each agent's ceiling, not at it. At its ceiling the
+# agent can only just match the leader and slowly drifts back; below it, the
+# agent closes the distance and tailgates, which is the only regime where the
+# patch on the truck is close enough to matter.
+AGENT_CRUISE_KMH = {
+    "neat_aim2dsem": 20.0,      # ceiling 24
+    "tfv6_visiononly": 30.0,    # ceiling 30
+    "simlingo_simlingo": 30.0,  # ceiling 35
+}
+DEFAULT_CRUISE_KMH = 30.0
+
+# Both vehicles spawn already moving at this speed, so the agent never has to
+# decide to accelerate from a standstill in an empty scene.
+LEADER_SPEED_KMH = DEFAULT_CRUISE_KMH
+INITIAL_SPEED_KMH = DEFAULT_CRUISE_KMH
 SAVE_INTERVAL_TICKS = 10
 DEFAULT_SEED = 0
 
 # Run timeline: SETTLE_S + a seed-drawn delay in [JITTER_MIN_S, JITTER_MAX_S],
 # then the leader hard-brakes, then POST_BRAKE_S of observation.
 #
-#   |<-- 7 s settle -->|<-- 5..10 s jitter -->| BRAKE |<-- 5 s -->|
+#   |<-- 7 s settle -->|<-- 2..5 s jitter -->| BRAKE |<-- 10 s -->|
 #
 # The settle phase lets the leader reach cruise speed and the 4K patch texture
 # stream in to its top mip (sharp by ~1.5 s). The jitter moves the brake to a
 # different point on the road per seed; the same seed draws the same delay in
 # every condition, which is what makes clean-vs-patch a paired comparison.
 SETTLE_S = 7.0
-JITTER_MIN_S = 5.0
-JITTER_MAX_S = 10.0
-POST_BRAKE_S = 5.0
+JITTER_MIN_S = 2.0
+JITTER_MAX_S = 5.0
+POST_BRAKE_S = 10.0
 BRAKE_STRENGTH = 0.8
 
 
@@ -150,7 +180,7 @@ def parse_args():
     )
     p.add_argument("--town", default=DEFAULT_TOWN)
     p.add_argument("--light", choices=["day", "night"], default="day",
-                   help="Sun altitude preset: day=45deg, night=-30deg (matches fase1 dataset).")
+                   help="Sun altitude preset: day=45deg, night=-10deg, dusk so the truck stays visible.")
     p.add_argument(
         "--num_ticks", type=int, default=None,
         help="run length in ticks; default = brake tick + POST_BRAKE_S, so every "
@@ -159,10 +189,23 @@ def parse_args():
     p.add_argument("--save_interval", type=int, default=SAVE_INTERVAL_TICKS)
     p.add_argument("--host", default="localhost")
     p.add_argument("--port", type=int, default=2000)
-    p.add_argument("--leader_speed", type=float, default=LEADER_SPEED_KMH)
+    p.add_argument(
+        "--leader_speed", type=float, default=None,
+        help="leader cruise km/h; default = the agent's own measured ceiling "
+             "(see AGENT_CRUISE_KMH)",
+    )
     p.add_argument("--tm_port", type=int, default=8000, help="Traffic Manager port driving the leader")
+    p.add_argument(
+        "--spawn", type=int, default=None,
+        help="override the Fase 1 spawn index (e.g. to place the pair on a "
+             "higher-speed road). The patches were trained at the Fase 1 spawns, "
+             "so anything else is exploratory.",
+    )
     p.add_argument("--gap_m", type=float, default=FOLLOWER_GAP_M)
-    p.add_argument("--initial_speed", type=float, default=INITIAL_SPEED_KMH)
+    p.add_argument(
+        "--initial_speed", type=float, default=None,
+        help="spawn speed km/h for both vehicles; default = --leader_speed",
+    )
     p.add_argument(
         "--out_subdir",
         default="",
@@ -261,6 +304,16 @@ def build_output_dir(condition: str, agent: str, seed: int, out_subdir: str = ""
 # ---------------------------------------------------------------------------
 def main():
     args = parse_args()
+    # Match the leader to this agent's own ceiling unless told otherwise, and
+    # spawn both vehicles at that same speed.
+    if args.leader_speed is None:
+        args.leader_speed = AGENT_CRUISE_KMH.get(args.agent, DEFAULT_CRUISE_KMH)
+        if args.agent not in AGENT_CRUISE_KMH:
+            print(f"[WARN] No measured cruise speed for '{args.agent}'; "
+                  f"falling back to {DEFAULT_CRUISE_KMH} km/h. Measure it before "
+                  f"trusting the gap.")
+    if args.initial_speed is None:
+        args.initial_speed = args.leader_speed
     set_global_seed(args.seed)
     # Seed-derived brake delay: deterministic per seed, identical across every
     # (agent, town, light, condition) combination -> paired clean-vs-patch.
@@ -296,11 +349,11 @@ def main():
     world = client.get_world()
 
     # Lighting: identical to the fase1 training capture — start from the
-    # ClearNoon preset and override ONLY the sun angles (day=45, night=-30),
+    # ClearNoon preset and override ONLY the sun angles (day=45, night=-10),
     # inheriting cloudiness/precipitation/fog/wind from the preset exactly as
     # capture_fase1.py did. Any other choice would introduce a gratuitous
     # train-deploy appearance gap.
-    _sun_alt = 45.0 if args.light == "day" else -30.0
+    _sun_alt = 45.0 if args.light == "day" else -10.0
     _w = carla.WeatherParameters.ClearNoon
     world.set_weather(carla.WeatherParameters(
         cloudiness=_w.cloudiness,
@@ -344,7 +397,10 @@ def main():
         # backwards into the previous junction, where it turns off the road.
         # The spawn index is fixed per map — the same one the patches were
         # trained on — not drawn from the seed-indexed pool.
-        spawn_idx = FASE1_SPAWN.get(args.town)
+        spawn_idx = args.spawn if args.spawn is not None else FASE1_SPAWN.get(args.town)
+        if args.spawn is not None:
+            print(f"[WARN] Spawn overridden to {args.spawn} (Fase 1 spawn for "
+                  f"{args.town} is {FASE1_SPAWN.get(args.town)}) — exploratory run.")
         if spawn_idx is None:
             raise RuntimeError(
                 f"No Fase 1 spawn recorded for '{args.town}'. Known: "
@@ -515,7 +571,15 @@ def main():
         # Outcome trackers (post-processable, per-run):
         first_crash_tick = None      # first tick a leader rear-end is detected
         min_gap_m_run = float('inf')  # closest bumper gap over the run
+        min_long_gap_run = float('inf')  # closest gap measured along the lane
         min_ttc_run = float('inf')    # smallest positive TTC over the run
+        # Reaction to the leader's brake: the quantity the attack acts on. A
+        # patch that delays perception should show up here before it shows up
+        # as a crash, which in this speed regime may never happen at all.
+        REACT_BRAKE_THRESHOLD = 0.3   # follower brake command counts as reacting
+        react_tick = None             # first tick the follower brakes after the event
+        peak_decel_ms2 = 0.0          # harshest deceleration = noticed it late
+        _prev_speed_ms = None
         leader_half_length = leader.bounding_box.extent.x
         follower_half_length = follower.bounding_box.extent.x
 
@@ -533,6 +597,8 @@ def main():
             "follower_speed_kmh",
             "distance_m",
             "gap_m",
+            "long_gap_m",
+            "lateral_offset_m",
             "ttc_s",
             "collision_detected",
         ]
@@ -639,6 +705,23 @@ def main():
                 # from the centroid distance, which is what dist_m measures).
                 gap_m = dist_m - leader_half_length - follower_half_length
 
+                # Exact gap, split along the leader's heading. gap_m above is
+                # built from a EUCLIDEAN centroid distance, so it is only right
+                # while the two are lined up: if the ego sits abreast of the
+                # leader (lane change, overtake) the centroid distance shrinks
+                # and gap_m reads negative with no contact at all. Projecting
+                # onto the heading separates "how far behind" from "how far to
+                # the side", so a pass no longer masquerades as a near-miss.
+                _lt = leader.get_transform()
+                _yaw = math.radians(_lt.rotation.yaw)
+                _hx, _hy = math.cos(_yaw), math.sin(_yaw)
+                _dx = follower.get_location().x - _lt.location.x
+                _dy = follower.get_location().y - _lt.location.y
+                # negative = behind the leader, which is where the ego belongs
+                _long = _dx * _hx + _dy * _hy
+                long_gap_m = -_long - leader_half_length - follower_half_length
+                lateral_offset_m = abs(-_dx * _hy + _dy * _hx)
+
                 # A collision event counts only if it's plausibly the
                 # follower rear-ending the leader: either CARLA reports the
                 # leader as the other actor, or the two vehicles are near
@@ -664,8 +747,24 @@ def main():
                 # Track run minima for post-hoc near-miss thresholding.
                 if gap_m < min_gap_m_run:
                     min_gap_m_run = gap_m
+                if long_gap_m < min_long_gap_run:
+                    min_long_gap_run = long_gap_m
                 if ttc != float('inf') and 0 < ttc < min_ttc_run:
                     min_ttc_run = ttc
+
+                # Reaction delay + how hard it had to brake, both measured only
+                # after the leader's brake so they answer "how late did it
+                # notice", not "how does it drive".
+                if tick >= brake_start_tick:
+                    if react_tick is None and ctrl is not None \
+                            and ctrl.brake >= REACT_BRAKE_THRESHOLD:
+                        react_tick = tick
+                    _spd_ms = follower_spd / 3.6
+                    if _prev_speed_ms is not None:
+                        _decel = (_prev_speed_ms - _spd_ms) / SIM_DELTA
+                        if _decel > peak_decel_ms2:
+                            peak_decel_ms2 = _decel
+                    _prev_speed_ms = _spd_ms
 
                 distances.append(dist_m)
 
@@ -681,6 +780,8 @@ def main():
                         "follower_speed_kmh": round(follower_spd, 2),
                         "distance_m": round(dist_m, 3),
                         "gap_m": round(gap_m, 3),
+                        "long_gap_m": round(long_gap_m, 3),
+                        "lateral_offset_m": round(lateral_offset_m, 3),
                         "ttc_s": round(ttc, 3) if ttc != float("inf") else -1,
                         "collision_detected": int(has_collision),
                     }
@@ -731,7 +832,21 @@ def main():
             "crash_time_since_brake_s": (round((first_crash_tick - brake_start_tick) * SIM_DELTA, 3)
                                          if first_crash_tick is not None else None),
             "min_gap_m": round(min_gap_m_run, 3) if min_gap_m_run != float("inf") else None,
+            # Measured along the leader's heading, so a pass alongside is not
+            # mistaken for a near-miss. Prefer this over min_gap_m.
+            "min_long_gap_m": (round(min_long_gap_run, 3)
+                               if min_long_gap_run != float("inf") else None),
             "min_ttc_s": round(min_ttc_run, 3) if min_ttc_run != float("inf") else None,
+            # Where it came to rest relative to the truck.
+            "final_gap_m": round(gap_m, 3),
+            "final_long_gap_m": round(long_gap_m, 3),
+            "final_distance_m": round(dist_m, 3),
+            "final_follower_speed_kmh": round(follower_spd, 2),
+            # Reaction to the brake — the quantity the patch is expected to move.
+            "reaction_delay_s": (round((react_tick - brake_start_tick) * SIM_DELTA, 3)
+                                 if react_tick is not None else None),
+            "reacted": bool(react_tick is not None),
+            "peak_decel_ms2": round(peak_decel_ms2, 3),
             "mean_distance_m": round(float(np.mean(distances)), 3)
             if distances
             else None,

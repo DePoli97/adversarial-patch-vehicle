@@ -68,6 +68,9 @@ INIT_AGENT.md
 STATUS.md
 LOG.md
 docs/
+presentation/
+narrativa/
+ 
 .claude/
 # Body-texture composites are >60MB each — keep them local, regenerate as needed.
 assets/chroma_key/*_with_yellow.TGA

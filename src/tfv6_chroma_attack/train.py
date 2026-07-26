@@ -33,7 +33,7 @@ from pathlib import Path
 
 import torch
 import torchvision.utils as vutils
-from torch.utils.data import DataLoader
+from torch.utils.data import ConcatDataset, DataLoader
 
 from src.tfv6_chroma_attack.dataset import Tfv6ChromaDataset, collate
 from src.tfv6_chroma_attack.tfv6_loss import (
@@ -82,8 +82,11 @@ def evaluate(loader, patch, hide_loss, device, max_batches: int | None = None):
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--run-dir", type=Path, required=True,
-                   help="capture folder with the tfv6 frames + quads index")
+    p.add_argument("--run-dir", type=Path, required=True, nargs="+",
+                   help="capture folder(s) with the tfv6 frames + quads index. "
+                        "Several folders are concatenated into one pooled "
+                        "dataset, with the train/val split drawn INSIDE each "
+                        "folder so every cell is represented on both sides.")
     p.add_argument("--out-dir", type=Path, required=True,
                    help="Where to dump patch.pt + previews + log")
     # --- dataset layout ---
@@ -187,8 +190,19 @@ def main():
         target_expand=(args.target_expand_x, args.target_expand_y),
         illum_patch_hw=illum_hw, illum_yellow_ref=args.illum_yellow_ref,
     )
-    train_ds = Tfv6ChromaDataset(args.run_dir, split="train", **ds_kwargs)
-    val_ds = Tfv6ChromaDataset(args.run_dir, split="val", **ds_kwargs)
+    def build(split: str):
+        """One dataset per capture folder, concatenated.
+
+        Splitting inside each folder rather than across the concatenation keeps
+        every (town, light) cell present in both train and val — otherwise a
+        pooled run could hold out an entire town and report a validation number
+        that measures cross-town transfer while claiming to measure fit.
+        """
+        parts = [Tfv6ChromaDataset(d, split=split, **ds_kwargs) for d in args.run_dir]
+        return parts[0] if len(parts) == 1 else ConcatDataset(parts)
+
+    train_ds = build("train")
+    val_ds = build("val")
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
                               num_workers=args.num_workers, collate_fn=collate,
                               pin_memory=True, drop_last=True)

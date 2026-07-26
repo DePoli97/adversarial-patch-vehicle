@@ -109,6 +109,11 @@ FASE1_SPAWN = {"Town04": 273, "Town07": 38, "Town11": 1713}
 DEFAULT_PCLA_DIR = "/home/vortex/PCLA"
 DEFAULT_CKPT_REL = "pcla_agents/transfuserv6_pretrained/visiononly_resnet34"
 
+# Staging distances tried, in order, for the leader's initial spawn. Only the
+# first one that is collision-free matters: the sweep teleports the leader
+# afterwards, so this pose is never photographed.
+LEADER_SPAWN_PROBES = (20.0, 30.0, 40.0, 15.0, 50.0)
+
 SIM_DELTA = 0.05          # = 1 / tfv6 cfg.carla_fps (20)
 CLIENT_TIMEOUT_S = 180.0
 SENSOR_TIMEOUT_S = 20.0
@@ -550,12 +555,30 @@ def main() -> None:
         ego = world.try_spawn_actor(follower_bp, place(base_wp))
         if ego is None:
             raise SystemExit(f"failed to spawn ego at spawn {spawn_idx}")
-        leader_wp0 = walk_forward(base_wp, args.dist_min)
-        if leader_wp0 is None:
-            raise SystemExit(f"cannot place leader {args.dist_min} m ahead of spawn")
-        leader = world.try_spawn_actor(leader_bp, place(leader_wp0))
+
+        # The leader is SPAWNED far away and TELEPORTED into place afterwards.
+        # try_spawn_actor refuses any pose whose bounding box overlaps an
+        # existing actor, and the sweep's closest gap (--dist-min, 5 m
+        # centre-to-centre) is shorter than half a Model 3 plus half a
+        # CarlaCola, so spawning directly at the first gap always fails.
+        # set_transform performs no such check, and with physics disabled a
+        # teleport is exactly as valid as a spawn.
+        leader = None
+        for probe_m in LEADER_SPAWN_PROBES:
+            wp = walk_forward(base_wp, probe_m)
+            if wp is None:
+                continue
+            leader = world.try_spawn_actor(leader_bp, place(wp))
+            if leader is not None:
+                print(f"[INFO] Leader spawned {probe_m:.0f} m ahead "
+                      f"(staging pose; the sweep teleports it from here)")
+                break
         if leader is None:
-            raise SystemExit("failed to spawn leader")
+            raise SystemExit(
+                "failed to spawn leader at any of "
+                f"{LEADER_SPAWN_PROBES} m ahead of spawn {spawn_idx} — the lane "
+                "is probably occupied by actors left over from a previous run"
+            )
         world.tick()
 
         # Physics off: the poses we write are the poses we get, bit-identical
@@ -566,6 +589,14 @@ def main() -> None:
         leader.set_simulate_physics(False)
         world.tick()
         print("[INFO] Ego + leader spawned, physics disabled")
+
+        # Now that physics is off, move the leader to the closest gap of the
+        # sweep for the texture warmup.
+        leader_wp0 = walk_forward(base_wp, args.dist_min)
+        if leader_wp0 is None:
+            raise SystemExit(f"cannot place leader {args.dist_min} m ahead of spawn")
+        leader.set_transform(place(leader_wp0))
+        world.tick()
 
         for idx in range(1, num_cameras + 1):
             c = calib[idx]

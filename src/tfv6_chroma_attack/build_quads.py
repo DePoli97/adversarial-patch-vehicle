@@ -243,6 +243,12 @@ def parse_args() -> argparse.Namespace:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--clean-dir", type=Path, required=True)
     p.add_argument("--patched-dir", type=Path, required=True)
+    p.add_argument("--reuse-index", type=Path, default=None,
+                   help="Adopt this quads_index.json instead of differencing. "
+                        "Only legal when the two captures share a pose list; "
+                        "that is verified against the sidecars and the run aborts "
+                        "on any mismatch. Intended for night cells, where the "
+                        "diff is too faint but the geometry is identical.")
     p.add_argument("--out", type=Path, default=None,
                    help="index path; defaults to <clean-dir>/quads_index.json")
     p.add_argument("--debug-dir", type=Path, default=None,
@@ -269,11 +275,63 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
+def reuse_index(clean_dir: Path, source_index: Path, out_path: Path,
+                tol_m: float = 1e-6) -> None:
+    """Adopt another capture's quads after proving the two share the same poses.
+
+    A night capture of the same cell is photometrically much weaker: the truck's
+    rear panel is lit only by a twilight sky, so the clean-vs-patched difference
+    barely clears the threshold and whole cells come back with almost no quads
+    (Town11 night: 0 of 54). The geometry, however, is not in question. The pose
+    list is precomputed from `--seed` before CARLA is touched, and physics is
+    disabled, so the day and night runs of a cell place the actors at bitwise
+    identical transforms — measured max |difference| across all 54 frames of all
+    three towns: 0.000000000.
+
+    The quad is a function of that geometry alone, so the day index is exact for
+    the night frames. This is a reuse of a measurement, not an approximation —
+    but it is only valid while the poses match, so verify rather than assume.
+    """
+    src = json.loads(source_index.read_text())
+    src_dir = source_index.parent
+    checked = 0
+    for stem in src:
+        a_path, b_path = src_dir / f"{stem}.json", clean_dir / f"{stem}.json"
+        if not (a_path.exists() and b_path.exists()):
+            raise SystemExit(
+                f"cannot verify pose identity for {stem}: missing sidecar. "
+                "Refusing to reuse an index that might not describe these frames."
+            )
+        a, b = json.loads(a_path.read_text()), json.loads(b_path.read_text())
+        for key in ("ego_loc", "leader_loc"):
+            for u, v in zip(a[key], b[key]):
+                if abs(u - v) > tol_m:
+                    raise SystemExit(
+                        f"{stem}: {key} differs by {abs(u - v):.6g} m between "
+                        f"{src_dir} and {clean_dir}. The captures do not share a "
+                        "pose list, so their quads are not interchangeable."
+                    )
+        if abs(a["ego_yaw_deg"] - b["ego_yaw_deg"]) > 1e-4:
+            raise SystemExit(f"{stem}: ego yaw differs between the two captures")
+        checked += 1
+
+    kept = {s: e for s, e in src.items() if (clean_dir / f"{s}.png").exists()}
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(kept))
+    print(f"[INFO] pose identity verified on {checked} frames "
+          f"(max tolerance {tol_m} m)")
+    print(f"[INFO] reused {len(kept)} quads from {source_index} -> {out_path}")
+
+
 def main() -> None:
     args = parse_args()
     clean_dir: Path = args.clean_dir
     patched_dir: Path = args.patched_dir
     out_path: Path = args.out or (clean_dir / "quads_index.json")
+
+    if args.reuse_index is not None:
+        reuse_index(clean_dir, args.reuse_index, out_path)
+        return
 
     clean_frames = sorted(p for p in clean_dir.glob("*.png"))
     if not clean_frames:

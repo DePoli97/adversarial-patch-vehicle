@@ -628,6 +628,7 @@ def main() -> None:
               f"{args.dist_min:.1f} m ...")
         tick_n(world, queues, args.texture_warmup_ticks)
 
+        prev_gap: float | None = None
         for pose in poses:
             fid = pose["frame_id"]
             ego_wp = walk_forward(base_wp, pose["walk_m"])
@@ -645,8 +646,19 @@ def main() -> None:
                                     yaw_deg=pose["yaw_deg"]))
             leader.set_transform(place(leader_wp))
 
-            extra = args.first_frame_extra_ticks if ok_count == 0 else 0
+            # Spend the extra settle budget whenever the truck gets closer, not
+            # only on the very first frame. The sweep is walk-outer / gap-inner,
+            # so every walk boundary teleports the leader from the far end back
+            # to --dist-min, which is the one direction that asks the streamer
+            # for a HIGHER mip than the one currently resident. Measured on the
+            # Town04 day capture the texture in fact stayed resident (Laplacian
+            # variance inside the quad varied by ~14% across walk groups, not the
+            # ~4x a demotion would cost), but the guard is nearly free and this
+            # is the exact failure that invalidated the 577-run matrix in July.
+            closer = prev_gap is not None and pose["gap_m"] < prev_gap - 1e-6
+            extra = args.first_frame_extra_ticks if (ok_count == 0 or closer) else 0
             tick_n(world, queues, args.settle_ticks + extra)
+            prev_gap = pose["gap_m"]
             frame, images = grab_synced(world, queues)
 
             views = [to_bgr(images[i]) for i in range(1, num_cameras + 1)]

@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import tempfile
 
 import numpy as np
 from PIL import Image
@@ -117,7 +118,15 @@ def author(base_ubulk: str, patch: np.ndarray, out_ubulk: str) -> dict:
     resized = np.asarray(
         Image.fromarray(patch[:, :, :3]).resize((w, h), Image.LANCZOS)
     )
-    mips[0][y : y + h, x : x + w, :3] = resized
+    # The cooked texture is B8G8R8A8 (`PF_B8G8R8A8` appears verbatim in the
+    # accompanying .uasset), so byte slots 0,1,2 are BLUE, GREEN, RED while the
+    # patch we were handed is RGB. Verified on the real files: interpreting mip 0
+    # of 123_carlacola_generalist.ubulk as BGRA reproduces its source
+    # adv_patch_generalist.TGA with mean error 0.00, and as RGBA with 55.33.
+    # Writing RGB straight into these slots would deploy every patch with red and
+    # blue transposed -- invisible in a file-size or byte-copy check, and fatal to
+    # an attack fitted to specific chromatic gradients.
+    mips[0][y : y + h, x : x + w, :3] = resized[:, :, ::-1]
 
     # Lower mips: downsample the whole patched level-0 image so that pixels on the
     # rectangle's edge blend with the surrounding bodywork exactly as a real mip would,
@@ -145,7 +154,8 @@ def extract(ubulk: str, out_png: str, level: int = 0) -> np.ndarray:
     mips = load_mips(ubulk)
     x, y, w, h = rect_for_level(level)
     crop = mips[level][y : y + h, x : x + w]
-    Image.fromarray(crop[:, :, :3]).save(out_png)
+    # BGRA on disk (see `author`) -> RGB for the PNG.
+    Image.fromarray(crop[:, :, 2::-1]).save(out_png)
     return crop
 
 
@@ -171,6 +181,48 @@ def self_test(grid_dir: str) -> bool:
     return ok
 
 
+def colour_test(grid_dir: str) -> bool:
+    """Prove the channel order is right, which `self_test` structurally cannot.
+
+    `self_test` copies raw byte blocks between two cooked files and compares them,
+    so it passes under any channel convention. This one authors a patch of known,
+    asymmetric colour and checks the bytes that land on disk are BGRA, plus that
+    `extract` round-trips back to the same RGB.
+    """
+    base = os.path.join(grid_dir, "123_carlacola_generalist.ubulk")
+    rgb = (250, 130, 10)  # deliberately R != G != B, so any permutation shows up
+    patch = np.zeros((204, 409, 3), dtype=np.uint8)
+    patch[:, :] = rgb
+
+    out = os.path.join(tempfile.gettempdir(), "_ubulk_colour_test.ubulk")
+    png = os.path.join(tempfile.gettempdir(), "_ubulk_colour_test.png")
+    try:
+        author(base, patch, out)
+        mips = load_mips(out)
+        x, y, w, h = rect_for_level(0)
+        # Sample the middle, away from the edges where LANCZOS ringing lives.
+        got = tuple(int(v) for v in mips[0][y + h // 2, x + w // 2, :3])
+        want = (rgb[2], rgb[1], rgb[0])
+        ok_disk = got == want
+
+        extract(out, png)
+        back = tuple(int(v) for v in np.asarray(Image.open(png))[h // 2, w // 2, :3])
+        ok_round = back == rgb
+
+        print(f"authored RGB{rgb} -> disk bytes {got}, expected BGRA {want} : "
+              f"{'PASS' if ok_disk else 'FAIL'}")
+        print(f"extract round-trip -> RGB{back} : "
+              f"{'PASS' if ok_round else 'FAIL'}")
+        if not ok_disk:
+            print("  The cooked texture is B8G8R8A8. Writing RGB into slots 0,1,2 "
+                  "would deploy every patch with red and blue transposed.")
+        return ok_disk and ok_round
+    finally:
+        for f in (out, png):
+            if os.path.exists(f):
+                os.remove(f)
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -188,7 +240,13 @@ def main() -> int:
     ps = sub.add_parser("self-test", help="prove the authoring model is byte-exact")
     ps.add_argument("--grid-dir", required=True)
 
+    pc = sub.add_parser("colour-test",
+                        help="prove the channel order is BGRA, which self-test cannot")
+    pc.add_argument("--grid-dir", required=True)
+
     args = p.parse_args()
+    if args.cmd == "colour-test":
+        return 0 if colour_test(args.grid_dir) else 1
     if args.cmd == "author":
         info = author(args.base, load_patch_rgba(args.patch), args.out)
         print(f"wrote {info['out']} ({info['bytes']} bytes), rect {info['rect_l0']}")

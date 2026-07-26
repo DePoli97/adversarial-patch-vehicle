@@ -40,7 +40,7 @@ PIXEL_SCALE = 255.0
 
 def front_camera_quad(patch_h: int, patch_w: int, scale: float = 0.55):
     """A centred axis-aligned quad inside the front camera slice, TL/TR/BR/BL."""
-    x0 = FRONT_CAM_INDEX * CAM_SIZE
+    x0 = (FRONT_CAM_INDEX - 1) * CAM_SIZE  # 1-based rig index -> slice origin
     h = CAM_SIZE * scale
     w = h * (patch_w / patch_h)
     cx, cy = x0 + CAM_SIZE / 2.0, CAM_SIZE / 2.0

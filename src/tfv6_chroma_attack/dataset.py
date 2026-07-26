@@ -70,7 +70,7 @@ from src.yolo_chroma_attack.illumination import illumination_map_ref
 # tfv6 rig: 6 cameras of 384x384, concatenated along width.
 CAM_SIZE = 384
 NUM_CAMS = 6
-FRONT_CAM_INDEX = 2  # yaw 0 -> width slice [768:1152]
+FRONT_CAM_INDEX = 2  # ONE-BASED rig index (cam1..cam6); yaw 0 -> slice [384:768]
 TFV6_IMAGE_HW = (CAM_SIZE, CAM_SIZE * NUM_CAMS)  # (384, 2304)
 
 
@@ -138,6 +138,26 @@ class Tfv6ChromaDataset(Dataset):
             raise ValueError(f"Unknown corners_frame: {corners_frame}")
         if leader_source not in ("auto", "index", "meta", "none"):
             raise ValueError(f"Unknown leader_source: {leader_source}")
+        if not 1 <= front_cam_index <= NUM_CAMS:
+            raise ValueError(
+                f"front_cam_index is the 1-based rig index (1..{NUM_CAMS}), "
+                f"got {front_cam_index}"
+            )
+        if illum_patch_hw is not None:
+            # `illumination_map_ref` divides the measured luminance by the albedo
+            # of the yellow chroma marker. There is no marker in the tfv6 capture
+            # — the quad sits on the CarlaCola's own livery, whose albedo swings
+            # from dark lettering to white bodywork — so the resulting "map" is
+            # the truck's logo, not the lighting. Training would then optimise
+            # patch x livery-ghost, and deployment overwrites exactly those
+            # texels, so the ghost disappears and the deployed pattern is not the
+            # one that was optimised. Use illumination_map_twin (day/night ratio
+            # of the same surface, which cancels the albedo) if this is needed.
+            raise ValueError(
+                "illum_patch_hw is not supported for the tfv6 capture: the "
+                "reference-albedo illumination map assumes a yellow marker of "
+                "known albedo, and these quads sit on the truck's own livery."
+            )
 
         self.run_dir = Path(run_dir)
         self.image_layout = image_layout
@@ -237,7 +257,12 @@ class Tfv6ChromaDataset(Dataset):
             # offset by the camera's slice origin in the composite.
             corners = corners * np.array([CAM_SIZE / src_w, CAM_SIZE / src_h],
                                          dtype=np.float32)
-            corners[:, 0] += self.front_cam_index * CAM_SIZE
+            # front_cam_index is the ONE-BASED rig index, matching the cam1..cam6
+            # filenames and the `front_camera_index` key capture_tfv6.py writes
+            # into camera_calibration.json. Camera 2 (yaw 0) starts at 384, not
+            # 768 — treating it as 0-based would land every quad in the +57.5 deg
+            # side view, which never sees the leader truck.
+            corners[:, 0] += (self.front_cam_index - 1) * CAM_SIZE
         elif (src_h, src_w) != (H, W):
             corners = corners * np.array([W / src_w, H / src_h], dtype=np.float32)
 

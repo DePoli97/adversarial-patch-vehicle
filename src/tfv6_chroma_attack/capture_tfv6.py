@@ -270,7 +270,12 @@ def make_weather(light: str, azimuth: float) -> tuple[carla.WeatherParameters, f
     """ClearNoon with only the sun angles overridden — identical to the
     closed-loop scenario (scenario_two_vehicles.py:351-368) and to
     capture_fase1.py, so train and deploy see the same lighting."""
-    alt = 45.0 if light == "day" else -30.0
+    # MUST match scenario_two_vehicles.py, which deploys the patch: it uses -10
+    # for night. At -30 the sun is far enough below the horizon that the truck's
+    # rear panel is lit only by the ambient floor, so a patch trained there would
+    # be fitted to a crushed, low-contrast exposure that never occurs at deploy
+    # time. Keep the two in lockstep.
+    alt = 45.0 if light == "day" else -10.0
     w = carla.WeatherParameters.ClearNoon
     return carla.WeatherParameters(
         cloudiness=w.cloudiness,

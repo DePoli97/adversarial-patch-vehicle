@@ -23,7 +23,11 @@ CONDA = "source ~/miniconda3/etc/profile.d/conda.sh && conda activate PCLA15"
 
 TOWNS = ["Town04", "Town07", "Town11"]
 LIGHTS = ["day", "night"]
+# "wb_*" are the white-box patches trained against tfv6's own target-speed head.
+# The four legacy conditions were trained against YOLOv8 and are kept only as the
+# published null baseline.
 CONDITIONS = ["clean", "specialist", "generalist", "pooled"]
+LOCK_PATH = "/tmp/carla_orchestrator.lock"
 
 
 def ubulk_for(condition, town, light):
@@ -35,7 +39,35 @@ def ubulk_for(condition, town, light):
         return "123_carlacola_generalist.ubulk"
     if condition == "pooled":
         return "123_carlacola_pooled.ubulk"
+    if condition == "wb_pooled":
+        return "123_carlacola_wb_pooled.ubulk"
+    if condition == "wb_specialist":
+        return f"123_carlacola_wb_{town}_{light}.ubulk"
     raise ValueError(condition)
+
+
+def acquire_single_instance_lock():
+    """Refuse to start if another orchestrator is already driving this CARLA.
+
+    Two orchestrators sharing one simulator destroy each other's actors, which
+    surfaces as an unexplained "destroyed actor" mid-run and silently corrupts a
+    whole night of results. This has happened once (2026-07-18) and cost a full
+    campaign. The lock is held for the process lifetime and released by the OS
+    even on a hard kill, so a crashed run never leaves a stale lock behind.
+    """
+    import fcntl
+    fh = open(LOCK_PATH, "w")
+    try:
+        fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        raise SystemExit(
+            f"another orchestrator holds {LOCK_PATH}. Two orchestrators on one "
+            "CARLA destroy each other's actors — refusing to start. Check with "
+            "'pgrep -af orchestrator_vortex'."
+        )
+    fh.write(f"{os.getpid()}\n")
+    fh.flush()
+    return fh  # keep the handle alive: closing it releases the lock
 
 
 def swap_ubulk(condition, town, light):
@@ -49,7 +81,11 @@ def carla_running():
 
 
 def kill_carla():
-    subprocess.run("pkill -f CarlaUE4-Linux 2>/dev/null; sleep 3", shell=True)
+    # The bracket stops the pattern from matching this very shell: `pkill -f`
+    # tests full command lines, and the /bin/sh spawned here contains the literal
+    # string, so the unbracketed form makes the killer kill itself before the
+    # sleep runs.
+    subprocess.run('pkill -f "[C]arlaUE4-Linux" 2>/dev/null; sleep 3', shell=True)
 
 
 def carla_ready(town):
@@ -118,6 +154,19 @@ def main():
     ap.add_argument("--lights", nargs="+", default=LIGHTS)
     ap.add_argument("--out_root", default=None)
     args = ap.parse_args()
+
+    lock = acquire_single_instance_lock()  # noqa: F841 — held for the process life
+
+    for condition in args.conditions:
+        for town in args.towns:
+            for light in args.lights:
+                src = f"{GRID}/{ubulk_for(condition, town, light)}"
+                if not os.path.exists(src):
+                    raise SystemExit(
+                        f"missing texture for condition '{condition}': {src}. "
+                        "Author it before starting the matrix — discovering this "
+                        "hours in wastes the whole block."
+                    )
 
     out_root = args.out_root or f"matrix_{datetime.now():%Y%m%d_%H%M%S}"
     seeds = list(range(args.seeds))

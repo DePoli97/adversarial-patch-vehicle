@@ -88,6 +88,7 @@ Then swap the CarlaCola .ubulk, restart CARLA, and re-run with
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import queue
 import sys
@@ -122,6 +123,42 @@ SENSOR_TIMEOUT_S = 20.0
 # ---------------------------------------------------------------------------
 # tfv6 calibration
 # ---------------------------------------------------------------------------
+def simlingo_calibration(pcla_dir: Path) -> tuple[dict, int, dict]:
+    """SimLingo's rig: ONE camera, 1024x512, FOV 110, mounted at (-1.5, 0, 2.0).
+
+    Read from `config_simlingo.py` when it is importable so the two can never
+    drift, with the published values as a fallback for a machine without PCLA.
+    SimLingo drives off a single wide camera mounted 1.5 m BEHIND the origin and
+    2 m up — a completely different projection from tfv6's six 384x384 FOV-60
+    views, which is why its patch needs its own capture rather than a resize of
+    somebody else's frames.
+    """
+    values = {"pos": [-1.5, 0.0, 2.0], "rot": [0.0, 0.0, 0.0],
+              "width": 1024, "height": 512, "fov": 110}
+    source = "published defaults"
+    cfg_path = pcla_dir / "pcla_agents" / "simlingo" / "config_simlingo.py"
+    if cfg_path.exists():
+        ns: dict = {}
+        text = cfg_path.read_text()
+        for key, attr in (("pos", "camera_pos_0"), ("rot", "camera_rot_0"),
+                          ("width", "camera_width_0"), ("height", "camera_height_0"),
+                          ("fov", "camera_fov_0")):
+            for line in text.splitlines():
+                stripped = line.strip()
+                if stripped.startswith(f"self.{attr}"):
+                    expr = stripped.split("=", 1)[1].split("#")[0].strip()
+                    try:
+                        ns[key] = ast.literal_eval(expr)
+                    except (ValueError, SyntaxError):
+                        pass
+                    break
+        if len(ns) == 5:
+            values = ns
+            source = str(cfg_path)
+    calib = {1: dict(values)}
+    return calib, 1, {"source": "config_simlingo", "path": source, "rig": "simlingo"}
+
+
 def load_camera_calibration(ckpt_dir: Path, pcla_dir: Path,
                             tfv6_dir: Path | None,
                             calib_json: Path | None) -> tuple[dict, int, dict]:
@@ -356,6 +393,12 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 
+    p.add_argument("--rig", choices=["tfv6", "simlingo"], default="tfv6",
+                   help="Which agent's camera rig to reproduce. 'tfv6': six "
+                        "384x384 FOV-60 views concatenated to 384x2304. "
+                        "'simlingo': one 1024x512 FOV-110 view at (-1.5, 0, 2.0). "
+                        "Frames land under <out-dir>/<rig>/, and the pose logic "
+                        "is shared so the two datasets stay comparable.")
     p.add_argument("--town", default="Town04", choices=sorted(FASE1_SPAWN),
                    help="map; the Fase 1 spawn index is looked up from it")
     p.add_argument("--spawn", type=int, default=None,
@@ -457,8 +500,11 @@ def main() -> None:
     args = parse_args()
 
     ckpt_dir = args.ckpt_dir or (args.pcla_dir / DEFAULT_CKPT_REL)
-    calib, num_cameras, calib_provenance = load_camera_calibration(
-        ckpt_dir, args.pcla_dir, args.tfv6_dir, args.calib_json)
+    if args.rig == "simlingo":
+        calib, num_cameras, calib_provenance = simlingo_calibration(args.pcla_dir)
+    else:
+        calib, num_cameras, calib_provenance = load_camera_calibration(
+            ckpt_dir, args.pcla_dir, args.tfv6_dir, args.calib_json)
     comp_h, comp_w = composite_shape(calib, num_cameras)
     slices = camera_slices(calib, num_cameras)
     front_idx = front_camera_index(calib, num_cameras)
@@ -469,13 +515,13 @@ def main() -> None:
               f"{args.town} is {FASE1_SPAWN[args.town]}) — exploratory run.")
 
     parent_tag = args.run_tag or f"{args.town}_spawn{spawn_idx}_{args.light}"
-    run_dir = args.out_dir / "tfv6" / parent_tag / args.mode
+    run_dir = args.out_dir / args.rig / parent_tag / args.mode
     run_dir.mkdir(parents=True, exist_ok=True)
 
     poses = build_pose_list(args)
 
     print(f"{'=' * 68}")
-    print(f"  tfv6 composite capture")
+    print(f"  {args.rig} rig capture")
     print(f"  town/spawn : {args.town} / {spawn_idx}")
     print(f"  mode       : {args.mode}   light: {args.light}")
     print(f"  rig        : {num_cameras} cameras -> composite {comp_h}x{comp_w}")

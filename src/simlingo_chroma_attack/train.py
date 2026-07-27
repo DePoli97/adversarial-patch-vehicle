@@ -38,7 +38,7 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 import torch
 import torchvision.utils as vutils
-from torch.utils.data import DataLoader
+from torch.utils.data import ConcatDataset, DataLoader
 
 from src.simlingo_chroma_attack.simlingo_loss import SimlingoSpeedUpLoss
 from src.simlingo_chroma_attack.simlingo_model import CAM_H, CAM_W
@@ -91,8 +91,9 @@ def evaluate(loader, patch, speed_loss, device, max_batches: int | None = None,
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--run-dir", type=Path, required=True,
-                   help="capture_<ts>/ folder with quads_index.json")
+    p.add_argument("--run-dir", type=Path, required=True, nargs="+",
+                   help="capture folder(s) with quads_index.json. Several are "
+                        "concatenated into one pooled dataset.")
     p.add_argument("--out-dir", type=Path, required=True,
                    help="Where to dump patch.pt + previews + log")
     # --- victim ---
@@ -174,8 +175,18 @@ def main():
     ds_kw = dict(seed=args.seed, image_size=image_size, target_expand=target_expand,
                  index_name=args.index_name, illum_patch_hw=illum_hw,
                  illum_yellow_ref=args.illum_yellow_ref)
-    train_ds = ChromaKeyDataset(args.run_dir, split="train", **ds_kw)
-    val_ds = ChromaKeyDataset(args.run_dir, split="val", **ds_kw)
+    def build(split: str):
+        """One dataset per capture cell, concatenated.
+
+        The split is drawn inside each cell so every (town, light) combination
+        appears in both train and val; splitting across the concatenation could
+        hold out a whole town and report cross-town transfer as if it were fit.
+        """
+        parts = [ChromaKeyDataset(d, split=split, **ds_kw) for d in args.run_dir]
+        return parts[0] if len(parts) == 1 else ConcatDataset(parts)
+
+    train_ds = build("train")
+    val_ds = build("val")
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
                               num_workers=args.num_workers, collate_fn=collate,
                               pin_memory=True, drop_last=True)

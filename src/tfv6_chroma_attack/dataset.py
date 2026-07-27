@@ -113,6 +113,9 @@ class Tfv6ChromaDataset(Dataset):
         illum_patch_hw: if set, attach a per-frame illumination map at patch
             resolution (see `yolo_chroma_attack.illumination`).
         illum_yellow_ref: day-marker luminance reference for that map.
+        gap_range: (min, max) leader gap in metres, read from each frame's
+            capture sidecar. Use it to train only on the band where the model
+            is actually deciding whether to brake.
     """
 
     def __init__(
@@ -131,6 +134,7 @@ class Tfv6ChromaDataset(Dataset):
         min_side_ratio: float = 0.15,
         illum_patch_hw: tuple[int, int] | None = None,
         illum_yellow_ref: float = 0.65,
+        gap_range: tuple[float, float] | None = None,
     ):
         if image_layout not in ("stitched", "cameras"):
             raise ValueError(f"Unknown image_layout: {image_layout}")
@@ -186,6 +190,31 @@ class Tfv6ChromaDataset(Dataset):
             return long_ >= 1 and min(w, h) / long_ >= min_side_ratio
 
         self.index = {k: v for k, v in self.index.items() if _ok(v)}
+
+        if gap_range is not None:
+            # Restrict to a band of leader distances. Measured against the real
+            # closed loop, tfv6 decides whether to brake at a centre-to-centre
+            # distance of about 13-15 m; frames much closer than that are
+            # saturated at P(stop)=1 and frames much further are already
+            # cruising, so training on the full sweep spends most of its capacity
+            # where no decision is being made. The bound is read from the capture
+            # sidecar's `leader_gap_m` (along-lane, centre to centre).
+            lo, hi = gap_range
+            kept = {}
+            for stem, entry in self.index.items():
+                meta_path = self.run_dir / f"{stem}.json"
+                if not meta_path.exists():
+                    continue
+                with open(meta_path) as f:
+                    gap = float(json.load(f).get("leader_gap_m", float("nan")))
+                if lo <= gap <= hi:
+                    kept[stem] = entry
+            if not kept:
+                raise ValueError(
+                    f"gap_range={gap_range} keeps no frames in {self.run_dir}; "
+                    "the capture's leader_gap_m values are outside that band."
+                )
+            self.index = kept
 
         stems = sorted(self.index.keys())
         rng = np.random.default_rng(seed)

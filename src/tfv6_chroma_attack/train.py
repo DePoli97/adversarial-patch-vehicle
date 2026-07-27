@@ -107,6 +107,14 @@ def main():
                    help="Where the per-frame leader BEV position comes from. "
                         "'meta' derives it from the {stem}.json sidecar written "
                         "by capture_tfv6.py.")
+    p.add_argument("--gap-min", type=float, default=None,
+                   help="Train only on frames whose leader gap is at least this "
+                        "(metres, along-lane, from the capture sidecar).")
+    p.add_argument("--gap-max", type=float, default=None,
+                   help="Upper bound of the same band. Measured against the real "
+                        "closed loop, tfv6 decides whether to brake at a centre "
+                        "distance of ~13-15 m; outside that band frames are "
+                        "either saturated at P(stop)=1 or already cruising.")
     p.add_argument("--target-expand-x", type=float, default=3.5)
     p.add_argument("--target-expand-y", type=float, default=3.5)
     # --- patch / optimisation ---
@@ -189,7 +197,12 @@ def main():
         front_cam_index=args.front_cam_index, leader_source=args.leader_source,
         target_expand=(args.target_expand_x, args.target_expand_y),
         illum_patch_hw=illum_hw, illum_yellow_ref=args.illum_yellow_ref,
+        gap_range=((args.gap_min if args.gap_min is not None else 0.0,
+                    args.gap_max if args.gap_max is not None else 1e9)
+                   if (args.gap_min is not None or args.gap_max is not None)
+                   else None),
     )
+
     def build(split: str):
         """One dataset per capture folder, concatenated.
 

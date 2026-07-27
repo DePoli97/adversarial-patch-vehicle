@@ -137,6 +137,11 @@ def cmd_record(args, passthrough: list[str]) -> int:
         print(f"scenario not found: {SCENARIO}", file=sys.stderr)
         return 2
     sys.argv = [str(SCENARIO)] + passthrough
+    # The scenario does a flat `from common import ...`, which works when python
+    # runs it as a script (sys.path[0] is then the script's own directory) but
+    # not under runpy.run_path, which leaves sys.path alone.
+    if str(SCENARIO.parent) not in sys.path:
+        sys.path.insert(0, str(SCENARIO.parent))
     print(f"[record_real_inputs] running {SCENARIO.name} {' '.join(passthrough)}",
           flush=True)
     runpy.run_path(str(SCENARIO), run_name="__main__")
